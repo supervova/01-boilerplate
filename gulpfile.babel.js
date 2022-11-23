@@ -60,7 +60,7 @@ const projectLib = 'boilerplate01';
 // Paths
 const root = {
   src: './src',
-  dest: './dist',
+  dest: './_site',
 };
 
 const paths = {
@@ -70,13 +70,11 @@ const paths = {
     },
     watch: `${root.src}/**/*.scss`,
     tmp: `${root.src}/css`,
-    dest: `${root.dest}/css`,
+    dest: `${root.dest}/assets/css`,
   },
 
-  markup: {
-    src: {
-      html: [`${root.src}/**/*.html`],
-    },
+  docs: {
+    src: ['./docs/**/*.+(html|md)'],
   },
 
   img: {
@@ -94,7 +92,7 @@ const paths = {
       `${root.src}/**/*.+(jpg|jpeg|png|svg|gif|webp)`,
       `!${root.src}/base/graphics/sprite/**/*`,
     ],
-    dest: `${root.dest}/img`,
+    dest: `${root.dest}/assets/img`,
   },
 
   js: {
@@ -102,7 +100,7 @@ const paths = {
       main: `${root.src}/main.js`,
     },
     watch: [`${root.src}/**/*.js`],
-    dest: `${root.dest}/js`,
+    dest: `${root.dest}/assets/js`,
   },
 
   sprite: {
@@ -218,7 +216,7 @@ const css = (done) => {
     paths.css.src.main,
     'main', // subtitle
     paths.css.dest,
-    [`${root.src}/views/wip/html-ipsum.html`] // unCssHtml
+    ['./docs/html-ipsum.html'] // unCssHtml
   );
   done();
 };
@@ -355,10 +353,8 @@ const clean = () => {
   return del([`${root.dest}/**/*`]);
 };
 
-const copyHtml = () => {
-  return src(paths.markup.src.html)
-    .pipe(changed(root.dest))
-    .pipe(dest(root.dest));
+const copyDocs = () => {
+  return src(paths.docs.src).pipe(changed(root.dest)).pipe(dest(root.dest));
 };
 // #endregion
 
@@ -392,7 +388,7 @@ const watchFiles = () => {
   watch(paths.css.watch, css);
   watch(paths.js.watch, series(js, reload));
   watch(paths.img.watch, series(img, reload));
-  watch(paths.markup.src.html, series(copyHtml, reload));
+  watch(paths.docs.src, series(copyDocs, reload));
 };
 
 // #endregion
@@ -408,7 +404,7 @@ const watchFiles = () => {
 const dev = series(sprite, parallel(css, js, img), serve, watchFiles);
 
 // Add jsPlugins in parallel if it's used
-const build = series(clean, sprite, parallel(css, js, img, copyHtml));
+const build = series(clean, sprite, parallel(css, js, img, copyDocs));
 // #endregion
 
 /**
@@ -418,7 +414,7 @@ const build = series(clean, sprite, parallel(css, js, img, copyHtml));
  */
 exports.clean = clean;
 
-exports.html = copyHtml;
+exports.docs = copyDocs;
 exports.img = img;
 exports.js = js;
 exports.css = css;

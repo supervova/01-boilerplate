@@ -62,7 +62,7 @@ title: 01-boilerplate - Class-light CSS Framework
     </button>
     <button type="submit">
       <svg class="icon tablet:d-none" aria-hidden="true" focusable="false">
-        <use href="/img/base/graphics/sprite.svg#icon-checkmark"></use>
+        <use href="/assets/img/base/graphics/sprite.svg#icon-checkmark"></use>
       </svg>
       <span class="d-none tablet:d-inline">Submit</span>
     </button>
@@ -82,7 +82,7 @@ title: 01-boilerplate - Class-light CSS Framework
     </button>
     <button type="submit">
       <svg class="icon tablet:d-none" aria-hidden="true" focusable="false">
-        <use href="/img/base/graphics/sprite.svg#icon-checkmark"></use>
+        <use href="/assets/img/base/graphics/sprite.svg#icon-checkmark"></use>
       </svg>
       <span class="d-none tablet:d-inline">Submit</span>
     </button>
@@ -110,7 +110,7 @@ title: 01-boilerplate - Class-light CSS Framework
     </button>
     <button type="submit">
       <svg class="icon tablet:d-none" aria-hidden="true" focusable="false">
-        <use href="/img/base/graphics/sprite.svg#icon-checkmark"></use>
+        <use href="/assets/img/base/graphics/sprite.svg#icon-checkmark"></use>
       </svg>
       <span class="d-none tablet:d-inline">Submit</span>
     </button>
@@ -138,7 +138,7 @@ title: 01-boilerplate - Class-light CSS Framework
     </button>
     <button type="submit" autofocus>
       <svg class="icon tablet:d-none" aria-hidden="true" focusable="false">
-        <use href="/img/base/graphics/sprite.svg#icon-checkmark"></use>
+        <use href="/assets/img/base/graphics/sprite.svg#icon-checkmark"></use>
       </svg>
       <span class="d-none tablet:d-inline">Submit</span>
     </button>
@@ -148,7 +148,7 @@ title: 01-boilerplate - Class-light CSS Framework
 <dialog class="modal is-lg" id="modal-external">
   <button class="modal__close" type="button" data-action="close" aria-label="Close">
     <svg class="icon" aria-hidden="true" focusable="false">
-      <use href="/img/base/graphics/sprite.svg#icon-x-mark"></use>
+      <use href="/assets/img/base/graphics/sprite.svg#icon-x-mark"></use>
     </svg>
   </button>
   <div class="modal__content">
@@ -173,7 +173,7 @@ title: 01-boilerplate - Class-light CSS Framework
     </button>
     <button type="submit">
       <svg class="icon tablet:d-none" aria-hidden="true" focusable="false">
-        <use href="/img/base/graphics/sprite.svg#icon-checkmark"></use>
+        <use href="/assets/img/base/graphics/sprite.svg#icon-checkmark"></use>
       </svg>
       <span class="d-none tablet:d-inline">Submit</span>
     </button>
@@ -183,7 +183,7 @@ title: 01-boilerplate - Class-light CSS Framework
 <dialog class="modal" id="modal-footerless">
   <button class="modal__close" type="button" data-action="close" aria-label="Close">
     <svg class="icon" aria-hidden="true" focusable="false">
-      <use href="/img/base/graphics/sprite.svg#icon-x-mark"></use>
+      <use href="/assets/img/base/graphics/sprite.svg#icon-x-mark"></use>
     </svg>
   </button>
   <header>
