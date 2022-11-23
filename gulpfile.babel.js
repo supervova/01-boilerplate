@@ -74,7 +74,7 @@ const paths = {
   },
 
   docs: {
-    src: ['./docs/**/*.+(html|md)'],
+    src: ['./docs/**/*.+(html|md)', './CNAME'],
   },
 
   img: {
