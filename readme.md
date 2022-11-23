@@ -6,6 +6,5 @@ Class-light CSS-фреймворк на принципах разумной до
 - Design Tokens
 - PostCSS + Behasis (block, element and `has`/`is` modifiers)
 - Cascading Layers
-- Native Components
-- Parcel
+- HTML dialog, details, datalist, [type='date']
 - Snippets Collection
