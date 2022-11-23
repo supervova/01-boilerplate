@@ -1,5 +1,4 @@
 ---
-id: index
 title: 01-boilerplate - Class-light CSS Framework
 ---
 

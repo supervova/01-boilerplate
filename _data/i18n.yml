@@ -1,0 +1,13 @@
+project:
+  title:
+    en: 'Cheatsheets'
+    ru: 'Подсказки'
+
+# ------------------------------------------------------------------------------
+# System messages
+# ------------------------------------------------------------------------------
+
+messages:
+  jsDisabled:
+    en: 'JavaScript is currently disabled. The site requires JavaScript to function correctly. Please <a href="http://enable-javascript.com/" target="_blank" rel="noopener noreferrer nofollow">enable Javascript in your browser</a>.'
+    ru: 'В вашем браузере выключен JavaScript. Поэтому не работает основная навигация, не открываются окна дополнительной информации. <a href="https://yandex.ru/support/mail/tech-glossary.html#js-enable" target="_blank" rel="noopener noreferrer nofollow">Включите Javascript</a>.'

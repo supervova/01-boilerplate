@@ -1,0 +1,108 @@
+encoding: 'utf-8'
+
+# SITE
+lang: ru
+
+title: 01-boilerplate
+short_name: 01bp
+
+description: >-
+  Важнейшие конструкции и концепции JavaScript. В будущем — Dart и Flutter.
+
+# The base hostname & protocol for the site without a trailing slash,
+# e.g. https://example.tld
+url: https://01-boilerplate.super-mark.ru
+
+# the subpath of the site, e.g. /blog
+baseurl: ''
+assets: /assets
+
+color: '#5d5de5'
+
+gtm: false
+apple_app_id: false
+
+# Site content creator / author Twitter @username
+author: '@supervova'
+
+permalink: /:slug
+
+# Ruby Date Format
+date_format: '%-d %B, %Y'
+timezone: Europe/Podgorica
+
+livereload: true
+
+# ------------------------------------------------------------------------------
+
+# Advanced Settings
+
+theme: null
+
+# Extended markdown letting use CSS classes: {:.btn .btn–primary}
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+# Default front matter values
+defaults:
+  -
+    scope:
+      path: ''
+      type: pages # all pages
+    values:
+      layout: page
+      lang: ru
+
+# Exclude from processing.
+# We use underscore prefix in js/[_base, _how-to] to prevent the processing
+# of the folder contents into multiple files but using it as trigger for jekyll
+# build.
+exclude:
+  - '*.pug'
+  - .jekyll-assets-cache
+  - .jekyll-cache
+  - .sass-cache
+  - Gemfile
+  - Gemfile.lock
+  - _tmp
+  - gemfiles
+  - gulpfile*
+  - node_modules
+  - package.json
+  - readme.md
+  - src
+  - todo.md
+  - yarn-error.log
+  - yarn.lock
+
+keep_files:
+  - .git
+  - assets/css
+  - assets/img
+  - assets/js
+  - assets/video
+
+# Plugins
+plugins:
+  # GitHub Pages uses the following dependencies and versions
+  # https://pages.github.com/versions/
+  - jekyll-seo-tag
+  # - jekyll-feed
+  # - jekyll-sitemap
+  # - jekyll-paginate
+
+# Plugins incompatible with the GitHub Pages:
+  # - jekyll-email-protect
+  # - jekyll-include-cache
+  # - jekyll-paginate-v2
+  # - jekyll-tidy
+
+# See polylog 2020 and super-mark for more settings:
+# collections
+# feed
+# Pagination Settings
+# HTML Compression
+# Netlify directives
+# jekyll_tidy plugin settings

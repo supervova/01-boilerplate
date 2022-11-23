@@ -1,0 +1,28 @@
+{%- assign project = site.data.i18n.project -%}
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>
+  {%- if page.title -%}{{ page.title | strip_html | replace: '&nbsp;', ' ' | escape }}{%- endif -%}
+  {%- if page.section -%} | {{ page.section }}{%- endif -%}
+  {%- if page.has-patronymic -%} | {{ project.title[page.lang] }}{%- endif -%}
+</title>
+<meta name="description" content="{%- if page.description -%}{{ page.description | strip_html | replace: '&nbsp;', ' ' | strip_newlines }}{%- else -%}{{ page.content | strip_html | xml_escape | truncatewords: 50 }}{%- endif -%}">
+<meta name="author" content="Vladimir Nikishin, www.super-mark.ru">
+<meta name="apple-mobile-web-app-title" content="{{ site.short_name }}">
+<meta name="theme-color" content="{{ site.color }}">
+
+{%- if page.canonical -%}
+  <link rel="canonical" href="{{ page.canonical }}">
+{%- else -%}
+  <link rel="canonical" href="{{ page.url | absolute_url | strip_index }}">
+{%- endif -%}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Roboto:wght@400;500&display=swap">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlightjs-themes@1.0.0/mono-blue.css">
+<link rel="stylesheet" href="{{ site.assets }}/css/style.css{%- if jekyll.environment == 'production' -%}?{{ 'now' | date: '%Y%m%d-%H%M' }}{%- endif -%}">
+</head>
