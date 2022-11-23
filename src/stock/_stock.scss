@@ -1,0 +1,2000 @@
+/* stylelint-disable selector-no-qualifying-type */
+@use '../config/variables' as *;
+@use '../config/mixins' as *;
+
+/* -----------------------------------------------------------------------------
+ * 🗂 TABLE OF CONTEXT
+ * -------------------------------------------------------------------------- */
+
+/* #region */
+
+/*
+BASE
+  WEB FONTS
+
+  CONTENT
+    .link.is-expanded is block link with a pseudo element
+    Hang leading braces and quotes into the left margin
+    Internationalization
+
+  GRAPHICS NAD MEDIA
+    .icon-badge is color shape using as an icon background
+    Responsive media
+    Image masking
+    Video background
+
+  LAYOUT
+    CSS Grid on body and fixed navbar
+    Implicit grid for up to 4 images
+    Masonry grid
+    CSS columns
+    CSS Grid transition
+
+  MISC
+    Accessible toggle button
+
+COMMON
+  TRICKS AND TECHNIQUES
+    use `:where` for zero-specificity
+  MIXINS
+    Typography
+      Hyphenate
+      word-break
+      normal-wrap
+      Bullet separators
+    Backgrounds
+      Striped Gradient
+    List Scrollers
+    Layout
+      Full bleed grid
+
+COMPONENTS ACTIONS / NAV
+  Rating
+
+COMPONENTS: CONTENT
+  Avatar
+  Badge
+  Code
+    highlight.js free code syntax
+  Feature
+  KPI
+  Links
+    CTA + mixin chevron()
+    .is-[mail, tel, sms]
+    skip
+  Lists and sectioning with CSS counters
+  Table
+    Striped
+    Hover
+    Row numbers
+    Fixed layout
+
+COMPONENTS: FORM
+  Switch
+  Color Picker
+  Range
+  Search RTL
+  Material Design Like Animated Labels
+  Valid Inputs
+  Misc
+    Spin Button Fix for Safari
+    Icon Label
+    RTL - Invalid Inputs
+    RTL - Search
+    RTL - Date / Time Pickers
+    Lastpass
+
+COMPONENTS: FEEDBACK
+  Progress
+
+COMPONENTS: LAYOUT
+  Hero: Creating a duotone image background with CSS blend modes
+  Sections: Elements (header, summary) and modifiers (highlight and full-bleed)
+  Pricing Table
+
+? COMPONENTS: NAV AND ACTIONS
+
+COMPONENTS: SHOW / HIDE
+  Accordion RTL
+  Drawer
+
+UTILITIES
+  Bullet for non list items
+  Reset element
+  Section or widget level reset and scope
+*/
+
+/* #endregion */
+
+/* -----------------------------------------------------------------------------
+ * ⚾︎ BASE
+ * -------------------------------------------------------------------------- */
+
+/* #region */
+
+// WEBFONT
+/* #region */
+
+// Include web fonts in the build styles in the first place, in front of the :root
+// and the rest.
+
+// A font name is the same for normal, bold etc. But font weight is different:
+// 400, 600 etc
+
+// Older standard .WOFF files are needed only for IE support. I.e. are not needed
+
+@font-face {
+  font-display: swap;
+  font-family: 'Font Name';
+  font-style: normal;
+  font-weight: 600;
+  src: url('#{$sites-assets}fonts/font-name-semibold.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: block;
+  font-family: 'Inter var';
+  // An instance is a position on a variable font’s axes, akin to the weights
+  // or widths or styles in non-variable fonts.
+  // stylelint-disable property-no-unknown
+  font-named-instance: 'Regular';
+  // stylelint-enable property-no-unknown
+  font-style: normal;
+  font-weight: 100 900;
+  src: url('#{$sites-assets}fonts/inter.woff2') format('woff2');
+}
+/* #endregion */
+
+// DOC
+/* #region */
+body {
+  // Use flex to distribute blocks across the entire height of the screen
+  // setting central area flex-growth to 1.
+  display: flex;
+  flex-direction: column;
+
+  // The same can be done with CSS grid
+  display: grid;
+  // The first `auto` is for header. `1fr` is for `main`. And the last one
+  // is for footer
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 100%;
+}
+/* #endregion */
+
+// CONTENT
+/* #region */
+.link.is-expanded {
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+}
+
+// Hang leading braces and quotes into the left margin
+/* #region */
+
+// TODO: try to realized the technique with the :before pseudo element.
+
+// It can be applied to:
+// laquo — «
+// bdquo — „
+// brace — {
+// ldquo — “
+// lsquo — ‘
+
+// Using
+// This is <span class="hp-space"> </span><span class="hp-quote">„</span>Magic
+
+.main__header h1 {
+  // Right margin for quote predecessor to compensate negative one in line
+  .hp-space {
+    margin-right: $size-1p5;
+
+    @media (--tablet) {
+      margin-right: 19px;
+    }
+  }
+
+  // Left negative margin for quote
+  .hp-quote {
+    margin-left: -12px;
+
+    @media (--tablet) {
+      margin-left: -19px;
+    }
+  }
+}
+/* #endregion */
+
+// Internationalization
+/* #region */
+
+// stylelint-disable rule-empty-line-before, declaration-block-single-line-max-declarations, declaration-block-semicolon-newline-after, selector-list-comma-newline-after
+:lang(af) { quotes: '\201e' '\201d' '\201a' '\2019';}
+:lang(ak) { font-family: Lucida, 'DejaVu Sans', inherit;}
+:lang(ar) { font-family: 'Tahoma 12', Nazli, KacstOne, 'DejaVu Sans', inherit;}
+:lang(bg) { quotes: '\201e' '\201c' '\201a' '\2018';}
+:lang(bn) { font-family: FreeSans, MuktiNarrow, Vrinda, inherit; font-size: 1.1em; line-height: 1.4em;}
+:lang(cs) { quotes: '\201e' '\201c' '\201a' '\2018';}
+:lang(da) { quotes: '\00bb' '\00ab' '\203a' '\2039';}
+:lang(de) { quotes: '\201e' '\201c' '\201a' '\2018';}
+:lang(el) { font-family: 'DejaVu Sans', inherit; quotes: '\00ab' '\00bb' '\2039' '\203a';}
+:lang(en-GB) { quotes: '\2018' '\2019' '\201c' '\201d';}
+:lang(es) { quotes: '\00ab' '\00bb' '\2039' '\203a';}
+:lang(fa) { font-family: Terafik, Traffic, Roya, Nazli, Nazanin, sans; font-size: 1.5em;}
+:lang(fi) { quotes: '\201d' '\201d' '\2019' '\2019';}
+:lang(fr) { quotes: '\ab\2005' '\2005\bb' '\2039\2005' '\2005\203a';}
+:lang(hr) { quotes: '\00bb' '\00ab' '\203a' '\2039';}
+:lang(is) { quotes: '\201e' '\201c' '\201a' '\2018';}
+:lang(ja) { font-size: 1.1em;}
+:lang(km) { font-family: 'Khmer OS System', 'Khmer OS', 'Khmer Kampongtrach', 'CDT Khmer', inherit; line-height: 2em;}
+:lang(ko) { font-size: 1.1em;}
+:lang(lt) { quotes: '\201e' '\201c' '\201a' '\2018';}
+:lang(nl) { quotes: '\201e' '\201d' '\201a' '\2019';}
+:lang(pl) { quotes: '\201e' '\201d' '\201a' '\2019';}
+:lang(ro) { quotes: '\201e' '\201c' '\201a' '\2018';}
+:lang(sk) { quotes: '\201e' '\201c' '\201a' '\2018';}
+:lang(sq) { quotes: '\00ab' '\00bb' '\2039' '\203a';}
+:lang(sr) { quotes: '\201e' '\201c' '\201a' '\2018';}
+:lang(sv) { quotes: '\201d' '\201d' '\2019' '\2019';}
+:lang(tr) { quotes: '\00ab' '\00bb' '\2039' '\203a';}
+:lang(vi) { font-family: 'Lucida Grande', 'Vu Phu Tho', 'DejaVu Sans', inherit;}
+:lang(vi) a:hover, :lang(vi) a:active { text-decoration: none; color: var(--color-ink-brand-text);}
+:lang(zh) { font-size: 1.5em;}
+// stylelint-enable rule-empty-line-before, declaration-block-single-line-max-declarations, declaration-block-semicolon-newline-after, selector-list-comma-newline-after
+
+// Add fo _blockquote
+:lang(be),
+:lang(el),
+:lang(es),
+:lang(fr),
+:lang(no),
+:lang(pt),
+:lang(uk) {
+  blockquote p:first-child::before,
+  q::before {
+    content: '«';
+  }
+
+  blockquote p:last-of-type::after,
+  q::after {
+    content: '»';
+  }
+}
+/* #endregion */
+
+/* #endregion */
+
+// GRAPHICS AND MEDIA
+/* #region */
+
+/* Icon badge */
+/* #region */
+.icon-badge {
+  background-color: var(--color-brand-default);
+  border-radius: $shape-border-radius-pill;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0;
+  width: $size-8;
+  height: $size-8;
+}
+
+.icon-badge > .icon {
+  --icon-stroke: var(--color-ink-inverse-text);
+  --icon-fill: transparent;
+}
+/* #endregion */
+
+// Responsive media
+/* #region */
+.embed-responsive {
+  display: block;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+
+  &::before {
+    content: '';
+    display: block;
+  }
+
+  .embed-responsive__item,
+  > iframe,
+  > embed,
+  > object,
+  > video {
+    border: 0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.embed-responsive.is-4by3 {
+  &::before {
+    padding-top: percentage(math.div(3, 4));
+  }
+}
+/* #endregion */
+
+// Image masking
+/* #region */
+.img.has-mask {
+  object-fit: cover;
+}
+
+// With bitmap
+
+.img.has-mask.is-star {
+  mask-image: url('/a/img/star.png');
+  mask-size: cover;
+}
+
+// With SVG
+
+// Add svg graphics on the page with image. Add <mask> element inside the SVG
+// with ID
+// svg(width='0', height='0', viewbox='0 0 400 300')
+//   defs
+//     mask#mask
+//       rect(fill='#000000', x='0', y='0', width='400', height='300')
+//       circle(fill='#FFFFFF', cx='150', cy='150', r='100')
+//       circle(fill='#FFFFFF', cx='50', cy='50', r='150')
+
+// img.img-mask.is-cloud(src='/a/img/balloons.jpg', alt='')
+
+.img.has-mask.is-cloud {
+  mask-image: url('#mask');
+}
+/* #endregion */
+
+// Video background
+/* #region */
+
+// Markup
+// video.video.is-bg(autoplay, muted, loop, playsinline)
+//   source(data-src='/path/to/video.mp4', type='video/mp4')
+
+// To prevent download video on mobiles use base/content/content.js and data-src
+// instead of source src attribute
+
+.video.is-bg {
+  filter: brightness(50%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -1;
+}
+/* #endregion */
+
+// Colorizing SVG Backgrounds
+/* #region */
+
+// Use [this service](https://codepen.io/sosuke/embed/Pjoqqp) to turn black SVG
+// backgrounds to target color
+
+.colorized.is-red {
+  filter: invert(21%) sepia(98%) saturate(7041%) hue-rotate(358deg) brightness(106%) contrast(117%);
+}
+
+.colorized.is-blue {
+  filter: invert(51%) sepia(85%) saturate(5357%) hue-rotate(195deg) brightness(98%) contrast(111%);
+}
+
+.colorized.is-green {
+  filter: invert(35%) sepia(83%) saturate(2042%) hue-rotate(93deg) brightness(97%) contrast(108%);
+}
+/* #endregion */
+
+/* #endregion */
+
+// LAYOUT
+/* #region */
+
+// CSS Grid on body and fixed navbar
+@media (--tablet) {
+  body {
+    display: grid;
+    // rows / columns
+    grid-template: auto 1fr auto / var(--size-width-navbar) 1fr;
+    /*
+    hd - header
+    mn - main
+    ft - footer
+    .. - empty area for fixed navbar */
+    grid-template-areas:
+      '.. hd'
+      '.. mn'
+      '.. ft';
+  }
+
+  .header {
+    grid-area: hd;
+  }
+
+  .main {
+    grid-area: mn;
+  }
+
+  .footer {
+    grid-area: ft;
+  }
+}
+
+@media (--tablet-l) {
+  body {
+    grid-template: $size-1p5 1fr auto / var(--size-width-navbar) 1fr $size-half;
+    /* sb - sidebar */
+    grid-template-areas:
+      '.. hd hd'
+      '.. mn sb'
+      '.. ft ft';
+  }
+
+  .sidebar {
+    grid-column: sb;
+  }
+}
+
+// Implicit grid for up to 4 images
+
+// .grid.is-feed-mosaic
+//   img(src='', alt='')
+//   img(src='', alt='')
+//   img(src='', alt='')
+//   img(src='', alt='')
+
+.grid.is-feed-mosaic {
+  display: grid;
+  grid-gap: 10px;
+}
+
+.grid.is-feed-mosaic :nth-child(4) {
+  grid-column-start: 2;
+}
+
+.grid.is-feed-mosaic :nth-child(3):last-child {
+  grid-column-start: span 2;
+}
+
+.grid.is-feed-mosaic > img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+// MASONRY
+.grid.is-masonry {
+  grid-template-columns: repeat(auto-fill, minmax(#{$size-2}, 1fr));
+  grid-template-rows: masonry;
+}
+
+.grid.is-masonry > * {
+  break-inside: avoid-column;
+}
+
+// CSS COLUMNS
+.columns.is-md-2 {
+  @media (--tablet) {
+    columns: 2;
+    column-gap: $size-gutter-base;
+  }
+}
+
+.columns.is-lg-3 {
+  @media (--tablet-l) {
+    columns: 3;
+  }
+}
+
+/* CSS Grid transition */
+.avatars {
+  display: grid;
+  gap: $size-1;
+  grid-auto-flow: column;
+  /* The cells are narrower than avatars, and pictures are overlaped each other */
+  grid-template-columns: repeat(4, #{$size-2p5});
+  transition: all var(--motion-duration-sm) $motion-easing-base;
+}
+
+.avatars:hover {
+  grid-template-columns: repeat(4, #{$size-5});
+}
+
+/* #endregion */
+
+// MISC
+/* #region */
+// ACCESSIBLE TOGGLE BUTTON
+// https://material.io/components/buttons#toggle-button
+
+// MARKUP AND SCRIPTING
+
+// This button is NOT active
+// button.button.is-fave(aria-label='Favorite', aria-pressed='false') ❤
+
+// This button IS
+// button.fave(aria-label='Favorite', aria-pressed='true') ❤
+
+// Change the attribute value using the setAttribute() method.
+// btn.setAttribute('aria-pressed', true);
+// btn.setAttribute('aria-pressed', false);
+
+.btn.is-toggle[aria-pressed='true'] {
+  color: var(--color-ink-brand-text);
+}
+/* #endregion */
+
+/* #endregion */
+
+/* -----------------------------------------------------------------------------
+ * 🛠 CONFIG
+ * -------------------------------------------------------------------------- */
+
+/* #region */
+
+// -------------------------------------
+// TRICKS AND TECHNIQUES
+/* #region */
+
+// use :where() to write the selector with zero-specificity
+:where(.parent) a { /* ... */ }
+
+// Below we can override the styles of links without complicating the selector.
+.new-link-styles { /* ... */ }
+
+// Tailwind: exclude some ancestors weight
+.dark .dark\:prose-dark :where(strong):not(:where([class~='not-prose'] *)) { /* ... */ }
+/* #endregion */
+
+// -------------------------------------
+// MIXINS
+/* #region */
+
+// TYPOGRAPHY
+/* #region */
+
+// Hyphenate
+@mixin hyphenate {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+// word-break
+@mixin break-word {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+// normal-wrap
+@mixin normal-wrap {
+  overflow-wrap: normal;
+  word-wrap: normal;
+  word-break: normal;
+}
+
+// Bullet separators
+
+// @require $size, $color, $mq
+// @param $size {String} Defines the width and height of the dot
+// @param $color {String} Defines the color of the dot
+// @param $mq {Boolean} If you want a dots on touch device or not
+
+@mixin bullet-separator($size: 3px, $color: var(--color-brand-default), $mq: null) {
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  &::before {
+    background-color: $color;
+    border-radius: $size / 2;
+    content: '';
+    display: inline-block;
+    margin-left: $size-1;
+    margin-right: $size-1;
+    vertical-align: middle;
+    width: $size;
+    height: $size;
+  }
+
+  &:first-child {
+    margin-right: 0;
+    padding-right: 0;
+
+    &::before {
+      content: none;
+    }
+  }
+}
+/* #endregion */
+
+// BACKGROUNDS
+/* #region */
+
+// Striped Gradient
+@mixin gradient-striped(
+  $stripe-color: rgb(0 0 0 / .03),
+  $angle: 45deg,
+  $color: null) {
+
+  @if $color != null {
+    background-color: $color;
+  }
+
+  background-image: linear-gradient($angle, $stripe-color 25%, transparent 25%, transparent 50%, $stripe-color 50%, $stripe-color 75%, transparent 75%, transparent);
+  background-size: 64px 64px;
+}
+/* #endregion */
+
+// LIST SCROLLERS
+/* #region */
+
+@mixin scroller($width: var(--size-width-sm)) {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  margin-right: calc(-1 * var(--size-padding-x-container));
+  min-width: 100%;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  > * {
+    margin-right: $size-gutter-base;
+    width: $width;
+  }
+}
+/* #endregion */
+
+// LAYOUT
+/* #region */
+
+// Full bleed grid
+// To place an image outside the full width grid we can wrap it in figure with
+// overflow: hidden or make a div(role='img' background-image='url(my-image.jpg)')
+@mixin grid-full-bleed(
+  $gap: $size-3,
+  $max-width: $size-screen-xl
+) {
+  --gap: #{$gap};
+
+  // Minimum padding (40px) minus outer gap (24px)
+  --margin: calc(#{$size-5} - var(--gap));
+
+  width: 100%;
+
+  @media (--tablet) {
+    display: grid;
+    grid-gap: var(--gap);
+    grid-template-columns:
+      // Container padding excluding outer gaps
+      minmax(var(--margin), calc(var(--margin) + (100% - #{$max-width}) / 2))
+      repeat(12, 1fr)
+      minmax(var(--margin), calc(var(--margin) + (100% - #{$max-width}) / 2));
+    margin: 0;
+    padding: 0;
+  }
+}
+/* #endregion */
+
+/* #endregion */
+
+/* #endregion */
+
+/* -----------------------------------------------------------------------------
+ * 🧭 COMPONENTS: ACTIONS AND NAVIGATION
+ * -------------------------------------------------------------------------- */
+
+/* #region */
+
+/* -------------------------------------
+ * RATING
+ */
+/* #region */
+
+.rating {
+  --font-size: $size-4;
+  --point-color: var(--color-ink-accent);
+  --point-background: var(--color-ink-error-base);
+  --percent: calc(var(--rating) / 5 * 100%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0;
+  padding-top: 7px;
+  padding-bottom: 17px;
+}
+
+
+// INPUT
+
+.rating.is-input {
+  flex-direction: row-reverse;
+}
+
+.rating__point:hover,
+.rating__point:hover ~ .rating__point {
+  color: transparent;
+}
+
+// Make all previous points selected when hover on a point
+// Note that we use `flex-direction: row-reverse` on the container
+.rating__point:hover::before,
+.rating__point:hover ~ .rating__point::before {
+  color: var(--point-color);
+  content: '\2605'; // star; hart is \2665
+  left: 0;
+  position: absolute;
+}
+
+.rating__point {
+  // Reset button styles
+  background-color: transparent;
+  border: 0;
+  margin: 02px;
+  padding: 0;
+
+  // Used to position the hover state
+  position: relative;
+}
+
+// READ ONLY
+
+// Stars/hearts
+.rating__points {
+  // Use it only for hearts
+  // transform: scaleX(1.1);
+
+  &::before {
+    -webkit-text-fill-color: transparent;
+    background: linear-gradient(90deg, var(--point-background) var(--percent), var(--point-color) var(--percent));
+    background-clip: text;
+    content: '♥︎♥︎♥︎♥︎♥︎';
+    // content: '★★★★★';
+    display: inline-block;
+    font-size: var(--font-size);
+    // make sure ♥︎/★ appears correctly
+    font-family: Times;
+    line-height: 1;
+    letter-spacing: 1px;
+    vertical-align: middle;
+  }
+}
+
+.rating__count {
+  color: var(--color-ink-3ry);
+  display: inline-block;
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+  margin-left: $size-1p5;
+  padding: 0;
+  vertical-align: middle;
+}
+/* #endregion */
+
+/* #endregion */
+
+/* -----------------------------------------------------------------------------
+ * 📚 COMPONENTS: CONTENT
+ * -------------------------------------------------------------------------- */
+
+/* #region */
+
+/* -------------------------------------
+ * AVATAR
+ */
+/* #region */
+.avatar {
+  @include border;
+
+  background-color: var(--color-background-2ry);
+  background-image: var(--asset-data-image-picture);
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  padding: 0 !important;
+  overflow: hidden;
+
+  img {
+    margin: 0;
+    object-fit: cover;
+    width: 100%;
+    min-height: 100%;
+  }
+}
+
+/* Small */
+.avatar.is-small {
+  width: $size-5;
+  height: $size-5;
+
+  &,
+  img,
+  &::after {
+    border-radius: 50%;
+  }
+}
+/* #endregion */
+
+/* -------------------------------------
+ * BADGE
+ */
+/* #region */
+/* sup */.badge {
+  background-color: var(--color-brand-default);
+  border-radius: $shape-border-radius-pill;
+  color: var(--color-ink-inverse-text);
+  font-weight: bold;
+  margin: $size-half;
+  padding: $size-half;
+  top: -2px;
+}
+
+/* #endregion */
+
+/* -------------------------------------
+ * CODE
+ */
+/* #region */
+
+// highlight.js free code syntax
+code {
+  --color-tag: var(--color-ink-success-text);
+  --color-property: var(--color-ink-warning-text);
+  --color-comment: var(--color-ink-2ry);
+
+  // Tags
+  b {
+    color: var(--color-tag);
+    font-weight: 400;
+  }
+
+  // Comments
+  em {
+    color: var(--color-comment);
+    font-style: normal;
+  }
+
+  // Properties
+  i {
+    color: var(--color-property);
+    font-style: normal;
+  }
+
+  // Values
+  u {
+    color: var(--code-ink-base);
+    text-decoration: none;
+  }
+
+  // Variable
+  var {
+    font-weight: bold;
+    font-style: normal;
+  }
+}
+/* #endregion */
+
+/* -------------------------------------
+ * FEATURE
+ */
+/* #region */
+.feature {
+  text-align: center;
+  padding-bottom: $size-line * 2 + $size-1;
+}
+
+.feature__icon {
+  background: var(--color-brand-default);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-inline: auto;
+  width: $size-8;
+  height: $size-8;
+
+  > .icon {
+    fill: var(--color-ink-inverse-text);
+  }
+}
+
+.feature__heading {
+  margin-bottom: -$size-line;
+}
+
+.feature__copy {
+  color: var(--color-ink-2ry);
+}
+/* #endregion */
+
+/* -------------------------------------
+ * KPI
+ */
+/* #region */
+
+.kpi__value {
+  color: var(--color-ink-brand-2ry);
+  display: block;
+  font-size: var(--font-size-hero-title);
+  font-weight: 300;
+  line-height: var(--font-line-height-hero-title);
+  text-align: center;
+  padding-top: var(--size-padding-top-hero-title);
+  padding-bottom: var(--size-padding-bottom-hero-title);
+
+  // Units
+  > small {
+    font-size: initial;
+    line-height: initial;
+    vertical-align: baseline;
+  }
+}
+
+.kpi__caption {
+  color: var(--color-ink-2ry);
+  display: block;
+  text-align: center;
+  margin-top: -$size-line;
+  padding-top: var(--size-padding-top-base);
+  padding-bottom: var(--size-padding-bottom-base);
+}
+/* #endregion */
+
+/* -------------------------------------
+ * LINKS
+ */
+/* #region */
+
+/* Put a link around whatever chunks of HTML. Set position of parent element
+Set the position relative to a parent */
+.link.is-wrapper {
+  text-decoration: none;
+
+  &::before {
+    border-radius: $shape-border-radius-base;
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    // We can play with z-index to put the other links in front of the pseudo
+    // element, but we can'not select text in this case.
+  }
+
+  &:focus-visible {
+    &::before {
+      box-shadow: var(--layer-box-shadow-focus-outline);
+    }
+  }
+}
+
+/* Chevron protected from line break */
+
+@mixin chevron(
+  $color: var(--color-ink-brand-2ry),
+  $line-height: $size-line,
+  $top: 2px
+) {
+  color: $color;
+  background-image: none;
+  display: inline;
+  font-size: 150%;
+  content: '\203a';
+  font-weight: normal;
+  line-height: $line-height;
+  text-decoration: none;
+  padding-left: .3em;
+  position: relative;
+  top: $top;
+  right: auto;
+  bottom: auto;
+  left: auto;
+}
+
+/* a.link.is-cta[href='']>svg+{Buy} */
+.link.is-cta {
+  color: $color-ink-link;
+  display: block;
+  padding-top: var(--size-padding-top-base);
+  padding-bottom: var(--size-padding-bottom-base);
+  position: relative;
+  width: fit-content;
+
+  &:visited {
+    color: $color-ink-link;
+  }
+
+  &:focus::after {
+    background-color: hsl(var(--h-blue) var(--s) 41% / .5);
+    content: '';
+    position: absolute;
+    bottom: $size-1;
+    left: 0;
+    right: 0;
+    height: $size-half;
+  }
+
+  &.is-centered {
+    text-align: center;
+    margin-inline: auto;
+  }
+
+  .icon {
+    transform: translateY(2px);
+  }
+}
+
+// To make local links with animated scroll to target add scroll-behavior: smooth;
+// to container
+
+.link.is-mail::before {
+  content: '📧 ';
+}
+
+.link.is-tel::before {
+  content: '📞 ';
+}
+
+.link.is-sms::before {
+  content: '💬 ';
+}
+
+// Accessibility: Skip to main content
+// a.link.is-skip(href='#main')
+// ...
+// main#main(tabindex='-1')
+
+.link.is-skip {
+  clip: rect(1px, 1px, 1px, 1px);
+
+  // Many screen reader and browser combinations announce broken words as they
+  // would appear visually.
+  word-wrap: normal;
+  overflow: hidden;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+
+  &:focus-visible {
+    background-color: #fff;
+    border-radius: $shape-border-radius-sm;
+    box-shadow: $layer-box-shadow-z2;
+    clip: auto;
+    color: var(--color-ink-2ry);
+    display: block;
+    line-height: normal;
+    text-decoration: none;
+    padding: $size-2;
+    top: $size-1;
+    left: $size-1;
+    width: auto;
+    height: auto;
+    z-index: $layer-zindex-dropdown;
+  }
+}
+/* #endregion */
+
+/* -------------------------------------
+ * LISTS AND SECTIONING WITH CSS COUNTERS
+ */
+/* #region */
+
+// https://www.w3schools.com/css/css_counters.asp
+
+// stylelint-disable no-duplicate-selectors
+body {
+  // Create the "section" counter and set it to 0
+  counter-reset: section;
+
+  // Countdown
+  // counter-reset: reversed(section);
+}
+// stylelint-enable no-duplicate-selectors
+
+h2 {
+  // Increment the value of the "section" counter by 1
+  counter-increment: section;
+
+  // Nested counter: create the new one and set it to 0
+  // for each subsection
+  counter-reset: subsection;
+
+  &::before {
+    content: 'Section ' counter(section) '. ';
+  }
+}
+
+// Nested counter
+h3 {
+  // Increment "subsection" by 1
+  counter-increment: subsection;
+
+  &::before {
+    content: counter(section) '.' counter(subsection) '. ';
+  }
+}
+
+// STYLE OL MARKERS
+ol {
+  // We replace native markers with before pseudo-elements
+  list-style: none;
+
+  // Creates a new instance of the 'ol-marker' counter with each ol
+  counter-reset: ol-marker;
+}
+
+ol li {
+  counter-increment: ol-marker;
+
+  &::before {
+    background-color: var(--color-background-2ry);
+    content: counter(ol-marker) '. ';
+    display: inline-block;
+  }
+}
+/* #endregion */
+
+/* -------------------------------------
+ * PULL QUOTE
+ */
+/* #region */
+
+/* .content__full-width */ .pull-quote {
+  border-block: 2px solid var(--color-ink-brand-border);
+  margin-inline: auto;
+  padding: var(--size-padding-x-box);
+  width: 100%;
+}
+
+.pull-quote > p {
+  color: var(--color-ink-brand-2ry);
+  font-size: var(--font-size-big);
+  line-height: var(--font-line-height-big);
+  padding-top: var(--size-padding-top-big);
+  padding-bottom: var(--size-padding-top-big);
+}
+/* #endregion */
+
+/* -------------------------------------
+ * TABLE
+ */
+/* #region */
+
+table {
+  &[role='grid'] {
+    tbody tr:nth-child(odd) {
+      background-color: var(--color-background-2ry);
+    }
+  }
+}
+
+// Hover
+tbody tr:hover {
+  filter: $color-brightness-down;
+  transition: filter var(--motion-duration-sm);
+}
+
+// Row numbers
+.table.is-numbered {
+  counter-reset: row-number;
+
+  // Update the counter
+  tbody tr {
+    counter-increment: row-number;
+  }
+
+  /* tbody td:first-child */.table__row-number {
+    content: 'Section ' counter(section) '. ';
+  }
+}
+
+.table.is-fixed {
+  table-layout: fixed;
+}
+/* #endregion */
+
+/* #endregion */
+
+/* -----------------------------------------------------------------------------
+ * 👩‍✈️ COMPONENTS: FORM
+ * -------------------------------------------------------------------------- */
+
+/* #region */
+
+// SWITCH
+/* #region */
+// label:has([type='checkbox'][role='switch'])
+/* [type='checkbox'] */.switch {
+  color: var(--color-ink-2ry);
+  margin: 0 $size-1 0 0;
+  padding-left: ($size-line * 2);
+  padding-top: $size-1p5;
+
+  > [type='checkbox'][role='switch'] {
+    position: absolute;
+    top: $size-1;
+    left: 0;
+  }
+}
+
+[type='checkbox'][role='switch'] {
+
+  --background: var(--color-ink-accent);
+  --background-checked: var(--color-brand-default);
+  --border-width: 2px;
+  --height: #{$size-2p5};
+  --width: #{$size-5};
+
+  // Styles
+  background-color: var(--background);
+  border-radius: $shape-border-radius-pill;
+  border: var(--border-width) solid var(--background);
+  display: flex;
+  align-items: center;
+  width: var(--width);
+  height: var(--height);
+
+  // Thumb
+  &::before {
+    background-color: var(--color-background-2ry);
+    border-radius: 50%;
+    content: '';
+    display: block;
+    transition: margin var(--motion-duration-sm) $motion-easing-base;
+    width: calc(var(--height) - (var(--border-width) * 2));
+    height: calc(var(--height) - (var(--border-width) * 2));
+  }
+
+  &:checked {
+    --background: var(--color-brand-default);
+
+    background-image: none;
+
+    &::before {
+      margin-left: calc(var(--width) * .5);
+      margin-inline-start: calc(var(--width) * .5);
+    }
+  }
+}
+/* #endregion */
+
+// COLOR PICKER
+/* #region */
+[type='color'] {
+  // Wrapper
+  @mixin color-wrapper {
+    padding: 0;
+  }
+
+  cursor: pointer;
+
+  &::-webkit-color-swatch-wrapper {
+    @include color-wrapper;
+  }
+
+  &::-moz-focus-inner {
+    @include color-wrapper;
+  }
+
+  // Swatch
+  @mixin color-swatch {
+    border: 0;
+    border-radius: $shape-border-radius-pill;
+  }
+
+  &::-webkit-color-swatch {
+    @include color-swatch;
+  }
+
+  &::-moz-color-swatch {
+    @include color-swatch;
+  }
+}
+/* #endregion */
+
+// RANGE
+/* #region */
+[type='range'] {
+  --thumb-color: var(--color-brand-default);
+  --border-color: var(--color-ink-border);
+
+  $size-height-range-track: $size-half;
+  $size-height-range-thumb: $size-2p5;
+  $size-border-width-range-thumb: $size-half;
+
+  appearance: none;
+  background: none;
+  border: 0;
+  margin: $size-2 0;
+  padding: 0;
+  height: $size-height-range-thumb;
+  width: 100%;
+
+  &:focus-visible {
+    outline: 0;
+  }
+
+  // ⚠️ Selector chain does not work. Use the mixin in the separated style blocks
+  @mixin range-track {
+    background-color: var(--border-color);
+    border-radius: $shape-border-radius-pill;
+    transition:
+      background var(--motion-duration-sm) $motion-easing-base,
+      box-shadow var(--motion-duration-sm) $motion-easing-base;
+    width: 100%;
+    height: $size-height-range-track;
+  }
+
+  // Track
+  &::-webkit-slider-runnable-track {
+    @include range-track;
+  }
+
+  &::-moz-range-track {
+    @include range-track;
+  }
+
+  &::-ms-track {
+    @include range-track;
+  }
+
+  @mixin range-thumb {
+    appearance: none;
+    background-color: var(--thumb-color);
+    border-radius: 50%;
+    border: $size-border-width-range-thumb solid var(--range-thumb-border-color);
+    cursor: pointer;
+    margin-top: -($size-height-range-thumb * .5 - $size-height-range-track * .5);
+    transition:
+      background var(--motion-duration-sm) $motion-easing-base,
+      transform var(--motion-duration-sm) $motion-easing-base;
+    width: $size-height-range-thumb;
+    height: $size-height-range-thumb;
+  }
+
+  // Thumb
+  &::-webkit-slider-thumb {
+    @include range-thumb;
+  }
+
+  &::-moz-range-thumb {
+    @include range-thumb;
+  }
+
+  &::-ms-thumb {
+    @include range-thumb;
+  }
+
+  &:hover {
+    --thumb-color: hsl(var(--h) var(--s) 65%);
+  }
+
+  &:hover,
+  &:focus-visible,
+  &:active {
+    // Thumb
+    &::-webkit-slider-thumb {
+      transform: scale(1.25);
+    }
+
+    &::-moz-range-thumb {
+      transform: scale(1.25);
+    }
+
+    &::-ms-thumb {
+      transform: scale(1.25);
+    }
+  }
+}
+/* #endregion */
+
+// SEARCH
+/* #region */
+// stylelint-disable max-nesting-depth
+[dir='rtl'] {
+  :where(input) {
+    &:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='file']) {
+      &[type='search'] {
+        background-position: center right $size-2;
+
+        &[aria-invalid] {
+          background-position: center right $size-2, center left $size-p15;
+        }
+      }
+    }
+  }
+}
+// stylelint-enable max-nesting-depth
+/* #endregion */
+
+// MATERIAL DESIGN LIKE ANIMATED LABELS
+// #region
+
+// Markup
+// p
+//   label(for='form-password') Password <span aria-hidden="true">*</span>
+//   input#form-password.form-control(type='password', required='')
+
+label {
+  // The base styles is the same as that of a static label.
+
+  // Class set with JS
+  .is-filled & {
+    font-size: var(--font-size-small);
+    line-height: var(--font-line-height-small);
+    top: 0;
+  }
+}
+// #endregion
+
+// VALID INPUTS
+/* #region */
+
+:where(input, select, textarea) {
+  &:not([type='checkbox']):not([type='radio']) {
+    &.is-touched:not(:focus):not(:invalid),
+    :where(form .grid):not(.has-error) &:not(:focus),
+    &[aria-invalid='false'] {
+      background-image: var(--icon-success);
+      background-position: right $size-1 top $size-1;
+      background-repeat: no-repeat;
+    }
+  }
+}
+/* #endregion */
+
+// MISC
+/* #region */
+
+// Correct the cursor style of increment and decrement buttons in Safari
+::-webkit-inner-spin-button,
+::-webkit-outer-spin-button {
+  height: auto;
+}
+
+// Icon label
+form .is-icon {
+  padding: 0;
+  position: absolute;
+  top: $size-1;
+  left: $size-1;
+  width: $size-xy-icon;
+  height: $size-xy-icon;
+}
+
+// RTL - Invalid inputs
+// stylelint-disable no-duplicate-selectors
+[dir='rtl'] {
+  :where(input, select, textarea) {
+    &:not([type='checkbox']):not([type='radio']) {
+      &[aria-invalid],
+      &[aria-invalid='true'],
+      &[aria-invalid='false'] {
+        background-position: center left $size-1p5;
+      }
+    }
+  }
+}
+// stylelint-enable no-duplicate-selectors
+
+// RTL - Select
+// stylelint-disable no-duplicate-selectors
+[dir='rtl'] {
+  select {
+    &:not([multiple]):not([size]) {
+      background-position: center left $size-1p5;
+    }
+  }
+}
+
+/* RTL - Date / time pickers */
+[dir='rtl'] :is([type='date'], [type='datetime-local'], [type='month'], [type='time'], [type='week']) {
+  text-align: right;
+}
+// stylelint-enable no-duplicate-selectors
+
+// LASTPASS
+
+[id^='__lp'] {
+  display: none;
+}
+
+// override lastpass inline styles
+// TODO: Test fields w/ a background icon. And in the case of an insoluble
+// conflict with LastPass, replace the background image in the fields with
+// an absolutely positioned pseudo element with a background image
+input:not([type='checkbox']):not([type='radio']),
+textarea,
+%input {
+  background-image: none !important;
+}
+/* #endregion */
+
+/* #endregion */
+
+/* -----------------------------------------------------------------------------
+ * 🔊 COMPONENTS: FEEDBACK
+ * -------------------------------------------------------------------------- */
+
+/* #region */
+
+// PROGRESS
+/* #region */
+
+progress {
+  appearance: none;
+  background-color: var(--color-background-2ry);
+  border-radius: $shape-border-radius-xs;
+  border: 0;
+  color: var(--color-brand-default);
+  display: inline-block;
+  margin-bottom: $size-line;
+  overflow: hidden;
+  width: 100%;
+  height: $size-1;
+
+  &::-webkit-progress-bar {
+    background: none;
+    border-radius: $shape-border-radius-xs;
+  }
+
+  &[value]::-webkit-progress-value {
+    background-color: var(--color-brand-default);
+  }
+
+  &::-moz-progress-bar {
+    background-color: var(--color-brand-default);
+  }
+
+  // Indeterminate state
+  @media (prefers-reduced-motion: no-preference) {
+    &:indeterminate {
+      background: var(--color-background-2ry)
+        linear-gradient(
+          to right,
+          var(--color-brand-default) 30%,
+          var(--color-background-2ry) 30%
+        )
+        top left / 150% 150% no-repeat;
+      animation: progress-indeterminate 1s linear infinite;
+
+      &[value]::-webkit-progress-value {
+        background-color: transparent;
+      }
+      &::-moz-progress-bar {
+        background-color: transparent;
+      }
+    }
+  }
+}
+
+// stylelint-disable no-duplicate-selectors
+[dir='rtl'] {
+  @media (prefers-reduced-motion: no-preference) {
+    progress:indeterminate {
+      animation-direction: reverse;
+    }
+  }
+}
+// stylelint-enable no-duplicate-selectors
+
+@keyframes progress-indeterminate {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+/* #endregion */
+
+/* #endregion */
+
+/* -----------------------------------------------------------------------------
+ * 🙈 COMPONENTS: SHOW / HIDE
+ * -------------------------------------------------------------------------- */
+
+/* #region */
+
+// ACCORDION
+/* #region */
+// stylelint-disable no-duplicate-selectors
+[dir='rtl'] {
+  .accordion {
+    summary {
+      text-align: right;
+
+      &::after {
+        right: auto;
+        left: $size-1;
+      }
+    }
+  }
+}
+
+/* Sidebar Accordion */
+/* stylelint-disable selector-max-compound-selectors */
+.sidebar {
+  summary {
+    --summary-padding-top: #{$size-2};
+    --summary-padding-bottom: 18px;
+    --summary-padding-right: #{$size-4};
+
+    @include label;
+  }
+
+  summary small {
+    @extend %text-truncate;
+
+    /* Move it to .accordion level and fade-in-by-display-opacity to _animation */
+    --summary-small-margin-bottom: -1px;
+    --summary-small-padding-top: 2px;
+
+    animation: fade-in-by-display-opacity var(--motion-duration-base);
+    display: block;
+    text-transform: none;
+    font-weight: normal;
+    margin-bottom: var(--summary-small-margin-bottom);
+    padding-top: var(--summary-small-padding-top);
+    pointer-events: none;
+
+    [open] & {
+      display: none;
+      opacity: 0;
+    }
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  @keyframes fade-in-by-display-opacity {
+    0% {
+      display: none;
+      opacity: 0;
+    }
+    1% {
+      display: block;
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .accordion + .accordion {
+    border-top: 1px solid var(--color-ink-border);
+    margin-top: 0;
+
+    summary {
+      padding-top: calc(var(--summary-padding-top) - 1px);
+    }
+
+    summary::after {
+      margin-top: -1px;
+    }
+  }
+}
+/* stylelint-enable selector-max-compound-selectors, no-duplicate-selectors */
+/* #endregion */
+
+// DRAWER
+/* #region */
+/* dialog */.drawer {
+  --width: var(--size-width-base);
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  translate: calc(-1 * var(--width));
+  transition: translate var(--motion-duration-base) $motion-easing-base;
+  width: var(--width);
+
+  &[open] {
+    translate: initial;
+  }
+}
+/* #endregion */
+
+/* #endregion */
+
+/* -----------------------------------------------------------------------------
+ * 📰 COMPONENTS: STRUCTURES
+ * -------------------------------------------------------------------------- */
+
+/* #region */
+
+/* -------------------------------------
+ * HERO
+ */
+/* #region */
+
+.hero {
+  background-color: var(--color-background-brand-dark);
+  background-image:
+    linear-gradient(var(--color-brand-scrim), var(--color-brand-scrim)),
+    linear-gradient(var(--color-brand-scrim), var(--color-brand-scrim)),
+    url('https://unsplash.it/1024/768');
+  background-blend-mode: normal, color, normal;
+  background-position: center center;
+  background-repeat: repeat, repeat, no-repeat;
+  color: var(--color-ink-inverse-text);
+  text-align: center;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: var(--size-padding-x-container);
+  padding-right: var(--size-padding-x-container);
+
+  @media (--tablet-l) {
+    background-image:
+      linear-gradient(var(--color-brand-scrim), var(--color-brand-scrim)),
+      linear-gradient(var(--color-brand-scrim), var(--color-brand-scrim)),
+      url('https://unsplash.it/1920/1080');
+  }
+}
+/* #endregion */
+
+/* -------------------------------------
+ * SECTIONS
+ */
+/* #region */
+
+// SECTION ELEMENTS
+
+// Heading + extra stuff
+.section__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.section__heading {
+  @include text-format(h2);
+  margin: 0;
+}
+
+.section__summary {
+  @include text-format(big);
+  margin: 0;
+}
+
+// VARIATIONS
+
+.section.is-alt {
+  background-color: var(--color-background-2ry);
+}
+
+.section.is-above-the-fold {
+  content-visibility: visible;
+}
+
+// Highlight
+
+.section.is-highlight {
+  background-color: var(--color-background-brand-dark);
+
+  h2,
+  p {
+    color: var(--color-ink-inverse-text);
+  }
+}
+/* #endregion */
+
+/* -------------------------------------
+ * PRICING TABLE
+ */
+/* #region */
+
+.grid.is-plans {
+  --border-radius: #{$shape-border-radius-base};
+  --padding-x: #{$size-line};
+  --padding-bottom: #{$size-line};
+  --padding-top-header: #{$size-2};
+  --padding-bottom-header: #{$size-2};
+  --size-radio: #{$size-2p5};
+
+  margin: 0 auto $size-line;
+  padding: 0;
+  max-width: $size-max-width-container;
+
+  @media (--phone) {
+    grid-template-columns: 1fr;
+  }
+
+  @media (--tablet) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.plan {
+  background-color: var(--color-background-base);
+  border-radius: var(--border-radius);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: box-shadow var(--motion-duration-sm) $motion-easing-base;
+
+  &:hover {
+    box-shadow: var(--layer-box-shadow-z3);
+  }
+
+  &:has(input:checked) {
+    box-shadow: 0 0 0 $size-half var(--color-ink-success-border);
+  }
+
+  &:has(input:checked):has(.plan__radio:focus-visible) {
+    box-shadow: 0 0 0 $size-1 var(--color-ink-success-border);
+  }
+}
+
+/* label */.plan__radio {
+  > input {
+    position: absolute;
+    top: var(--padding-top-header);
+    right: var(--padding-x);
+    width: var(--size-radio);
+    height: var(--size-radio);
+  }
+
+  &::after {
+    border-radius: var(--border-radius);
+    content: '';
+    cursor: pointer;
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  &:focus-visible::after {
+    box-shadow: var(--layer-box-shadow-focus-outline);
+  }
+}
+
+/* header */.plan__header {
+  background: var(--color-background-brand-dark);
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+  padding:
+    var(--padding-top-header)
+    var(--padding-x)
+    var(--padding-bottom-header);
+}
+
+/* h2-h4 */.plan__type {
+  color: var(--color-ink-inverse-text);
+  font-size: var(--font-size-big);
+  line-height: var(--font-line-height-big);
+  margin-bottom: -$size-1;
+  padding-top: var(--size-padding-top-big);
+  padding-bottom: var(--size-padding-bottom-big);
+}
+
+.plan__price {
+  color: var(--color-ink-inverse-max);
+  font-size: var(--font-size-title);
+  line-height: var(--font-line-height-title);
+  font-weight: bold;
+  padding-top: var(--size-padding-top-title);
+  padding-bottom: var(--size-padding-bottom-title);
+}
+
+.plan__price small {
+  color: var(--color-ink-inverse-text);
+  font-size: initial;
+  font-weight: normal;
+  line-height: normal;
+  vertical-align: baseline;
+}
+
+.plan__price abbr {
+  margin-left: 1ch;
+}
+
+.plan__summary {
+  list-style: none;
+  padding-inline: var(--padding-x);
+}
+/* #endregion */
+
+/* -------------------------------------
+ * Scroller shadows
+ */
+/* #region */
+/* .scroller */.has-inner-shadows {
+  background:
+    linear-gradient(to right, var(--color-background-base) 30%, rgba(255, 255, 255, 0)),
+    linear-gradient(to right, rgba(255, 255, 255, 0), var(--color-background-base) 70%) 0 100%,
+    radial-gradient(
+      farthest-side at 0% 50%,
+      rgb(0 0 0 / .2),
+      rgb(0 0 0 / 0)
+    ),
+    radial-gradient(
+      farthest-side at 100% 50%,
+      rgb(0 0 0 / .2),
+      rgb(0 0 0 / 0)
+    )
+    0 100%;
+  background-attachment: local, local, scroll, scroll;
+  background-color: var(--color-background-base);
+  background-position: 0 0, 100%, 0 0, 100%;
+  background-repeat: no-repeat;
+  background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
+}
+/* #endregion */
+
+/* #endregion */
+
+/* -----------------------------------------------------------------------------
+ * 🛠 UTILITIES
+ * -------------------------------------------------------------------------- */
+
+/* #region */
+
+// Bullet for non list items
+.has-middle-dot {
+  &::before {
+    color: var(--color-ink-icon);
+    content: ' \00b7';
+  }
+}
+
+// Reset
+.reset {
+  box-sizing: border-box !important;
+  border: 0 !important;
+  float: none !important;
+  font-size: 100% !important;
+  line-height: auto !important;
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  position: static !important;
+  vertical-align: baseline !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+// -------------------------------------
+// SECTION OR WIDGET LEVEL RESET AND SCOPE
+/* #region */
+
+.my-widget {
+
+  // Client style overrides
+  all: initial;
+
+  :where(*:not(svg, svg *), use) {
+    all: revert;
+  }
+
+  // My widget styles
+  .btn {
+    color: var(--color-ink-inverse-text);
+  }
+}
+/* #endregion */
+
+/* #endregion */

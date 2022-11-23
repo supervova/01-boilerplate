@@ -1,0 +1,49 @@
+@use '../config/mixins' as *;
+
+// -----------------------------------------------------------------------------
+// CONTEXTUAL COLORS
+// -----------------------------------------------------------------------------
+
+.bg-highlight {
+  background-color: var(--color-background-brand-dark);
+}
+
+.text-highlight-title {
+  color: var(--color-ink-brand-2ry);
+};
+
+.text-2ry {
+  color: var(--color-ink-2ry);
+  font-size: 100%;
+}
+
+// -----------------------------------------------------------------------------
+// TEXT PROPERTIES
+// -----------------------------------------------------------------------------
+
+$utility-text: (
+  text-align: (
+    'text-center': center,
+    'text-start': start,
+    'text-end': end
+  )
+) !default;
+
+@include utility-classes($utility-text);
+
+[class$='text-center'] > p {
+  margin-inline: auto;
+}
+
+.nobr {
+  white-space: nowrap;
+}
+
+// -----------------------------------------------------------------------------
+// USE IT FOR INLINE ELEMENTS OR TABLE CELLS
+// -----------------------------------------------------------------------------
+
+.vertical-middle {
+  vertical-align: middle;
+}
+

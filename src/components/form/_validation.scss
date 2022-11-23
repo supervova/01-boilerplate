@@ -1,0 +1,71 @@
+@use '../../config/variables' as *;
+
+// -----------------------------------------------------------------------------
+// INVALID INPUTS
+// -----------------------------------------------------------------------------
+// #region
+
+// stylelint-disable selector-no-qualifying-type, selector-max-compound-selectors
+
+:where(input:not([type='checkbox']):not([type='radio']), select, textarea):not(:focus) {
+  // Use `aria-invalid` for screen readers users and for server side validation
+  &[aria-invalid='true'],
+  &:invalid.is-touched,
+  .has-been-validated &:invalid {
+    background-image: var(--icon-error);
+    background-position: center right $size-1;
+    background-repeat: no-repeat;
+    background-size: $size-xy-icon auto;
+    border-color: var(--color-ink-error-border);
+    box-shadow: inset 0 0 0 1px var(--color-ink-error-border);
+
+
+    // Show alert
+    + [role='alert'],
+    + small + [role='alert'] {
+      opacity: 1;
+      height: auto;
+    }
+
+    // And hide hint
+    + small {
+      display: none;
+    }
+  }
+}
+// #endregion
+
+// -----------------------------------------------------------------------------
+// ERROR MESSAGES
+// -----------------------------------------------------------------------------
+// #region
+
+form [role='alert'] {
+  color: var(--color-ink-error-text);
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity var(--motion-duration-lg);
+  height: 0;
+}
+
+// To hide message using height: 0 we should wrap it in another div and delegate
+// paddings to it
+form [role='alert'] > span {
+  display: block;
+  padding-top: var(--size-padding-top-small);
+  padding-bottom: $size-half;
+}
+
+// Show front-end validation alert for form rows
+.grid.has-error + form [role='alert'] {
+  opacity: 1;
+  height: auto;
+}
+
+// ALERT UNDER THE REQUIRED CHECKBOXES
+.has-been-validated label:has(input[type='checkbox']:not(:focus):invalid) + [role='alert'] {
+  display: block;
+}
+// #endregion

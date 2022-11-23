@@ -1,0 +1,49 @@
+code,
+kbd,
+pre,
+samp {
+  background-color: var(--color-background-2ry);
+  border-radius: $shape-border-radius-xs;
+  color: var(--code-color);
+  font-family: $font-family-mono;
+  font-size: inherit;
+}
+
+pre,
+code,
+samp {
+  color: var(--color-ink-code);
+}
+
+kbd {
+  border: 1px solid var(--color-ink-border-translucent);
+  color: var(--color-ink-text);
+}
+
+code,
+kbd {
+  display: inline-block;
+  padding: $size-half $size-1;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+a > code {
+  color: inherit;
+}
+
+pre {
+  -ms-overflow-style: scrollbar;
+  display: block;
+  white-space: pre;
+  padding-inline: var(--size-padding-x-box);
+  overflow-x: auto;
+  max-width: 100%;
+
+  code,
+  samp {
+    background-color: transparent;
+    display: block;
+    padding: 0;
+  }
+}

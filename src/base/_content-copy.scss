@@ -1,0 +1,258 @@
+@use '../config/variables' as *;
+@use '../config/mixins' as *;
+
+// -----------------------------------------------------------------------------
+// BLOCK
+// -----------------------------------------------------------------------------
+// #region
+address,
+dl,
+p,
+pre {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: var(--size-padding-top-base);
+  padding-bottom: var(--size-padding-bottom-base);
+}
+
+address {
+  font-style: normal;
+}
+
+.lead,
+.content > header + p {
+  @include text-format(big);
+  margin: 0;
+}
+
+// LISTS
+// #region
+/* p, span */.list-caption {
+  display: block;
+  padding-top: var(--size-padding-top-base);
+  padding-bottom: var(--size-padding-bottom-base);
+}
+
+ol,
+ul {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: var(--size-padding-bottom-list);
+}
+
+:where(ol, ul) {
+  li {
+    padding-top: var(--size-padding-top-base);
+    padding-bottom: var(--size-padding-bottom-li);
+  }
+
+  // Nested lists
+  :is(ol, ul) {
+    padding-bottom: 0;
+    padding-left: $size-2;
+  }
+}
+
+/* Unordered list */
+ul {
+  list-style: none;
+  padding-left: $size-2;
+
+  ::marker {
+    color: var(--color-brand);
+    content: '\2022\00a0';
+  }
+
+  @media (--tablet) {
+    padding-left: 0;
+  }
+}
+
+/* Ordered list */
+ol {
+  counter-reset: item;
+
+  > li {
+    counter-increment: item;
+    text-indent: -$size-4;
+    list-style-type: none;
+    padding-right: ($size-line * 2);
+
+    &::before {
+      content: counter(item) ')';
+      display: inline-block;
+      font-weight: bolder;
+      text-align: right;
+      padding-right: $size-1;
+      width: $size-3;
+    }
+  }
+}
+
+nav ol,
+nav ul,
+.list.is-unstyled {
+  list-style: none;
+  padding-left: 0;
+}
+
+.list.is-inline {
+  list-style: none;
+  padding-left: 0;
+
+  li {
+    display: inline-block;
+
+    &:not(:last-child) {
+      margin-right: $size-half;
+    }
+  }
+}
+
+// Description List
+dt {
+  display: inline-block;
+  font-weight: bolder;
+  padding-right: $size-half;
+}
+
+dd {
+  display: inline;
+  margin-left: 0;
+
+  &:not(:last-child)::after {
+    content: '';
+    display: block;
+    height: $size-line;
+  }
+}
+
+// DIVIDERS
+
+hr {
+  border: 0;
+  border-top: $size-border-width solid var(--color-ink-border);
+  margin-top: $size-line * 3 - 1px;
+  margin-bottom: $size-line * 3;
+}
+// #endregion
+
+// #endregion
+
+// -----------------------------------------------------------------------------
+// INLINE
+// -----------------------------------------------------------------------------
+// #region
+
+// LINKS
+// #region
+@mixin a-hover {
+  color: var(--color-ink-link-hover);
+  text-decoration-skip-ink: auto;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+a,
+[role='link'] {
+  @include standard-focus;
+
+  color: var(--color-ink-link);
+  // Reapply the pointer cursor for anchor tags
+  cursor: pointer;
+  outline: 0;
+  text-decoration: none;
+  transition: color var(--motion-duration-sm);
+
+  &:is(:active, :focus) {
+    @include a-hover;
+  }
+
+  // Prevent hover issues on touch screens
+  @media(hover: hover) and (pointer: fine) {
+    &:hover {
+      @include a-hover;
+    }
+  }
+
+  &:is([aria-current]) {
+    color: var(--color-ink-text);
+  }
+}
+
+// #endregion
+
+// MISC
+// Bold
+b,
+strong {
+  font-weight: bolder;
+}
+
+
+
+// Small
+.petit {
+  font-size: var(--font-size-small);
+  line-height: var(--font-line-height-small);
+  padding-top: var(--size-padding-top-small);
+  padding-bottom: var(--size-padding-bottom-small);
+}
+
+// Highlighted text
+mark {
+  background-color: var(--color-background-info);
+  border-radius: $shape-border-radius-xs;
+  color: var(--color-ink-text);
+  padding: 02px;
+  vertical-align: baseline;
+}
+
+// ABBREVIATIONS
+/* stylelint-disable selector-no-qualifying-type */
+abbr[title] {
+  border-bottom: 1px dotted currentcolor;
+  cursor: help;
+  text-decoration: none;
+}
+
+// INS
+ins {
+  color: var(--color-ink-success-text);
+  text-decoration: none;
+}
+
+// DEL
+del {
+  color: var(--color-ink-3ry);
+}
+
+// SELECTION
+::selection {
+  background: var(--color-core-brand-800);
+  color: var(--color-core-brand-100);
+  text-shadow: none;
+}
+
+// SUB, SUP
+// #region
+// Prevent `sub` and `sup` elements from affecting the line height in all browsers
+sub,
+sup {
+  font-size: var(--font-size-small);
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -.25em;
+}
+
+sup {
+  top: -.5em;
+}
+// #endregion
+
+// #endregion

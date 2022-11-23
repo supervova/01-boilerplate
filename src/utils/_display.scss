@@ -1,0 +1,18 @@
+@use '../config/variables' as *;
+@use '../config/mixins' as *;
+
+// stylelint-disable declaration-no-important
+
+$utility-display: (
+  display: (
+    'd-block': block,
+    'd-inline': inline,
+    'd-inline-block': inline-block,
+    'd-none': none,
+    'd-table': table,
+    'd-flex': flex,
+    'd-inline-flex': inline-flex
+  )
+) !default;
+
+@include utility-classes($utility-display);

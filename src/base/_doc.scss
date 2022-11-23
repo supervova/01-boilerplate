@@ -1,0 +1,46 @@
+@use '../config/variables' as *;
+
+html {
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  // Remove the grey highlight on links in iOS (opinionated)
+  -webkit-tap-highlight-color: transparent;
+  // Use the default cursor in all browsers
+  cursor: default;
+  // Prevent adjustments of font size after orientation changes in iOS
+  text-size-adjust: 100%;
+  /* Prevent horizontal scrolling on the pages containing full width sections */
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  scrollbar-color: var(--color-brand-default) var(--color-ink-accent);
+  // Reserving space for the scrollbar (modern variation of `overflow-y: scroll`)
+  scrollbar-gutter: stable both-edges;
+  scrollbar-width: thin;
+  min-height: calc(100% + env(safe-area-inset-top));
+}
+
+body {
+  -moz-font-feature-settings: 'kern';
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  background-color: var(--color-background-base);
+  color: var(--color-ink-text);
+  font-family: $font-family-base;
+  font-size: var(--font-size-base);
+  letter-spacing: .01em;
+  line-height: var(--font-line-height-base);
+  text-align: left;
+  // Create safe areas for iPhone X+
+  padding:
+    env(safe-area-inset-top)
+    env(safe-area-inset-right)
+    env(safe-area-inset-bottom)
+    env(safe-area-inset-left);
+  // Formerly `word-wrap`. Breaks words to prevent overflow in all browsers
+  overflow-wrap: break-word;
+  // Reserving space for the scrollbar, keep symmetry
+  scrollbar-gutter: stable both-edges;
+  // Use a 2-space tab width in all browsers
+  tab-size: 2;
+  min-width: 320px;
+  min-height: 100vh;
+}

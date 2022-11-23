@@ -1,0 +1,189 @@
+{
+  "name": "pproject",
+  "version": "1.0.0",
+  "description": "",
+  "author": {
+    "name": "Vladimir Nikishin",
+    "email": "vlaimir.nikishin@gmail.com",
+    "url": "https://super-mark.ru/"
+  },
+  "license": "MIT",
+  "scripts": {
+    "b": "gulp --p"
+  },
+  "engines": {
+    "node": ">=10",
+    "npm": ">=3"
+  },
+  "stylelint": {
+    "extends": [
+      "stylelint-config-sass-guidelines"
+    ],
+    "ignoreFiles": [
+      "**/*.css",
+      "**/*.html",
+      "node_modules/**/*"
+    ],
+    "rules": {
+      "comment-whitespace-inside": "always",
+      "font-family-name-quotes": "always-where-recommended",
+      "function-parentheses-space-inside": "never-single-line",
+      "max-nesting-depth": 3,
+      "media-feature-colon-space-after": "always",
+      "media-feature-colon-space-before": "never",
+      "media-feature-range-operator-space-after": "always",
+      "media-feature-range-operator-space-before": "always",
+      "no-duplicate-selectors": true,
+      "number-leading-zero": "never",
+      "order/order": [
+        "custom-properties",
+        "dollar-variables",
+        {
+          "type": "at-rule",
+          "name": "include"
+        },
+        "declarations",
+        "rules",
+        {
+          "type": "at-rule",
+          "name": "include",
+          "hasBlock": true
+        }
+      ],
+      "order/properties-alphabetical-order": null,
+      "property-no-unknown": [
+        true,
+        {
+          "ignoreProperties": [
+            "appearance"
+          ]
+        }
+      ],
+      "rule-empty-line-before": [
+        "always",
+        {
+          "ignore": [
+            "after-comment",
+            "inside-block"
+          ]
+        }
+      ],
+      "scss/at-extend-no-missing-placeholder": null,
+      "scss/dollar-variable-colon-space-after": null,
+      "selector-attribute-quotes": "always",
+      "selector-class-pattern": "[a-zA-Z0-9]+[a-za-zA-Z0-9-_]*"
+    }
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "airbnb-base",
+      "plugin:prettier/recommended"
+    ],
+    "env": {
+      "browser": true,
+      "es2022": true,
+      "node": true
+    },
+    "plugins": [
+      "eslint-plugin-prettier",
+      "import"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 2022,
+      "sourceType": "module"
+    },
+    "settings": {
+      "import/core-modules": [],
+      "import/ignore": [
+        "node_modules",
+        "\\.(coffee|scss|css|less|hbs|svg|json)$"
+      ]
+    },
+    "rules": {
+      "import/no-extraneous-dependencies": "off",
+      "max-len": [
+        "error",
+        {
+          "ignoreComments": true,
+          "ignoreStrings": true,
+          "ignoreTemplateLiterals": true
+        }
+      ],
+      "no-multi-spaces": [
+        "error",
+        {
+          "exceptions": {
+            "BinaryExpression": true,
+            "VariableDeclarator": true
+          }
+        }
+      ],
+      "no-plusplus": [
+        2,
+        {
+          "allowForLoopAfterthoughts": true
+        }
+      ],
+      "quotes": [
+        "error",
+        "single"
+      ]
+    }
+  },
+  "postcss": {
+    "map": false,
+    "plugins": {
+      "postcss-conditionals": {},
+      "postcss-design-tokens": {},
+      "postcss-each": {},
+      "postcss-for": {},
+      "postcss-inline-svg": {},
+      "postcss-mixins": {},
+      "postcss-preset-env": {
+        "stage": 2,
+        "features": {
+          "cascade-layers": false,
+          "custom-media-queries": true,
+          "custom-properties": false,
+          "has-pseudo-class": true,
+          "image-set-function": true,
+          "logical-properties-and-values": false,
+          "media-query-ranges": true,
+          "nesting-rules": true,
+          "unset-value": true
+        }
+      },
+      "postcss-pxtorem": {
+        "propList": ["font", "font-size", "letter-spacing", "padding-top", "padding-bottom"]
+      },
+      "postcss-sort-media-queries": {}
+    },
+    "importFrom": "/src/config/_custom.css"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  },
+  "prettier": {
+    "singleQuote": true,
+    "bracketSpacing": true,
+    "trailingComma": "es5",
+    "overrides": [
+      {
+        "files": [
+          "*.html"
+        ],
+        "options": {
+          "printWidth": 40000,
+          "bracketSameLine": true
+        }
+      }
+    ]
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
+}

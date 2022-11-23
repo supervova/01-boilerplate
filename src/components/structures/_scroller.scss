@@ -1,0 +1,18 @@
+@use '../../config/variables' as *;
+
+// Wrapper to make tables and any other content responsive across all viewports
+.scroller {
+  --display: block;
+
+  display: var(--display);
+  margin: 0 0 $size-line;
+  padding: 0;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  max-width: 100%;
+
+  &:focus-visible {
+    box-shadow: var(--layer-box-shadow-focus-outline);
+    outline: 0;
+  }
+}

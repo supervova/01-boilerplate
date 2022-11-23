@@ -1,0 +1,170 @@
+// stylelint-disable declaration-colon-space-after, order/order
+
+@use 'sass:math';
+
+// Theme path
+$sites-assets:                          '/';
+
+// [::backdrop](https://fullscreen.spec.whatwg.org/#::backdrop-pseudo-element)
+// does not inherit from any element and is not inherited from.
+// So we can use parent's custom properties for it
+$color-background-scrim:                rgb(0 0 0 / .6);
+
+// -----------------------------------------------------------------------------
+// 📰 LAYOUT
+// -----------------------------------------------------------------------------
+// #region
+
+$size-half:                             4px;
+$size-1:                                8px;
+$size-1p5:                              $size-1 * 1.5; // 12px
+$size-2:                                $size-1 * 2;
+$size-2p5:                              $size-1 * 2.5; // 20px
+$size-3:                                $size-1 * 3;
+$size-4:                                $size-1 * 4;
+$size-5:                                $size-1 * 5;
+$size-6:                                $size-1 * 6;
+$size-7:                                $size-1 * 7;
+$size-8:                                $size-1 * 8;
+
+// For larger values use derived lines. E.g. $size-line * 3
+$size-line:                             $size-3;
+
+$size-xy-icon:                          $size-3;
+
+// Breakpoints for media queries
+
+// Use extreme breakpoints inside a regular media query not a sass mixin include
+// to prevent generation of the useless utility classes
+// @media screen only and (min-width: #{$size-width-screen-desktop-xxl}) { color: #000; }
+$size-width-screen-desktop-xl: 1920px;
+$size-width-screen-desktop-xxl: 2560px; // iMac 27'
+
+$size-width-screen: (
+  all: null,
+  phone-l: 568px,
+  tablet: 768px,
+  tablet-l: 1024px,
+  desktop: 1360px
+) !default;
+
+$size-height-landscape-phone: 414px;
+
+$size-resolution-retina: 'print, (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 1.25dppx), (min-resolution: 120dpi)';
+// Using: @media #{$size-screen-retina} { … }
+
+// 960px standard + side paddings
+$size-max-width-container: calc(960px + var(--size-padding-x-container) * 2);
+
+$size-gutter-base:                      $size-2p5;
+$size-gutter-lg:                        $size-4;
+// #endregion
+
+// -----------------------------------------------------------------------------
+// 📦 COMPONENT BASE
+// -----------------------------------------------------------------------------
+// #region
+
+$size-border-width:                     1px;
+
+// BOX BORDER RADIUS
+
+// Rectangular Images
+$shape-border-radius-xs:                $size-1;
+
+// Buttons
+$shape-border-radius-sm:                $size-1p5;
+
+// Boxes (cards, alerts, covers etc), Popovers, Pickers, Tooltips
+$shape-border-radius-base:              18px;
+
+// Modals
+$shape-border-radius-lg:                27px;
+
+$shape-border-radius-pill:              100vmax;
+
+// BOX Z-INDEX
+// @see base.md
+$layer-zindex-sticky:                   10 !default;
+$layer-zindex-fixed:                    20 !default;
+$layer-zindex-fab:                      30 !default;
+$layer-zindex-popover:                  40 !default;
+$layer-zindex-tooltip:                  50 !default;
+$layer-zindex-offcanvas-backdrop:       60 !default;
+$layer-zindex-offcanvas:                70 !default;
+$layer-zindex-modal-backdrop:           80 !default;
+$layer-zindex-modal:                    90 !default;
+
+// PANEL WIDTHS
+
+// Tooltips, mobile drawers
+$size-width-sm:                         272px;
+
+// Popovers, tablet and desktop drawers, alerts (.modal.is-sm) on landscape phones
+$size-width-base:                       320px;
+
+// Wide drawers, alerts (.modal.is-sm), popovers on tablets and up
+$size-width-md:                         448px;
+
+// Default modals on landscape phones and up
+$size-width-lg:                         544px;
+
+// Large modals on desktops
+$size-width-xl:                         720px;
+
+$size-width-readable:                   70ch;
+
+// EFFECTS
+$color-brightness-up:                   1.2;
+$color-brightness-down:                 .8;
+
+// #endregion
+
+// -----------------------------------------------------------------------------
+// 👻 ANIMATION & TRANSITIONS
+// -----------------------------------------------------------------------------
+// #region
+
+// @see base.md
+
+$motion-easing-base:                    cubic-bezier(.4, 0, .2, 1); // accented ease-in-out
+$motion-easing-appearance:              cubic-bezier(0, 0, .2, 1); // accented ease-out
+$motion-easing-disappearance:           cubic-bezier(.4, 0, 1, 1); // ease-in
+$motion-easing-bounce:                  cubic-bezier(.175, .885, .32, 1.275);
+
+// #endregion
+
+// -----------------------------------------------------------------------------
+// 🔠 TYPOGRAPHY
+// -----------------------------------------------------------------------------
+// #region
+
+/* stylelint-disable indentation */
+// Don't use system-ui (Tahoma in Win7), Segoe UI and Cantarell. These fonts are ugly
+// Don't quoted special keywords: inherit, serif, sans-serif, cursive, fantasy, system-ui, monospace, ui-serif, ui-sans-serif, ui-monospace, and ui-rounded.
+// Don't quoted prefixed system fonts such as -apple-system and BlinkMacSystemFont.
+// To avoid mistakes in escaping, it is recommended to quote font family names that contain white space, digits, or punctuation characters other than hyphens.
+// Quotes are required around font-family names when they are not valid CSS identifiers. For example, a font family name requires quotes around it if it contains $, ! or /, but does not require quotes just because it contains spaces or a (non-initial) number or underscore.
+
+$font-family-system-sans: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Roboto, 'Avenir Next', Avenir, Ubuntu, Noto, Arial, sans-serif;
+$font-family-system-serif: 'New York', ui-serif, 'Apple Garamond', Baskerville, 'Iowan Old Style', 'Times New Roman', Times, 'Droid Serif', 'Source Serif Pro', serif;
+$font-family-emoji: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+$font-family-base: $font-family-system-sans, $font-family-emoji;
+$font-family-title: Inter, Roboto, sans-serif, $font-family-emoji;
+
+$font-family-mono:
+ 'SF Mono',
+  SFMono-Regular,
+  ui-monospace,
+ 'Fira Code',
+ 'Roboto Mono',
+ 'Noto Mono',
+  Menlo,
+  Monaco,
+  Consolas,
+ 'Liberation Mono',
+  monospace,
+  $font-family-emoji;
+// #endregion
+

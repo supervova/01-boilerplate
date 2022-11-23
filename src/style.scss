@@ -1,0 +1,37 @@
+@use 'sass:meta';
+@use 'config';
+
+@layer config {
+  @include meta.load-css('config/theme-root');
+
+  /* Light theme (Default). Can be forced with data-theme="light"
+     @see base/base.md for dark theme */
+  @include meta.load-css('config/theme-light');
+}
+
+@layer base {
+  @include meta.load-css('base/reset');
+  @include meta.load-css('base/animation');
+  @include meta.load-css('base/doc');
+  @include meta.load-css('base/content-headings');
+  @include meta.load-css('base/content-copy');
+  @include meta.load-css('base/content-media');
+  @include meta.load-css('base/graphics/icon');
+  @include meta.load-css('base/button');
+  @include meta.load-css('base/layout');
+}
+
+@layer components {
+  @include meta.load-css('components/show-hide/modal');
+  @include meta.load-css('components/form/validation');
+}
+
+@layer utilities {
+  @include meta.load-css('utils/accessibility');
+  @include meta.load-css('utils/content');
+  @include meta.load-css('utils/display');
+  @include meta.load-css('utils/flex');
+  @include meta.load-css('utils/reduce-motion');
+  @include meta.load-css('utils/spacing');
+  @include meta.load-css('utils/width');
+}

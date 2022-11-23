@@ -1,0 +1,85 @@
+@use '../../config/variables' as *;
+
+[data-tooltip] {
+  --background-color: var(--color-background-scrim);
+  --color: var(--color-ink-inverse-max);
+  --translate-start: 0 -100%;
+  --translate-start-caret: 0 -50%;
+
+  position: relative;
+
+  &:not(a):not(button):not(input):not(label):not(label span) {
+    border-bottom: 1px dotted var(--color-ink-border);
+    cursor: help;
+    text-decoration: none;
+  }
+
+  &::before,
+  &::after {
+    background: var(--background-color);
+    border-radius: $shape-border-radius-sm;
+    color: var(--color);
+    content: attr(data-tooltip);
+    display: block;
+    font-size: var(--font-size-small);
+    font-style: normal;
+    font-weight: 400;
+    text-decoration: none;
+    padding: $size-1 $size-1p5;
+    opacity: 0;
+    overflow: hidden;
+    pointer-events: none;
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    width: max-content;
+    max-width: $size-width-sm;
+    z-index: $layer-zindex-tooltip;
+  }
+
+  // Body
+  &::before {
+    --translate-y-start: var(--translate-y-start-body);
+    content: attr(data-tooltip);
+    transform: translate(var(--translate-x-body), -#{$size-half});
+  }
+
+  // Caret
+  &::after {
+    background-color: transparent;
+    border-left: $size-half solid transparent;
+    border-radius: 0;
+    border-right: $size-half solid transparent;
+    border-top: $size-half solid;
+    color: var(--background-color);
+    content: '';
+    padding: 0;
+    transform: translate(var(--translate-x-body), 0);
+  }
+
+  // Display
+  &:focus-visible,
+  &:hover {
+    &::before,
+    &::after {
+      opacity: 1;
+    }
+  }
+
+  // Animations, excluding touch devices
+  @media (hover: hover) and (pointer: fine) {
+    &:focus-visible,
+    &:hover {
+      &::before,
+      &::after {
+        animation-duration: var(--motion-duration-sm);
+        animation-name: slide-in-down;
+      }
+
+      &::after {
+        --translate-start: var(--translate-y-start-caret);
+        animation-name: slide-in-down;
+      }
+    }
+  }
+}

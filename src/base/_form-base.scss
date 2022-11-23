@@ -1,0 +1,257 @@
+// stylelint-disable selector-no-qualifying-type
+
+@use 'sass:math';
+@use '../config/variables' as *;
+
+// -----------------------------------------------------------------------------
+// CONTAINERS
+// -----------------------------------------------------------------------------
+// #region
+
+// For multi input fields (e. g. birthday) use .grid
+
+form {
+  accent-color: var(--color-ink-brand-text);
+  caret-color: var(--color-ink-brand-2ry);
+}
+
+fieldset {
+  border: 0;
+  margin: 0 0 $size-line * 2;
+  padding: 0;
+}
+
+// Input container
+form p,
+form > div:not[class] {
+  position: relative;
+  padding-top: 0;
+  padding-bottom: var(--size-padding-bottom-form-item);
+}
+// #endregion
+
+// -----------------------------------------------------------------------------
+// LEGEND AND LABELS
+// -----------------------------------------------------------------------------
+// #region
+
+label,
+legend {
+  display: block;
+}
+
+legend {
+  @include text-format(big);
+
+  // Correct the text wrapping in Edge and IE
+  white-space: normal;
+  margin: 0;
+  max-width: 100%;
+}
+
+label {
+  @include label;
+
+  color: var(--color-ink-2ry);
+  margin: 0;
+  position: relative;
+  padding-top: var(--size-padding-top-small);
+  padding-bottom: var(--size-padding-bottom-label);
+}
+// #endregion
+
+// -----------------------------------------------------------------------------
+// FIELDS NORMALIZE
+// -----------------------------------------------------------------------------
+// #region
+
+// Remove the inner border and padding of focus outlines in Firefox
+::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+
+//  Remove the focus outline in Firefox
+:-moz-focusring {
+  outline: 0;
+}
+
+// Remove the additional :invalid styles in Firefox
+:-moz-ui-invalid {
+  box-shadow: none;
+}
+
+// Change the inconsistent appearance in IE (opinionated)
+::-ms-expand {
+  display: none;
+}
+// #endregion
+
+// -----------------------------------------------------------------------------
+// INPUT, TEXTAREA, SELECT BASE
+// -----------------------------------------------------------------------------
+// #region
+
+input,
+optgroup,
+select,
+textarea {
+  // Change the font styles in all browsers
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  line-height: var(--font-line-height-base);
+  // Remove the margin in Firefox and Safari
+  letter-spacing: inherit;
+}
+
+input,
+select,
+textarea {
+  background-color: var(--color-background-base);
+}
+
+select,
+textarea,
+input:not([type='checkbox']):not([type='radio']) {
+  appearance: none;
+  // No background is drawn beneath the border
+  background-clip: padding-box;
+  border-radius: $shape-border-radius-sm;
+  border: 1px solid var(--color-ink-border-translucent);
+  color: var(--color-ink-text);
+  display: block;
+  padding-top: var(--size-padding-y-input);
+  padding-bottom: var(--size-padding-y-input);
+  padding-left: var(--size-padding-x-input);
+  padding-inline-start: var(--size-padding-x-input);
+  /* Show the overflow in IE */
+  overflow: visible;
+  transition:
+    border-color $motion-easing-base var(--motion-duration-sm),
+    color $motion-easing-base var(--motion-duration-sm);
+  width: 100%;
+  max-width: var(--size-width-readable);
+  min-height: $size-line * 2;
+
+  &:focus-visible {
+    color: var(--color-ink-text);
+    border-color: var(--color-brand-default);
+    box-shadow: var(--layer-box-shadow-focus-outline);
+    outline: 0;
+  }
+
+  // Placeholder
+  &::placeholder {
+    color: var(--color-ink-3ry);
+    // Override Firefox's unusual default opacity
+    opacity: 1;
+  }
+
+  @media (--tablet) {
+    max-width: var(--size-width-readable);
+  }
+}
+
+textarea,
+[type='text'],
+[type='email'],
+[type='tel'],
+[type='number'],
+[type='url'] {
+  padding-right: var(--size-padding-x-input);
+  padding-inline-end: var(--size-padding-x-input);
+}
+
+[type='password'],
+[type='search'] {
+  padding-right: var(--size-padding-x-input-lg);
+  padding-inline-end: var(--size-padding-x-input-lg);
+}
+
+// #endregion
+
+// -----------------------------------------------------------------------------
+// SPECIFIC
+// -----------------------------------------------------------------------------
+// #region
+
+textarea {
+  // In textarea, we cannot control the bottom padding. But we can add whitespace
+  // from above
+  padding-top: calc(var(--size-padding-y-input) + 9px);
+
+  // Remove the default vertical scrollbar in IE
+  overflow: auto;
+  resize: vertical;
+}
+
+textarea:not([rows]) {
+  height: $size-line * 6;
+}
+
+// MODIFICATIONS
+
+.form__field.is-lg {
+  font-size: var(--font-size-h2);
+  line-height: var(--font-line-head-h2);
+}
+
+// STATES
+
+[disabled],
+[readonly] {
+  cursor: not-allowed;
+  opacity: .5;
+}
+
+// #endregion
+
+// -----------------------------------------------------------------------------
+// HINTS
+// -----------------------------------------------------------------------------
+// #region
+
+form small,
+.list.is-hint {
+  color: var(--color-ink-2ry);
+  display: block;
+  font-size: var(--font-size-small);
+  padding-top: var(--size-padding-top-small);
+  padding-bottom: var(--size-padding-bottom-small);
+  max-width: var(--size-width-readable);
+}
+
+.list.is-hint {
+  padding-left: $size-2;
+}
+// #endregion
+
+// -----------------------------------------------------------------------------
+// BUTTONS
+// -----------------------------------------------------------------------------
+// #region
+
+.form__footer {
+
+  > * {
+    margin-bottom: $size-2;
+  }
+
+  @media (--tablet) {
+    display: flex;
+    align-items: center;
+    padding-top: var(--size-padding-top-form-actions);
+    padding-bottom: var(--size-padding-bottom-form-actions);
+
+    > :not(:last-child) {
+      margin-right: $size-2;
+    }
+
+    .btn.is-right {
+      margin-left: auto;
+      margin-inline-start: auto;
+    }
+  }
+}
+// #endregion
+

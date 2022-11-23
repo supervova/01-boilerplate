@@ -1,0 +1,112 @@
+@use '../config/variables' as *;
+@use '../config/mixins' as *;
+
+// Margin and Padding
+
+$utility-horizontal-margin: false;
+$utility-horizontal-space: false;
+$utility-shorthand-space: false;
+
+$spacers: (
+  0:  0,
+  1s: $size-1,
+  2s: $size-2,
+  4s: $size-4,
+  5s: $size-5,
+  7s: $size-7,
+  8s: $size-8,
+  1:  $size-line,
+  2:  $size-line * 2,
+  3:  $size-line * 3,
+  4:  $size-line * 4,
+);
+
+@each $screen in map-keys($size-width-screen) {
+  @include for-size($screen) {
+
+    // Generate horizontal margin if setting turned on
+    $space-types: if($utility-horizontal-margin, (margin: m, padding: p), (padding: p));
+    $prefix: if($screen == all, '', '#{$screen}\\:');
+
+    @each $prop, $abbr in $space-types {
+      @each $size, $value in $spacers {
+
+        .#{$prefix}#{$abbr}t-#{$size}, .#{$prefix}#{$abbr}y-#{$size} {
+          #{$prop}-top: $value;
+        }
+
+        .#{$prefix}#{$abbr}b-#{$size}, .#{$prefix}#{$abbr}y-#{$size} {
+          #{$prop}-bottom: $value;
+        }
+
+        @if $utility-horizontal-space {
+          .#{$prefix}#{$abbr}e-#{$size}, .#{$prefix}#{$abbr}x-#{$size} {
+            #{$prop}-inline-end: $value;
+          }
+
+          .#{$prefix}#{$abbr}s-#{$size}, .#{$prefix}#{$abbr}x-#{$size} {
+            #{$prop}-inline-start: $value;
+          }
+        }
+
+        @if $utility-shorthand-space {
+          .#{$prefix}#{$abbr}-#{$size} { #{$prop}: $value; }
+        }
+      }
+    }
+
+    // Negative margins (e.g., where `.mb-n1` is negative version of `.mb-1`)
+    @each $size, $value in $spacers {
+      @if "#{$size}" == "1s" or "#{$size}" == "2s" {
+
+        @if $utility-shorthand-space {
+          .m-n#{$size} { margin: -$value; }
+        }
+
+        .#{$prefix}mt-n#{$size}, .#{$prefix}my-n#{$size} {
+          margin-top: -$value;
+        }
+
+        .#{$prefix}mb-n#{$size}, .#{$prefix}my-n#{$size} {
+          margin-bottom: -$value;
+        }
+
+        @if $utility-horizontal-space {
+          .#{$prefix}mr-n#{$size}, .#{$prefix}mx-n#{$size} {
+            margin-inline-end: -$value;
+          }
+
+          .#{$prefix}ml-n#{$size}, .#{$prefix}mx-n#{$size} {
+            margin-inline-start: -$value;
+          }
+        }
+      }
+    }
+
+    // Auto margins
+    @if $utility-shorthand-space {
+      .#{$prefix}m-auto { margin: auto; }
+    }
+
+    .#{$prefix}mt-auto, .#{$prefix}my-auto {
+      margin-top: auto;
+    }
+
+    .#{$prefix}mb-auto, .#{$prefix}my-auto {
+      margin-bottom: auto;
+    }
+
+    .#{$prefix}mr-auto {
+      margin-inline-end: auto;
+    }
+
+    .#{$prefix}ml-auto {
+      margin-inline-start: auto;
+    }
+
+    .#{$prefix}mx-auto {
+      margin-inline: auto;
+    }
+  }
+}
+

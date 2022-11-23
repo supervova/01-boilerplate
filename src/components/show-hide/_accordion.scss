@@ -1,0 +1,103 @@
+@use '../../config/variables' as *;
+
+// -----------------------------------------------------------------------------
+// BASE ACCORDION
+// -----------------------------------------------------------------------------
+// #region
+
+/* details */.accordion {
+  --border-radius: #{$shape-border-radius-base};
+
+  --summary-background: var(--color-background-info);
+  --summary-color: var(--color-ink-text);
+  --summary-color-active: var(--color-ink-brand-text);
+  --summary-font-weight: bolder;
+  --summary-padding-top: #{$size-2};
+  --summary-padding-bottom: #{$size-2};
+  --summary-padding-left: #{$size-2d5};
+  --summary-padding-right: #{$size-5};
+
+  --content-margin-bottom: #{$size-line};
+  --content-padding-bottom: #{$size-line};
+
+  border: 1px solid var(--summary-background);
+  border-radius: var(--border-radius);
+  display: block;
+  overflow: hidden;
+  /* transition: height var(--motion-duration-base) $motion-easing-base; */
+
+  summary {
+    background-color: var(--summary-background);
+    border-radius: var(--border-radius);
+    color: var(--summary-color);
+    cursor: pointer;
+    // Hide the summary marker in non-Webkit
+    display: list-item;
+    list-style: none;
+    font-weight: var(--summary-font-weight);
+    padding-top: var(--summary-padding-top);
+    padding-inline-end: var(--summary-padding-right);
+    padding-bottom: var(--summary-padding-bottom);
+    padding-inline-start: var(--summary-padding-left);
+    position: relative;
+    transition: color var(--motion-duration-sm) $motion-easing-base;
+    width: 100%;
+
+    // Hide the marker in Webkit
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &::marker {
+      display: none;
+    }
+
+    &::-moz-list-bullet {
+      list-style-type: none;
+    }
+
+    // Chevron
+    &::after {
+      @include chevron-down;
+    }
+
+    &:focus-visible {
+      box-shadow: var(--layer-box-shadow-focus-outline);
+      color: var(--summary-color-active);
+      outline: 0;
+    }
+  }
+
+  // Body
+  > div {
+    padding: $size-2d5;
+  }
+
+  // Open
+  &[open] {
+    > summary {
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+      color: var(--summary-color-active);
+      margin-bottom: $size-line;
+
+      &::after {
+        transform: rotate(180deg);
+      }
+    }
+  }
+}
+
+.accordion + .accordion {
+  margin-top: $size-line;
+}
+
+.accordion + :not(.accordion) {
+  margin-top: $size-line;
+
+  @media (--tablet) {
+    margin-top: $size-line * 2;
+  }
+}
+
+// #endregion

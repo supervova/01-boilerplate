@@ -1,0 +1,38 @@
+@mixin dark {
+  color-scheme: dark;
+
+  // Brand
+  // Backgrounds
+  // Inks
+  // Feedback
+  // Shadows
+  // Icons
+
+  // Or set the minimal dark mode
+  * {
+    background-color: inherit;
+    color: inherit;
+  }
+
+  html {
+    filter: invert(1) hue-rotate(180deg);
+  }
+
+  // Add a bit of transparency so light media isn't so glaring in dark mode
+  img,
+  video {
+    opacity: .8;
+  }
+}
+
+@media only screen and (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    @include dark;
+  }
+}
+
+// Dark theme (Forced)
+// Enabled if forced with data-theme="dark"
+[data-theme='dark'] {
+  @include dark;
+}

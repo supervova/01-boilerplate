@@ -1,0 +1,67 @@
+/* ul */[role='menu'] {
+  --color: var(--color-ink-2ry);
+  --padding: 0;
+
+  --menu-item-height: #{$size-6 - $size-half};
+  --menu-item-icon-offset: translateY(-1px);
+  --menu-item-padding: 0 #{$size-2};
+
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  padding: var(--padding);
+
+  li {
+    display: block;
+    padding: 0;
+  }
+}
+
+/* a */[role='menuitem'] {
+  border-radius: $shape-border-radius-sm;
+  display: flex;
+  color: var(--color);
+  align-items: center;
+  margin-bottom: $size-half;
+  padding: var(--menu-item-padding);
+  position: relative;
+  outline: 0;
+  user-select: none;
+  transition: background var(--motion-duration-sm);
+  transition:
+    background var(--motion-duration-sm),
+    color var(--motion-duration-sm);
+
+  &:is(:hover, :active, :focus) {
+    background-color: var(--color-ink-accent);
+    text-decoration: none;
+  }
+
+  &:[aria-current] {
+    background-color: var(--color-background-brand-light);
+    cursor: default;
+    pointer-events: none;
+  }
+
+  &:focus-visible {
+    box-shadow: var(--layer-box-shadow-focus-outline);
+  }
+}
+
+[role='menuitem']:not(.global-nav [role='menuitem']) {
+  @include label;
+
+  height: var(--menu-item-height);
+}
+
+// Truncate text. Apply it on direct child using as label
+[role='menuitem'] > span {
+  @include text-truncate;
+
+  min-width: 0;
+}
+
+[role='menuitem'] > .icon {
+  margin-right: $size-2;
+  transform: var(--menu-item-icon-offset);
+}

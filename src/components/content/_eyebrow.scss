@@ -1,0 +1,13 @@
+.eyebrow {
+  @include label;
+
+  // it can be --color-ink-brand-text, --color-ink-brand-2ry too
+  --color: var(--color-ink-2ry);
+
+  color: var(--color);
+  // for a.eyebrow
+  display: block;
+  margin: 0;
+  padding-top: var(--size-padding-top-small);
+  padding-bottom: var(--size-padding-bottom-small);
+}

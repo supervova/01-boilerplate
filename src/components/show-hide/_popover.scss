@@ -1,0 +1,96 @@
+@use '../../config/variables' as *;
+@use '../../config/mixins' as *;
+
+/* details */.popover {
+  --background: var(--color-background-base);
+  --border-radius: #{$shape-border-radius-base};
+  --border: #{$size-border-width} solid hsl(var(--color-ink-shadow) / .06);
+  --box-shadow: var(--layer-box-shadow-z3);
+  --color: var(--color-ink-2ry);
+  --padding: #{$size-2};
+  --width: #{$size-width-sm};
+
+  --summary-background: var(--color-ink-accent);
+  --summary-background-hover: hsl(var(--h) var(--s) 97%);
+
+  position: relative;
+
+  // Summary. Use .btn or menu__item for general styling
+  summary {
+    background-color: var(--summary-background);
+    cursor: pointer;
+    line-height: inherit;
+    margin-bottom: 0;
+    transition: background-color var(--motion-duration-sm);
+
+
+    &:active,
+    &:focus-visible {
+      background-color: var(--summary-background-hover);
+    }
+
+    &:focus-visible {
+      box-shadow: var(--layer-box-shadow-focus-outline);
+    }
+  }
+
+  /* Chevron */
+  summary::after {
+    @include chevron-down;
+    --icon-size: #{$size-2d5};
+
+    transform: translateY(calc(var(--icon-size) / 2));
+  }
+
+  /* Invisible layer for click to close */
+  &[open] summary::before {
+    background: none;
+    content: '';
+    cursor: default;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+  }
+
+  // The body
+  [role='dialog'] {
+    background-clip: padding-box;
+    background-color: var(--background);
+    border-radius: var(--border-radius);
+    border: var(--border);
+    box-shadow: var(--box-shadow);
+    color: var(--color);
+    text-align: left;
+    margin: 0;
+    padding: var(--padding);
+    opacity: 0;
+    position: absolute;
+    top: auto;
+    left: 0;
+    transition: opacity var(--motion-duration-sm);
+    width: var(--width);
+    z-index: $layer-zindex-popover;
+  }
+
+  &[open] [role='dialog'] {
+    opacity: 1;
+  }
+
+  &.is-up [role='dialog'] {
+    bottom: 100%;
+  }
+
+  &.is-right [role='dialog'] {
+    left: auto;
+    right: 0;
+  }
+
+  @media (--phone-l) {
+    --width: #{$size-width-base};
+  }
+}
+
+

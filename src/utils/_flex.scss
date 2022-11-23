@@ -1,0 +1,77 @@
+@use '../config/variables' as *;
+@use '../config/mixins' as *;
+
+$utility-flex: (
+
+  flex-direction: (
+    'flex-row': row,
+    'flex-column': column
+    // 'flex-row-reverse': row-reverse,
+    // 'flex-column-reverse': column-reverse,
+  ),
+
+  flex-wrap: (
+    'flex-wrap': wrap,
+    'flex-nowrap': nowrap
+    // 'flex-wrap-reverse': wrap-reverse,
+  ),
+
+  flex: (
+    'flex-fill': '1 1 auto',
+  ),
+
+  flex-grow: (
+    'flex-grow-0': 0,
+    'flex-grow': 1
+  ),
+
+  flex-shrink: (
+    'flex-shrink-0': 0,
+    'flex-shrink': 1
+  ),
+
+  justify-content: (
+    'justify-start': flex-start,
+    'justify-end': flex-end,
+    'justify-center': center,
+    'justify-between': space-between
+    // 'justify-around': space-around
+  ),
+
+  align-items: (
+    'items-start': flex-start,
+    'items-end': flex-end,
+    'items-center': center,
+    'items-stretch': stretch,
+    // 'items-baseline': baseline,
+  ),
+
+  align-content: (
+    'content-start': flex-start,
+    'content-end': flex-end,
+    'content-center': center,
+    'content-between': space-between,
+    'content-stretch': stretch,
+    // 'content-around': space-around,
+  ),
+
+  align-self: (
+    'self-auto': auto,
+    'self-start': flex-start,
+    'self-end': flex-end,
+    'self-center': center,
+    'self-stretch' : stretch,
+    // 'self-baseline': baseline,
+  )
+
+) !default;
+
+@include utility-classes($utility-flex);
+
+.col-flex {
+  display: block;
+  flex: 1 1 auto;
+  margin-left: 0;
+  max-width: 100%;
+  width: 100%;
+}

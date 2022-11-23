@@ -1,0 +1,10 @@
+/* stylelint-disable property-no-unknown */
+
+// content-visibility to boost rendering performance
+// https://web.dev/content-visibility/
+
+.section {
+  content-visibility: auto;
+  padding-top: ($size-line * 2);
+  padding-bottom: ($size-line * 2);
+}

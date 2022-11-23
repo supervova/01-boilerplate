@@ -1,0 +1,112 @@
+// stylelint-disable declaration-colon-space-after, order/order
+
+@use 'sass:math';
+@use 'variables' as *;
+
+:root:not([data-theme='dark']),
+[data-theme='light'] {
+  color-scheme: light;
+
+  // ---------------------------------------------------------------------------
+  // 🎨 COLORS
+  // ---------------------------------------------------------------------------
+  // #region
+
+  // BRAND
+  // --color-brand-50 … --color-brand-900
+  --color-brand-600:                    hsl(var(--h) var(--s) 55%);
+
+  --color-brand-default:                var(--color-brand-600);
+
+  --color-brand-gradient-dark:
+    linear-gradient(
+      hsl(var(--h) var(--s) 44%),
+      hsl(var(--h) var(--s) 40%)
+    );
+
+  --color-brand-scrim:
+    linear-gradient(
+      hsl(var(--h) var(--s) 10% / .72),
+      hsl(var(--h) var(--s) 10% / .72)
+    );
+
+  // BASE BACKGROUNDS
+  // For the sake of design, we can violate the recommendations in contrast, but
+  // only where, it will not spoil the UX.
+  --color-background-base:              hsl(var(--h) var(--s-neutral) var(--l-bg-base));
+  --color-background-2ry:               hsl(var(--h) var(--s-neutral) 95%);
+  --color-background-inverse:           hsl(var(--h) var(--s-neutral) 15%);
+  --color-background-acrylic:           hsl(var(--h) var(--s-neutral) 99% / .6);
+  // Use @-moz-document url-prefix() { background-color: hsl(0 0% 100% .92);} for FireFox
+  --color-background-acrylic-backdrop:  #{saturate(180%) blur(20px)};
+  --color-background-acrylic-backdrop-sm:  #{saturate(180%) blur(8px)};
+  --color-background-scrim:             #{$color-background-scrim};
+  --color-background-scrim-max:         rgb(0 0 0 / .87);
+
+  // BASE INKS
+  // Inks are foreground colors for headlines, body copy and icons.
+  --color-ink-text:                     hsl(var(--h) var(--s) 15%);
+  --color-ink-max:                      var(--color-ink-text);
+  --color-ink-2ry:                      hsl(var(--h) var(--s-neutral) 41%);
+  --color-ink-3ry:                      hsl(var(--h) var(--s-neutral) 52%);
+  --color-ink-icon:                     var(--color-ink-3ry);
+  --color-ink-shadow:                   var(--h) 10% 11%;
+  --color-ink-border:                   hsl(var(--h) var(--s-neutral) 79%);
+  --color-ink-border-translucent:       hsl(var(--color-ink-shadow) / .16);
+  --color-ink-accent:                   hsl(var(--color-ink-shadow) / .04);
+  --color-ink-link:                     hsl(var(--h) var(--s) 41%);
+  --color-ink-link-hover:               hsl(var(--h) var(--s) 53%);
+  --color-ink-code:                     hsl(var(--h-magenta) var(--s) var(--l));
+  --color-ink-scroll-thumb:             rgb(0 0 0 / .5);
+
+  --color-ink-inverse-max:              hsl(0 0% 100%);
+  --color-ink-inverse-text:             hsl(0 0% 100% / .87);
+  --color-ink-inverse-2ry:              hsl(0 0% 100% / .54);
+  --color-ink-inverse-3ry:              hsl(0 0% 100% / .38);
+  --color-ink-inverse-border:           hsl(0 0% 100% / .12);
+
+  // BRAND AND SEMANTIC
+  --color-background-brand-light:       hsl(var(--h) var(--s) 94%);
+  --color-background-brand-dark:        hsl(var(--h) var(--s) 41%);
+  --color-ink-brand-text:               hsl(var(--h) var(--s) 41%);
+  --color-ink-brand-2ry:                hsl(var(--h) var(--s) 53%);
+  --color-ink-brand-border:             hsl(var(--h) var(--s) 89%);
+
+  --color-background-error:             hsl(var(--h-red) var(--s) 94%);
+  --color-ink-error-base:               hsl(var(--h-red) var(--s) 63%);
+  --color-ink-error-text:               hsl(var(--h-red) var(--s) 45%);
+  --color-ink-error-2ry:                hsl(var(--h-red) var(--s) 61%);
+  --color-ink-error-border:             var(--color-ink-error-base);
+
+  --color-background-warning:           hsl(var(--h-yellow) var(--s) 68%);
+  --color-ink-warning-base:             hsl(var(--h-yellow) var(--s) 48%);
+  --color-ink-warning-text:             hsl(var(--h-yellow) var(--s) 23%);
+  --color-ink-warning-2ry:              hsl(var(--h-yellow) var(--s) 30%);
+
+  --color-background-success:           hsl(var(--h-green) var(--s) 86%);
+  --color-ink-success-text:             hsl(var(--h-green) var(--s) 26%);
+  --color-ink-success-2ry:              hsl(var(--h-green) var(--s) 33%);
+  --color-ink-success-border:           hsl(var(--h-green) var(--s) 35%);
+
+  --color-background-info:              hsl(var(--h) var(--s) 92%);
+  --color-ink-info-fill:                var(--color-ink-link-hover);
+  --color-ink-info-text:                var(--color-ink-link);
+  // #endregion
+
+  // ---------------------------------------------------------------------------
+  // 🧑🏻‍🎨 GRAPHICS
+  // ---------------------------------------------------------------------------
+  // #region
+
+  // TODO: use postcss-inline-svg
+
+  --icon-check:                         url('data:image/svg+xml,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M5.5%2010.5L8.5%2013.5L14.5%207.5%22%20stroke%3D%22white%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E');
+  --icon-chevron-down:                  url('data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M6%209L12%2015L18%209%22%20stroke%3D%22black%22%20stroke-opacity%3D%220.38%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E%0A');
+  --icon-error:                         url('data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M8.7%203H15.3C15.6%203%2015.8%203.1%2016%203.3L20.7%208C20.9%208.2%2021%208.4%2021%208.7V15.3C21%2015.6%2020.9%2015.8%2020.7%2016L16%2020.7C15.8%2020.9%2015.6%2021%2015.3%2021H8.7C8.4%2021%208.2%2020.9%208%2020.7L3.3%2016C3.1%2015.8%203%2015.6%203%2015.3V8.7C3%208.4%203.1%208.2%203.3%208L8%203.3C8.2%203.1%208.4%203%208.7%203V3Z%22%20stroke%3D%22%23FF0000%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3Cpath%20d%3D%22M12%208V12M12%2016H12.01%22%20stroke%3D%22%23FF0000%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E');
+  --icon-minus:                         url('data:image/svg+xml,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cline%20x1%3D%225%22%20y1%3D%2210%22%20x2%3D%2215%22%20y2%3D%2210%22%20stroke%3D%22white%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%2F%3E%3C%2Fsvg%3E%0A');
+  --icon-search:                        url('data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M14.9497%2014.9497C17.6834%2012.2161%2017.6834%207.78392%2014.9497%205.05025C12.2161%202.31658%207.78392%202.31658%205.05025%205.05025C2.31658%207.78392%202.31658%2012.2161%205.05025%2014.9497C7.78392%2017.6834%2012.2161%2017.6834%2014.9497%2014.9497ZM14.9497%2014.9497L21%2021%22%20stroke%3D%22black%22%20stroke-opacity%3D%220.38%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E%0A');
+  --icon-sm-chevron-down:               url('data:image/svg+xml,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M6%208L10%2012L14%208%22%20stroke%3D%22black%22%20stroke-opacity%3D%220.38%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E%0A');
+  --icon-success:                       url('data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M9%2012L11%2014L15%2010M21%2012C21%2016.9706%2016.9706%2021%2012%2021C7.02944%2021%203%2016.9706%203%2012C3%207.02944%207.02944%203%2012%203C16.9706%203%2021%207.02944%2021%2012Z%22%20stroke%3D%22%2300A300%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E%0A');
+  --icon-x-mark:                        url('data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M18%206L6%2018M6%206L18%2018%22%20stroke%3D%22black%22%20stroke-opacity%3D%220.38%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E%0A');
+  // #endregion
+}

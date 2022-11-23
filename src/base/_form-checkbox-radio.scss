@@ -1,0 +1,162 @@
+@use '../config/variables' as *;
+
+// -----------------------------------------------------------------------------
+// CONTAINERS
+// -----------------------------------------------------------------------------
+// #region
+
+$size-xy-check-radio: $size-2;
+$size-border-width-check-radio: 1px;
+
+fieldset {
+  padding-bottom: $size-line;
+
+  // Checkboxes and radio buttons containers
+  > label {
+    display: block;
+  }
+}
+
+
+// wait :has support in chrome and firefox
+// label:has(> [type='checkbox'], > [type='radio'])
+.form__option {
+  color: var(--color-ink-2ry);
+  margin: 0 $size-1 0 0;
+  padding-top: var(--size-padding-top-label-option);
+  padding-left: $size-3;
+}
+
+// wait :has support in chrome and firefox
+// :not(fieldset) > label:has(> [type='checkbox'], > [type='radio']),
+:not(fieldset) > .form__option {
+  padding-bottom: $size-2p5;
+}
+// #endregion
+
+// -----------------------------------------------------------------------------
+// CHECKBOXES AND RADIOS
+// -----------------------------------------------------------------------------
+// #region
+
+[type='checkbox'],
+[type='radio'] {
+  appearance: none;
+  background-color: var(--color-background-2ry);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: $size-border-width-check-radio solid var(--color-ink-border);
+
+  // Keep themed appearance for print
+  color-adjust: exact;
+  cursor: pointer;
+  margin-right: $size-1;
+
+  // Remove the padding in IE 10
+  padding: 0;
+  vertical-align: middle;
+  width: $size-xy-check-radio;
+  height: $size-xy-check-radio;
+
+  &::-ms-check {
+    // unstyle IE checkboxes
+    display: none;
+  }
+
+  &:active {
+    filter: $color-brightness-down;
+  }
+
+  &:focus-visible {
+    box-shadow: var(--layer-box-shadow-focus-outline);
+    outline: 0;
+  }
+
+  &:checked {
+    background-color: var(--color-ink-brand-2ry);
+    border-color: var(--color-ink-brand-2ry);
+
+    &.is-dangerous,
+    .is-dangerous > & {
+      background-color: var(--color-background-error-dark);
+      border-color: var(--color-background-error-dark);
+    }
+  }
+
+  &:indeterminate {
+    background-image: url('data:image/svg+xml,%3csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"%3e%3cpath fill="none" stroke="%23fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 10h8"/%3e%3c/svg%3e');
+  }
+
+  &:disabled {
+    filter: none;
+    opacity: .5;
+    pointer-events: none;
+  }
+}
+
+// override BS qualifying selectors
+/* stylelint-disable selector-no-qualifying-type */
+input:is([type='checkbox'], [type='radio']) {
+  margin-top: 0;
+
+  &:focus-visible {
+    outline: 0;
+  }
+}
+// stylelint-enable selector-no-qualifying-type
+
+[type='checkbox'] {
+  border-radius: $shape-border-radius-xs;
+
+  &:checked {
+    background-image: url('data:image/svg+xml,%3csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"%3e%3cpath fill="none" stroke="%23fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 10l3 3l6-6"/%3e%3c/svg%3e');
+  }
+}
+
+[type='radio'] {
+  border-radius: 50%;
+
+  &:checked {
+    background-image: url('data:image/svg+xml,%3csvg xmlns="http://www.w3.org/2000/svg" viewBox="-4 -4 8 8"%3e%3ccircle r="2" fill="%23fff"/%3e%3c/svg%3e');
+  }
+}
+
+// wait :has support in chrome and firefox
+// label:has(> [type='checkbox'], > [type='radio']),
+.form__option :is(> [type='checkbox'], > [type='radio']) {
+  margin-right: 0;
+  position: absolute;
+  top: var(--size-padding-top-label-option);
+  left: 0;
+}
+// #endregion
+
+// -----------------------------------------------------------------------------
+// SWITCHS
+// -----------------------------------------------------------------------------
+// #region
+// @see stock
+// #endregion
+
+// -----------------------------------------------------------------------------
+// INVALID
+// -----------------------------------------------------------------------------
+// #region
+
+[type='checkbox'],
+[type='checkbox']:checked,
+[type='radio'],
+[type='radio']:checked,
+[type='checkbox'][role='switch'],
+[type='checkbox'][role='switch']:checked {
+
+  &[aria-invalid='false'] {
+    --border-color: var(--color-ink-border);
+  }
+
+  &[aria-invalid='true'] {
+    --border-color: var(--color-ink-error-border);
+  }
+}
+// #endregion

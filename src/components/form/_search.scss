@@ -1,0 +1,38 @@
+// Container
+// /* form */ [role='search'] {}
+
+// :not() are needed to add Specificity and avoid !important on padding
+input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='file']) {
+  &[type='search'] {
+    // Correct the odd appearance in Chrome and Safari
+    appearance: textfield;
+    border-radius: $shape-border-radius-sm;
+    background-repeat: no-repeat;
+    padding-right: var(--size-padding-x-input-lg);
+    padding-inline-end: var(--size-padding-x-input-lg);
+    // Correct the outline style in Safari
+    outline-offset: -2px;
+  }
+}
+
+// Cancel button
+[type='search']::-webkit-search-cancel-button {
+  appearance: none;
+  display: none;
+}
+
+[type='search']::-webkit-search-decoration {
+  // Remove the inner padding in Chrome and Safari on macOS
+  appearance: none;
+}
+
+// Disable search button when input is empty
+.search__btn {
+  pointer-events: none;
+  opacity: .5;
+}
+
+input:not(:placeholder-shown) + .search__btn {
+  pointer-events: auto;
+  opacity: 1;
+}
