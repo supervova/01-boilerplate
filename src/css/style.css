@@ -279,8 +279,6 @@
     --motion-duration-base: .2s;
     --motion-duration-lg: .4s;
   }
-  /* Light theme (Default). Can be forced with data-theme="light"
-     @see base/base.md for dark theme */
   /* stylelint-disable indentation */
   :root:not([data-theme=dark]),
 [data-theme=light] {
@@ -1403,9 +1401,8 @@ a[role=button][disabled]:hover {
   /* #endregion */
   /*
     TODO:
-    - Проверить открывается ли сайт на Githup Pages:
-    https://01-boilerplate.super-mark.ru/views/wip/_tmp.html.
-    - Тестирование и отладка стилей на планшете.
+    - Протестировать gulpfile
+    - Сделать минимальную Jekyll-тему: Notes ➜ 1. ❤️ Новый Jekyll-сайт + документация
   */
   /* -----------------------------------------------------------------------------
    * BASE
@@ -1515,6 +1512,9 @@ a[role=button][disabled]:hover {
     position: relative;
   }
   /* Header class is added in JS */
+  .modal__close + header {
+    /* Compensate for the height of the top scrim */
+  }
   .modal__close {
     --height: auto;
     background-color: var(--color-background-2ry);
@@ -2310,6 +2310,32 @@ textarea,
     width: 100%;
   }
 }
+/* Don't use cascade layers if you care about the Safari 15.3- */
+/*
+@use 'config/theme-root';
+@use 'config/theme-light';
+
+@use 'base/reset';
+@use 'base/animation';
+@use 'base/doc';
+@use 'base/content-headings';
+@use 'base/content-copy';
+@use 'base/content-media';
+@use 'base/graphics/icon';
+@use 'base/button';
+@use 'base/layout';
+
+@use 'components/show-hide/modal';
+@use 'components/form/validation';
+
+@use 'utils/accessibility';
+@use 'utils/content';
+@use 'utils/display';
+@use 'utils/flex';
+@use 'utils/reduce-motion';
+@use 'utils/spacing';
+@use 'utils/width';
+*/
 @media screen and (min-width: 568px){
     .phone-l\:col-1 {
       grid-column: auto/span 1;
@@ -3313,6 +3339,12 @@ textarea,
     }
     .modal.is-lg {
       width: 720px;
+    }
+    .modal__close + .is-pinned {
+      margin-top: -32px;
+    }
+    .modal__close + header {
+      margin-top: -32px;
     }
     .modal__close {
       top: 8px;

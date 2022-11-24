@@ -3,9 +3,8 @@
 
 /*
   TODO:
+  - Протестировать gulpfile
   - Сделать минимальную Jekyll-тему: Notes ➜ 1. ❤️ Новый Jekyll-сайт + документация
-  - Обновить gulpfile - см. gulpfile-copy
-  - Тестирование и отладка стилей на планшете.
 */
 
 /* -----------------------------------------------------------------------------
@@ -174,6 +173,17 @@
   @media (--phone) {
     padding-inline-end: $size-8;
     padding-inline-start: calc(var(--modal-padding-x) - #{$size-1});
+  }
+
+  @media (--tablet) {
+    margin-top: -$size-4;
+  }
+}
+
+.modal__close + header {
+  /* Compensate for the height of the top scrim */
+  @media (--tablet) {
+    margin-top: -$size-4;
   }
 }
 

@@ -1,13 +1,13 @@
 encoding: 'utf-8'
 
 # SITE
-lang: ru
+lang: en
 
 title: 01-boilerplate
 short_name: 01bp
 
 description: >-
-  Важнейшие конструкции и концепции JavaScript. В будущем — Dart и Flutter.
+  The ‘CSS Tricks’ Inspired Framework
 
 # The base hostname & protocol for the site without a trailing slash,
 # e.g. https://example.tld
@@ -53,7 +53,7 @@ defaults:
       type: pages # all pages
     values:
       layout: page
-      lang: ru
+      lang: en
 
 # Exclude from processing.
 # We use underscore prefix in js/[_base, _how-to] to prevent the processing
@@ -82,7 +82,6 @@ keep_files:
   - assets/css
   - assets/img
   - assets/js
-  - assets/video
 
 # Plugins
 plugins:

@@ -1,5 +1,5 @@
 {
-  "name": "pproject",
+  "name": "01boilerplate",
   "version": "1.0.0",
   "description": "",
   "author": {
@@ -9,7 +9,8 @@
   },
   "license": "MIT",
   "scripts": {
-    "b": "gulp --p"
+    "b": "gulp --p",
+    "start": "concurrently --kill-others 'gulp s' 'gulp w'"
   },
   "engines": {
     "node": ">=10",

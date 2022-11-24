@@ -3,9 +3,6 @@
 
 @layer config {
   @include meta.load-css('config/theme-root');
-
-  /* Light theme (Default). Can be forced with data-theme="light"
-     @see base/base.md for dark theme */
   @include meta.load-css('config/theme-light');
 }
 
@@ -35,3 +32,30 @@
   @include meta.load-css('utils/spacing');
   @include meta.load-css('utils/width');
 }
+
+/* Don't use cascade layers if you care about the Safari 15.3- */
+/*
+@use 'config/theme-root';
+@use 'config/theme-light';
+
+@use 'base/reset';
+@use 'base/animation';
+@use 'base/doc';
+@use 'base/content-headings';
+@use 'base/content-copy';
+@use 'base/content-media';
+@use 'base/graphics/icon';
+@use 'base/button';
+@use 'base/layout';
+
+@use 'components/show-hide/modal';
+@use 'components/form/validation';
+
+@use 'utils/accessibility';
+@use 'utils/content';
+@use 'utils/display';
+@use 'utils/flex';
+@use 'utils/reduce-motion';
+@use 'utils/spacing';
+@use 'utils/width';
+*/

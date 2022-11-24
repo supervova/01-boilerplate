@@ -26,8 +26,6 @@ import size from 'gulp-size';
 import yargs from 'yargs';
 
 import autoprefixer from 'autoprefixer';
-
-// import cleanCss from 'gulp-clean-css';
 import cssnano from 'cssnano';
 import dartSass from 'sass';
 import gulpSass from 'gulp-sass';
@@ -47,6 +45,7 @@ import imageminSVG from 'imagemin-svgo';
 import svgSprite from 'gulp-svg-sprite';
 import webpack from 'webpack-stream';
 
+import shell from 'shelljs';
 import del from 'del';
 import browserSync from 'browser-sync';
 
@@ -109,6 +108,46 @@ const paths = {
     },
     dest: `${root.src}/base/graphics`,
   },
+};
+// #endregion
+
+/**
+ * -----------------------------------------------------------------------------
+ * 🧪 JEKYLL
+ * -----------------------------------------------------------------------------
+ */
+// #region
+
+// eslint-disable Missing JSDoc comment.
+
+// Error: no acceptor (port is in use or requires root privileges)'
+// We need to stop the local server, see what processes are running
+// on the 4000th port ...
+// $ lsof -i tcp:4000
+// And then terminate unnecessary processes by specifying the PID
+// $ kill -9 <PID>
+
+const jekyllBuild = (done) => {
+  let command;
+
+  if (PRODUCTION) {
+    command = shell.exec('JEKYLL_ENV=production bundle exec jekyll build');
+    done();
+  }
+
+  if (!PRODUCTION) {
+    command = shell.exec('bundle exec jekyll build --config _config.yml');
+    // command = child.spawn('bundle', ['exec', 'jekyll', 'build', '--config', '_config.yml,_config.dev.yml'], { stdio: 'inherit' });
+    done();
+  }
+  return command;
+};
+
+const jekyllServe = (done) => {
+  shell.exec(
+    'bundle exec jekyll serve --incremental --watch --drafts --trace --config _config.yml'
+  );
+  done();
 };
 // #endregion
 
@@ -364,7 +403,30 @@ const copyDocs = () => {
  * -----------------------------------------------------------------------------
  */
 // #region
-const serve = (done) => {
+const reload = (done) => {
+  server.reload();
+  done();
+};
+
+const watchFiles = () => {
+  watch(paths.css.watch, css);
+  watch(paths.js.watch, series(js, reload));
+  watch(paths.img.watch, series(img, reload));
+  watch(paths.docs.src, series(copyDocs, reload));
+};
+
+const serve = series(
+  clean,
+  copyDocs,
+  sprite,
+  jekyllBuild,
+  parallel(css, js, img),
+  jekyllServe
+);
+
+/* Use Browsersync for testing on mobile devices. Use html paths instead
+extension-free permalinks */
+const browserSyncStart = (done) => {
   server.init({
     server: {
       baseDir: root.dest,
@@ -379,32 +441,29 @@ const serve = (done) => {
   done();
 };
 
-const reload = (done) => {
-  server.reload();
-  done();
-};
-
-const watchFiles = () => {
-  watch(paths.css.watch, css);
-  watch(paths.js.watch, series(js, reload));
-  watch(paths.img.watch, series(img, reload));
-  watch(paths.docs.src, series(copyDocs, reload));
-};
+const serveBrowserSync = series(
+  copyDocs,
+  sprite,
+  parallel(css, js, img),
+  browserSyncStart,
+  watchFiles
+);
 
 // #endregion
 
 /**
  * -----------------------------------------------------------------------------
- * 🏗 BUILD / DEFAULT
+ * 🏗 BUILD
  * -----------------------------------------------------------------------------
  */
 // #region
-// Add jsPlugins in parallel if it's used
+const build = series(
+  clean,
+  jekyllBuild,
+  sprite,
+  parallel(css, js, img, copyDocs)
+);
 
-const dev = series(sprite, parallel(css, js, img), serve, watchFiles);
-
-// Add jsPlugins in parallel if it's used
-const build = series(clean, sprite, parallel(css, js, img, copyDocs));
 // #endregion
 
 /**
@@ -412,12 +471,19 @@ const build = series(clean, sprite, parallel(css, js, img, copyDocs));
  * ☑️ TASKS
  * -----------------------------------------------------------------------------
  */
-exports.clean = clean;
 
+// Add-ons
+exports.bs = serveBrowserSync;
+exports.clean = clean;
 exports.docs = copyDocs;
+exports.j = jekyllBuild;
+exports.jks = jekyllServe;
+
+// Base
 exports.img = img;
 exports.js = js;
 exports.css = css;
 exports.sprite = sprite;
+exports.w = watchFiles;
 exports.default = build;
-exports.s = dev;
+exports.s = serve;

@@ -13,3 +13,64 @@
   screen and (min-width: 768px),
   (not (pointer: coarse) and (orientation: landscape));
 ```
+
+## Light theme
+
+Light theme (default) can be forced with the `data-theme="light"` attributes and the `[data-theme='dark']` selectors.
+
+### Dark theme
+
+```scss
+@mixin dark-theme {
+  color-scheme: dark;
+
+  // The saturation and lightness reduced a relative 20%.
+  --s: 64%;
+
+  --color-brand-default: hsl(var(--h), var(--s), 44%);
+
+  --color-background-base: hsl(var(--h) 10% 10%);
+  --color-background-2ry: hsl(var(--h) 10% 15%);
+  --color-background-z3: hsl(var(--h) 5%  20%);
+  --color-background-z5: hsl(var(--h) 5% 25%);
+
+  --color-ink-text: hsl(var(--h) 15% 85%);
+  --color-ink-2ry: hsl(var(--h) 5% 65%);
+
+  --color-ink-shadow: var(--h) 50% 3%;
+
+  // Etc
+}
+```
+
+#### Уровень настроек системы (автоматический режим)
+
+```scss
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    @include dark-theme;
+  }
+}
+```
+
+#### Уровень сайта/приложения
+
+Включается в пользовательском атрибуте `data-theme`.
+
+```scss
+
+[data-theme='light'],
+:root:not([data-theme='dark']) {/* светлая тема */}
+
+[data-theme='dark'] {
+  @include dark-theme;
+}
+```
+
+Допускаются и вложенные темы.
+
+```pug
+html(data-theme='light')
+  section(data-theme='dark')
+    .component(data-theme='light')
+```
