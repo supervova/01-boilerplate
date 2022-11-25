@@ -9,7 +9,7 @@ _site
 _tmp
 deploy.sh
 dist
-docs/ru
+src/**/docs/ru
 
 # Media Files
 *.avi
