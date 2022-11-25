@@ -1401,6 +1401,8 @@ a[role=button][disabled]:hover {
   /* #endregion */
   /*
     TODO:
+    - Сделать docs, как submodule: Notes ➜ 👨‍👩‍👦‍👦 Подмодули (Submodules) и мультирепозитории
+    - Перенести туда Jekyll-сайт
     - Сделать минимальную Jekyll-тему: Notes ➜ 1. ❤️ Новый Jekyll-сайт + документация
       - Остановился на header'е
     - Протестировать gulpfile
