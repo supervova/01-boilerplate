@@ -79,6 +79,7 @@ const paths = {
   img: {
     src: {
       graphics: [
+        './docs/img/**/*.+(jpg|jpeg|png|svg|gif|webp|ico)',
         `${root.src}/**/*.+(jpg|jpeg|png|svg|gif|webp|ico)`,
         `!${root.src}/base/graphics/sprite/**/*`,
         `!${root.src}/img/**/*`,

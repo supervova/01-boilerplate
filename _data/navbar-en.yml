@@ -1,0 +1,15 @@
+- title: 'Benefits'
+  slug: 'benefits'
+  ordinal: 1
+
+- title: 'Work'
+  slug: 'services'
+  ordinal: 2
+
+- title: 'Prices'
+  slug: 'prices'
+  ordinal: 3
+
+- title: 'About'
+  slug: 'about'
+  ordinal: 4

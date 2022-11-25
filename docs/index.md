@@ -1,5 +1,6 @@
 ---
 title: 01-boilerplate - Class-light CSS Framework
+permalink: /
 ---
 
 <article tabindex="0">

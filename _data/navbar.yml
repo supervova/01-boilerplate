@@ -1,0 +1,15 @@
+- title: 'Услуги и примеры'
+  slug: 'services'
+  ordinal: 2
+
+- title: 'Цены'
+  slug: 'prices'
+  ordinal: 3
+
+- title: 'О «СуперМарке»'
+  slug: 'about'
+  ordinal: 4
+
+- title: 'Блог'
+  slug: 'blog'
+  ordinal: 5

@@ -16,6 +16,8 @@ url: https://01-boilerplate.super-mark.ru
 # the subpath of the site, e.g. /blog
 baseurl: ''
 assets: /assets
+image: /img/cover.png
+icon: /img/icon-192.png
 
 color: '#5d5de5'
 
@@ -66,7 +68,9 @@ exclude:
   - .sass-cache
   - Gemfile
   - Gemfile.lock
+  - LICENSE.md
   - _tmp
+  - deploy.sh
   - gemfiles
   - gulpfile*
   - node_modules
@@ -76,6 +80,9 @@ exclude:
   - todo.md
   - yarn-error.log
   - yarn.lock
+  - '*~.*'
+  - backup
+
 
 keep_files:
   - .git
