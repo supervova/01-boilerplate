@@ -65,6 +65,11 @@
   --color-ink-inverse-3ry:              hsl(0 0% 100% / .38);
   --color-ink-inverse-border:           hsl(0 0% 100% / .12);
 
+  --color-ink-neutral-text:             hsl(0 0% 0% / .87);
+  --color-ink-neutral-2ry:              hsl(0 0% 0% / .54);
+  --color-ink-neutral-3ry:              hsl(0 0% 0% / .38);
+  --color-ink-neutral-border:           hsl(0 0% 0% / .12);
+
   // BRAND AND SEMANTIC
   --color-background-brand-light:       hsl(var(--h) var(--s) 94%);
   --color-background-brand-dark:        hsl(var(--h) var(--s) 41%);

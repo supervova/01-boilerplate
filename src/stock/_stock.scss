@@ -86,6 +86,7 @@ COMPONENTS: FORM
 
 COMPONENTS: FEEDBACK
   Progress
+  Dismissible Alerts
 
 COMPONENTS: LAYOUT
   Hero: Creating a duotone image background with CSS blend modes
@@ -1606,6 +1607,18 @@ progress {
   }
 }
 /* #endregion */
+
+/* Dismissible Alerts */
+.alert.is-dismissible {
+  padding-right: $size-4;
+
+  // Adjust close link position
+  .button.is-close {
+    position: absolute;
+    top: $size-1;
+    right: $size-1;
+  }
+}
 
 /* #endregion */
 
