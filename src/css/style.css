@@ -1401,10 +1401,9 @@ a[role=button][disabled]:hover {
   /* #endregion */
   /*
     TODO:
-    - Сделать docs, как submodule: Notes ➜ 👨‍👩‍👦‍👦 Подмодули (Submodules) и мультирепозитории
-    - Перенести туда Jekyll-сайт
     - Сделать минимальную Jekyll-тему: Notes ➜ 1. ❤️ Новый Jekyll-сайт + документация
       - Остановился на header'е
+    - Настроить сборку Jekyll-сайта в каталоге docs из корневого сайта 01-boilerplate
     - Протестировать gulpfile
 
   */
@@ -1703,6 +1702,32 @@ html:has(dialog[open]) .modal {
 
   .has-been-validated label:has(input[type=checkbox]:not(:focus):invalid) + [role=alert] {
     display: block;
+  }
+
+  /* stylelint-disable indentation */
+  .content {
+    margin-inline: auto;
+    padding-top: 1.5rem;
+    padding-bottom: 3rem;
+    width: min(100%, var(--size-width-readable));
+  }
+  /*
+  FULL BLEED SECTION
+  .content child section expanded on to 100% screen width.
+  It can be used as a container for an image or a promo.
+  RTL compatible
+  use padding-start to deal with sidebar */
+}
+@layer components {
+  /* stylelint-disable indentation */
+  .footer {
+    border-top: 1px solid var(--color-ink-border);
+    color: var(--color-ink-2ry);
+    text-align: center;
+    margin-top: 64px;
+    margin-inline: auto;
+    padding: 4.5rem 1.25rem;
+    width: min(100%, var(--size-width-readable));
   }
 }
 @layer utilities {
@@ -3392,6 +3417,10 @@ textarea,
       -webkit-animation: slide-out-up var(--motion-duration-base) cubic-bezier(0.4, 0, 1, 1), fade-out var(--motion-duration-base) cubic-bezier(0.4, 0, 1, 1);
               animation: slide-out-up var(--motion-duration-base) cubic-bezier(0.4, 0, 1, 1), fade-out var(--motion-duration-base) cubic-bezier(0.4, 0, 1, 1);
     }
+    .content {
+      padding-top: 3rem;
+      padding-bottom: 4.5rem;
+    }
 }
 @media screen and (min-width: 1024px){
   :root {
@@ -3964,6 +3993,26 @@ a[role=button] {
 
     .desktop\:col-start-11 {
       grid-column-start: 11;
+    }
+    .content__full-width {
+      text-align: center;
+      margin-inline: -50vw;
+      -webkit-padding-end: var(--size-padding-x-container);
+              padding-inline-end: var(--size-padding-x-container);
+      -webkit-padding-start: calc(var(--size-width-navbar) + var(--size-padding-x-container));
+              padding-inline-start: calc(var(--size-width-navbar) + var(--size-padding-x-container));
+      position: relative;
+      right: 50%;
+      left: 50%;
+      width: 100vw;
+    }
+
+    .content__full-width > img,
+.content__full-width > table,
+.content__full-width > .border,
+.content__full-width > .scroller {
+      margin-inline: auto;
+      max-width: var(--size-width-content-extended);
     }
     .desktop\:text-center {
       text-align: center;

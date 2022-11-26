@@ -21,6 +21,11 @@
 @layer components {
   @include meta.load-css('components/show-hide/modal');
   @include meta.load-css('components/form/validation');
+  @include meta.load-css('components/content/containers');
+}
+
+@layer components {
+  @include meta.load-css('components/structures/footer');
 }
 
 @layer utilities {
