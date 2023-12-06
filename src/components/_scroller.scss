@@ -1,0 +1,72 @@
+@use '../config' as *;
+
+// Wrapper to make tables and any other content responsive across all viewports
+
+$scroller-display: block;
+$scroller-shadow:
+  hsl(var(--color-ink-shadow) / .15),
+  hsl(var(--color-ink-shadow) / .13) 3%,
+  hsl(var(--color-ink-shadow) / .11) 11%,
+  hsl(var(--color-ink-shadow) / .09) 23%,
+  hsl(var(--color-ink-shadow) / .05) 38%,
+  hsl(var(--color-ink-shadow) / .03) 57%,
+  hsl(var(--color-ink-shadow) / .01) 78%,
+  hsl(var(--color-ink-shadow) / 0);
+$scroller-content-bg: var(--color-background-base);
+$scroller-content-bg-transparent: hsl(var(--h) var(--s-neutral) var(--l-bg-base) / 0);
+// Use this w/ shadows and sticky row headers
+$table-col-header-width: 0;
+
+.scroller {
+  /* Shadows: https://codepen.io/smashingmag/pen/ExRNxpd
+  Shadows and sticky header column: https://codepen.io/smashingmag/pen/QWxGWXq
+  ⚠️ The trick cannot be used with any cell backgrounds including the zebras. */
+  /* TODO: протестировать
+    adapt this JS+CSS solution for zebra
+    https://codepen.io/shadeed/pen/jWBjVd
+  */
+  background:
+    // The covers hide shadows at the end points
+    linear-gradient(
+      90deg,
+      $scroller-content-bg 50%,
+      $scroller-content-bg-transparent
+    ) $table-col-header-width 0,
+    linear-gradient(
+      90deg,
+      $scroller-content-bg-transparent,
+      $scroller-content-bg 50%
+    ) 100% 0,
+    // Shadows. We can't using PostCSS shadow easing within multiple backgrounds
+    linear-gradient(
+      90deg,
+      $scroller-shadow
+    ) $table-col-header-width 0,
+    linear-gradient(
+      270deg,
+      $scroller-shadow
+    ) 100% 0,
+    $scroller-content-bg;
+  // ⚠️ background-attachment property is not supported on iOS Safari
+  background-attachment: local, local, scroll, scroll;
+  background-repeat: no-repeat;
+  background-size: 24px 100%, 24px 100%, 12px 100%, 12px 100%;
+
+  border: 1px solid var(--color-ink-border);
+  display: $scroller-display;
+  // Negative values offset the border width.
+  margin: -1px 0 ($size-line - rem(1));
+  padding: 0;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  max-width: 100%;
+
+  &:focus-visible {
+    box-shadow: var(--box-shadow-focus-outline);
+    outline: 0;
+  }
+
+  @media (pointer: fine) {
+    @include scrollbar();
+  }
+}

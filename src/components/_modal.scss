@@ -1,0 +1,395 @@
+@use 'sass:map';
+@use '../config' as *;
+
+/* -----------------------------------------------------------------------------
+ * BASE
+ * -------------------------------------------------------------------------- */
+// #region
+
+$modal-background: var(--color-background-base);
+$modal-border-radius: $border-radius-lg;
+$modal-padding-x: var(--padding-x-box);
+
+// The <dialog> itself fulfills the role of a wrapper
+/* dialog */.modal {
+  background: $modal-background;
+  border-radius: $modal-border-radius;
+  box-shadow: var(--box-shadow-z5);
+
+  // Add extra padding on the outside of the scrollbar
+  border: $size-1 solid transparent;
+  border-bottom-width: $size-2;
+
+  border-radius: $modal-border-radius $modal-border-radius 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: auto auto 0;
+  padding: 0;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  position: fixed;
+  inset: 0;
+  width: min(100%, #{$width-lg});
+  height: calc(100% - #{$size-5});
+
+  // z-index has no effect in the top layer.
+
+  // Closed state
+  &:not([open]) {
+    display: none;
+  }
+
+  @media (pointer: coarse) {
+    scrollbar-gutter: stable both-edges;
+  }
+
+  @media (--tablet) {
+    border-radius: $modal-border-radius;
+    border-top-width: $size-2;
+    margin-bottom: auto;
+    height: max-content;
+    max-height: calc(100vh - #{$size-8});
+  }
+
+  @media (pointer: fine) {
+    @include scrollbar();
+  }
+}
+
+// SIZES
+// #region
+.modal.is-sm {
+  border-radius: $modal-border-radius;
+  margin-bottom: auto;
+  width: min(calc(100vw - #{$size-4}), #{$width-base});
+}
+
+// Large
+.modal.is-lg {
+  @media (--tablet) {
+    width: $width-xl;
+  }
+}
+// #endregion
+
+// SCRIMS
+// #region
+.modal::before,
+.modal::after {
+  display: block;
+  flex-shrink: 0;
+  content: '';
+  position: sticky;
+  right: 0;
+  left: 0;
+  height: $size-4;
+  z-index: 1;
+}
+
+.modal::before {
+  background-image:
+    linear-gradient(
+      $modal-background 1%,
+      hsl(var(--h) var(--s-neutral) var(--l-bg-base) / .5) 33.33%,
+      hsl(var(--h) var(--s-neutral) var(--l-bg-base) / 0)
+    );
+  top: 0;
+}
+
+.modal::after {
+  background-image:
+    linear-gradient(
+      hsl(var(--h) var(--s-neutral) var(--l-bg-base) / 0),
+      hsl(var(--h) var(--s-neutral) var(--l-bg-base) / .5) 66.67%,
+      $modal-background
+    );
+  bottom: 0;
+}
+// #endregion
+
+// BACKDROP
+// The elements of the top-level do not have access to root custom properties
+.modal:modal::backdrop {
+  background-color: map.get($color, background, scrim);
+  // pointer-events: none;
+}
+
+@supports not (selector(:modal)) {
+  .modal::backdrop {
+    background-color: map.get($color, background, scrim);
+  }
+}
+
+// #endregion
+
+/* -----------------------------------------------------------------------------
+ * HEADER & HEADINGS
+ * -------------------------------------------------------------------------- */
+// #region
+.modal > header {
+  /* The subtracted value is equal to the width of the border created for
+  scrollbar indent */
+  padding-right: calc(#{$modal-padding-x} - #{$size-1});
+  padding-left: calc(#{$modal-padding-x} - #{$size-1});
+  padding-inline: calc(#{$modal-padding-x} - #{$size-1});
+  position: relative;
+
+  @media (--phone) {
+    position: sticky;
+    top: -1px;
+  }
+}
+
+// Header class is added in JS
+.modal > .is-pinned {
+  @media (--phone) {
+    background-color: var(--color-background-frosted-glass);
+    backdrop-filter: var(--color-background-frosted-glass-backdrop);
+    box-shadow: 0 1px 0 var(--color-ink-border-translucent);
+    padding: $size-1 0 0;
+    z-index: 2;
+
+    @supports not selector(section:has(> footer)) {
+      padding-right: $size-1 * 11;
+      padding-left: $size-1 * 11;
+      padding-inline: $size-1 * 11;
+    }
+
+    @-moz-document url-prefix('') {
+      background-color: hsl(var(--h) var(--s-neutral) 99% / .9);
+    }
+  }
+}
+
+.modal:has(> footer) > .is-pinned {
+  @media (--phone) {
+    padding-right: $size-1 * 11;
+    padding-left: $size-1 * 11;
+    padding-inline: $size-1 * 11;
+  }
+}
+
+.modal__close + .is-pinned {
+  @media (--phone) {
+    padding-right: $size-8;
+    padding-left: calc(#{$modal-padding-x} - #{$size-1});
+    padding-inline-end: $size-8;
+    padding-inline-start: calc(#{$modal-padding-x} - #{$size-1});
+  }
+
+  @media (--tablet) {
+    margin-top: -$size-4;
+  }
+}
+
+.modal:has(.modal__close)::before {
+  // Compensate for the height of the top scrim
+  @media (--tablet) {
+    margin-top: -$size-6;
+  }
+}
+
+.is-pinned > .modal__title {
+  @media (--phone) {
+    @include text-truncate;
+
+    font-size: var(--font-size-base);
+    font-weight: bolder;
+    line-height: var(--line-height-base);
+    text-align: center;
+    padding-top: var(--padding-top-base);
+    padding-bottom: var(--padding-bottom-base);
+  }
+}
+
+.modal__close {
+  background-color: var(--color-background-2ry);
+  // Expand clicable area to recomended size
+  background-clip: padding-box;
+  border: solid $size-1 transparent;
+  // Lift up over the scrim
+  order: -1;
+  align-self: flex-end;
+  position: sticky;
+  top: 0;
+  inset-inline-end: $size-1;
+  height: auto;
+  z-index: 3;
+
+  @media (--tablet) {
+    top: $size-1;
+  }
+}
+
+.modal:not(.is-sm) :is(h1, h2:first-of-type) {
+  @include text-format(h2);
+}
+
+.modal.is-sm :is(h1, h2:first-of-type) {
+  @include text-format(big);
+}
+
+// #endregion
+
+/* -----------------------------------------------------------------------------
+ * CONTENT
+ * -------------------------------------------------------------------------- */
+// #region
+.modal__body {
+  padding-right: calc(#{$modal-padding-x} - #{$size-1});
+  padding-left: calc(#{$modal-padding-x} - #{$size-1});
+  padding-inline: calc(#{$modal-padding-x} - #{$size-1});
+}
+
+// External content container
+.modal__content {
+  padding-right: calc(#{$modal-padding-x} - #{$size-1});
+  padding-left: calc(#{$modal-padding-x} - #{$size-1});
+  padding-inline: calc(#{$modal-padding-x} - #{$size-1});
+
+  .grid {
+    @media (--tablet) {
+      --columns: 1;
+    }
+  }
+}
+// #endregion
+
+/* -----------------------------------------------------------------------------
+ * FOOTER - BUTTONS
+ * -------------------------------------------------------------------------- */
+// #region
+
+.modal > footer {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: $size-1;
+  justify-content: flex-end;
+  position: sticky;
+  z-index: 3;
+
+  @supports not (gap: 8px) {
+    > * {
+      margin-left: $size-half;
+    }
+  }
+
+  @media (--phone) {
+    order: -1;
+    padding: 0;
+    top: 0;
+    inset-inline: 0;
+  }
+
+  @media (--tablet) {
+    background-color: var(--color-background-frosted-glass);
+    backdrop-filter: var(--color-background-frosted-glass-backdrop);
+
+    // Prevent shift on full scroll caused by the bottom scrim (.modal::after)
+    order: 1;
+    padding: $size-2 $size-1 0;
+    bottom: 0;
+    inset-inline: $modal-padding-x 0;
+
+    @-moz-document url-prefix('') {
+      background-color: hsl(var(--h) var(--s-neutral) 99% / .9);
+    }
+  }
+}
+
+.modal:not(:has(> header)) > footer {
+  @media (--phone) {
+    background-color: var(--color-background-frosted-glass);
+    backdrop-filter: var(--color-background-frosted-glass-backdrop);
+    box-shadow: 0 1px 0 var(--color-ink-border-translucent);
+    padding-bottom: $size-1;
+  }
+}
+
+:where(.modal > footer) button {
+  border-radius: calc(#{$modal-border-radius} - #{$size-1});
+
+  @media (--phone) {
+    max-width: $size-1 * 10;
+  }
+}
+
+:where(.modal > footer) .btn.is-close {
+  margin-right: auto;
+  margin-inline-end: auto;
+
+  @media (--phone) {
+    background-color: transparent;
+    padding: $size-half $size-1 0;
+  }
+}
+
+// Top Border
+.modal > footer::before {
+  @media (--tablet) {
+    border-top: $border-width solid var(--color-ink-min);
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: calc(#{$modal-padding-x} - #{$size-1});
+    height: 0;
+  }
+}
+// #endregion
+
+/* -----------------------------------------------------------------------------
+ * UTILITY AND ANIMATION
+ * -------------------------------------------------------------------------- */
+// #region
+
+// Kill the scroll on the html root
+// stylelint-disable selector-no-qualifying-type
+// html
+.has-open-modal,
+html:has(dialog[open]) {
+  padding-right: var(--scrollbar-width, 0);
+  padding-inline-end: var(--scrollbar-width, 0);
+  overflow: hidden;
+  pointer-events: none;
+
+  .modal {
+    pointer-events: auto;
+  }
+}
+// stylelint-enable selector-no-qualifying-type
+
+// Animation - Openning
+.modal[open] {
+  animation:
+    slide-in-up $duration-lg $easing-appearance,
+    fade-in $duration-xs $easing-appearance;
+}
+
+.modal[open]::backdrop {
+  animation: fade-in $duration-md $easing-appearance;
+}
+
+// Animation - Closing
+.modal.is-closing {
+  animation:
+    slide-out-down ($duration-lg * .8) $easing-disappearance,
+    fade-out ($duration-xs * .8) $easing-disappearance;
+  display: flex;
+  inset: 0;
+  pointer-events: none;
+
+  @media (--tablet) {
+    animation:
+      slide-out-up ($duration-lg * .8) $easing-disappearance,
+      fade-out ($duration-xs * .8) $easing-disappearance;
+  }
+}
+
+.modal.is-closing::backdrop {
+  animation: fade-out ($duration-md * .8) $easing-disappearance;
+}
+// #endregion

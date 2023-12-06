@@ -1,0 +1,17 @@
+@use '../config' as *;
+
+.footer {
+  border-top: 1px solid var(--color-ink-border);
+  color: var(--color-ink-2ry);
+  text-align: center;
+  margin-top: $size-8;
+  margin-right: auto;
+  margin-left: auto;
+  margin-inline: auto;
+  padding: ($size-line * 3) $size-2p5;
+  width: min(100%, var(--width-readable));
+
+  .app > & {
+    grid-area: footer;
+  }
+}

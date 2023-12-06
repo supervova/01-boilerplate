@@ -1,7 +1,0 @@
-/* This is an example of unique styles for one of the pages or app screens.
-1. Add CSS from the `views` folder to the general styles, at the `@layer views`…
-2. Or insert them directly to the page, into the `head` section */
-
-body {
-  background-color: var(--color-background-2ry);
-}

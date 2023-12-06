@@ -1,0 +1,155 @@
+@use 'sass:math';
+@use '../config' as *;
+
+/*
+Accordion RTL
+Drawer
+Popover +
+*/
+
+/* -----------------------------------------------------------------------------
+ * ACCORDION
+ * -------------------------------------------------------------------------- */
+// #region
+
+// stylelint-disable no-duplicate-selectors
+[dir='rtl'] .accordion summary {
+  text-align: right;
+
+  &::after {
+    right: auto;
+    left: $size-1;
+  }
+}
+
+// Sidebar Accordion
+$sidebar-accordion-summary-padding-top: $size-2;
+$sidebar-accordion-summary-small-margin-bottom: -1px;
+$sidebar-accordion-summary-small-padding-top: 2px;
+
+// stylelint-disable selector-max-compound-selectors
+.sidebar .accordion summary {
+  @include label;
+}
+
+:where(.sidebar .accordion summary) small {
+  @include text-truncate;
+
+  animation: fade-in-by-display-opacity $duration-sm;
+  display: block;
+  text-transform: none;
+  font-weight: normal;
+  margin-bottom: $sidebar-accordion-summary-small-margin-bottom;
+  padding-top: $sidebar-accordion-summary-small-padding-top;
+  pointer-events: none;
+
+  &:empty {
+    display: none;
+  }
+}
+
+:where(.sidebar [open] summary) small {
+  display: none;
+  opacity: 0;
+}
+
+@keyframes fade-in-by-display-opacity {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+  1% {
+    display: block;
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.sidebar .accordion + .accordion {
+  border-top: 1px solid var(--color-ink-border);
+  margin-top: 0;
+
+  summary {
+    padding-top: $sidebar-accordion-summary-padding-top - rem(1);
+  }
+
+  summary::after {
+    margin-top: -1px;
+  }
+}
+
+// The trick to transition from height 0 to auto. Unfortunately, the trick does
+// not work stable, so it is not included in the default styles.
+
+// Markup
+// .accordion
+//   summary Title
+//   .accordion__body
+//     div Lorem ipsum dolor.
+
+.accordion__body {
+  display: grid;
+  grid-template-rows: 0;
+  padding: $size-2 var(--padding-x-box);
+  transition: grid-template-rows $duration-md $easing-base;
+
+  > div {
+    overflow: hidden;
+  }
+
+  ul {
+    padding-left: $size-2;
+  }
+
+  [open] & {
+    grid-template-rows: 1fr;
+  }
+}
+// stylelint-enable selector-max-compound-selectors, no-duplicate-selectors
+// #endregion
+
+/* -----------------------------------------------------------------------------
+ * DRAWER
+ * -------------------------------------------------------------------------- */
+// #region
+
+$drawer-width: var(--width-base);
+
+/* dialog */
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  translate: calc(-1 * $drawer-width);
+  transition: translate $duration-md $easing-base;
+  width: $drawer-width;
+
+  &[open] {
+    translate: initial;
+  }
+}
+// #endregion
+
+/* -----------------------------------------------------------------------------
+ * POPOVER
+ * -------------------------------------------------------------------------- */
+// #region
+
+/* Invisible layer for closing a popover with an outside click. It's alternative
+for JS method */
+.popover[open] summary::before {
+  background: none;
+  content: '';
+  cursor: default;
+  display: block;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+}
+// #endregion

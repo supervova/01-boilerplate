@@ -1,44 +1,37 @@
 @use 'sass:math';
-@use '../config/variables' as *;
-@use '../config/mixins' as *;
-
-// -----------------------------------------------------------------------------
-// BORDER
-// -----------------------------------------------------------------------------
-// #region
+@use '../config' as *;
 
 // The semi-transparent border in the inner shadow style.
-
 .border {
   @include border;
 }
-// #endregion
 
-// -----------------------------------------------------------------------------
-// FIGURES & IFRAMES
-// -----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
+ * FIGURES AND IFRAMES
+ * -------------------------------------------------------------------------- */
 // #region
+
 // Remove the border on iframes in all browsers (opinionated)
 iframe {
   border-style: none;
 }
 
 figure,
-iframe {
+iframe, {
   margin-top: 0;
   margin-bottom: $size-line;
 }
 
 figcaption {
   color: var(--color-ink-2ry);
-  padding-top: var(--size-padding-top-base);
-  padding-bottom: var(--size-padding-bottom-base);
+  padding-top: var(--padding-top-base);
+  padding-bottom: var(--padding-bottom-base);
 }
 // #endregion
 
-// -----------------------------------------------------------------------------
-// IMAGES, VIDEO, SVG
-// -----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
+ * IMAGES, VIDEO, SVG
+ * -------------------------------------------------------------------------- */
 // #region
 
 img,
@@ -46,6 +39,16 @@ video {
   border-style: none;
   max-width: 100%;
   height: auto;
+}
+
+
+.content img:not([class]):not(figure img) {
+  margin-bottom: $size-line;
+}
+
+img:not([class]),
+figure img {
+  display: block;
 }
 
 // Hide the overflow in IE

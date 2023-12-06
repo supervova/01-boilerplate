@@ -1,0 +1,278 @@
+@use 'sass:math';
+@use '../config' as *;
+
+// -----------------------------------------------------------------------------
+// BASE
+// -----------------------------------------------------------------------------
+// #region
+
+/* nav */.navbar {
+  background-color: var(--color-background-frosted-glass);
+  backdrop-filter: var(--color-background-frosted-glass-backdrop);
+  box-shadow: 0 -1px 0 var(--color-ink-border-translucent);
+  display: flex;
+  padding-top:
+    $size-half
+    calc(#{$size-1} + env(safe-area-inset-right))
+    calc(#{$size-half} + env(safe-area-inset-bottom))
+    calc(#{$size-1} + env(safe-area-inset-left));
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: calc(#{$size-8} + env(safe-area-inset-bottom));
+  z-index: $zindex-fixed;
+
+  .app > & {
+    grid-area: navbar;
+  }
+
+  @media (--tablet) {
+    background-color: var(--color-brand-50);
+    backdrop-filter: none;
+    border-right: $border-width solid var(--color-ink-border);
+    box-shadow: none;
+    align-items: flex-start;
+    flex-direction: column;
+    padding:
+      $size-4
+      0
+      $size-line
+      env(safe-area-inset-left);
+    top: 0;
+    right: auto;
+    width: calc($size-line * 4 + env(safe-area-inset-left));
+    height: 100vh;
+
+    @media (max-height: #{$size-height-landscape-phone}) {
+      overflow-x: hidden;
+      overflow-y: auto;
+      scrollbar-gutter: stable;
+
+      @media (pointer: fine) {
+        overflow: hidden;
+
+        // stylelint-disable-next-line max-nesting-depth
+        &:hover {
+          @include scrollbar();
+
+          overflow-x: hidden;
+          overflow-y: auto;
+        }
+      }
+    }
+  }
+
+  @media (--desktop) {
+    padding-right: $size-2p5;
+    padding-left: $size-2p5;
+    padding-inline: $size-2p5;
+    width: $width-sm;
+  }
+}
+
+// #endregion
+
+// -----------------------------------------------------------------------------
+// LOGO
+// -----------------------------------------------------------------------------
+// #region
+
+.navbar__logo {
+  // The header logo is shown on the phones
+  display: none;
+
+  @media (--tablet) {
+    display: flex;
+    flex-direction: column;
+    gap: $size-2;
+    margin-bottom: $size-line;
+  }
+
+  @media (--tablet-only) {
+    text-align: center;
+    padding-right: $size-1;
+    padding-left: $size-1;
+    padding-inline: $size-1;
+  }
+
+  @media (--desktop) {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.navbar__logo img {
+  @media (--tablet-only) {
+    margin-right: auto;
+    margin-left: auto;
+    margin-inline: auto;
+  }
+}
+// #endregion
+
+// -----------------------------------------------------------------------------
+// MENU
+// -----------------------------------------------------------------------------
+// #region
+
+.navbar > .menu {
+  display: flex;
+  padding: 0;
+
+  @media (--phone) {
+    align-items: stretch;
+    height: $size-6;
+  }
+
+  @media (--tablet) {
+    flex: 1;
+    flex-direction: column;
+    height: auto;
+  }
+}
+
+// ITEMS
+.navbar__menu li {
+  padding: 0;
+}
+
+// Top level
+.navbar__menu > li {
+  @media (--phone) {
+    width: clamp(80px, 25%, 168px);
+  }
+}
+
+// LINKS & OVERFLOW MENU SUMMARY
+
+.navbar__menu .menu__link {
+
+  --menu-item-padding: $size-half $size-1 0;
+
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  text-transform: none;
+  height: $size-7;
+
+  @media (--tablet-only) {
+    border-radius: 0;
+    height: $size-8;
+  }
+
+  @media (--desktop) {
+    --menu-item-padding: 2px #{$size-2} 2px #{$size-1p5};
+
+    flex-direction: row;
+    justify-content: flex-start;
+    height: $size-5;
+  }
+}
+
+// LABELS
+
+.navbar__menu .menu__link > .label {
+  @include label(false);
+  @include text-truncate;
+
+  color: var(--color-ink-2ry);
+  max-width: 100%;
+
+  @media (--desktop) {
+    text-transform: uppercase;
+  }
+}
+
+// ICONS
+
+.navbar__menu .menu__link > .icon {
+  display: block;
+  margin: 0 auto $size-half;
+
+  @media (--desktop) {
+    margin: 0 $size-1 0 0;
+  }
+}
+
+// BADGES {
+.navbar__menu .menu__link > .badge {
+  @media (--desktop-down) {
+    position: absolute;
+    top: $size-half;
+    left: calc(50% + $size-half);
+  }
+
+  @media (--phone) {
+    top: -$size-1p5;
+  }
+}
+// #endregion
+
+// -----------------------------------------------------------------------------
+// POPOVER
+// -----------------------------------------------------------------------------
+// #region
+.navbar .is-more summary {
+  @include menu-item;
+
+  cursor: pointer;
+
+  @media (--tablet-only) {
+    border-radius: 0;
+  }
+}
+
+:where(.navbar .is-more [open]) summary {
+  background-color: var(--color-ink-min);
+}
+
+.navbar .is-more summary::after {
+  @media (--desktop-down) {
+    display: none;
+  }
+
+  @media (--desktop) {
+    margin-left: auto;
+    margin-inline-start: auto;
+    rotate: -90deg;
+  }
+}
+
+.navbar .is-more .popover__body {
+  top: auto;
+  bottom: 100%;
+  left: auto;
+  right: 2px;
+
+  @media (--tablet) {
+    bottom: 0;
+    right: auto;
+    left: 100%;
+  }
+}
+
+// #endregion
+
+// -----------------------------------------------------------------------------
+// FOOTER
+// -----------------------------------------------------------------------------
+// #region
+.navbar__footer {
+  @media (--phone) {
+    display: none;
+  }
+
+  @media (--tablet) {
+    margin-right: auto;
+    margin-left: auto;
+    margin-inline: auto;
+    width: calc(100% - $size-2);
+  }
+
+  @media (--desktop) {
+    width: 100%;
+  }
+}
+// #endregion

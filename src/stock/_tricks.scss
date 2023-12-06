@@ -1,0 +1,19 @@
+
+@use 'sass:math';
+@use '../config' as *;
+
+// use :where() to write the selector with zero-specificity
+:where(.parent) a {
+  // ...
+}
+
+// Below we can override the styles of links without complicating the selector.
+.new-link-styles {
+  // ...
+}
+
+// Tailwind: exclude some ancestors weight
+.dark .dark\:prose-dark :where(strong):not(:where([class~='not-prose'] *)) {
+  // ...
+}
+// #endregion

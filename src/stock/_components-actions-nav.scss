@@ -1,0 +1,91 @@
+@use 'sass:math';
+@use '../config' as *;
+
+// RATING
+// #region
+
+$rating-font-size: $size-4;
+$rating-point-color: var(--color-ink-min);
+$rating-point-background: var(--color-error-base);
+$rating-percent: calc(var(--rating) * 50%);
+
+.rating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0;
+  padding-top: rem(7);
+  padding-bottom: rem(17);
+}
+
+// INPUT
+
+.rating.is-input {
+  flex-direction: row-reverse;
+}
+
+.rating__point:hover,
+.rating__point:hover ~ .rating__point {
+  color: transparent;
+}
+
+/* Make all previous points selected when hover on a point
+Note that we use `flex-direction: row-reverse` on the container */
+.rating__point:hover::before,
+.rating__point:hover ~ .rating__point::before {
+  color: $rating-point-color;
+  // This is a star; hart is \2665
+  content: '\2605';
+  left: 0;
+  position: absolute;
+}
+
+.rating__point {
+  // Reset button styles
+  background-color: transparent;
+  border: 0;
+  margin: 02px;
+  padding: 0;
+
+  // Used to position the hover state
+  position: relative;
+}
+
+// READ ONLY
+
+// Stars/hearts
+.rating__points {
+  /* Use it only for hearts
+  transform: scaleX(1.1); */
+
+  &::before {
+    -webkit-text-fill-color: transparent;
+    background:
+      linear-gradient(
+        90deg,
+        $rating-point-background $rating-percent,
+        $rating-point-color $rating-percent
+      );
+    background-clip: text;
+    content: '♥︎♥︎♥︎♥︎♥︎';
+    // content: '★★★★★';
+    display: inline-block;
+    font-size: var(--rating-font-size);
+    // make sure ♥︎/★ appears correctly
+    font-family: Times;
+    line-height: 1;
+    letter-spacing: 1px;
+    vertical-align: middle;
+  }
+}
+
+.rating__count {
+  color: var(--color-ink-3ry);
+  display: inline-block;
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+  margin-left: $size-1p5;
+  padding: 0;
+  vertical-align: middle;
+}
+// #endregion

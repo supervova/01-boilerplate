@@ -1,193 +1,87 @@
-// stylelint-disable declaration-colon-space-after, order/order
-
+@use 'sass:list';
+@use 'sass:map';
 @use 'sass:math';
+@use 'functions' as *;
 @use 'variables' as *;
 @use 'mixins' as *;
 
 :root {
-  /* It is use only in modal.js and by default has not affect scrollbar width */
-  --scrollbar-width:                    0;
-
-  // ---------------------------------------------------------------------------
-  // 🎨 COLORS
-  // ---------------------------------------------------------------------------
-  // #region
-  --h-red:                              0;
-  --h-yellow:                           60;
-  --h-green:                            120;
-  --h-blue:                             210;
-  --h-magenta:                          300;
-
-  --s-neutral:                          20%;
-  --l-bg-base:                          99%;
-
-  --s:                                  75%;
-  --h:                                  var(--h-blue);
+  @each $color, $value in map.get($color, base) {
+    --#{$color}: #{$value};
+  }
 
   // Lightness and saturation are set in themes.
-  // #endregion
 
-  // ---------------------------------------------------------------------------
-  // 🔠 TYPOGRAPHY, SIZE, AND SPACING
-  // ---------------------------------------------------------------------------
-  // #region
-  --font-scale-factor:                  1.333; // 3:4, perfect fourth
+  // Typography
+  @each $item, $set in map.get($typeset, phone) {
+    @each $prop, $value in $set {
+      --#{$prop}-#{$item}: #{$value};
+    }
+  }
 
-  --font-size-hero-title:               37px;
-  // Keep parentheses to do math using interpolation
-  --font-line-height-hero-title:        calc(40 / 37);
-  --font-weight-hero-title:             300;
-  --size-padding-top-hero-title:        0;
-  --size-padding-bottom-hero-title:     0;
+  // Spacing
+  @each $prop, $value in map.get($spacing, phone) {
+    --#{$prop}: #{$value};
+  }
 
-  --font-size-title:                    28px;
-  --font-line-height-title:             calc(32 / 28);
-  --font-weight-title:                  400;
-  --size-padding-top-title:             0;
-  --size-padding-bottom-title:          0;
-  --size-margin-top-title-minus:        #{-$size-line};
+  // Width
+  @each $comp, $value in map.get($width, phone) {
+    --width-#{$comp}: #{$value};
+  }
 
-  --font-size-h2:                       21px;
-  --font-line-height-h2:                calc(24 / 21);
-  --font-weight-h2:                     400;
-  --size-padding-top-h2:                4px;
-  --size-padding-bottom-h2:             20px;
-  --size-margin-top-h2-plus:            #{$size-line};
-
-  --font-size-big:                      18px;
-  --font-line-height-big:               calc(24 / 18);
-  --font-weight-big:                    bolder;
-  --size-padding-top-big:               0;
-  --size-padding-bottom-big:            0;
-  --size-margin-top-subhead-plus:       #{$size-line};
-
-  --font-size-base:                     16px;
-  --font-line-height-base:              1.5; // 24px
-  --size-padding-top-base:              6px;
-  --size-padding-bottom-base:           18px;
-
-  --font-size-small:                    12px;
-  --font-line-height-small:             calc(16 / 12);
-  --size-padding-top-small:             12px;
-  --size-padding-bottom-small:          21px;
-
-  // Lists
-  --size-padding-bottom-li:             0;
-  --size-padding-bottom-list:           #{$size-2};
-
-  // Components base
-  --size-padding-x-box:                 #{$size-2};
-  --size-padding-x-container:           #{$size-2p5};
-  --size-space-base:                    #{$size-line};
-
-  // Form
-  --size-padding-top-form-actions:      0;
-  --size-padding-bottom-form-actions:   #{$size-line};
-  --size-padding-bottom-form-item:      #{$size-2};
-
-  // Navbar
-  --size-width-navbar:                  100%;
+  // height
+  @each $comp, $value in map.get($height, phone) {
+    --height-#{$comp}: #{$value};
+  }
 
   @media (--tablet) {
-    // --font-scale-factor is the same
+    // Typography
+    @each $item, $set in map.get($typeset, tablet) {
+      @each $prop, $value in $set {
+        --#{$prop}-#{$item}: #{$value};
+      }
+    }
 
-    --font-size-hero-title:             49px;
-    // Keep parentheses to do math using interpolation
-    --font-line-height-hero-title:      calc(56 / 49);
-    --font-weight-hero-title:           300;
-    --size-padding-top-hero-title:      0;
-    --size-padding-bottom-hero-title:   0;
+    // Spacing
+    @each $prop, $value in map.get($spacing, tablet) {
+      --#{$prop}: #{$value};
+    }
 
-    --font-size-title:                  37px;
-    --font-line-height-title:           calc(40 / 37);
-    --size-padding-top-title:           0;
-    --size-padding-bottom-title:        0;
-
-    --font-size-h2:                     28px;
-    --font-line-height-h2:              calc(32 / 28);
-    --size-padding-top-h2:              22px;
-    --size-padding-bottom-h2:           18px;
-
-    --font-size-big:                    21px;
-    --font-line-height-big:             calc(24 / 21);
-    --font-weight-big:                  normal;
-    --size-padding-top-big:             0;
-    --size-padding-bottom-big:          0;
-
-    --size-padding-x-box:               #{$size-3};
-    --size-padding-x-container:         #{$size-5};
-    --size-space-base:                  #{$size-line * 3};
-
-    --size-width-navbar:                #{$size-line * 4};
-    // Change it according current grid and refine for lg & xl
-    --size-width-readable:              70ch;
+    // Width
+    @each $comp, $value in map.get($width, tablet) {
+      --width-#{$comp}: #{$value};
+    }
   }
 
   @media (--tablet-l) {
-    --size-padding-x-box:               #{$size-4};
-    --size-padding-x-container:         #{$size-8};
+    // Typography
+    @each $item, $set in map.get($typeset, tablet-l) {
+      @each $prop, $value in $set {
+        --#{$prop}-#{$item}: #{$value};
+      }
+    }
 
-    // Change it according current grid and refine for xl
-    --size-width-content-extended:      920px;
+    // Spacing
+    @each $prop, $value in map.get($spacing, tablet-l) {
+      --#{$prop}: #{$value};
+    }
+
+    // Width
+    @each $comp, $value in map.get($width, tablet-l) {
+      --width-#{$comp}: #{$value};
+    }
   }
 
   @media (--desktop) {
-    --size-width-navbar:                #{$size-line * 11};
+    // Width
+    @each $comp, $value in map.get($width, desktop) {
+      --width-#{$comp}: #{$value};
+    }
+
+    // height
+    @each $comp, $value in map.get($height, desktop) {
+      --height-#{$comp}: #{$value};
+    }
   }
-  // #endregion
-
-  // ---------------------------------------------------------------------------
-  // 🗃 BOX SHADOWS
-  // ---------------------------------------------------------------------------
-  // #region
-
-  // Buttons, Cards, Alerts, App Bar, Tab Bar, Switches
-  --layer-box-shadow-z1:                0 1px 0 hsl(var(--color-ink-shadow) / .16);
-
-  // FAB, Buttons hover, Snackbars
-  --layer-box-shadow-z2:
-    0 0 0 1px hsl(var(--color-ink-shadow) / .06),
-    0 3px 3px hsl(var(--color-ink-shadow) / .12),
-    0 10px 18px hsl(var(--color-ink-shadow) / .2);
-
-  // FAB hover, Drawers, Dropdowns, Modal Bottom Sheets, Pickers, Sticky Components
-  --layer-box-shadow-z3:
-    0 0 0 1px hsl(var(--color-ink-shadow) / .06),
-    0 5px 7px hsl(var(--color-ink-shadow) / .12),
-    0 20px 36px hsl(var(--color-ink-shadow) / .2);
-
-  // Popovers, Tooltips
-  --layer-box-shadow-z4:
-    0 0 0 1px hsl(var(--color-ink-shadow) / .06),
-    0 7px 10px hsl(var(--color-ink-shadow) / .12),
-    0 30px 54px hsl(var(--color-ink-shadow) / .2);
-
-  // Modals
-  --layer-box-shadow-z5:
-    0 0 0 1px hsl(var(--color-ink-shadow) / .06),
-    0 9px 14px hsl(var(--color-ink-shadow) / .12),
-    0 40px 72px hsl(var(--color-ink-shadow) / .2);
-
-  --layer-box-shadow-focus-outline:     0 0 0 $size-half hsl(var(--h) var(--s) var(--l) / .4);
-  --layer-box-shadow-focus-outline-sm:  0 0 02px hsl(var(--h) var(--s) var(--l) / .4);
-  // #endregion
-
-  // ---------------------------------------------------------------------------
-  // 👻 ANIMATION & TRANSITIONS
-  // ---------------------------------------------------------------------------
-  // #region
-
-  // @see base.md
-
-  // Small elements
-  --motion-duration-sm:                 .1s;
-
-  // Medium elements
-  --motion-duration-base:               .2s;
-
-  // Large, complex, full-screen transitions. Large elements appearance
-  // Multiply the duration for complex animations.
-  // E.g. var(--motion-duration-lg) * 4
-  --motion-duration-lg:                 .4s;
   // #endregion
 }

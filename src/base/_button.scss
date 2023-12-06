@@ -1,87 +1,22 @@
-/* stylelint-disable selector-no-qualifying-type */
-@use '../config/variables' as *;
-@use '../config/mixins' as *;
 
-// -----------------------------------------------------------------------------
-// DEFAULT
-// -----------------------------------------------------------------------------
+// stylelint-disable selector-no-qualifying-type
+@use '../config' as *;
+
+/* -----------------------------------------------------------------------------
+ * DEFAULT
+ * -------------------------------------------------------------------------- */
 // #region
+
+$btn-border-outline:     1px solid var(--color-brand-border);
+$btn-color-outline:      var(--color-brand-text);
 
 .btn,
 button,
 input[type='submit'],
 input[type='button'],
 input[type='reset'],
-a[role='button'],
-%btn {
-  --background: var(--color-ink-accent);
-  --background-hover: var(--color-background-brand-light);
-  --border: 0;
-  --border-outline: 1px solid var(--color-ink-brand-border);
-  --border-radius: #{$shape-border-radius-base};
-  --box-shadow: none;
-  --box-shadow-hover: none;
-  --color: var(--color-ink-brand-text);
-  --color-outline: var(--color-ink-brand-text);
-  --height: #{$size-5};
-  --height-mobile: #{$size-6};
-  --line-height: 1;
-  --padding: 0 var(--size-padding-x-box);
-
-  --background-primary: var(--color-brand-gradient-dark);
-  --color-primary: var(--color-ink-inverse-text);
-
-  @include label;
-
-  appearance: button;
-  background: var(--background);
-  border-radius: var(--border-radius);
-  border: var(--border);
-  box-shadow: var(--box-shadow);
-  color: var(--color);
-  // Reapply the pointer cursor for buttons
-  cursor: pointer;
-  display: inline-flex;
-  font-weight: bolder;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-  text-align: center;
-  text-decoration: none;
-  white-space: nowrap;
-  outline: 0;
-  // Show the overflow in Edge
-  overflow: visible;
-  padding: var(--padding);
-  transition:
-    background var(--motion-duration-sm) $motion-easing-base,
-    box-shadow var(--motion-duration-sm) $motion-easing-base;
-  user-select: none;
-  max-width: 100%;
-  height: var(--height-mobile);
-
-  &:hover {
-    background: var(--background-hover);
-    box-shadow: var(--box-shadow-hover);
-    text-decoration: none;
-  }
-
-  &:active {
-    filter: $color-brightness-down;
-  }
-
-  &:focus-visible {
-    box-shadow: --layer-box-shadow-focus-outline;
-  }
-
-  /* Use child span for text truncating with ellipsis */
-  > span {
-    @include text-truncate;
-  }
-
-  @media (--desktop) {
-    height: var(--height);
-  }
+a[role='button'] {
+  @include button;
 }
 
 // Remove the inner border and padding in Firefox
@@ -91,47 +26,33 @@ a[role='button'],
 }
 // #endregion
 
-// -----------------------------------------------------------------------------
-// PRIMARY
-// -----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
+ * PRIMARY
+ * -------------------------------------------------------------------------- */
 // #region
 
-.btn.is-primary,
-button[type='submit'],
-input[type='submit'],
-%btn-primary {
-  background: var(--background-primary);
-  color: var(--color-primary);
-  text-shadow: 0 1px 0 var(--color-ink-accent);
-  transition:
-    filter var(--motion-duration-sm) $motion-easing-base,
-    box-shadow var(--motion-duration-sm) $motion-easing-base;
-
-  &:hover {
-    background: var(--background-primary);
-    filter: $color-brightness-up;
-  }
-
-  .icon {
-    --fill: var(--color-background-brand-light);
-    --stroke: var(--color-background-brand-light);
-  }
+.btn.is-primary {
+  @include button-primary;
 }
 // #endregion
 
-// -----------------------------------------------------------------------------
-// OUTLINE, GHOST & ICON
-// -----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
+ * OUTLINE, GHOST AND ICON
+ * -------------------------------------------------------------------------- */
 // #region
 
 .btn.is-outline,
 .btn.is-ghost {
   background: transparent;
-  color: var(--color-outline);
+  color: $btn-color-outline;
+
+  &:hover {
+    background: var(--color-ink-min);
+  }
 }
 
 .btn.is-outline {
-  border: var(--border-outline);
+  border: $btn-border-outline;
 }
 
 // ICON
@@ -142,12 +63,12 @@ input[type='submit'],
 }
 // #endregion
 
-// -----------------------------------------------------------------------------
-// DISABLED
-// -----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
+ * DISABLED
+ * -------------------------------------------------------------------------- */
 // #region
-.btn
-button,
+
+.btn button,
 input[type='submit'],
 input[type='button'],
 input[type='reset'],
@@ -164,26 +85,25 @@ a[role='button'] {
 }
 // #endregion
 
-// -----------------------------------------------------------------------------
-// CLOSE
-// -----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
+ * CLOSE
+ * -------------------------------------------------------------------------- */
 // #region
 
-/* button */[data-action='close'] {
-  &:not(footer &) {
-    border-radius: 50%;
-    padding: $size-half;
-    width: max-content;
-    height: auto;
-  }
+// button
+.btn.is-close:not(footer .btn.is-close) {
+  border-radius: 50%;
+  padding: $size-half;
+  width: max-content;
+  height: auto;
 }
-
 // #endregion
 
-// -----------------------------------------------------------------------------
-// BUTTON GROUP
-// -----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
+ * BUTTON GROUP
+ * -------------------------------------------------------------------------- */
 // #region
+
 .buttons {
   display: flex;
   align-items: center;

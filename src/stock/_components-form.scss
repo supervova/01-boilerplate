@@ -1,0 +1,813 @@
+@use 'sass:math';
+@use '../config' as *;
+
+/*
+
+Material Design Like Floating Labels
+Switch
+Filter
+Range, One Handle Slider
+Two Handle Slider
+Stepper
+Valid Inputs
+Color Picker
+Search RTL
+Misc
+  Spin Button Fix for Safari
+  Icon Label
+  RTL - Invalid Inputs
+  RTL - Search
+  RTL - Date / Time Pickers
+  Lastpass
+*/
+
+/* -----------------------------------------------------------------------------
+ * MATERIAL DESIGN LIKE FLOATING LABELS
+ * -------------------------------------------------------------------------- */
+// #region
+
+// CSS only solution. @see docs for markup
+.input {
+  position: relative;
+  margin-top: $size-4; // To create space for floating inputs
+  margin-inline: auto;
+  max-width: $width-md;
+}
+
+.input > input {
+  background-color: transparent;
+  border: 1px solid var(--color-ink-border);
+  border-radius: $border-radius-sm;
+  color: var(--color-ink-base);
+  font-size: var(--font-size-base);
+  padding-block: $size-1;
+  padding-right: $size-5; // To avoid overlapping with the clear button
+  padding-left: $size-2;
+  transition: border-color $duration-xxs;
+  width: 100%;
+
+  &:focus {
+    border-color: var(--color-brand-primary);
+    outline: none;
+  }
+
+  &::placeholder {
+    color: transparent;
+  }
+
+  // Hide Safari's autofill button
+  &::-webkit-contacts-auto-fill-button {
+    visibility: hidden;
+    pointer-events: none;
+    position: absolute;
+  }
+}
+
+.input > label {
+  background: var(--color-background-base);
+  color: var(--color-ink-3ry);
+  pointer-events: none;
+  position: absolute;
+  top: $size-1;
+  left: $size-2;
+  transform-origin: left center;
+  transition:
+    color $duration-sm,
+    transform $duration-sm;
+}
+
+.input input:focus + label,
+.input input:not(:placeholder-shown) + label {
+  color: var(--color-ink-base);
+  transform: translateY(calc(-100% + #{$size-1})) scale(.75);
+}
+
+.input .btn.is-icon {
+  background: none;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  transition: color $duration-xs;
+}
+
+:where(.input .input:placeholder-shown + .label) + .btn.is-icon {
+  display: none;
+}
+
+/* CSS+JS solution. JavaScript is used to add class `is-filled`.
+The base styles is the same as that of a static label. */
+.is-filled label {
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+  top: 0;
+}
+
+
+/* -----------------------------------------------------------------------------
+ * SWITCH
+ * -------------------------------------------------------------------------- */
+// #region
+
+// [type='checkbox']
+.switch,
+label:has([type='checkbox'][role='switch']) {
+  color: var(--color-ink-2ry);
+  margin: 0 $size-1 0 0;
+  padding-left: ($size-line * 2);
+
+  > [type='checkbox'][role='switch'] {
+    top: $size-1;
+  }
+}
+
+$switch-background: var(--color-ink-border);
+$switch-background-checked: var(--color-brand-primary);
+$switch-border-width: rem(2);
+$switch-height: $size-2p5;
+$switch-width: $size-5;
+
+[type='checkbox'][role='switch'] {
+  // Styles
+  background-color: $switch-background;
+  border-radius: $border-radius-pill;
+  border: $switch-border-width solid $switch-background;
+  display: flex;
+  align-items: center;
+  width: $switch-width;
+  height: $switch-height;
+
+  // Thumb
+  &::before {
+    background-color: var(--color-background-2ry);
+    border-radius: 50%;
+    content: '';
+    display: block;
+    transition: margin $duration-xxs $easing-base;
+    width: $switch-height - $switch-border-width * 2;
+    height: $switch-height - $switch-border-width * 2;
+  }
+
+  &:checked {
+    background-color: $switch-background-checked;
+    background-image: none;
+    border-color: $switch-background-checked;
+
+    &::before {
+      margin-left: $switch-width * .5;
+      margin-inline-start: $switch-width * .5;
+    }
+  }
+}
+// #endregion
+
+/* -----------------------------------------------------------------------------
+ * FILTER
+ * -------------------------------------------------------------------------- */
+// #region
+
+// Sidebar options. Use it it with _accordion.scss and filter.js
+
+.filter {
+  border: 1px solid var(--color-ink-border);
+  border-radius: $border-radius-base;
+  box-shadow: var(--box-shadow-z2);
+  overflow-y: auto;
+  padding: var(--padding-x-box);
+  min-height: $size-line * 10;
+}
+
+// Checkboxes and radio buttons
+
+.filter .input.has-option {
+  display: flex;
+  padding-left: $size-line;
+}
+
+.filter .input__option-label {
+  flex-grow: 1;
+}
+
+// Counter
+
+.filter__counter {
+  display: inline-block;
+  font-size: var(--font-size-small);
+  font-weight: 500;
+  line-height: var(--line-height-small);
+  text-align: right;
+  padding-top: var(--padding-top-base);
+  padding-left: 1ch;
+}
+
+.filter .input__field:focus-visible {
+  box-shadow: inset var(--box-shadow-focus-outline-sm);
+}
+
+// Button 'Show more'
+.filter__more {
+  color: var(--color-ink-2ry);
+  text-transform: none;
+  padding: 0 $size-1 0 0;
+
+  .icon {
+    margin: -2px $size-half 0 0;
+  }
+}
+
+.filter__more.is-ghost {
+  &:hover,
+  &:focus-visible {
+    box-shadow: none;
+    background-color: var(--color-background-2ry);
+  }
+}
+// #endregion
+
+/* -----------------------------------------------------------------------------
+ * RANGE, ONE-HANDLE SLIDER
+ * -------------------------------------------------------------------------- */
+// #region
+
+$range-border-color: var(--color-ink-border);
+$range-thumb-border-width: $size-half;
+$range-thumb-color: var(--color-brand-primary);
+$range-thumb-height: $size-2p5;
+$range-track-height: $size-half;
+
+[type='range'] {
+  appearance: none;
+  background: none;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  height: $range-thumb-height;
+  width: 100%;
+
+  &:focus-visible {
+    outline: 0;
+  }
+
+  // ⚠️ Selector chain does not work. Use the mixin in the separated style blocks
+  @mixin range-track {
+    background-color: $range-border-color;
+    border-radius: $border-radius-pill;
+    transition:
+      background $duration-xxs $easing-base,
+      box-shadow $duration-xxs $easing-base;
+    width: 100%;
+    height: $range-track-height;
+  }
+
+  // Track
+  &::-webkit-slider-runnable-track {
+    @include range-track;
+  }
+
+  &::-moz-range-track {
+    @include range-track;
+  }
+
+  &::-ms-track {
+    @include range-track;
+  }
+
+  @mixin range-thumb {
+    appearance: none;
+    background-color: $range-thumb-color;
+    border-radius: 50%;
+    border: 3px solid var(--color-background-base);
+    box-shadow: var(--box-shadow-z2);
+    cursor: pointer;
+    margin-top: -($range-thumb-height * .5 - $range-track-height * .5);
+    transition:
+      background $duration-xxs $easing-base,
+      transform $duration-xxs $easing-base;
+    width: $range-thumb-height;
+    height: $range-thumb-height;
+  }
+
+  // Thumb
+  &::-webkit-slider-thumb {
+    @include range-thumb;
+  }
+
+  &::-moz-range-thumb {
+    @include range-thumb;
+  }
+
+  &::-ms-thumb {
+    @include range-thumb;
+  }
+
+  &:hover,
+  &:focus-visible,
+  &:active {
+    // Thumb
+    &::-webkit-slider-thumb {
+      background-color: hsl(var(--h) var(--s) 65%);
+      transform: scale(1.25);
+    }
+
+    &::-moz-range-thumb {
+      transform: scale(1.25);
+    }
+
+    &::-ms-thumb {
+      transform: scale(1.25);
+    }
+  }
+}
+// #endregion
+
+/* -----------------------------------------------------------------------------
+ * TWO-HANDLE SLIDER
+ * -------------------------------------------------------------------------- */
+// #region
+
+/* The HTML5 range input only accepts one input. If we need the double range
+slider use [noUiSlider](https://refreshless.com/nouislider/) or
+[simplified solution](https://codepen.io/tanerochris/pen/xxpEVew) */
+
+.noUi-target,
+.noUi-target * {
+  box-sizing: border-box;
+  touch-action: none;
+  user-select: none;
+}
+
+// Slider containers. Set safe paddings
+
+.input.has-slider {
+  padding: $size-4 $size-2 0;
+}
+
+// Track. The class is added to the element noUiSlider.create() is called on.
+.noUi-target {
+  background: var(--color-ink-border);
+  border-radius: $border-radius-pill;
+  position: relative;
+}
+
+// Track height modification
+.noUi-horizontal {
+  height: $size-half;
+}
+
+// The slider bar. Serves as the calculating point for the slider handles,
+// and has no visible styling.
+.noUi-base,
+.noUi-connects {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.noUi-connects {
+  border-radius: $border-radius-xs;
+  overflow: hidden;
+  height: 100%;
+  z-index: 0;
+}
+
+// .noUi-connect Styling class for setting properties related to the slider connect segment.
+.noUi-connect {
+  background: var(--color-ink-3ry);
+}
+
+// .noUi-origin	The elements connected to the base, defining the handle locations.
+.noUi-connect,
+.noUi-origin {
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform-origin: 0 0;
+  transform-style: flat;
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+  z-index: 1;
+}
+
+.noUi-txt-dir-rtl.noUi-horizontal .noUi-origin {
+  right: auto;
+  left: 0;
+}
+
+.noUi-vertical .noUi-origin {
+  top: -100%;
+  width: 0;
+}
+
+.noUi-horizontal .noUi-origin {
+  height: 0;
+}
+
+// Slider Handles
+
+.noUi-handle {
+  backface-visibility: hidden;
+  background: var(--color-ink-3ry);
+  border: 2px solid var(--color-background-base);
+  border-radius: $border-radius-pill;
+  box-shadow: var(--box-shadow-z2);
+  cursor: default;
+  position: absolute;
+  width: $size-1 * 2.5;
+  height: $size-1 * 2.5;
+}
+
+// Active handle
+.noUi-active {
+  background: var(--color-ink-2ry);
+}
+
+// An empty div within .noUi-handle. Can be styled larger if desired.
+.noUi-touch-area {
+  width: ($size-line * 2);
+  height: ($size-line * 2);
+}
+
+.noUi-horizontal .noUi-handle {
+  right: -10px;
+  top: 0;
+  transform: translateY(-50%);
+}
+
+.noUi-txt-dir-rtl.noUi-horizontal .noUi-handle {
+  left: -10px;
+  right: auto;
+}
+
+/* This class is added when the slider bar is tapped or clicked. A slider with
+this call will reject any user input. noUiSlider will remove this class after
+300ms, leaving that timespan to perform visual animations. */
+.noUi-state-tap .noUi-connect,
+.noUi-state-tap .noUi-origin {
+  transition: transform $duration-md;
+}
+
+.noUi-state-drag * {
+  cursor: inherit !important;
+}
+
+.noUi-vertical {
+  width: 18px;
+}
+
+.noUi-vertical .noUi-handle {
+  width: 28px;
+  height: 34px;
+  right: -6px;
+  bottom: -17px;
+}
+
+.noUi-draggable {
+  cursor: ew-resize;
+}
+
+.noUi-vertical .noUi-draggable {
+  cursor: ns-resize;
+}
+
+[disabled] .noUi-handle,
+[disabled].noUi-handle,
+[disabled].noUi-target {
+  cursor: not-allowed;
+}
+
+// Slider Pips
+
+.noUi-pips,
+.noUi-pips * {
+  box-sizing: border-box;
+}
+
+.noUi-pips {
+  position: absolute;
+  color: var(--color-ink-3ry);
+}
+
+.noUi-value {
+  position: absolute;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.noUi-value-sub {
+  color: var(--color-ink-border);
+  font-size: $size-1;
+}
+
+.noUi-marker {
+  position: absolute;
+  background: var(--color-ink-border);
+}
+
+.noUi-marker-sub {
+  background: var(--color-ink-border);
+}
+
+.noUi-marker-large {
+  background: var(--color-ink-border);
+}
+
+.noUi-pips-horizontal {
+  padding: $size-1 0;
+  height: 80px;
+  top: 100%;
+  left: 0;
+  width: 100%;
+}
+
+.noUi-value-horizontal {
+  transform: translate(-50%, 50%);
+}
+
+.noUi-rtl .noUi-value-horizontal {
+  transform: translate(50%, 50%);
+}
+
+.noUi-marker-horizontal.noUi-marker {
+  margin-left: -1 * rem(1);
+  width: 2px;
+  height: 5px;
+}
+
+.noUi-marker-horizontal.noUi-marker-sub {
+  height: $size-1;
+}
+
+.noUi-marker-horizontal.noUi-marker-large {
+  height: $size-2;
+}
+
+.noUi-pips-vertical {
+  padding: 0 $size-1;
+  height: 100%;
+  top: 0;
+  left: 100%;
+}
+
+.noUi-value-vertical {
+  transform: translate(0, -50%);
+  padding-left: $size-line;
+}
+
+.noUi-rtl .noUi-value-vertical {
+  transform: translate(0, 50%);
+}
+
+.noUi-marker-vertical.noUi-marker {
+  width: 5px;
+  height: 2px;
+  margin-top: -1px;
+}
+
+.noUi-marker-vertical.noUi-marker-sub {
+  width: $size-1;
+}
+
+.noUi-marker-vertical.noUi-marker-large {
+  width: $size-2;
+}
+
+// Slider Tooltips
+
+.noUi-tooltip {
+  background: var(--color-ink-base);
+  border-radius: $border-radius-xs;
+  color: var(--color-ink-inverse-base);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+  display: none;
+  text-align: center;
+  white-space: nowrap;
+  padding: $size-1 $size-2;
+  position: absolute;
+}
+
+.noUi-active .noUi-tooltip {
+  display: block;
+}
+
+.noUi-horizontal .noUi-tooltip {
+  bottom: 120%;
+}
+
+.noUi-handle-lower .noUi-tooltip {
+  left: 0;
+}
+
+.noUi-handle-upper .noUi-tooltip {
+  right: 0;
+}
+// #endregion
+
+/* -----------------------------------------------------------------------------
+ * STEPPER
+ * -------------------------------------------------------------------------- */
+// #region
+
+/* A stepper (spin button) allows someone to incrementally adjust a value
+in small steps. https://component.gallery/components/stepper/
+For markup see stepper.md. Use it with stepper.js */
+
+.stepper {
+  border: 1px solid var(--color-ink-border);
+  border-radius: $border-radius-xs;
+  display: flex;
+  overflow: hidden;
+  height: $size-5;
+  width: 152px;
+}
+
+.stepper__button {
+  background-color: var(--color-background-base);
+  color: var(--color-ink-2ry);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-base);
+  transition: background-color $duration-xxs;
+  width: $size-5;
+  height: $size-5 -2px;
+
+  &:hover {
+    box-shadow: none;
+    background-color: var(--color-background-2ry);
+    transform: none;
+  }
+
+  &:focus-visible {
+    box-shadow: var(--box-shadow-focus-outline)-compact;
+  }
+
+  &.is-decrement {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: 1px solid var(--color-ink-border);
+  }
+
+  &.is-increment {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 1px solid var(--color-ink-border);
+  }
+}
+
+.stepper__value {
+  appearance: textfield;
+  background-color: var(--color-background-base);
+  border: 0;
+  border-radius: 0;
+  flex: 1;
+  text-align: center;
+
+  &:focus-visible {
+    outline: 0;
+    box-shadow: var(--box-shadow-focus-outline)-compact;
+  }
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    appearance: none;
+    margin: 0;
+  }
+}
+// #endregion
+
+/* -----------------------------------------------------------------------------
+ * VALID INPUTS
+ * -------------------------------------------------------------------------- */
+// #region
+
+:--input-text-default:valid.is-touched,
+:--input-text-default[aria-invalid='false'] {
+  background-image: var(--icon-success);
+  background-position: top rem(11) right $size-1;
+  background-repeat: no-repeat;
+}
+// #endregion
+
+/* -----------------------------------------------------------------------------
+ * COLOR PICKER
+ * -------------------------------------------------------------------------- */
+// #region
+
+[type='color'] {
+  cursor: pointer;
+  padding: $size-1;
+  width: auto;
+
+  // Wrapper
+  @mixin color-wrapper {
+    padding: 0;
+  }
+
+  &::-webkit-color-swatch-wrapper {
+    @include color-wrapper;
+  }
+
+  &::-moz-focus-inner {
+    @include color-wrapper;
+  }
+
+  // Swatch
+  @mixin color-swatch {
+    aspect-ratio: 1;
+    border: 0;
+    border-radius: $border-radius-xs;
+  }
+
+  &::-webkit-color-swatch {
+    @include color-swatch;
+  }
+
+  &::-moz-color-swatch {
+    @include color-swatch;
+  }
+}
+// #endregion
+
+/* -----------------------------------------------------------------------------
+ * SEARCH RTL
+ * -------------------------------------------------------------------------- */
+// #region
+
+// stylelint-disable max-nesting-depth
+[dir='rtl'] {
+  &[type='search'] {
+    background-position: center right $size-2;
+
+    &[aria-invalid] {
+      background-position: center right $size-2, center left $size-1p5;
+    }
+  }
+}
+// stylelint-enable max-nesting-depth
+// #endregion
+
+/* -----------------------------------------------------------------------------
+ * MISC
+ * -------------------------------------------------------------------------- */
+// #region
+
+// Correct the cursor style of increment and decrement buttons in Safari
+::-webkit-inner-spin-button,
+::-webkit-outer-spin-button {
+  height: auto;
+}
+
+// Icon label
+form .is-icon {
+  padding: 0;
+  position: absolute;
+  top: $size-1;
+  left: $size-1;
+  width: $size-icon-xy;
+  height: $size-icon-xy;
+}
+
+// RTL - Invalid inputs
+// stylelint-disable no-duplicate-selectors
+[dir='rtl'] :--input-text-default {
+  &[aria-invalid],
+  &[aria-invalid='true'],
+  &[aria-invalid='false'] {
+    background-position: center left $size-1p5;
+  }
+}
+// stylelint-enable no-duplicate-selectors
+
+// RTL - Select
+// stylelint-disable no-duplicate-selectors
+[dir='rtl'] select:not([multiple]):not([size]) {
+  background-position: center left $size-1p5;
+}
+
+// RTL - Date / time pickers
+[dir='rtl'] :is([type='date'], [type='datetime-local'], [type='month'], [type='time'], [type='week']) {
+  text-align: right;
+}
+// stylelint-enable no-duplicate-selectors
+
+// LASTPASS
+
+[id^='__lp'] {
+  display: none;
+}
+
+/* override lastpass inline styles
+This method is unacceptable, as it removes the icons in the [type=date].
+TODO: Replace the background image in the fields with
+an absolutely positioned pseudo element with a background image.
+https://core.trac.wordpress.org/ticket/48222
+input:not([type='checkbox']):not([type='radio']):not([type='date']),
+textarea {
+  background-image: none !important;
+}
+ */
+// #endregion

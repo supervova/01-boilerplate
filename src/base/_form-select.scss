@@ -1,4 +1,4 @@
-@use '../config/variables' as *;
+@use '../config' as *;
 
 // class applies to select element itself, not a wrapper element
 select {
@@ -7,8 +7,8 @@ select {
     background-position: center right $size-1;
     background-size: $size-2p5;
     background-repeat: no-repeat;
-    padding-right: var(--size-padding-x-input-lg);
-    padding-inline-end: var(--size-padding-x-input-lg);
+    padding-right: var(--padding-x-input-lg);
+    padding-inline-end: var(--padding-x-input-lg);
   }
 
   // Hide arrow icon in IE browsers
@@ -21,6 +21,7 @@ option {
   font-weight: normal;
 }
 
+// stylelint-disable-next-line selector-no-qualifying-type
 select[multiple] {
   background-image: none;
   overflow-y: auto;

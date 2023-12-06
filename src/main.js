@@ -1,26 +1,23 @@
-// Open and close dialogs. Get external content
-import './components/show-hide/js/modal';
+// Get external content, utilities
+import './components/js/modal';
 
 // Close popovers on Esc
-import './components/show-hide/js/popover';
+import './components/js/popover';
+
+// Adaptive navigation with overflow menu
+import './stock/js/navbar-adaptive-h';
 
 // Toggle search form on mobiles
-// import './components/structures/header';
-
-// Navigation bar on mobiles
-// import './components/actions-nav/navbar';
+// import './components/js/header';
 
 // Simple tabs
-// import './components/show-hide/tabs';
+// import './components/js/tabs';
 
-// Update Filter Subtitles
-// import './components/form/filter';
-
-// Scroll to hash
-// import './base/content/content';
+// Update filter summaries
+// import './components/js/filter';
 
 // Intersection Observer
-// import './components/structure-footer/footer';
+// import './components/js/footer';
 
 // Throttling
-// import './util/throttle';
+// import './utils/js/throttle';

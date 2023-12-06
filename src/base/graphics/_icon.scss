@@ -1,10 +1,9 @@
-@use '../../config/variables' as *;
+@use '../../config' as *;
 
 .icon {
-  --fill: var(--color-background-2ry);
-  --stroke: var(--color-brand-default);
-  --stroke-width: 2;
-  --size: #{$size-xy-icon};
+  --icon-fill: var(--color-background-2ry);
+  --icon-stroke: var(--color-brand-primary);
+  --icon-stroke-width: 2;
 
   display: inline-block;
 
@@ -12,19 +11,24 @@
   flex-shrink: 0;
   overflow: hidden;
   transition:
-    fill var(--motion-duration-sm),
-    opacity var(--motion-duration-sm);
+    fill $duration-xxs,
+    opacity $duration-xxs;
   vertical-align: middle;
 
-  width: var(--size);
-  height: var(--size);
+  width: $size-icon-xy;
+  height: $size-icon-xy;
 
-  @media #{$size-resolution-retina} {
-    --stroke-width: 1.5;
+  @media #{$mq-resolution-retina} {
+    --icon-stroke-width: 1.5;
   }
 
-  /* Remove black fill in the FF */
+  // Remove black fill in the FF
   @-moz-document url-prefix() {
     fill: transparent;
   }
+}
+
+.icon.is-sm {
+  width: $size-2p5;
+  height: $size-2p5;
 }

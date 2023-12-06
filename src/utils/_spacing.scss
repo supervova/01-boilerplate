@@ -1,112 +1,124 @@
-@use '../config/variables' as *;
-@use '../config/mixins' as *;
-
 // Margin and Padding
 
-$utility-horizontal-margin: false;
-$utility-horizontal-space: false;
-$utility-shorthand-space: false;
+// #region
+@use 'sass:map';
+@use '../config' as *;
 
-$spacers: (
-  0:  0,
+$enable-margin-x: false;
+$enable-shorthand-space: false;
+
+$spacing-values: (
+  0: 0,
   1s: $size-1,
   2s: $size-2,
   4s: $size-4,
   5s: $size-5,
   7s: $size-7,
   8s: $size-8,
-  1:  $size-line,
-  2:  $size-line * 2,
-  3:  $size-line * 3,
-  4:  $size-line * 4,
+  1: $size-line,
+  2: $size-line * 2,
+  3: $size-line * 3,
+  4: $size-line * 4,
 );
 
-@each $screen in map-keys($size-width-screen) {
-  @include for-size($screen) {
+$spacing-values-negative: (
+  n1s: -$size-1,
+  n2s: -$size-2,
+  n1:  -$size-line,
+);
 
-    // Generate horizontal margin if setting turned on
-    $space-types: if($utility-horizontal-margin, (margin: m, padding: p), (padding: p));
-    $prefix: if($screen == all, '', '#{$screen}\\:');
+$spacing-props-shorthand: (
+  'margin': (
+    class-base: m,
+    values: map.merge(
+      $spacing-values,
+      map.merge($spacing-values-negative, (auto: auto))
+    ),
+  ),
+  'margin-block': (
+    class-base: my,
+    values: map.merge(
+      $spacing-values,
+      (auto: auto)
+    ),
+  ),
+  'padding': (
+    class-base: p,
+    values: $spacing-values,
+  ),
+  'padding-block': (
+    class-base: py,
+    values: $spacing-values,
+  ),
+  'padding-inline': (
+    class-base: px,
+    values: $spacing-values,
+  ),
+);
 
-    @each $prop, $abbr in $space-types {
-      @each $size, $value in $spacers {
+$spacing-props-margin-x: (
+  'margin-inline': (
+    class-base: mx,
+    values: map.merge(
+      $spacing-values,
+      map.merge($spacing-values-negative, (auto: auto))
+    ),
+  ),
+  'margin-inline-start': (
+    class-base: ms,
+    values: map.merge(
+      $spacing-values,
+      map.merge($spacing-values-negative, (auto: auto))
+    ),
+  ),
+  'margin-inline-end': (
+    class-base: me,
+    values: map.merge(
+      $spacing-values,
+      map.merge($spacing-values-negative, (auto: auto))
+    ),
+  ),
+);
 
-        .#{$prefix}#{$abbr}t-#{$size}, .#{$prefix}#{$abbr}y-#{$size} {
-          #{$prop}-top: $value;
-        }
+$spacing-props: (
+  'margin-top': (
+    class-base: mt,
+    values: map.merge(
+      $spacing-values,
+      map.merge($spacing-values-negative, (auto: auto))
+    ),
+  ),
+  'margin-bottom': (
+    class-base: mb,
+    values: map.merge(
+      $spacing-values,
+      map.merge($spacing-values-negative, (auto: auto))
+    ),
+  ),
+  'padding-top': (
+    class-base: pt,
+    values: $spacing-values,
+  ),
+  'padding-bottom': (
+    class-base: pb,
+    values: $spacing-values,
+  ),
+  'padding-inline-start': (
+    class-base: ps,
+    values: $spacing-values,
+  ),
+  'padding-inline-end': (
+    class-base: pe,
+    values: $spacing-values,
+  ),
+);
 
-        .#{$prefix}#{$abbr}b-#{$size}, .#{$prefix}#{$abbr}y-#{$size} {
-          #{$prop}-bottom: $value;
-        }
-
-        @if $utility-horizontal-space {
-          .#{$prefix}#{$abbr}e-#{$size}, .#{$prefix}#{$abbr}x-#{$size} {
-            #{$prop}-inline-end: $value;
-          }
-
-          .#{$prefix}#{$abbr}s-#{$size}, .#{$prefix}#{$abbr}x-#{$size} {
-            #{$prop}-inline-start: $value;
-          }
-        }
-
-        @if $utility-shorthand-space {
-          .#{$prefix}#{$abbr}-#{$size} { #{$prop}: $value; }
-        }
-      }
-    }
-
-    // Negative margins (e.g., where `.mb-n1` is negative version of `.mb-1`)
-    @each $size, $value in $spacers {
-      @if "#{$size}" == "1s" or "#{$size}" == "2s" {
-
-        @if $utility-shorthand-space {
-          .m-n#{$size} { margin: -$value; }
-        }
-
-        .#{$prefix}mt-n#{$size}, .#{$prefix}my-n#{$size} {
-          margin-top: -$value;
-        }
-
-        .#{$prefix}mb-n#{$size}, .#{$prefix}my-n#{$size} {
-          margin-bottom: -$value;
-        }
-
-        @if $utility-horizontal-space {
-          .#{$prefix}mr-n#{$size}, .#{$prefix}mx-n#{$size} {
-            margin-inline-end: -$value;
-          }
-
-          .#{$prefix}ml-n#{$size}, .#{$prefix}mx-n#{$size} {
-            margin-inline-start: -$value;
-          }
-        }
-      }
-    }
-
-    // Auto margins
-    @if $utility-shorthand-space {
-      .#{$prefix}m-auto { margin: auto; }
-    }
-
-    .#{$prefix}mt-auto, .#{$prefix}my-auto {
-      margin-top: auto;
-    }
-
-    .#{$prefix}mb-auto, .#{$prefix}my-auto {
-      margin-bottom: auto;
-    }
-
-    .#{$prefix}mr-auto {
-      margin-inline-end: auto;
-    }
-
-    .#{$prefix}ml-auto {
-      margin-inline-start: auto;
-    }
-
-    .#{$prefix}mx-auto {
-      margin-inline: auto;
-    }
-  }
+@if $enable-shorthand-space {
+  $spacing-props: map.merge($spacing-props-shorthand, $spacing-props);
 }
 
+@if $enable-margin-x {
+  $spacing-props: map.merge($spacing-props-margin-x, $spacing-props);
+}
+
+@include utility-classes($spacing-props);

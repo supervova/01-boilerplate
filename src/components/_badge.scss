@@ -1,0 +1,29 @@
+@use '../config' as *;
+
+.badge {
+  background-color: var(--color-brand-primary);
+  border-radius: $border-radius-pill;
+  box-shadow: var(--box-shadow-z1);
+  font-size: var(--font-size-small);
+  line-height: 1;
+  color: var(--color-ink-inverse-base);
+  margin-left: $size-half;
+  margin-inline-start: $size-half;
+  padding: 2px $size-half;
+  // Minimum width should be equal the height to prevent thin badges
+  min-width: calc(var(--font-size-small) + $size-half);
+
+
+  [role='menuitem'] & {
+    margin-left: auto;
+    margin-inline-start: auto;
+  }
+
+  /* sup */&.badge.is-sup {
+    margin-left: 0;
+    margin-inline-start: 0;
+    top: -2px;
+  }
+}
+
+

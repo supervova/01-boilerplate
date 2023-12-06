@@ -1,80 +1,29 @@
-@use 'variables' as *;
+@use 'sass:map';
 @use 'sass:math';
+@use 'variables' as *;
+@use 'functions' as *;
 
 /* -----------------------------------------------------------------------------
- *  MEDIA QUERIES
+ * LAYOUT
  * -------------------------------------------------------------------------- */
-/* #region */
-
-@mixin for-size($size, $extrema: min) {
-
-  // If the key exists in the map
-  @if map-has-key($size-width-screen, $size) {
-
-    // Minimum width based media queries
-    @if $extrema == min {
-
-      @if $size == all {
-        @content;
-      }
-
-      @else if $size == tablet {
-        @media screen and
-          (min-width: map-get($size-width-screen, 'tablet')) and
-          (min-height: $size-height-landscape-phone + 1px) {
-          @content;
-        }
-      }
-
-      @else {
-        @media screen and (min-width: map-get($size-width-screen, $size)) {
-          @content;
-        }
-      }
-    }
-
-    // Maximum width based media queries
-    @else if $extrema == max {
-      @media screen and (max-width: map-get($size-width-screen, $size) - 1px) {
-        @content;
-      }
-    }
-
-    // Min width to max width media queries
-    @else if map-has-key($size-width-screen, $extrema) {
-      @media screen and (min-width: $size) and (max-width: map-get($size-width-screen, $extrema) - 1px) {
-        @content;
-      }
-    }
-  }
-
-  // If the key doesn't exist in the map
-  @else {
-    @warn 'Unknown breakpoint `#{$size}`. Available breakpoints are: #{map-keys($size-width-screen)}.';
-  }
-}
-/* #endregion */
-
-/* -----------------------------------------------------------------------------
- *  LAYOUT
- * -------------------------------------------------------------------------- */
-/* #region */
+// #region
 // stylelint-disable max-nesting-depth
-@mixin make-grid(
-  $columns: 12,
-  $screens: map-keys($size-width-screen)
-) {
+@mixin grid() {
+  display: grid;
+  gap: var(--gap, #{$size-2});
+  grid-template-columns: repeat(var(--columns, 12), 1fr);
+  grid-template-rows: repeat(var(--rows, 1), 1fr);
+}
 
+@mixin grid-columns($columns: 12, $screens: $mq-breakpoints-lg) {
   @each $screen in $screens {
-    @include for-size($screen) {
-
+    @media (--#{$screen}) {
       $class-base: null;
 
-      // Prefixed classes
+      // Classes aliases
       @if $screen != all {
         @for $i from 1 through $columns {
-
-          // Create aliases for halfs, thirds and fourths
+          // Create aliases for halves, thirds and fourths
           @if math.div($columns, $i) == 4 {
             $class-base: 1\/4;
           } @else if math.div($columns, $i) == 3 {
@@ -89,8 +38,10 @@
             $class-base: $i;
           }
 
+          // Prefixed classes
           @if $class-base != $i {
-            .#{$screen}\:col-#{$class-base}, .#{$screen}\:col-#{$i} {
+            .#{$screen}\:col-#{$class-base},
+            .#{$screen}\:col-#{$i} {
               grid-column: auto / span $i;
             }
           } @else {
@@ -100,8 +51,9 @@
           }
         }
 
-        // Start with `1` because `0` is an invalid value.
-        // Ends with `$columns - 1` because offsetting by the width of an entire row isn't possible.
+        /* Offsets / Start position
+        Start with `1` because `0` is an invalid value.
+        Ends with `$columns - 1` because offsetting by the width of an entire row isn't possible. */
         @for $i from 1 through ($columns - 1) {
           .#{$screen}\:col-start-#{$i} {
             grid-column-start: $i;
@@ -113,23 +65,50 @@
 }
 // stylelint-enable max-nesting-depth
 
-@mixin container {
+@mixin container($width: $width-container) {
   margin-inline: auto;
-  padding-left: var(--size-padding-x-container);
-  padding-right: var(--size-padding-x-container);
   position: relative;
-  /* width: 100%; max-width: $size-max-width-container; */
-  width: min(var(#{$size-max-width-container}), 100%);
+  width: min(calc(100% - var(--padding-x-container) * 2), var(--width-container, #{$width}));
 }
-/* #endregion */
+
+@mixin content-full-width($sidebar: false) {
+  @media (--desktop) {
+
+    text-align: center;
+    position: relative;
+    padding-inline: var(--padding-x-container);
+
+    @if $sidebar {
+      left: calc((100vw - var(--width-navbar)) / -2 + 50%);
+      width: calc(100vw - var(--width-navbar));
+    } @else {
+      left: calc(-50vw + 50%);
+      width: 100vw;
+    }
+
+    > img,
+    > table,
+    > .border,
+    > .scroller {
+      margin-inline: auto;
+      max-width: var(--width-content-10-col);
+    }
+
+    > .border img {
+      width: 100%;
+    }
+  }
+}
+
+// #endregion
 
 /* -----------------------------------------------------------------------------
- *  TYPOGRAPHY
+ * TYPOGRAPHY
  * -------------------------------------------------------------------------- */
-/* #region */
+// #region
 
 @mixin heading-base {
-  color: var(--color-ink-max);
+  color: var(--color-ink-base);
 
   // OpenType kerning
   font-family: $font-family-title;
@@ -138,18 +117,35 @@
 
 @mixin text-format($level) {
   font-size: var(--font-size-#{$level});
-  line-height: var(--font-line-height-#{$level});
-  padding-top: var(--size-padding-top-#{$level});
-  padding-bottom: var(--size-padding-bottom-#{$level});
+  line-height: var(--line-height-#{$level});
+  padding-top: var(--padding-top-#{$level});
+  padding-bottom: var(--padding-bottom-#{$level});
 }
 
-@mixin label {
-  font-family: inherit;
+@mixin label ($uppercase: true) {
+  font-family: $font-family-base;
   font-size: var(--font-size-small);
   font-weight: 500;
   letter-spacing: .5px;
-  line-height: var(--line-height, var(--font-line-height-small));
-  text-transform: uppercase;
+  line-height: var(--line-height, var(--line-height-small));
+
+  @if $uppercase {
+    text-transform: uppercase;
+  }
+}
+
+@mixin text-inline-block {
+  display: inline-block;
+  margin-block: -1 * rem(1);
+  padding: rem(1) $size-1;
+  vertical-align: baseline;
+  white-space: nowrap;
+}
+
+@mixin hint {
+  display: block;
+  padding-top: var(--padding-top-small);
+  padding-bottom: var(--padding-bottom-small);
 }
 
 @mixin text-truncate {
@@ -158,25 +154,27 @@
   overflow: hidden;
 }
 
-/* Multiline truncate */
+// Multiline truncate
 
-@mixin multiline-truncate($lines: 4, $line-height: $size-line, $padding-top: 6px) {
-  -webkit-box-orient: vertical; // stylelint-disable-line
-  -webkit-line-clamp: $lines;
-  display: -webkit-box; // stylelint-disable-line
-  // non webkits: limit the height and hide the overlowing content(w/o ellipsis
-  max-height: $lines * $line-height + $padding-top;
+@mixin multiline-truncate(
+  $lines: 4,
+  $line-height: $size-line,
+  $padding-top: var(--padding-top-base)
+) {
+  line-clamp: $lines;
+  //old browsers: limit the height and hide the overflowing content(w/o ellipsis
+  max-height: calc(#{$lines * $line-height} + #{$padding-top});
   overflow: hidden;
 }
-/* #endregion */
+// #endregion
 
 /* -----------------------------------------------------------------------------
  * GRAPHICS
  * -------------------------------------------------------------------------- */
-/* #region */
+// #region
 
 @mixin border {
-  border-radius: $shape-border-radius-sm;
+  border-radius: $border-radius-sm;
 
   display: flex;
   position: relative;
@@ -185,8 +183,8 @@
 
   // Border
   &::after {
-    border-radius: $shape-border-radius-sm;
-    box-shadow: inset 0 0 0 1px var(--color-ink-border);
+    border-radius: $border-radius-sm;
+    box-shadow: inset 0 0 0 1px var(--color-ink-neutral-border);
     content: '';
     display: block;
     pointer-events: none;
@@ -204,33 +202,45 @@
 
 @mixin chevron-down {
   background-color: transparent;
-  background-image: var(--icon, var(--icon-chevron-down));
+  background-image: var(--icon-chevron-down);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: $size-xy-icon;
+  background-size: var(--icon-size, #{$size-icon-xy});
   content: '';
   display: block;
   position: absolute;
-  top: var(--top, 50%);
-  inset-inline-end: var(--end, #{$size-2});
-  transition: transform var(--motion-duration-sm) $motion-easing-base;
-  width: var(--icon-size, #{$size-xy-icon});
-  height: var(--icon-size, #{$size-xy-icon});
+  top: var(--chevron-top, #{$size-2});
+  inset-inline-end: var(--chevron-end, #{$size-2});
+  transition: transform $duration-xxs $easing-base;
+  width: var(--icon-size, #{$size-icon-xy});
+  height: var(--icon-size, #{$size-icon-xy});
 }
-/* #endregion */
+// #endregion
 
 /* -----------------------------------------------------------------------------
- *  UTILITIES
+ * UTILITIES / HELPERS
  * -------------------------------------------------------------------------- */
-/* #region */
+// #region
 
-@mixin utility-classes($map, $screens: map-keys($size-width-screen)) {
-  @each $screen in $screens {
-    @include for-size($screen) {
-      @each $property, $values in $map {
-        @each $class-base, $value in $values {
-          $class-name: if($screen == all, #{$class-base}, #{$screen}\:#{$class-base});
-          .#{$class-name} { #{$property}: #{$value}; }
+@mixin utility-classes($props) {
+  @each $property, $property-map in $props {
+    $class-base: map.get($property-map, class-base);
+    $values: map.get($property-map, values);
+
+    // Classes for all breakpoints
+    @each $key, $value in $values {
+      .#{$class-base}-#{$key} {
+        #{$property}: $value;
+      }
+    }
+
+    // Adaptive classes
+    @each $screen in $mq-breakpoints {
+      @media (--#{$screen}) {
+        @each $key, $value in $values {
+          .#{$screen}\:#{$class-base}-#{$key} {
+            #{$property}: $value;
+          }
         }
       }
     }
@@ -251,25 +261,25 @@
 
 @mixin standard-focus {
   &:focus-visible {
-    outline: $size-half solid hsl(var(--h-blue) var(--s) var(--l) / .5);
+    outline: $size-half solid var(--box-shadow-focus-outline);
     outline-offset: 2px;
   }
 }
 
 @mixin scrollbar(
-  $size: $size-1p5,
+  $size: $size-2,
   $thumb-bg: var(--color-ink-border),
   $track-bg: transparent
 ) {
-
   // The emerging W3C standard that is currently Firefox-only
-  scrollbar-width: auto;
   scrollbar-color: $thumb-bg $track-bg;
+  scrollbar-width: thin;
 
   // Chrome/Edge/Safari
   &::-webkit-scrollbar {
     background-color: $track-bg;
     width: $size;
+    height: $size;
   }
 
   &::-webkit-scrollbar-track {
@@ -280,8 +290,138 @@
   &::-webkit-scrollbar-thumb {
     background-clip: content-box;
     background-color: $thumb-bg;
-    border-radius: $shape-border-radius-pill;
-    border: 2px solid transparent;
+    border-radius: $border-radius-pill;
+    border: $size-half solid transparent;
   }
 }
-/* #endregion */
+
+@mixin centering-max-width($width, $margin: $size-2p5) {
+  margin-inline: max($margin, 50% - $width/2);
+}
+
+// #endregion
+
+/* -----------------------------------------------------------------------------
+ * ELEMENTS
+ * -------------------------------------------------------------------------- */
+// #region
+
+@mixin menu-item {
+  border-radius: $border-radius-sm;
+  color: var(--menu-color, var(--color-ink-2ry));
+  display: flex;
+  align-items: center;
+  gap: $size-1;
+  text-decoration: none;
+  padding: var(--menu-item-padding, #{$size-1 $size-2});
+  position: relative;
+  outline: 0;
+  user-select: none;
+  transition:
+    background $duration-xxs,
+    color $duration-xxs;
+  width: 100%;
+
+  &:is(:hover, :active, :focus-visible) {
+    background-color: var(--color-ink-min);
+    text-decoration: none;
+  }
+
+  &:focus-visible {
+    box-shadow: var(--box-shadow-focus-outline);
+  }
+}
+
+// BUTTONS
+/* Mixins were created in order to quickly styles the buttons of plugins, like
+woocommerce */
+
+@mixin button (
+  $btn-background-hover: var(--color-brand-background-light),
+  $btn-background:       var(--color-ink-min),
+  $btn-border-radius:    $border-radius-sm,
+  $btn-border:           0,
+  $btn-box-shadow-hover: none,
+  $btn-box-shadow:       none,
+  $btn-color:            var(--color-brand-text),
+) {
+
+  @include label;
+
+  appearance: button;
+  background: $btn-background;
+  border-radius: $btn-border-radius;
+  border: $btn-border;
+  box-shadow: $btn-box-shadow;
+  color: $btn-color;
+  //  Reapply the pointer cursor for buttons
+  cursor: pointer;
+  display: inline-flex;
+  flex-shrink: 0;
+  font-weight: bolder;
+  align-items: center;
+  justify-content: center;
+  // Hanging characters are cropping by `overflow: hidden` and `line-height: 1`
+  line-height: var(--height-btn);
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  outline: 0;
+  // Show the overflow in Edge
+  overflow: visible;
+  padding-block: var(--padding-y-btn);
+  padding-inline: var(--padding-x-btn);
+  transition:
+    background $duration-xxs $easing-base,
+    box-shadow $duration-xxs $easing-base;
+  user-select: none;
+  max-width: 100%;
+  height: var(--height-btn);
+
+  &:hover {
+    background: $btn-background-hover;
+    box-shadow: $btn-box-shadow-hover;
+    text-decoration: none;
+  }
+
+  &:active {
+    // Filter somehow disables outside click when assign .btn to summary
+    box-shadow: inset 0 100rem 0 rgb(0 0 0 / .04);
+  }
+
+  &:focus-visible {
+    box-shadow: var(--box-shadow-focus-outline);
+  }
+
+  // Use child span for text truncating with ellipsis
+  > span {
+    @include text-truncate;
+  }
+}
+
+@mixin button-primary (
+  $btn-background-primary: var(--color-brand-gradient-dark),
+  $btn-color-primary:      var(--color-ink-inverse-base),
+) {
+  background: $btn-background-primary;
+  box-shadow:
+    0 1px 1px hsl(var(--color-ink-shadow) / .24),
+    inset 0 0 0 1px hsl(var(--color-ink-shadow) / .24),
+    inset 0 2px 0 hsl($h $s-neutral var(--l-bg-base) / .16);
+  color: $btn-color-primary;
+  text-shadow: 0 1px 0 var(--color-ink-min);
+  transition:
+    filter $duration-xxs $easing-base,
+    box-shadow $duration-xxs $easing-base;
+
+  &:hover {
+    background: $btn-background-primary;
+    filter: $color-brightness-up;
+  }
+
+  .icon {
+    --icon-fill: var(--color-brand-background-light);
+    --icon-stroke: var(--color-brand-background-light);
+  }
+}
+// #endregion

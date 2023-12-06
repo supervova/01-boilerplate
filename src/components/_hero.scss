@@ -1,0 +1,8 @@
+@use '../config' as *;
+
+.hero__title {
+  @include text-format(hero-title);
+
+  font-family: $font-family-title;
+  font-weight: var(--font-weight-hero-title);
+}

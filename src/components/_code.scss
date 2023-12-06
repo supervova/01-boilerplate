@@ -1,0 +1,54 @@
+@use '../config' as *;
+
+code,
+kbd,
+pre,
+samp {
+  background-color: var(--color-background-2ry);
+  border-radius: $border-radius-xs;
+  color: var(--code-color);
+  font-family: $font-family-mono;
+  font-size: inherit;
+}
+
+pre,
+code,
+samp {
+  color: var(--color-ink-code);
+}
+
+kbd {
+  // Using box-shadow instead border to prevent line shift
+  box-shadow: inset 0 0 0 1px var(--color-ink-border-translucent);
+  color: var(--color-ink-base);
+}
+
+code,
+kbd {
+  @include text-inline-block();
+}
+
+a > code {
+  color: inherit;
+}
+
+pre {
+  -ms-overflow-style: scrollbar;
+  display: block;
+  white-space: pre;
+  margin-top: 0;
+  margin-bottom: $size-2;
+  padding:
+    calc(var(--padding-top-base) + #{$size-2})
+    var(--padding-x-box)
+    calc(var(--padding-bottom-base) + #{$size-line});
+  overflow-x: auto;
+  max-width: 100%;
+
+  code,
+  samp {
+    background-color: transparent;
+    display: block;
+    padding: 0;
+  }
+}

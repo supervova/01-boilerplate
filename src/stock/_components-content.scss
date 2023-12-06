@@ -1,0 +1,442 @@
+@use 'sass:math';
+@use '../config' as *;
+
+/*
+Avatar
+Code
+  highlight.js free code syntax
+Feature
+KPI
+Links
+  Full area card link with pseudo element
+  CTA + mixin chevron()
+  .is-[mail, tel, sms]
+  skip
+Lists and sectioning with CSS counters
+Table
+  Striped
+  Hover
+  Row numbers
+  Fixed layout
+  Sticky table headers
+*/
+
+/* -----------------------------------------------------------------------------
+ * AVATAR
+ * -------------------------------------------------------------------------- */
+// #region
+
+$avatar-size-lg: $size-line * 5;
+$avatar-size-sm: $size-5;
+$avatar-border-radius: $border-radius-pill;
+
+.avatar {
+  background-color: var(--color-brand-100);
+  background-image: var(--icon-user);
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: $size-icon-xy * 2;
+  border: $size-half solid var(--color-background-base);
+  border-radius: $avatar-border-radius;
+  overflow: hidden;
+  width: $avatar-size-lg;
+  height: $avatar-size-lg;
+
+  img {
+    margin: 0;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// Small
+.avatar.is-small,
+.header .avatar {
+  @include border;
+
+  background-size: $size-icon-xy;
+  border: 0;
+  width: $avatar-size-sm;
+  height: $avatar-size-sm;
+
+  &,
+  img,
+  &::after {
+    border-radius: $avatar-size-sm;
+  }
+}
+
+// #endregion
+
+/* -----------------------------------------------------------------------------
+ * CODE
+ * -------------------------------------------------------------------------- */
+// #region
+
+$color-ink-tag: var(--color-success-text);
+$color-ink-property: var(--color-warning-text);
+$color-ink-comment: var(--color-ink-2ry);
+
+// highlight.js free code syntax
+code {
+  // Tags
+  b {
+    color: $color-ink-tag;
+    font-weight: 400;
+  }
+
+  // Comments
+  em {
+    color: $color-ink-comment;
+    font-style: normal;
+  }
+
+  // Properties
+  i {
+    color: $color-ink-property;
+    font-style: normal;
+  }
+
+  // Values
+  u {
+    color: var(--code-ink-base);
+    text-decoration: none;
+  }
+
+  // Variable
+  var {
+    font-weight: bold;
+    font-style: normal;
+  }
+}
+// #endregion
+
+/* -----------------------------------------------------------------------------
+ * FEATURE
+ * -------------------------------------------------------------------------- */
+// #region
+.feature {
+  text-align: center;
+  padding-bottom: $size-line * 2 + $size-1;
+}
+
+.feature__icon {
+  background: var(--color-brand-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: auto;
+  margin-left: auto;
+  margin-inline: auto;
+  width: $size-8;
+  height: $size-8;
+
+  > .icon {
+    fill: var(--color-ink-inverse-base);
+  }
+}
+
+.feature__heading {
+  margin-bottom: -$size-line;
+}
+
+.feature__copy {
+  color: var(--color-ink-2ry);
+}
+// #endregion
+
+/* -----------------------------------------------------------------------------
+ * Metric / KPI
+ * -------------------------------------------------------------------------- */
+// #region
+
+.metric__value {
+  @include text-format(hero-title);
+
+  color: var(--color-brand-ink-2ry);
+  display: block;
+  font-family: $font-family-title;
+  font-weight: var(--font-weight-hero-title);
+  text-align: center;
+
+  // Units
+  > small {
+    font-size: initial;
+    line-height: initial;
+    vertical-align: baseline;
+  }
+}
+
+.metric__caption {
+  color: var(--color-ink-2ry);
+  display: block;
+  text-align: center;
+  margin-top: -$size-line;
+  padding-top: var(--padding-top-base);
+  padding-bottom: var(--padding-bottom-base);
+}
+// #endregion
+
+/* -----------------------------------------------------------------------------
+ * LINKS
+ * -------------------------------------------------------------------------- */
+// #region
+
+/* Put a link around whatever chunks of HTML. Set position of parent element
+Set the position relative to a parent */
+.link.is-wrapper {
+  text-decoration: none;
+
+  &::before {
+    border-radius: $border-radius-base;
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    /* We can play with z-index to put the other links in front of the pseudo
+    element, but we can'not select text in this case. */
+  }
+
+  &:focus-visible {
+    &::before {
+      box-shadow: var(--box-shadow-focus-outline);
+    }
+  }
+}
+
+// Chevron protected from line break
+
+@mixin chevron(
+  $color: var(--color-brand-ink-2ry),
+  $line-height: $size-line,
+  $top: 2px
+) {
+  color: $color;
+  background-image: none;
+  display: inline;
+  font-size: 150%;
+  content: '\203a';
+  font-weight: normal;
+  line-height: $line-height;
+  text-decoration: none;
+  padding-left: .3em;
+  position: relative;
+  top: $top;
+  right: auto;
+  bottom: auto;
+  left: auto;
+}
+
+// a.link.is-cta[href='']>svg+{Buy}
+.link.is-cta {
+  color: var(--color-ink-link);
+  display: block;
+  padding-top: var(--padding-top-base);
+  padding-bottom: var(--padding-bottom-base);
+  position: relative;
+  width: fit-content;
+
+  &:visited {
+    color: var(--color-ink-link);
+  }
+
+  &:focus-visible::after {
+    background-color: var(--box-shadow-focus-outline);
+    content: '';
+    position: absolute;
+    bottom: $size-1;
+    left: 0;
+    right: 0;
+    height: $size-half;
+  }
+
+  &.is-centered {
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+    margin-inline: auto;
+  }
+
+  .icon {
+    transform: translateY(2px);
+  }
+}
+
+/* To make local links with animated scroll to target add scroll-behavior: smooth;
+to container */
+
+.link.is-mail::before {
+  content: '📧 ';
+}
+
+.link.is-tel::before {
+  content: '📞 ';
+}
+
+.link.is-sms::before {
+  content: '💬 ';
+}
+
+/* Accessibility: Skip to main content
+a.link.is-skip(href='#main')
+...
+main#main(tabindex='-1') */
+
+.link.is-skip {
+  clip: rect(1px, 1px, 1px, 1px);
+
+  /* Many screen reader and browser combinations announce broken words as they
+  would appear visually. */
+  word-wrap: normal;
+  overflow: hidden;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+
+  &:focus-visible {
+    background-color: #fff;
+    border-radius: $border-radius-sm;
+    box-shadow: var(--box-shadow-z2);
+    clip: auto;
+    color: var(--color-ink-2ry);
+    display: block;
+    line-height: normal;
+    text-decoration: none;
+    padding: $size-2;
+    top: $size-1;
+    left: $size-1;
+    width: auto;
+    height: auto;
+    z-index: $zindex-popover;
+  }
+}
+// #endregion
+
+/* -----------------------------------------------------------------------------
+ * LISTS AND SECTIONING WITH CSS COUNTERS
+ * -------------------------------------------------------------------------- */
+// #region
+
+// https://www.w3schools.com/css/css_counters.asp
+
+// stylelint-disable no-duplicate-selectors
+body {
+  // Create the "section" counter and set it to 0
+  counter-reset: section;
+
+  /*  Countdown
+  counter-reset: reversed(section); */
+}
+// stylelint-enable no-duplicate-selectors
+
+/* h2,  */
+%ol-subhead {
+  // Increment the value of the "section" counter by 1
+  counter-increment: section;
+
+  /* Nested counter: create the new one and set it to 0
+  for each subsection */
+  counter-reset: subsection;
+
+  &::before {
+    content: 'Section ' counter(section) '. ';
+  }
+}
+
+// Nested counter
+/* h3,  */
+%nested-ol-subhead {
+  // Increment "subsection" by 1
+  counter-increment: subsection;
+
+  &::before {
+    content: counter(section) '.' counter(subsection) '. ';
+  }
+}
+
+// STYLE OL MARKERS
+/* ol, */
+%ol {
+  // We replace native markers with before pseudo-elements
+  list-style: none;
+
+  // Creates a new instance of the 'ol-marker' counter with each ol
+  counter-reset: ol-marker;
+}
+
+/* ol li , */
+%ol-item {
+  counter-increment: ol-marker;
+
+  &::before {
+    background-color: var(--color-background-2ry);
+    content: counter(ol-marker) '. ';
+    display: inline-block;
+  }
+}
+// #endregion
+
+/* -----------------------------------------------------------------------------
+ * PULL QUOTE
+ * -------------------------------------------------------------------------- */
+// #region
+
+// .content__full-width
+.pull-quote {
+  border-block: 2px solid var(--color-brand-border);
+  margin-right: auto;
+  margin-left: auto;
+  margin-inline: auto;
+  padding: var(--padding-x-box);
+  width: 100%;
+}
+
+.pull-quote > p {
+  @include text-format(big);
+
+  color: var(--color-brand-ink-2ry);
+}
+// #endregion
+
+/* -----------------------------------------------------------------------------
+ * TABLE
+ * -------------------------------------------------------------------------- */
+// #region
+
+table[role='grid'] tbody tr:nth-child(odd) {
+  background-color: var(--color-background-2ry);
+}
+
+// Hover
+tbody tr:hover {
+  filter: $color-brightness-down;
+  transition: filter $duration-xxs;
+}
+
+// Row numbers
+.table.is-numbered {
+  counter-reset: row-number;
+
+  // Update the counter
+  tbody tr {
+    counter-increment: row-number;
+  }
+
+  // tbody td:first-child
+  .table__row-number {
+    content: 'Section ' counter(section) '. ';
+  }
+}
+
+.table.is-fixed {
+  table-layout: fixed;
+}
+
+// Sticky table headers
+// https://www.smashingmagazine.com/2022/12/accessible-front-end-patterns-responsive-tables-part1/#sticky-table-headers
+// #endregion

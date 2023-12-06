@@ -1,0 +1,66 @@
+@use '../config' as *;
+
+.pagination {
+  padding-top: $size-line * 3;
+  padding-bottom: $size-line;
+}
+
+.pagination > ul {
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  list-style: none;
+}
+
+.pagination__item {
+  padding-bottom: 0;
+
+  &::marker {
+    display: none;
+  }
+}
+
+.pagination__link {
+  background-color: transparent;
+  border-radius: $border-radius-sm;
+  color: var(--color-ink-link);
+  display: flex;
+  justify-content: center;
+  padding: $size-1p5 $size-half;
+  position: relative;
+  text-decoration: none;
+  transition:
+    box-shadow $duration-xs,
+    background-color $duration-xxs;
+  min-width: 44px;
+
+  &:hover {
+    background-color: var(--color-background-2ry);
+    filter: none;
+    text-decoration: none;
+    z-index: 2;
+  }
+
+  &:focus-visible {
+    background-color: var(--color-background-2ry);
+    box-shadow: var(--box-shadow-focus-outline);
+    outline: 0;
+    z-index: 3;
+  }
+
+  &.is-active {
+    background-color: var(--color-brand-background-dark);
+    color: var(--color-ink-inverse-base);
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  &.is-disabled {
+    opacity: .5;
+    pointer-events: none;
+  }
+}
+
+.pagination__item:first-child .icon {
+  transform: scaleX(-1);
+}

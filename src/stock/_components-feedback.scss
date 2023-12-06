@@ -1,0 +1,97 @@
+@use 'sass:math';
+@use '../config' as *;
+
+/*
+Progress
+Dismissible Alerts
+*/
+
+/* -----------------------------------------------------------------------------
+ * PROGRESS
+ * -------------------------------------------------------------------------- */
+// #region
+
+progress {
+  appearance: none;
+  background-color: var(--color-background-2ry);
+  border-radius: $border-radius-xs;
+  border: 0;
+  color: var(--color-brand-primary);
+  display: block;
+  margin-bottom: $size-line;
+  overflow: hidden;
+  width: 100%;
+  height: $size-1;
+
+  &::-webkit-progress-bar {
+    background: none;
+    border-radius: $border-radius-xs;
+  }
+
+  &[value]::-webkit-progress-value {
+    background-color: var(--color-brand-primary);
+  }
+
+  &::-moz-progress-bar {
+    background-color: var(--color-brand-primary);
+  }
+
+  // Indeterminate state
+  @media (prefers-reduced-motion: no-preference) {
+    &:indeterminate {
+      animation: progress-indeterminate ($duration-xl * 1.5) $easing-base infinite;
+      background:
+        var(--color-background-2ry)
+        linear-gradient(
+          to right,
+          var(--color-brand-primary) 30%,
+          var(--color-background-2ry) 30%
+        )
+        top left / 150% 150% no-repeat;
+
+      &[value]::-webkit-progress-value {
+        background-color: transparent;
+      }
+      &::-moz-progress-bar {
+        background-color: transparent;
+      }
+    }
+  }
+}
+
+// stylelint-disable no-duplicate-selectors
+[dir='rtl'] {
+  @media (prefers-reduced-motion: no-preference) {
+    progress:indeterminate {
+      animation-direction: reverse;
+    }
+  }
+}
+// stylelint-enable no-duplicate-selectors
+
+@keyframes progress-indeterminate {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+// #endregion
+
+/* -----------------------------------------------------------------------------
+ * DISMISSIBLE ALERTS
+ * -------------------------------------------------------------------------- */
+// #region
+
+.message.is-dismissible {
+  padding-right: $size-4;
+
+  // Adjust close link position
+  .button.is-close {
+    position: absolute;
+    top: $size-1;
+    right: $size-1;
+  }
+}
+// #endregion

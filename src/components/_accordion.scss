@@ -1,0 +1,86 @@
+@use '../config' as *;
+
+/* -----------------------------------------------------------------------------
+ * BASE ACCORDION
+ * -------------------------------------------------------------------------- */
+// #region
+
+$accordion-border-radius: $border-radius-sm;
+$summary-background: var(--color-info-background);
+$summary-color: var(--color-ink-base);
+$summary-color-active: var(--color-brand-text);
+$summary-font-weight: bolder;
+$summary-padding-top: $size-2;
+$summary-padding-bottom: $size-2;
+$summary-padding-left: var(--padding-x-box);
+$summary-padding-right: $size-5;
+
+/* details */.accordion {
+  border-radius: $accordion-border-radius;
+  box-shadow: inset 0 0 0 1px $summary-background;
+  display: block;
+  overflow: hidden;
+  // transition: height $duration-md $easing-base;
+
+  summary {
+    background-color: $summary-background;
+    border-radius: $accordion-border-radius;
+    color: $summary-color;
+    cursor: pointer;
+    // Hide the summary marker in non-Webkit
+    display: list-item;
+    font-weight: $summary-font-weight;
+    padding:
+      $summary-padding-top
+      $summary-padding-right
+      $summary-padding-bottom
+      $summary-padding-left;
+    position: relative;
+    transition: color $duration-xxs $easing-base;
+    width: 100%;
+
+    // Chevron
+    &::after {
+      @include chevron-down;
+    }
+
+    &:focus-visible {
+      box-shadow: var(--box-shadow-focus-outline);
+      color: $summary-color-active;
+      outline: 0;
+    }
+  }
+
+  // Body
+  > div {
+    padding: $size-2 var(--padding-x-box);
+  }
+
+  // Open
+  &[open] {
+    > summary {
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+      color: $summary-color-active;
+      margin-bottom: 0;
+
+      &::after {
+        transform: rotate(180deg);
+      }
+    }
+  }
+}
+
+.accordion + .accordion {
+  margin-top: $size-line;
+}
+
+.accordion + :not(.accordion) {
+  margin-top: $size-line;
+
+  @media (--tablet) {
+    margin-top: $size-line * 2;
+  }
+}
+
+// #endregion

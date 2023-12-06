@@ -1,0 +1,96 @@
+// stylelint-disable selector-no-qualifying-type
+// Use .text-end and .text-center utilities to change default alignment
+@use '../config' as *;
+
+$table-border-color: var(--color-ink-border);
+$table-border-width: rem(1);
+$table-margin-bottom: $size-line;
+$table-margin-top: $size-line;
+
+$thead-color: var(--color-ink-2ry);
+
+$cell-padding-x: $size-2;
+$cell-padding-y: $size-1p5;
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  // TODO: test this
+  /* display: block;
+  overflow-x: auto;
+
+  @media (--tablet-l) {
+    display: table;
+    overflow-x: initial;
+  }
+  */
+  font-feature-settings: 'lnum' 1, 'tnum' 1;
+  font-variant-numeric: lining-nums tabular-nums;
+  // Remove text indentation from table contents in Chrome, Edge, and Safari
+  text-indent: 0;
+  margin-top: $table-margin-top;
+  margin-bottom: $table-margin-bottom;
+  width: 100%;
+}
+
+caption {
+  font-weight: bolder;
+  text-align: left;
+  padding-top: var(--padding-top-base);
+  padding-bottom: var(--padding-bottom-base);
+}
+
+th,
+td {
+  border-top: $table-border-color solid $table-border-width;
+  text-align: left;
+  padding:
+    calc($cell-padding-y - 1px)
+    $cell-padding-x
+    $cell-padding-y;
+  vertical-align: top;
+}
+
+thead th {
+  border-top: 0;
+  color: $thead-color;
+  position: relative;
+  padding-top: $cell-padding-y;
+  vertical-align: bottom;
+
+  &[colspan] {
+    text-align: center;
+  }
+}
+
+:where(.scroller table:not(:has(thead)) tr:first-of-type) {
+  td,
+  th {
+    border-top: 0;
+    padding-top: $cell-padding-y;
+  }
+}
+
+// Footer
+tfoot {
+  th,
+  td {
+    border-bottom: 0;
+  }
+}
+
+// Within scroller
+
+.scroller {
+  table {
+    margin: 0;
+    width: auto;
+    max-width: none;
+    min-width: 100%;
+  }
+
+  td,
+  th {
+    scroll-snap-align: start;
+  }
+}

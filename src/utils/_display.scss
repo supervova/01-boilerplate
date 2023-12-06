@@ -1,18 +1,28 @@
-@use '../config/variables' as *;
-@use '../config/mixins' as *;
+@use '../config' as *;
 
 // stylelint-disable declaration-no-important
+$some-props: (
+  'property': (
+    class-base: pr,
+    values: (
+      center: center,
+    )
+  ),
+);
 
-$utility-display: (
-  display: (
-    'd-block': block,
-    'd-inline': inline,
-    'd-inline-block': inline-block,
-    'd-none': none,
-    'd-table': table,
-    'd-flex': flex,
-    'd-inline-flex': inline-flex
+$display-props: (
+  'display': (
+    class-base: d,
+    values: (
+      block: block,
+      inline: inline,
+      inline-block: inline-block,
+      table: table,
+      flex: flex,
+      inline-flex: inline-flex,
+      none: none,
+    )
   )
-) !default;
+);
 
-@include utility-classes($utility-display);
+@include utility-classes($display-props);

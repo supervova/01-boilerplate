@@ -1,0 +1,64 @@
+// stylelint-disable selector-no-qualifying-type
+
+@use 'sass:math';
+@use '../config' as *;
+
+/*
+Bullet for non list items
+Reset element
+Section or widget level reset and scope
+*/
+
+/* -----------------------------------------------------------------------------
+ * BULLET FOR NON LIST ITEMS
+ * -------------------------------------------------------------------------- */
+// #region
+
+.has-middle-dot {
+  &::before {
+    color: var(--color-brand-primary);
+    content: ' \00b7';
+  }
+}
+// #endregion
+
+/* -----------------------------------------------------------------------------
+ * RESET
+ * -------------------------------------------------------------------------- */
+// #region
+
+.reset {
+  box-sizing: border-box !important;
+  border: 0 !important;
+  float: none !important;
+  font-size: 100% !important;
+  line-height: auto !important;
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  position: static !important;
+  vertical-align: baseline !important;
+  width: auto !important;
+  height: auto !important;
+}
+// #endregion
+
+/* -----------------------------------------------------------------------------
+ * SECTION OR WIDGET LEVEL RESET AND SCOPE
+ * -------------------------------------------------------------------------- */
+// #region
+
+.my-widget {
+  // Client style overrides
+  all: initial;
+
+  :where(*:not(svg, svg *), use) {
+    all: revert;
+  }
+
+  // My widget styles
+  .btn {
+    color: var(--color-ink-inverse-base);
+  }
+}
+// #endregion

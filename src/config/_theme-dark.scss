@@ -1,14 +1,15 @@
 @mixin dark {
   color-scheme: dark;
 
-  // Brand
-  // Backgrounds
-  // Inks
-  // Feedback
-  // Shadows
-  // Icons
+  /*
+  Brand
+  Backgrounds
+  Inks
+  Feedback
+  Shadows
+  Icons
 
-  // Or set the minimal dark mode
+  Or set the minimal dark mode */
   * {
     background-color: inherit;
     color: inherit;
@@ -31,8 +32,8 @@
   }
 }
 
-// Dark theme (Forced)
-// Enabled if forced with data-theme="dark"
+/* Dark theme (Forced)
+Enabled if forced with data-theme="dark" */
 [data-theme='dark'] {
   @include dark;
 }

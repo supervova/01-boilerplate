@@ -9,13 +9,15 @@
   cursor: pointer;
 }
 
-// Change the cursor on disabled, not-editable, or otherwise inoperable elements in all browsers (opinionated)
+/* Change the cursor on disabled, not-editable, or otherwise inoperable elements
+in all browsers (opinionated) */
 [aria-disabled='true'],
 [disabled] {
   cursor: not-allowed;
 }
 
-// Change the display on visually hidden accessible elements in all browsers (opinionated)
+/* Change the display on visually hidden accessible elements in all browsers
+(opinionated) */
 [aria-hidden='false'][hidden] {
   display: initial;
 }
@@ -25,8 +27,8 @@
   position: absolute;
 }
 
-// User interaction
-// Remove the tapping delay in IE 10
+/* User interaction
+Remove the tapping delay in IE 10 */
 a,
 area,
 button,

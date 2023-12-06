@@ -1,0 +1,16 @@
+@custom-media --phone only screen and (width < 768px);
+@custom-media --phone-p only screen and (width < 568px);
+@custom-media --phone-l only screen and (width >= 568px);
+// @custom-media --tablet only screen and (width >= 768px) and (min-height: 415px);
+// @custom-media --tablet only screen and (width >= 768px);
+// @custom-media --tablet-p-only only screen and (768px <= width <= 1023px);
+@custom-media --tablet only screen and (768px <= width <= 1023px) and (orientation: portrait), only screen and (width >= 768px) and (pointer: fine), only screen and (width >= 1024px);
+@custom-media --tablet-p-only only screen and (768px <= width <= 1023px) and (orientation: portrait), only screen and (768px <= width <= 1023px) and (pointer: fine);
+@custom-media --tablet-l-down only screen and (width < 1024);
+@custom-media --tablet-l only screen and (width >= 1024px);
+@custom-media --tablet-only only screen and (768px <= width <= 1360px);
+@custom-media --desktop-down only screen and (width < 1360px);
+@custom-media --desktop only screen and (width >= 1360px);
+@custom-media --desktop-xl only screen and (width >= 1920px);
+
+@custom-selector :--input-text-default :where(input:not([type='checkbox']):not([type='radio']):not([type='submit']), select, textarea):not(:focus);

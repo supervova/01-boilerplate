@@ -1,26 +1,28 @@
-@use '../config/variables' as *;
-@use '../config/mixins' as *;
+@use '../config' as *;
 
 // stylelint-disable selector-list-comma-newline-after
 
-// -----------------------------------------------------------------------------
-// TITLE, SUBTITLE, BIG SUBHEADING
-// -----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
+ * TITLE, SUBTITLE, BIG SUBHEADING, EYEBROW
+ * -------------------------------------------------------------------------- */
 // #region
 
-h1, .h1
+h1, .h1,
 h2, .h2,
 h3, .h3,
 h4, .h4,
 h5, h6 {
-  margin: 0;
+  text-rendering: optimizeLegibility;
+  text-wrap: balance;
+  margin-top: 0;
+  margin-bottom: $size-2;
 }
 
 .h1, .h2, .h3, .h4 {
   display: block;
 }
 
-h1, .h1
+h1, .h1,
 h2, .h2 {
   @include heading-base;
 }
@@ -29,32 +31,47 @@ h2, .h2 {
 h1, .h1 {
   @include text-format(title);
 
-  .eyebrow + & {
-    margin-top: var(--size-margin-top-title-minus);
-  }
+  font-weight: var(--font-weight-title);
+}
+
+.eyebrow h1,
+.eyebrow .h1 {
+  margin-top: var(--margin-top-title);
 }
 
 // Heading 2
 h2, .h2 {
   @include text-format(h2);
+
+  font-weight: var(--font-weight-h2);
 }
 
 // Margin-top for headings after a typography block
-:where(address, blockquote, dl, figure, form, ol, p, pre, table, ul) {
+:where(address, blockquote, div, dl, figure, form, ol, p, pre, table, ul) {
   + :is(h2, h3, h4, h5, h6) {
-    margin-top: $size-line;
+    margin-top: var(--margin-top-subhead);
   }
+}
+
+.eyebrow {
+  @include label;
+  @include text-truncate;
+
+  padding-top: var(--padding-top-small);
+  padding-bottom: var(--padding-bottom-small);
 }
 // #endregion
 
-// -----------------------------------------------------------------------------
-// SUBHEADS
-// -----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
+ * SUBHEADS
+ * -------------------------------------------------------------------------- */
 // #region
 
 h3, .h3 {
   @include heading-base;
   @include text-format(big);
+
+  font-weight: var(--font-weight-big);
 }
 
 h4, .h4, h5, h6 {

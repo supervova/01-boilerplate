@@ -1,0 +1,238 @@
+@use 'sass:math';
+@use '../config' as *;
+
+/*
+Hero: Creating a duotone image background with CSS blend modes
+Sections: Elements (header, summary) and modifiers (highlight and full-bleed)
+Pricing Table
+Alt Containers
+*/
+
+/* -----------------------------------------------------------------------------
+ * HERO
+ * -------------------------------------------------------------------------- */
+// #region
+
+.hero {
+  background-color: var(--color-brand-background-dark);
+  background-image:
+    linear-gradient(
+      var(--color-brand-scrim),
+      var(--color-brand-scrim)
+    ),
+    linear-gradient(var(--color-brand-scrim), var(--color-brand-scrim)),
+    url('https://unsplash.it/1024/768');
+  background-blend-mode: normal, color, normal;
+  background-position: center center;
+  background-repeat: repeat, repeat, no-repeat;
+  color: var(--color-ink-inverse-base);
+  text-align: center;
+  padding: 0 var(--padding-x-container);
+
+  @media (--tablet-l) {
+    background-image:
+      linear-gradient(
+        var(--color-brand-scrim),
+        var(--color-brand-scrim)
+      ),
+      linear-gradient(var(--color-brand-scrim), var(--color-brand-scrim)),
+      url('https://unsplash.it/1920/1080');
+  }
+}
+// #endregion
+
+/* -----------------------------------------------------------------------------
+ * SECTIONS
+ * -------------------------------------------------------------------------- */
+// #region
+
+// SECTION ELEMENTS
+
+// Heading + extra stuff
+.section__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.section__heading {
+  @include text-format(h2);
+  margin: 0;
+}
+
+.section__summary {
+  @include text-format(big);
+  margin: 0;
+}
+
+// VARIATIONS
+
+.section.is-alt {
+  background-color: var(--color-background-2ry);
+}
+
+.section.is-above-the-fold {
+  content-visibility: visible;
+}
+
+// Highlight
+
+.section.is-highlight {
+  background-color: var(--color-brand-background-dark);
+
+  h2,
+  p {
+    color: var(--color-ink-inverse-base);
+  }
+}
+// #endregion
+
+/* -----------------------------------------------------------------------------
+ * PRICING TABLE
+ * -------------------------------------------------------------------------- */
+// #region
+
+$plan-border-radius: $border-radius-base;
+$plan-padding-x: $size-line;
+$plan-header-padding-top: $size-2;
+$plan-header-padding-bottom: $size-2;
+$plan-size-radio: $size-2p5;
+
+.grid.is-plans {
+  @include container;
+  margin-bottom: $size-line;
+  padding: 0;
+
+  @media (--phone) {
+    grid-template-columns: 1fr;
+  }
+
+  @media (--tablet) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.plan {
+  background-color: var(--color-background-base);
+  border-radius: $plan-border-radius;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: box-shadow $duration-xs $easing-base;
+
+  &:hover {
+    box-shadow: var(--box-shadow-z3);
+  }
+
+  &:has(input:checked) {
+    box-shadow: 0 0 0 $size-half var(--color-success-base);
+  }
+
+  &:has(input:checked):has(.plan__radio:focus-visible) {
+    box-shadow: 0 0 0 $size-1 var(--color-success-base);
+  }
+}
+
+// label
+.plan__radio {
+  > input {
+    position: absolute;
+    top: $plan-header-padding-top;
+    right: $plan-padding-x;
+    width: $plan-size-radio;
+    height: $plan-size-radio;
+  }
+
+  &::after {
+    border-radius: $plan-border-radius;
+    content: '';
+    cursor: pointer;
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  &:focus-visible::after {
+    box-shadow: var(--box-shadow-focus-outline);
+  }
+}
+
+// header
+.plan__header {
+  background: var(--color-brand-background-dark);
+  border-radius: $plan-border-radius $plan-border-radius 0 0;
+  padding:
+    $plan-header-padding-top
+    $plan-padding-x
+    $plan-header-padding-bottom;
+}
+
+/* h2-h4 */.plan__type {
+  @include text-format(big);
+
+  color: var(--color-ink-inverse-base);
+  margin-bottom: -$size-1;
+}
+
+.plan__price {
+  @include text-format(title);
+  color: var(--color-ink-inverse-max);
+}
+
+.plan__price small {
+  color: var(--color-ink-inverse-base);
+  font-size: initial;
+  font-weight: normal;
+  line-height: normal;
+  vertical-align: baseline;
+}
+
+.plan__price abbr {
+  margin-left: 1ch;
+}
+
+.plan__summary {
+  list-style: none;
+  padding-right: $plan-padding-x;
+  padding-left: $plan-padding-x;
+  padding-inline: $plan-padding-x;
+}
+// #endregion
+
+/* -----------------------------------------------------------------------------
+ * ALT CONTAINERS
+ * -------------------------------------------------------------------------- */
+// #region
+/* .container, */
+%container {
+  --container-width: #{$width-container};
+  --container-margin: #{$size-5};
+
+  margin-inline: auto;
+  width: min(var(--container-width), calc(100% - var(--container-margin)));
+
+  @media (--tablet) {
+    --container-margin: #{$size-5 * 2};
+  }
+}
+
+/* .row, */
+%row {
+  display: flex;
+}
+
+/* .rows, */
+%rows {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* .col, */
+%col {
+  display: flex;
+  flex-direction: column;
+}
+// #endregion

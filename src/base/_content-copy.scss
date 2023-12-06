@@ -1,22 +1,37 @@
-@use '../config/variables' as *;
-@use '../config/mixins' as *;
+@use '../config' as *;
 
-// -----------------------------------------------------------------------------
-// BLOCK
-// -----------------------------------------------------------------------------
+:focus-visible {
+  scroll-padding-block-end: 8vh;
+}
+
+/* -----------------------------------------------------------------------------
+ * BLOCK
+ * -------------------------------------------------------------------------- */
 // #region
+
 address,
 dl,
 p,
-pre {
+.link.is-forward {
   margin-top: 0;
-  margin-bottom: 0;
-  padding-top: var(--size-padding-top-base);
-  padding-bottom: var(--size-padding-bottom-base);
+  margin-bottom: $size-2;
+  padding-top: var(--padding-top-base);
+  padding-bottom: var(--padding-bottom-base);
 }
 
 address {
   font-style: normal;
+}
+
+div,
+dd,
+dt,
+li,
+p,
+td,
+th {
+  // Formerly `word-wrap`. Breaks words to prevent overflow in all browsers
+  overflow-wrap: break-word;
 }
 
 .lead,
@@ -29,38 +44,32 @@ address {
 // #region
 /* p, span */.list-caption {
   display: block;
-  padding-top: var(--size-padding-top-base);
-  padding-bottom: var(--size-padding-bottom-base);
+  padding-top: var(--padding-top-base);
+  padding-bottom: var(--padding-bottom-base);
 }
 
 ol,
 ul {
   margin-top: 0;
-  margin-bottom: 0;
-  padding-top: 0;
-  padding-bottom: var(--size-padding-bottom-list);
+  margin-bottom: $size-2;
 }
 
 :where(ol, ul) {
   li {
-    padding-top: var(--size-padding-top-base);
-    padding-bottom: var(--size-padding-bottom-li);
+    padding-top: var(--padding-top-base);
+    padding-bottom: var(--padding-bottom-base);
   }
 
   // Nested lists
-  :is(ol, ul) {
-    padding-bottom: 0;
-    padding-left: $size-2;
+  ul {
+    padding-left: $size-3;
   }
 }
 
-/* Unordered list */
+// Unordered list
 ul {
-  list-style: none;
-  padding-left: $size-2;
-
-  ::marker {
-    color: var(--color-brand);
+  > li::marker {
+    color: var(--color-brand-primary);
     content: '\2022\00a0';
   }
 
@@ -69,38 +78,39 @@ ul {
   }
 }
 
-/* Ordered list */
+// Ordered list
 ol {
-  counter-reset: item;
+  counter-reset: item-counter;
+  list-style: none;
 
-  > li {
-    counter-increment: item;
-    text-indent: -$size-4;
-    list-style-type: none;
-    padding-right: ($size-line * 2);
+  li {
+    position: relative;
+    padding-left: $size-3;
 
     &::before {
-      content: counter(item) ')';
-      display: inline-block;
-      font-weight: bolder;
-      text-align: right;
-      padding-right: $size-1;
-      width: $size-3;
+      color: var(--color-ink-2ry);
+      content: counter(item-counter) ')';
+      counter-increment: item-counter;
+      position: absolute;
+      left: 0;
     }
   }
 }
 
-nav ol,
 nav ul,
-.list.is-unstyled {
-  list-style: none;
-  padding-left: 0;
-}
-
+.list.is-unstyled,
 .list.is-inline {
   list-style: none;
   padding-left: 0;
+  margin-bottom: 0;
 
+  > li::marker {
+    color: var(--color-brand-primary);
+    content: '\2022\00a0';
+  }
+}
+
+.list.is-inline {
   li {
     display: inline-block;
 
@@ -127,22 +137,21 @@ dd {
     height: $size-line;
   }
 }
+// #endregion
 
-// DIVIDERS
-
+// Dividers
 hr {
   border: 0;
-  border-top: $size-border-width solid var(--color-ink-border);
-  margin-top: $size-line * 3 - 1px;
+  border-top: $border-width solid var(--color-ink-border);
+  margin-top: $size-line * 3 - $border-width;
   margin-bottom: $size-line * 3;
 }
-// #endregion
 
 // #endregion
 
-// -----------------------------------------------------------------------------
-// INLINE
-// -----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
+ * INLINE
+ * -------------------------------------------------------------------------- */
 // #region
 
 // LINKS
@@ -151,7 +160,8 @@ hr {
   color: var(--color-ink-link-hover);
   text-decoration-skip-ink: auto;
   text-decoration: underline;
-  text-underline-offset: 2px;
+  text-decoration-thickness: max(.08em, 1px);
+  text-underline-offset: .15em;
 }
 
 a,
@@ -161,81 +171,71 @@ a,
   color: var(--color-ink-link);
   // Reapply the pointer cursor for anchor tags
   cursor: pointer;
-  outline: 0;
   text-decoration: none;
-  transition: color var(--motion-duration-sm);
+  transition: color $duration-xxs;
 
-  &:is(:active, :focus) {
+  &:is(:active, :focus-visible) {
     @include a-hover;
   }
 
   // Prevent hover issues on touch screens
-  @media(hover: hover) and (pointer: fine) {
+  @media (hover: hover) and (pointer: fine) {
     &:hover {
       @include a-hover;
     }
   }
 
   &:is([aria-current]) {
-    color: var(--color-ink-text);
+    color: var(--color-ink-base);
   }
+}
+
+.link.is-forward {
+  display: inline-block;
+  padding-right: $size-3;
+  position: relative;
+
+  .icon {
+    position: absolute;
+    top: var(--padding-top-base);
+    right: 0;
+  }
+}
+
+// Scroll padding allowance above anchor links
+:target {
+  scroll-padding-block-start: $size-4;
 }
 
 // #endregion
 
 // MISC
-// Bold
 b,
 strong {
   font-weight: bolder;
 }
 
+em,
+i {
+  font-style: italic;
+}
 
-
-// Small
-.petit {
+small {
   font-size: var(--font-size-small);
-  line-height: var(--font-line-height-small);
-  padding-top: var(--size-padding-top-small);
-  padding-bottom: var(--size-padding-bottom-small);
+  line-height: var(--line-height-small);
 }
 
-// Highlighted text
-mark {
-  background-color: var(--color-background-info);
-  border-radius: $shape-border-radius-xs;
-  color: var(--color-ink-text);
-  padding: 02px;
-  vertical-align: baseline;
+.petit {
+  @include text-format(small);
 }
 
-// ABBREVIATIONS
-/* stylelint-disable selector-no-qualifying-type */
-abbr[title] {
-  border-bottom: 1px dotted currentcolor;
-  cursor: help;
-  text-decoration: none;
-}
-
-// INS
-ins {
-  color: var(--color-ink-success-text);
-  text-decoration: none;
-}
-
-// DEL
-del {
-  color: var(--color-ink-3ry);
-}
-
-// SELECTION
 ::selection {
   background: var(--color-core-brand-800);
   color: var(--color-core-brand-100);
   text-shadow: none;
 }
 
-// SUB, SUP
+// Sub / Sup
 // #region
 // Prevent `sub` and `sup` elements from affecting the line height in all browsers
 sub,

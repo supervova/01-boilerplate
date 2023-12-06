@@ -1,0 +1,318 @@
+@use 'sass:math';
+@use '../config' as *;
+
+/*
+MIXINS
+  Typography
+    Hyphenate
+    word-break
+    normal-wrap
+    Bullet separators
+  Backgrounds
+    Striped Gradient
+  Layout
+    Full bleed grid
+    Alternative container
+    Logical spacing
+  Components
+    Media Scrollers
+    Slideshow
+FUNCTIONS
+  Strip units
+*/
+
+/* -----------------------------------------------------------------------------
+ * MIXINS
+ * -------------------------------------------------------------------------- */
+// #region
+
+// TYPOGRAPHY
+// #region
+
+// Add hyphens
+.hyphens-auto {
+  hyphens: auto;
+}
+
+/* Bullet separators
+@require $size, $color, $mq
+@param $size {String} Defines the width and height of the dot
+@param $color {String} Defines the color of the dot
+@param $mq {Boolean} If you want a dots on touch device or not */
+
+@mixin bullet-separator(
+  $size: 3px,
+  $color: var(--color-brand-primary),
+  $mq: null
+) {
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  &::before {
+    background-color: $color;
+    border-radius: $size * .5;
+    content: '';
+    display: inline-block;
+    margin-left: $size-1;
+    margin-right: $size-1;
+    vertical-align: middle;
+    width: $size;
+    height: $size;
+  }
+
+  &:first-child {
+    margin-right: 0;
+    padding-right: 0;
+
+    &::before {
+      content: none;
+    }
+  }
+}
+// #endregion
+
+// BACKGROUNDS
+// #region
+
+// Striped Gradient
+@mixin gradient-striped(
+  $stripe-color: rgb(0 0 0 / .03),
+  $angle: 45deg,
+  $color: null
+) {
+  @if $color != null {
+    background-color: $color;
+  }
+
+  background-image:
+    linear-gradient(
+      $angle,
+      $stripe-color 25%,
+      transparent 25%,
+      transparent 50%,
+      $stripe-color 50%,
+      $stripe-color 75%,
+      transparent 75%,
+      transparent
+    );
+  background-size: 64px 64px;
+}
+// #endregion
+
+// LAYOUT
+// #region
+
+/* Full bleed grid
+To place an image outside the full width grid we can wrap it in figure with
+overflow: hidden or make a div(role='img' background-image='url(my-image.jpg)') */
+@mixin grid-full-bleed(
+  $gap: $size-3,
+  $margin: $size-5,
+  $width: $width-container
+) {
+  --gap: #{$gap};
+
+  $extra-margin: 0;
+
+  @if $margin > $gap {
+    $extra-margin: $margin - $gap;
+  }
+
+  --gap: #{$gap};
+  --margin: minmax(#{$extra-margin}, calc(50% - (#{$width} * .5 + #{$gap})));
+
+  display: grid;
+  gap: var(--gap);
+  grid-template-columns:
+    var(--margin)
+    repeat(12, 1fr)
+    var(--margin);
+  grid-auto-flow: dense;
+  margin: 0;
+  padding: 0;
+}
+
+// Container alternative
+@mixin container {
+  margin-right: auto;
+  margin-left: auto;
+  margin-inline: auto;
+  padding-left: var(--padding-x-container);
+  padding-right: var(--padding-x-container);
+  position: relative;
+  // width: 100%; max-width: $width-container;
+  width: min(var(#{$width-container}), 100%);
+}
+
+// Logical spacing with fallback for old Safari
+@mixin spacing(
+  $prop,
+  $size,
+  $side: both,
+) {
+
+  $allowed-props: ('margin', 'padding');
+  $allowed-directions: ('left', 'right', 'both');
+
+  @if not ($prop in $allowed-props) {
+    @warn "Allowed values of the 'prop' parameter are 'margin' or 'padding' (default).";
+  }
+
+  @if not ($side in $allowed-directions) {
+    @warn "Allowed values of the 'side' parameter are 'left', 'right' or 'both' (default).";
+  }
+
+  $sides: (
+    left: (
+      left: $size,
+      inline-start: $size
+    ),
+    right: (
+      right: $size,
+      inline-end: $size
+    ),
+    both: (
+      right: $size,
+      left: $size,
+      inline: $size
+    )
+  );
+
+  @each $key, $value in map-get($sides, $side) {
+    #{$prop}-#{$key}: $value;
+  }
+}
+// #endregion
+
+// COMPONENTS
+// #region
+
+// Media Scrollers
+// @see also https://www.youtube.com/watch?v=3yfswsnD2sw
+
+@mixin media-scroller($width: $width-sm) {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  margin-right: calc(-1 * var(--padding-x-container));
+  min-width: 100%;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  > * {
+    margin-right: $gutter-base;
+    width: $width;
+  }
+}
+
+// Slideshow: 1) animation
+@mixin slideshow-animation($items: 4) {
+  $step: percentage(math.div(1, $items));
+  @keyframes slideshow-#{$items}-items {
+    0% { opacity: 0; }
+    #{math.div($step, 5)} { opacity: 1; }
+    #{$step} { opacity: 1; }
+    #{$step + math.div($step, 5)} { opacity: 0; }
+    100% { opacity: 0; }
+  }
+}
+
+// Slideshow: 2) item
+
+// Use a relative positioned parent
+// .parent {
+//   position: relative;
+//   z-index: 0;
+// }
+
+@mixin slideshow-item($items: 4, $lifespan: 4s) {
+  $delay: $lifespan;
+
+  // Use opacity animation
+  animation: slideshow-#{$items}-items ($lifespan * $items) $easing-base infinite;
+  opacity: 1;
+  position: relative;
+
+  // Generate delays
+  @for $i from 2 through $items {
+    &:nth-child(#{$i}) {
+      animation-delay: #{$delay};
+    }
+    $delay: $delay + $lifespan;
+  }
+
+  // Hide all slide except animated
+  & ~ & {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+  }
+}
+
+// Notched Сorners
+@mixin notched(
+  $size: $size-2,
+  $tl: false,
+  $tr: false,
+  $br: false,
+  $bl: false
+) {
+  --notch-size: #{$size-2};
+
+  @if $tl {
+    --top-left: 0% var(--notch-size), var(--notch-size) 0%;
+  } @else {
+    --top-left: 0% 0%;
+  }
+
+  @if $tr {
+    --top-right: calc(100% - var(--notch-size)) 0%, 100% var(--notch-size);
+  } @else {
+    --top-right: 100% 0%;
+  }
+
+  @if $br {
+    --bottom-right: 100% calc(100% - var(--notch-size)), calc(100% - var(--notch-size)) 100%;
+  } @else {
+    --bottom-right: 100% 100%;
+  }
+
+  @if $bl {
+    --bottom-left: var(--notch-size) 100%, 0% calc(100% - var(--notch-size));
+  } @else {
+    --bottom-left: 0% 100%;
+  }
+
+  clip-path:
+    polygon(
+      var(--top-left),
+      var(--top-right),
+      var(--bottom-right),
+      var(--bottom-left)
+    );
+}
+
+
+// #endregion
+
+// #endregion
+
+/* -----------------------------------------------------------------------------
+ * FUNCTIONS
+* -------------------------------------------------------------------------- */
+// #region
+
+// Strip units
+@function strip-unit($number) {
+  @if type-of($number) == 'number' and not unitless($number) {
+    @return math.div($number, ($number * 0 + 1));
+  }
+
+  @return $number;
+}
+// #endregion

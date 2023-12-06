@@ -1,0 +1,49 @@
+@use '../config' as *;
+
+blockquote {
+  margin: $size-line 0 $size-2;
+
+  p {
+    @include text-format(big);
+
+    font-family: $font-family-title;
+    position: relative;
+  }
+
+  p:first-child::before {
+    color: var(--color-ink-2ry);
+    content: '\201c';
+    font-size: var(--font-size-h2);
+    position: absolute;
+    top: -22px;
+    left: -$size-3;
+  }
+
+  > footer {
+    @include text-format(base);
+
+    color: var(--color-ink-2ry);
+  }
+}
+
+blockquote p:first-child::before,
+q::before {
+  content: '“';
+}
+
+blockquote p:last-of-type::after,
+q::after {
+  content: '”';
+}
+
+:lang(ru) {
+  blockquote p:first-child::before,
+  q::before {
+    content: '«';
+  }
+
+  blockquote p:last-of-type::after,
+  q::after {
+    content: '»';
+  }
+}

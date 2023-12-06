@@ -1,0 +1,44 @@
+.tabs {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+
+  > section {
+    // width: 100%; height: 100%;
+    block-size: 100%;
+  }
+
+  > header {
+    display: flex;
+    flex-shrink: 0;
+    flex-direction: column;
+    min-block-size: fit-content;
+  }
+}
+
+.tabs nav {
+  display: flex;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    scroll-snap-align: start;
+  }
+}
+
+.scroll-snap-x {
+  overflow: auto hidden;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+
+  @media (hover: none) {
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
+  }
+}

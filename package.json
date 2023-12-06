@@ -71,6 +71,7 @@
       ],
       "scss/at-extend-no-missing-placeholder": null,
       "scss/dollar-variable-colon-space-after": null,
+      "scss/selector-no-redundant-nesting-selector": null,
       "selector-attribute-quotes": "always",
       "selector-class-pattern": "[a-zA-Z0-9]+[a-za-zA-Z0-9-_]*"
     }
@@ -135,32 +136,33 @@
   "postcss": {
     "map": false,
     "plugins": {
-      "postcss-conditionals": {},
-      "postcss-design-tokens": {},
-      "postcss-each": {},
-      "postcss-for": {},
+      "@fullhuman/postcss-purgecss": {
+        "content": ["./*.html", "./examples/*.html"],
+        "dynamicAttributes": ["aria-selected"],
+        "fontFace": true,
+        "keyframes": true,
+        "safelist": ["button", "/^(is-|has-)/", "/^(.*?)(m|p)(t|b)-/"],
+        "variables": true
+      },
+      "postcss-easing-gradients": {},
       "postcss-inline-svg": {},
-      "postcss-mixins": {},
       "postcss-preset-env": {
         "stage": 2,
         "features": {
           "cascade-layers": false,
           "custom-media-queries": true,
           "custom-properties": false,
+          "custom-selectors": true,
           "has-pseudo-class": true,
           "image-set-function": true,
+          "is-pseudo-class": false,
           "logical-properties-and-values": false,
           "media-query-ranges": true,
           "nesting-rules": true,
           "unset-value": true
         }
-      },
-      "postcss-pxtorem": {
-        "propList": ["font", "font-size", "letter-spacing", "padding-top", "padding-bottom"]
-      },
-      "postcss-sort-media-queries": {}
-    },
-    "importFrom": "/src/config/_custom.css"
+      }
+    }
   },
   "babel": {
     "presets": [

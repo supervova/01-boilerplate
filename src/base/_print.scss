@@ -1,3 +1,4 @@
+// stylelint-disable selector-no-qualifying-type
 @media print {
   .comments,
   .pagination,
@@ -36,8 +37,8 @@
     content: ' (" attr(href) ")';
   }
 
-  // Don't show links that are fragment identifiers,
-  // or use the `javascript:` pseudo protocol
+  /* Don't show links that are fragment identifiers,
+  or use the `javascript:` pseudo protocol */
   a[href^='#']::after,
   a[href^='javascript:']::after {
     content: '';
@@ -66,15 +67,18 @@
     widows: 3;
   }
 
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     font-weight: bold;
     break-after: avoid;
     break-inside: avoid;
   }
 
-  h1+p,
-  h2+p,
-  h3+p {
+  h1 + p,
+  h2 + p,
+  h3 + p {
     break-before: avoid;
   }
 
@@ -102,17 +106,17 @@
 
   @page {
     margin: 2.97cm 2.1cm;
+  }
 
-    &:right{
-      @bottom-right {
-        content: counter(page);
-      }
+  @page :right {
+    @bottom-right {
+      content: counter(page);
     }
+  }
 
-    &:left{
-      @bottom-left {
-        content: counter(page);
-      }
+  @page :left {
+    @bottom-left {
+      content: counter(page);
     }
   }
 }

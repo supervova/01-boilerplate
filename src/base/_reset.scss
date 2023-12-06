@@ -1,15 +1,3 @@
-// https://github.com/elad2412/the-new-css-reset
-
-// Remove all the styles of the "User-Agent-Stylesheet", except for the 'display'
-// property. The "symbol *" part is to solve Firefox SVG sprite bug
-*:where(:not(iframe, canvas, img, svg, video):not(svg *, symbol *)) {
-  all: unset;
-
-  // Reapply the display property. Let `div` remain a block element, and `span`
-  // is inline.
-  display: revert;
-}
-
 // Preferred box-sizing value
 *,
 *::before,
@@ -23,34 +11,94 @@
   vertical-align: inherit;
 }
 
-// Back the 'white-space' property for textarea elements on Safari
-textarea {
-  white-space: revert;
+// Prevent font size inflation
+html {
+  text-size-adjust: none;
 }
 
-// Minimum style to allow to style meter element
-meter {
-  appearance: revert;
+// Remove default margin in favour of better control in authored CSS
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
 }
 
-// reset default text opacity of input placeholder
-::placeholder {
-  color: unset;
+// Set core body defaults
+body {
+  line-height: 1.5;
+  min-height: 100vh;
 }
 
-// fix the feature of 'hidden' attribute.
-// display:revert; revert to element instead of attribute
+// A elements that don't have a class get default styles
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+  color: currentColor;
+}
+
+// Make images easier to work with
+img,
+picture {
+  display: block;
+  max-width: 100%;
+}
+
+// Inherit fonts for inputs and buttons
+input, button,
+textarea, select {
+  font: inherit;
+}
+
+// Make sure textareas without a rows attribute are not tiny
+textarea:not([rows]) {
+  min-height: 10em;
+}
+
+// Hide the summary marker
+summary {
+  cursor: pointer;
+  list-style: none;
+
+  // Webkit
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  &::marker {
+    display: none;
+  }
+
+  // FF
+  &::-moz-list-bullet {
+    list-style-type: none;
+  }
+}
+
+// Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+}
+
+// Anything that has been anchored to should have extra scroll margin
+:target {
+  scroll-margin-block: 5ex;
+}
+
+/* fix the feature of 'hidden' attribute.
+display:revert; revert to element instead of attribute */
 :where([hidden]) {
   display: none;
 }
 
-// revert for bug in Chromium browsers.
-// fix for the content editable attribute will work properly.
 :where([contenteditable]) {
-  -moz-user-modify: read-write;
-  -webkit-user-modify: read-write;
   overflow-wrap: break-word;
-  -webkit-line-break: after-white-space;
 }
 
 // apply back the draggable feature - exist only in Chromium and Safari

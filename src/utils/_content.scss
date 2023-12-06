@@ -1,37 +1,42 @@
 @use '../config/mixins' as *;
 
-// -----------------------------------------------------------------------------
-// CONTEXTUAL COLORS
-// -----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
+ * CONTEXTUAL COLORS
+ * -------------------------------------------------------------------------- */
 
 .bg-highlight {
-  background-color: var(--color-background-brand-dark);
+  background-color: var(--color-brand-background-dark);
 }
 
 .text-highlight-title {
-  color: var(--color-ink-brand-2ry);
-};
+  color: var(--color-brand-ink-2ry);
+}
 
 .text-2ry {
   color: var(--color-ink-2ry);
   font-size: 100%;
 }
 
-// -----------------------------------------------------------------------------
-// TEXT PROPERTIES
-// -----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
+ * TEXT PROPERTIES
+ * -------------------------------------------------------------------------- */
 
-$utility-text: (
-  text-align: (
-    'text-center': center,
-    'text-start': start,
-    'text-end': end
-  )
-) !default;
+$text-props: (
+  'text-align': (
+    class-base: text,
+    values: (
+      center: center,
+      start: start,
+      end: end,
+    )
+  ),
+);
 
-@include utility-classes($utility-text);
+@include utility-classes($text-props);
 
 [class$='text-center'] > p {
+  margin-right: auto;
+  margin-left: auto;
   margin-inline: auto;
 }
 
@@ -39,11 +44,10 @@ $utility-text: (
   white-space: nowrap;
 }
 
-// -----------------------------------------------------------------------------
-// USE IT FOR INLINE ELEMENTS OR TABLE CELLS
-// -----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
+ * TEXT PROPERTIES
+ * -------------------------------------------------------------------------- */
 
 .vertical-middle {
   vertical-align: middle;
 }
-
