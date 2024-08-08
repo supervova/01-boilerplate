@@ -1,0 +1,353 @@
+@use '../../styles/abstracts' as *;
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media (--tablet) {
+    perspective: 1200px;
+  }
+}
+
+// Main image
+.hero > figure {
+  aspect-ratio: 1;
+  background:
+    url('/src/pages/home/hero.png') 50% 50% no-repeat,
+    url('/src/pages/home/hero-space.png') 50% 50% no-repeat;
+  background-size: cover;
+  position: relative;
+  margin-bottom: 0;
+  width: 100%;
+  max-width: rem(624);
+
+  &::after,
+  &::before {
+    content: '';
+    display: block;
+    pointer-events: none;
+    position: absolute;
+  }
+
+  // Frosted glass
+  &::before {
+    background: hsl(var(--h) var(--s-neutral) 99% / 0.44);
+    backdrop-filter: var(--backdrop-filter-elevated);
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: calc(var(--size-line) * 4);
+  }
+
+  // Border
+  &::after {
+    background: url('/src/pages/home/hero-dots-tl.svg') -1px -1px
+        no-repeat,
+      url('/src/pages/home/hero-dots-br.svg') right (-1px) bottom
+        (-1px) no-repeat,
+      url('/src/pages/home/hero-arrow-b.svg') left (-1px) bottom
+        var(--size-2) no-repeat;
+    border: 1px solid var(--color-ink-inverse-border);
+    inset: var(--size-2p5);
+  }
+
+  @media (--tablet) {
+    background-position: 50% rem(216), 50% 50%;
+    background-attachment: fixed, scroll;
+    background-size: rem(648);
+    border-radius: $border-radius-lg;
+
+    &::before,
+    &::after {
+      opacity: 0;
+      transition: opacity var(--duration-md) var(--easing-base);
+    }
+
+    &::before {
+      right: var(--size-6);
+      bottom: var(--size-6);
+      left: var(--size-6);
+      transition-delay: var(--duration-xs) * 3;
+    }
+
+    &::after {
+      inset: var(--size-6);
+      background: url('/src/pages/home/hero-dots-tl.svg') -1px -1px
+          no-repeat,
+        url('/src/pages/home/hero-dots-br.svg') right (-1px)
+          bottom (-1px) no-repeat,
+        url('/src/pages/home/hero-arrow-b.svg') left rem(176)
+          bottom var(--size-2) no-repeat,
+        url('/src/pages/home/hero-barcode.svg') right var(--size-3)
+          bottom 0 no-repeat,
+        url('/src/pages/home/hero-superpower.svg') left var(--size-2)
+          top rem(70) no-repeat,
+        url('/src/pages/home/hero-icon.svg') left var(--size-2) top
+          var(--size-2) no-repeat;
+      transition-delay: var(--duration-xs) * 2;
+    }
+  }
+
+  @media (--retina) {
+    background-image: url('/src/pages/home/hero@2x.png'),
+      url('/src/pages/home/hero-space@2x.png');
+  }
+}
+
+.hero.is-animated > figure {
+  @media (--tablet) {
+    &::after,
+    &::before {
+      opacity: 1;
+    }
+  }
+}
+
+// Stickers
+.hero__overlay {
+  position: absolute;
+  inset: 0 0 (calc(var(--size-1) * -1));
+  pointer-events: none;
+}
+
+.hero__overlay.is-grid {
+  background: url('/src/pages/home/hero-grid.svg') var(--size-2p5)
+    var(--size-2p5) no-repeat;
+  mix-blend-mode: screen;
+
+  @media (--tablet) {
+    background-position: var(--size-6) rem(144);
+  }
+}
+
+.hero__overlay.is-japanese {
+  background: url('/src/pages/home/hero-japanese.svg') right
+    var(--size-4) bottom var(--size-2p5) no-repeat;
+  mix-blend-mode: exclusion;
+
+  @media (--tablet) {
+    background-position: left calc(var(--size-line) * 3) bottom rem(96);
+  }
+}
+
+.hero__overlay.is-43 {
+  display: none;
+
+  @media (--tablet) {
+    background: url('/src/pages/home/hero-43.svg') left rem(96)
+      bottom rem(80) no-repeat;
+    mix-blend-mode: overlay;
+    display: block;
+  }
+}
+
+.hero__overlay.is-red-patch {
+  background: var(--color-error-base);
+  border-radius: 0 var(--border-radius-base) var(--border-radius-base) 0;
+  mix-blend-mode: multiply;
+  top: 23%;
+  width: 28%;
+  height: calc(var(--size-line) * 4);
+
+  @media (--phone-l) {
+    top: 27%;
+  }
+
+  @media (--tablet) {
+    top: rem(192);
+  }
+}
+
+.hero__latest {
+  display: none;
+
+  @media (--tablet-l) {
+    display: block;
+    border-radius: var(--border-radius-base);
+    box-shadow: var(--box-shadow-level-02);
+    overflow: hidden;
+    position: absolute;
+    height: calc(var(--size-line) * 4);
+    top: rem(192);
+    left: -calc(var(--size-line) * 4);
+    transition: translate var(--duration-md) var(--easing-base);
+    translate: calc(var(--size-line) * -2) 0;
+    z-index: 1;
+
+    .is-animated & {
+      translate: 0 0;
+    }
+  }
+}
+
+.hero__arrow {
+  position: absolute;
+  bottom: calc(var(--size-1) * -1);
+  left: var(--size-2p5);
+  z-index: 1;
+
+  @media (--tablet) {
+    left: rem(208);
+    bottom: var(--size-5);
+  }
+}
+
+.hero__space {
+  display: none;
+
+  @media (--tablet) {
+    border-radius: var(--border-radius-base) 0 0 var(--border-radius-base);
+    background: url('/src/pages/home/hero-space.png') 50% 50%
+      no-repeat;
+    display: block;
+    position: absolute;
+    top: rem(144);
+    left: calc(var(--size-6) * -1);
+    bottom: var(--size-5);
+    transition: translate var(--duration-md) var(--easing-base);
+    transition-delay: var(--duration-xs);
+    translate: calc(var(--size-line) * 2) 0;
+    width: var(--size-6);
+    height: rem(384);
+    z-index: -1;
+
+    .is-animated & {
+      translate: 0 0;
+    }
+  }
+}
+
+// Copy
+.hero__copy {
+  text-align: center;
+  padding-inline: var(--size-2p5);
+
+  @media (--tablet) {
+    border-radius: $border-radius-lg;
+    box-shadow: var(--box-shadow-level-03);
+    text-align: left;
+    padding-inline: 0;
+    position: absolute;
+    top: 50%;
+    right: calc(var(--size-1p5) * -1);
+    transform-style: preserve-3d;
+    transition: rotate var(--duration-lg) var(--easing-base);
+    transition-delay: var(--duration-xs) * 2;
+    translate: 0 -55% rem(160);
+    width: rem(414);
+
+    .is-animated & {
+      rotate: y -30deg;
+    }
+  }
+}
+
+.hero__copy h1 {
+  @include text-format(hero-title);
+
+  font-family: var(--font-family-titles);
+  font-weight: var(--font-weight-hero-title);
+  letter-spacing: -1 * rem(1.44);
+
+  b {
+    font-weight: 600;
+  }
+
+  @media (--tablet) {
+    background-color: var(--color-brand-primary);
+    border-radius: $border-radius-lg $border-radius-lg 0 0;
+    color: var(--color-ink-inverse-base);
+    margin-bottom: 0;
+    padding-top: rem(37);
+    padding-bottom: rem(35);
+    padding-inline: var(--size-4);
+  }
+}
+
+.hero__copy [itemprop='description'] {
+  @media (--tablet) {
+    background-color: var(--color-bg-frosted-glass);
+    backdrop-filter: var(--backdrop-filter-elevated);
+    border-radius: 0 0 $border-radius-lg $border-radius-lg;
+    margin-bottom: 0;
+    padding-top: rem(22);
+    padding-bottom: rem(34);
+    padding-inline: var(--size-4);
+  }
+}
+
+.hero__btn {
+  background: linear-gradient(
+    var(--color-bg-2ry),
+    hsl(var(--h) var(--s-neutral) 85%)
+  );
+  border: 1px solid hsl(var(--h) var(--s-neutral) 78%);
+  box-shadow: inset 0 2px 0 0 hsl(0 0% 100% / 0.5),
+    inset 0 0 0 1px hsl(0 0% 100% / 0.2), var(--box-shadow-z1);
+  color: var(--color-ink-2ry);
+  text-shadow: 0 1px 0 var(--color-ink-inverse-max);
+  overflow: visible;
+  position: relative;
+  top: calc(var(--height-btn) / -2);
+  transition: translate var(--duration-xxs) var(--easing-base),
+    box-shadow var(--duration-xxs) var(--easing-base);
+  min-width: calc(var(--size-line) * 7);
+
+  @media (any-hover: hover) and (pointer: fine) {
+    &:hover {
+      box-shadow: inset 0 2px 0 0 hsl(0 0% 100% / 0.5),
+        inset 0 0 0 1px hsl(0 0% 100% / 0.2), var(--box-shadow-level-02);
+    }
+  }
+}
+
+.hero__btn > span {
+  animation: rotating-label (var(--duration-xl) * 20) var(--easing-appearance) 0s infinite;
+  opacity: 0;
+
+  // Each span inside button will be positioned absolutely for animation.
+  // In order not to change its position in the hover position, top: 50%
+  // and negative margin are used.
+  position: absolute;
+  top: 50%;
+  left: 0;
+  margin-top: -1 * rem(26); // tweak for visual centering
+  width: 100%;
+  height: var(--size-7);
+
+  &:nth-child(2) {
+    animation-delay: var(--duration-xl) * 10;
+  }
+}
+
+// The whole animation will run 22 seconds. Every span is visible during
+// 11sec while another is hidden.
+// 1) Delay between changes
+// 2) Visible
+// 3-4) Transition
+// 5)
+// stylelint-disable block-opening-brace-space-before, declaration-block-single-line-max-declarations, declaration-block-semicolon-newline-after
+@keyframes rotating-label {
+  0% {
+    opacity: 0;
+  }
+  1% {
+    opacity: 0;
+    translate: 0;
+  } // 1
+  4% {
+    opacity: 1;
+  } // 2
+  48% {
+    opacity: 1;
+    translate: 0;
+  } //3
+  50% {
+    opacity: 0;
+    translate: 0 (calc(var(--size-1) * -1));
+  } // 4
+  100% {
+    opacity: 0;
+  } // 5
+}

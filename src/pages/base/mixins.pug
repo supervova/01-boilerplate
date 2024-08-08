@@ -1,0 +1,30 @@
+//- Icon
+mixin icon(name, classes=false)
+  - const iconClasses = [`icon`, `is-${name}`, classes].filter(Boolean).join(' ')
+  svg.icon(class=iconClasses, aria-hidden='true', focusable='false')
+    use(href=`/src/components/icon/sprite.svg#icon-${name}`)
+
+//- Button
+mixin button(label, icon=false, classes=false, iconOnly=false, type='button')
+  button.btn(class=classes, type=type, onclick!=attributes.onclick)
+    if icon
+      +icon(icon)
+    span(class=(iconOnly ? 'sr-only' : ''))= label
+
+//- Form item
+mixin formItem(label, name, type='text', labelClass=false, alert=false)
+  label(for=name, class=labelClass)= label
+  input(id=`form-${name}`, name=name, type=type, inputmode!=attributes.inputmode, value!=attributes.value, maxlength!=attributes.maxlength, pattern!=attributes.pattern, required!=attributes.required, placeholder!=attributes.placeholder)
+  if alert
+    small(role='alert')= alert
+
+//- List view snippet
+mixin snippet(title, summary, img=false, link='#')
+  article.snippet(id!=attributes.id, itemscope, itemtype='http://schema.org/Article')
+    if img
+      figure.snippet__img
+        img(src=img, alt=title)
+    .snippet__copy
+      a(href=link)
+        h3(itemprop='headline')= title
+      p(itemprop='description')= summary

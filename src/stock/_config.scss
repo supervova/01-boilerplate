@@ -1,5 +1,7 @@
+@use 'sass:map';
 @use 'sass:math';
-@use '../config' as *;
+@use 'sass:meta';
+@use '../../styles/abstracts' as *;
 
 /*
 MIXINS
@@ -12,6 +14,7 @@ MIXINS
     Striped Gradient
   Layout
     Full bleed grid
+    Full bleed section nested in narrow parent
     Alternative container
     Logical spacing
   Components
@@ -51,11 +54,11 @@ FUNCTIONS
 
   &::before {
     background-color: $color;
-    border-radius: $size * .5;
+    border-radius: $size * 0.5;
     content: '';
     display: inline-block;
-    margin-left: $size-1;
-    margin-right: $size-1;
+    margin-left: var(--size-1);
+    margin-right: var(--size-1);
     vertical-align: middle;
     width: $size;
     height: $size;
@@ -77,25 +80,24 @@ FUNCTIONS
 
 // Striped Gradient
 @mixin gradient-striped(
-  $stripe-color: rgb(0 0 0 / .03),
+  $stripe-color: rgb(0 0 0 / 0.03),
   $angle: 45deg,
   $color: null
 ) {
-  @if $color != null {
+  @if $color {
     background-color: $color;
   }
 
-  background-image:
-    linear-gradient(
-      $angle,
-      $stripe-color 25%,
-      transparent 25%,
-      transparent 50%,
-      $stripe-color 50%,
-      $stripe-color 75%,
-      transparent 75%,
-      transparent
-    );
+  background-image: linear-gradient(
+    $angle,
+    $stripe-color 25%,
+    transparent 25%,
+    transparent 50%,
+    $stripe-color 50%,
+    $stripe-color 75%,
+    transparent 75%,
+    transparent
+  );
   background-size: 64px 64px;
 }
 // #endregion
@@ -107,20 +109,19 @@ FUNCTIONS
 To place an image outside the full width grid we can wrap it in figure with
 overflow: hidden or make a div(role='img' background-image='url(my-image.jpg)') */
 @mixin grid-full-bleed(
-  $gap: $size-3,
-  $margin: $size-5,
-  $width: $width-container
+  $gap: var(--size-3),
+  $margin: var(--size-5),
+  $width: var(--width-container)
 ) {
   --gap: #{$gap};
 
   $extra-margin: 0;
 
   @if $margin > $gap {
-    $extra-margin: $margin - $gap;
+    $extra-margin: calc(#{$margin} - #{$gap});
   }
 
-  --gap: #{$gap};
-  --margin: minmax(#{$extra-margin}, calc(50% - (#{$width} * .5 + #{$gap})));
+  --margin: minmax(#{$extra-margin}, calc(50% - (#{$width} * 0.5 + #{$gap})));
 
   display: grid;
   gap: var(--gap);
@@ -133,6 +134,35 @@ overflow: hidden or make a div(role='img' background-image='url(my-image.jpg)') 
   padding: 0;
 }
 
+// Full bleed section nested in narrow parent
+@mixin content-full-width($sidebar: false) {
+  @media (--laptop) {
+    text-align: center;
+    position: relative;
+    padding-inline: var(--padding-x-container);
+
+    @if $sidebar {
+      left: calc((100vw - var(--width-navbar)) / -2 + 50%);
+      width: calc(100vw - var(--width-navbar));
+    } @else {
+      left: calc(-50vw + 50%);
+      width: 100vw;
+    }
+
+    > img,
+    > table,
+    > .border,
+    > .scroller {
+      margin-inline: auto;
+      max-width: var(--width-content-10-col);
+    }
+
+    > .border img {
+      width: 100%;
+    }
+  }
+}
+
 // Container alternative
 @mixin container {
   margin-right: auto;
@@ -141,45 +171,40 @@ overflow: hidden or make a div(role='img' background-image='url(my-image.jpg)') 
   padding-left: var(--padding-x-container);
   padding-right: var(--padding-x-container);
   position: relative;
-  // width: 100%; max-width: $width-container;
-  width: min(var(#{$width-container}), 100%);
+  // width: 100%; max-width: var(--width-container);
+  width: min(var(var(--width-container)), 100%);
 }
 
 // Logical spacing with fallback for old Safari
-@mixin spacing(
-  $prop,
-  $size,
-  $side: both,
-) {
-
+@mixin spacing($prop, $size, $side: both) {
   $allowed-props: ('margin', 'padding');
   $allowed-directions: ('left', 'right', 'both');
 
-  @if not ($prop in $allowed-props) {
+  @if not($prop in $allowed-props) {
     @warn "Allowed values of the 'prop' parameter are 'margin' or 'padding' (default).";
   }
 
-  @if not ($side in $allowed-directions) {
+  @if not($side in $allowed-directions) {
     @warn "Allowed values of the 'side' parameter are 'left', 'right' or 'both' (default).";
   }
 
   $sides: (
     left: (
       left: $size,
-      inline-start: $size
+      inline-start: $size,
     ),
     right: (
       right: $size,
-      inline-end: $size
+      inline-end: $size,
     ),
     both: (
       right: $size,
       left: $size,
-      inline: $size
-    )
+      inline: $size,
+    ),
   );
 
-  @each $key, $value in map-get($sides, $side) {
+  @each $key, $value in map.get($sides, $side) {
     #{$prop}-#{$key}: $value;
   }
 }
@@ -191,7 +216,7 @@ overflow: hidden or make a div(role='img' background-image='url(my-image.jpg)') 
 // Media Scrollers
 // @see also https://www.youtube.com/watch?v=3yfswsnD2sw
 
-@mixin media-scroller($width: $width-sm) {
+@mixin media-scroller($width: var(--width-sm)) {
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
@@ -210,13 +235,23 @@ overflow: hidden or make a div(role='img' background-image='url(my-image.jpg)') 
 
 // Slideshow: 1) animation
 @mixin slideshow-animation($items: 4) {
-  $step: percentage(math.div(1, $items));
+  $step: math.percentage(math.div(1, $items));
   @keyframes slideshow-#{$items}-items {
-    0% { opacity: 0; }
-    #{math.div($step, 5)} { opacity: 1; }
-    #{$step} { opacity: 1; }
-    #{$step + math.div($step, 5)} { opacity: 0; }
-    100% { opacity: 0; }
+    0% {
+      opacity: 0;
+    }
+    #{math.div($step, 5)} {
+      opacity: 1;
+    }
+    #{$step} {
+      opacity: 1;
+    }
+    #{$step + math.div($step, 5)} {
+      opacity: 0;
+    }
+    100% {
+      opacity: 0;
+    }
   }
 }
 
@@ -232,7 +267,7 @@ overflow: hidden or make a div(role='img' background-image='url(my-image.jpg)') 
   $delay: $lifespan;
 
   // Use opacity animation
-  animation: slideshow-#{$items}-items ($lifespan * $items) $easing-base infinite;
+  animation: slideshow-#{$items}-items ($lifespan * $items) var(--easing-base) infinite;
   opacity: 1;
   position: relative;
 
@@ -255,14 +290,8 @@ overflow: hidden or make a div(role='img' background-image='url(my-image.jpg)') 
 }
 
 // Notched Сorners
-@mixin notched(
-  $size: $size-2,
-  $tl: false,
-  $tr: false,
-  $br: false,
-  $bl: false
-) {
-  --notch-size: #{$size-2};
+@mixin notched($size: var(--size-2), $tl: false, $tr: false, $br: false, $bl: false) {
+  --notch-size: var(--size-2);
 
   @if $tl {
     --top-left: 0% var(--notch-size), var(--notch-size) 0%;
@@ -277,7 +306,8 @@ overflow: hidden or make a div(role='img' background-image='url(my-image.jpg)') 
   }
 
   @if $br {
-    --bottom-right: 100% calc(100% - var(--notch-size)), calc(100% - var(--notch-size)) 100%;
+    --bottom-right: 100% calc(100% - var(--notch-size)),
+      calc(100% - var(--notch-size)) 100%;
   } @else {
     --bottom-right: 100% 100%;
   }
@@ -288,15 +318,13 @@ overflow: hidden or make a div(role='img' background-image='url(my-image.jpg)') 
     --bottom-left: 0% 100%;
   }
 
-  clip-path:
-    polygon(
-      var(--top-left),
-      var(--top-right),
-      var(--bottom-right),
-      var(--bottom-left)
-    );
+  clip-path: polygon(
+    var(--top-left),
+    var(--top-right),
+    var(--bottom-right),
+    var(--bottom-left)
+  );
 }
-
 
 // #endregion
 
@@ -309,7 +337,7 @@ overflow: hidden or make a div(role='img' background-image='url(my-image.jpg)') 
 
 // Strip units
 @function strip-unit($number) {
-  @if type-of($number) == 'number' and not unitless($number) {
+  @if meta.type-of($number) == 'number' and not math.is-unitless($number) {
     @return math.div($number, ($number * 0 + 1));
   }
 

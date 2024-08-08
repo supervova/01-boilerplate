@@ -1,0 +1,24 @@
+block config
+  include /pages/base/config
+
+doctype html
+html(lang=page.lang || site.lang, prefix='og: http://ogp.me/ns#')
+  head
+    block head
+      include /pages/base/head
+
+  body(class=page.bodyClasses || '')
+    block bodyPrefix
+      //- include /components/alert/alert
+
+    block header
+      //- include /components/header/header
+
+    //- CONTENT ----------------------------------------------------------------
+    block content
+
+    block footer
+      //- include /components/footer/footer
+
+    block bodySuffix
+      include /pages/base/body-suffix

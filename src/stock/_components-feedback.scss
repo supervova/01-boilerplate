@@ -1,5 +1,5 @@
 @use 'sass:math';
-@use '../config' as *;
+@use '../../styles/abstracts' as *;
 
 /*
 Progress
@@ -13,19 +13,19 @@ Dismissible Alerts
 
 progress {
   appearance: none;
-  background-color: var(--color-background-2ry);
-  border-radius: $border-radius-xs;
+  background-color: var(--color-bg-2ry);
+  border-radius: var(--border-radius-xs);
   border: 0;
   color: var(--color-brand-primary);
   display: block;
-  margin-bottom: $size-line;
+  margin-bottom: var(--size-line);
   overflow: hidden;
   width: 100%;
-  height: $size-1;
+  height: var(--size-1);
 
   &::-webkit-progress-bar {
     background: none;
-    border-radius: $border-radius-xs;
+    border-radius: var(--border-radius-xs);
   }
 
   &[value]::-webkit-progress-value {
@@ -39,13 +39,13 @@ progress {
   // Indeterminate state
   @media (prefers-reduced-motion: no-preference) {
     &:indeterminate {
-      animation: progress-indeterminate ($duration-xl * 1.5) $easing-base infinite;
+      animation: progress-indeterminate calc(var(--duration-xl) * 1.5) var(--easing-base) infinite;
       background:
-        var(--color-background-2ry)
+        var(--color-bg-2ry)
         linear-gradient(
           to right,
           var(--color-brand-primary) 30%,
-          var(--color-background-2ry) 30%
+          var(--color-bg-2ry) 30%
         )
         top left / 150% 150% no-repeat;
 
@@ -85,13 +85,13 @@ progress {
 // #region
 
 .message.is-dismissible {
-  padding-right: $size-4;
+  padding-right: var(--size-4);
 
   // Adjust close link position
-  .button.is-close {
+  :where(.button.is-close) {
     position: absolute;
-    top: $size-1;
-    right: $size-1;
+    top: var(--size-1);
+    right: var(--size-1);
   }
 }
 // #endregion

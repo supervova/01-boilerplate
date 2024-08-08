@@ -1,0 +1,71 @@
+// stylelint-disable selector-no-qualifying-type, selector-max-compound-selectors, no-descending-specificity
+
+@use '../../styles/abstracts' as *;
+
+/* -----------------------------------------------------------------------------
+ * INVALID INPUTS
+ * -------------------------------------------------------------------------- */
+// #region
+
+:--text-field:user-invalid {
+  background-image: var(--icon-error);
+  background-position: top rem(14) right var(--size-1);
+  background-repeat: no-repeat;
+  background-size: var(--size-icon) auto;
+  box-shadow: 0 0 0 2px var(--color-error-base);
+  padding-right: var(--size-5);
+
+  // Show alert
+  + .form__error,
+  + small + .form__error {
+    opacity: 1;
+    height: auto;
+  }
+
+  // And hide hint
+  + small {
+    display: none;
+  }
+}
+// #endregion
+
+/* -----------------------------------------------------------------------------
+ * INLINE ERROR MESSAGES
+ * -------------------------------------------------------------------------- */
+// #region
+
+.form__error {
+  color: var(--color-error-text);
+  display: block;
+  font-size: var(--font-size-caption);
+  font-weight: 400;
+  line-height: var(--line-height-caption);
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity var(--duration-lg);
+  height: 0;
+}
+
+/* To hide message using height: 0 we should wrap it in another div and delegate
+paddings to it */
+.form__error > span {
+  display: block;
+  padding-top: calc(var(--padding-top-caption) + var(--size-half));
+  padding-bottom: var(--padding-bottom-caption);
+  padding-inline: var(--size-2);
+}
+
+// Show front-end validation alert for form rows
+// Add validation script
+.grid.has-error + .form__error {
+  opacity: 1;
+  height: auto;
+}
+// #endregion
+
+/* -----------------------------------------------------------------------------
+ * SUBMISSION FEEDBACK
+ * -------------------------------------------------------------------------- */
+// #region
+
+// #endregion

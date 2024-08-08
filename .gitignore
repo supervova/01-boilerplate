@@ -1,15 +1,10 @@
-# Jekyll
-_site
-.sass-cache
-.jekyll-cache
-.jekyll-metadata
-
 # Working stuff
 *~.*
 _tmp
 deploy.sh
 dist
-src/**/docs/ru
+notes
+raw
 
 # Media Files
 *.avi
@@ -28,9 +23,6 @@ src/**/docs/ru
 # *.webm
 # *.webp
 *.wmv
-
-# TypeScript v1 declaration files
-typings
 
 # ------------------------------------------------------------------------------
 # LOCAL DEVELOPMENT

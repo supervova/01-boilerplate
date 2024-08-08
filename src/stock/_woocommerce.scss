@@ -1,6 +1,5 @@
-// stylelint-disable selector-no-qualifying-type
-
-@use '../config' as *;
+// stylelint-disable selector-no-qualifying-type, selector-class-pattern
+@use '../../styles/abstracts' as *;
 
 /* -----------------------------------------------------------------------------
  * GENERAL
@@ -8,7 +7,7 @@
 // #region
 
 .screen-reader-text {
-  @include sr-only;
+  @include visually-hidden;
 }
 
 .form__row {
@@ -21,7 +20,7 @@
 .u-columns {
   @media (--tablet) {
     display: grid;
-    gap: $size-4;
+    gap: var(--size-4);
     grid-template-columns: repeat(var(--columns, 2), 1fr);
 
     > * {
@@ -30,7 +29,7 @@
   }
 
   @media (--tablet-l) {
-    gap: $size-5;
+    gap: var(--size-5);
   }
 }
 
@@ -69,15 +68,15 @@
   }
 
   [scope='row'] {
-    font-weight: normal;
+    font-weight: 400;
   }
 }
 
 .cart td:first-child:not(.product-remove),
 .cart th:first-child:not(.product-remove) {
   @media (--phone) {
-    margin-top: $size-line;
-    padding-top: $size-line;
+    margin-top: var(--size-line);
+    padding-top: var(--size-line);
   }
 }
 
@@ -116,15 +115,15 @@
   display: none;
 
   @media (--tablet) {
-    border-radius: $border-radius-sm;
+    border-radius: var(--border-radius-sm);
     display: flex;
     align-items: center;
     justify-content: center;
     border: 0;
     color: var(--color-ink-2ry);
-    padding: $size-1;
-    transition: background-color $duration-xxs;
-    width: $size-4;
+    padding: var(--size-1);
+    transition: background-color var(--duration-xxs);
+    width: var(--size-4);
 
     &:hover {
       background-color: var(--color-ink-min);
@@ -155,7 +154,7 @@
 .btn.is-remove {
   background-color: transparent;
   padding: 0;
-  transition: background-color $duration-xxs;
+  transition: background-color var(--duration-xxs);
 
   &:hover {
     background-color: var(--color-ink-min);
@@ -164,7 +163,7 @@
   }
 
   @media (--tablet) {
-    padding: 0 $size-1p5;
+    padding: 0 var(--size-1p5);
   }
 }
 
@@ -173,10 +172,10 @@
   display: flex;
 
   @media (--phone) {
-    margin-bottom: $size-line;
+    margin-bottom: var(--size-line);
 
     + .btn.is-ghost {
-      margin-right: -$size-2;
+      margin-right: calc(var(--size-2) * -1);
     }
   }
 }
@@ -195,7 +194,7 @@
 .cart__coupon input {
   padding-top: 0;
   padding-bottom: 0;
-  margin-right: $size-1;
+  margin-right: var(--size-1);
 }
 
 .actions .cart__row {
@@ -208,10 +207,10 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: flex-end;
-  padding-right: $size-2;
+  padding-right: var(--size-2);
 
   .btn {
-    margin-left: $size-3;
+    margin-left: var(--size-3);
   }
 }
 
@@ -220,7 +219,7 @@
   justify-content: flex-end;
 
   @media (--tablet) {
-    padding-right: $size-1;
+    padding-right: var(--size-1);
   }
 }
 
@@ -229,7 +228,7 @@
   align-items: flex-end;
 
   .cart-collaterals {
-    margin-bottom: $size-line;
+    margin-bottom: var(--size-line);
   }
 }
 
@@ -260,7 +259,7 @@
 
 td > .woocommerce-shipping-methods {
   text-align: right;
-  padding-right: $size-1;
+  padding-right: var(--size-1);
 }
 
 // #endregion
@@ -329,7 +328,7 @@ td > .woocommerce-shipping-methods {
 
 .table.is-checkout-review .product-remove {
   @media (--tablet) {
-    width: $size-line * 3;
+    width: calc(var(--size-line) * 3);
   }
 }
 
@@ -377,7 +376,7 @@ td > .woocommerce-shipping-methods {
 
 .woocommerce-checkout-review-order-table .product-subtotal {
   @media (--tablet) {
-    padding-right: ($size-line * 2);
+    padding-right: calc(var(--size-line) * 2);
   }
 }
 
@@ -386,9 +385,9 @@ td > .woocommerce-shipping-methods {
   display: block;
   padding: 0;
   position: absolute;
-  top: $size-4;
-  width: $size-3;
-  height: $size-3;
+  top: var(--size-4);
+  width: var(--size-3);
+  height: var(--size-3);
 
   a {
     visibility: hidden;
@@ -403,13 +402,13 @@ td > .woocommerce-shipping-methods {
     top: 0;
     left: 0;
     visibility: visible;
-    width: $size-3;
-    height: $size-3;
+    width: var(--size-3);
+    height: var(--size-3);
   }
 
   @media (--tablet) {
     top: 50%;
-    right: $size-1;
+    right: var(--size-1);
     transform: translateY(-15px);
   }
 }
@@ -418,7 +417,7 @@ td > .woocommerce-shipping-methods {
   padding-right: var(--padding-x-cell);
 
   @media (--tablet) {
-    padding-right: ($size-line * 2);
+    padding-right: calc(var(--size-line) * 2);
     width: 1%;
   }
 }
@@ -429,13 +428,13 @@ td > .woocommerce-shipping-methods {
 [id='billing_last_name_field'] {
   @media (--tablet) {
     display: inline-block;
-    width: calc(50% - #{$size-1});
+    width: calc(50% - var(--size-1));
   }
 }
 
 [id='billing_first_name_field'] {
   @media (--tablet) {
-    margin-right: $size-half;
+    margin-right: var(--size-half);
   }
 }
 
@@ -446,7 +445,7 @@ td > .woocommerce-shipping-methods {
 }
 
 [for='billing_country'] {
-  padding-right: $size-1;
+  padding-right: var(--size-1);
 }
 
 .woocommerce-additional-fields > h3 {
@@ -459,7 +458,7 @@ td > .woocommerce-shipping-methods {
   background-color: #fff;
   background-image: none;
   border: 1px solid rgb(0 0 0 / .12);
-  border-radius: $size-half;
+  border-radius: var(--size-half);
   color: rgb(0 0 0 / .6);
   display: block;
   line-height: var(--line-height-base);
@@ -480,12 +479,12 @@ td > .woocommerce-shipping-methods {
 
 .select2-container--default .select2-results__option[aria-selected='true'],
 .select2-container--default .select2-results__option[data-selected='true'] {
-  background-color: var(--color-background-2ry);
+  background-color: var(--color-bg-2ry);
 }
 
 .select2-container--default .select2-results__option--highlighted[aria-selected],
 .select2-container--default .select2-results__option--highlighted[data-selected] {
-  background-color: var(--color-brand-background-dark);
+  background-color: var(--color-brand-bg-dark);
 }
 
 .select2-container--default .select2-search--dropdown .select2-search__field,
@@ -505,16 +504,16 @@ td > .woocommerce-shipping-methods {
 .thwcfd-field-state,
 [id='billing_city_field'],
 [id='billing_state_field'] {
-  margin-bottom: $size-4;
+  margin-bottom: var(--size-4);
 }
 
 // Chevrons
 .select2-container--default .select2-selection--single .select2-selection__arrow {
   background: var(--icon-sm-chevron-down) no-repeat 50%;
   top: 50%;
-  right: $size-1;
-  width: $size-line;
-  height: $size-line;
+  right: var(--size-1);
+  width: var(--size-line);
+  height: var(--size-line);
 }
 
 .select2-selection__arrow b {
@@ -542,7 +541,7 @@ td > .woocommerce-shipping-methods {
   @include button;
   @include button-primary;
 
-  margin-top: $size-line;
+  margin-top: var(--size-line);
 }
 
 /*
@@ -574,7 +573,7 @@ td > .woocommerce-shipping-methods {
 }
 
 .main__collection-cart__actions {
-  margin-bottom: $size-line;
+  margin-bottom: var(--size-line);
   @media (--phone-l) {
     display: flex;
     align-items: center;
@@ -611,7 +610,7 @@ td > .woocommerce-shipping-methods {
 }
 
 .modal__cart-form .quantity {
-  padding-bottom: $size-line;
+  padding-bottom: var(--size-line);
 }
 
 // BUTTONS
@@ -621,11 +620,12 @@ td > .woocommerce-shipping-methods {
   @include button;
   @include button-primary;
 
-  margin-left: $size-2;
+  margin-left: var(--size-2);
 }
 
 // Hide default buttons when product's .added_to_cart.wc-forward
 // .modal__buttons .has-close-label,
+// stylelint-disable-next-line selector-max-class
 .added_to_cart.wc-forward + .has-close-label + .qlwcdc_quick_purchase,
 .add_to_cart_button.added {
   display: none;
@@ -684,7 +684,7 @@ td > .woocommerce-shipping-methods {
 
 // TITLE AND LOCAL NAV
 .page.is_account .modal__heading {
-  @include sr-only;
+  @include visually-hidden;
 }
 
 .page.is-account .modal__header {
@@ -697,7 +697,7 @@ td > .woocommerce-shipping-methods {
   @media (--phone-l) {
     display: flex;
     justify-content: flex-end;
-    padding-bottom: $size-line;
+    padding-bottom: var(--size-line);
   }
 }
 
@@ -709,21 +709,21 @@ td > .woocommerce-shipping-methods {
 .woocommerce-MyAccount-navigation-link--dashboard {
   @include text-format(big);
 
-  margin: 0 0 $size-line;
+  margin: 0 0 var(--size-line);
 
   @media (--phone-l) {
     margin-right: auto;
     margin-bottom: 0;
 
     a {
-      padding: 9px $size-half;
+      padding: 9px var(--size-half);
     }
   }
 
   @media (--tablet) {
     a {
-      margin-left: -$size-2;
-      padding: $size-half $size-2;
+      margin-left: calc(var(--size-2) * -1);
+      padding: var(--size-half) var(--size-2);
     }
   }
 }
@@ -733,17 +733,17 @@ td > .woocommerce-shipping-methods {
   @include label;
 
   border-bottom: 1px solid var(--color-ink-border);
-  padding: $size-2 0 $size-2p5;
+  padding: var(--size-2) 0 var(--size-2p5);
   position: relative;
 
   @media (--phone-l) {
     border-bottom: 0;
-    padding: $size-2 6px;
+    padding: var(--size-2) 6px;
   }
 
   @media (--tablet) {
-    padding-left: $size-2;
-    padding-right: $size-2;
+    padding-left: var(--size-2);
+    padding-right: var(--size-2);
   }
 }
 
@@ -759,7 +759,7 @@ td > .woocommerce-shipping-methods {
   }
 
   @media (--phone-l) {
-    border-radius: $border-radius-sm;
+    border-radius: var(--border-radius-sm);
   }
 }
 
@@ -769,16 +769,16 @@ td > .woocommerce-shipping-methods {
 
   @media (--phone-p) {
     &::after {
-      background-color: var(--color-brand-background-dark);
-      border-radius: $size-half;
+      background-color: var(--color-brand-bg-dark);
+      border-radius: var(--size-half);
       content: '';
       display: block;
       position: absolute;
       top: 50%;
       right: 0;
       transform: translateY(-50%);
-      width: $size-1;
-      height: $size-1;
+      width: var(--size-1);
+      height: var(--size-1);
     }
   }
 
@@ -794,7 +794,7 @@ td > .woocommerce-shipping-methods {
 
 // EDIT PROFILE
 .woocommerce-EditAccountForm fieldset {
-  margin-top: $size-line * 2;
+  margin-top: calc(var(--size-line) * 2);
 }
 
 .woocommerce-EditAccountForm legend {
@@ -805,10 +805,10 @@ td > .woocommerce-shipping-methods {
 .woocommerce-Input + span em {
   color: var(--color-ink-2ry);
   display: block;
-  font-size: var(--font-size-small);
-  line-height: var(--line-height-small);
-  padding-top: var(--padding-top-small);
-  // padding-bottom: var(--padding-bottom-small);
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-caption);
+  padding-top: var(--padding-top-caption);
+  // padding-bottom: var(--padding-bottom-caption);
 }
 
 // ADDRESS

@@ -1,0 +1,43 @@
+@use '../../styles/abstracts' as *;
+
+blockquote {
+  margin: var(--size-line) 0 var(--size-2);
+
+  p {
+    font-size: var(--font-size-big);
+    line-height: var(--line-height-big);
+    position: relative;
+  }
+
+  > footer {
+    color: var(--color-ink-2ry);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+  }
+}
+
+// Opening quotes for the first line in a quote
+blockquote p:first-child::before,
+q::before {
+  content: '“';
+  position: absolute;
+}
+
+// Closing quotes for the last line in a quote
+blockquote p:last-of-type::after,
+q::after {
+  content: '”';
+}
+
+// Localisation for Russian-language texts
+:lang(ru) {
+  blockquote p:first-child::before,
+  q::before {
+    content: '«';
+  }
+
+  blockquote p:last-of-type::after,
+  q::after {
+    content: '»';
+  }
+}

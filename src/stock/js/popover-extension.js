@@ -7,7 +7,7 @@
   function changePopoverLabel(event) {
     const selectedOption = event.target;
     const popoverToggle = selectedOption
-      .closest('js-popover')
+      .closest('[data-role="popover"]')
       .querySelector('[data-toggle="popover"]');
     popoverToggle.innerHTML = selectedOption.textContent;
   }

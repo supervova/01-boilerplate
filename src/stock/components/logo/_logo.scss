@@ -1,0 +1,58 @@
+@use '../../../styles/abstracts' as *;
+
+
+.logo {
+  --logo-color: hsl(var(--h) var(--s) 40%);
+
+  border-radius: var(--border-radius-base);
+  flex-shrink: 0;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &:focus-visible {
+    background: var(--color-bg-2ry);
+    box-shadow: 0 0 0 var(--size-1) var(--color-bg-2ry);
+  }
+
+  &,
+  &:visited {
+    color: var(--logo-color);
+  }
+
+  span {
+    display: block;
+  }
+}
+
+.logo__logotype,
+.logo__tagline {
+  @include text-format(small);
+}
+
+.logo__logotype {
+  font-weight: bolder;
+
+  @media (--laptop) {
+    font-size: rem(23);
+    line-height: calc(24 / 23);
+    white-space: nowrap;
+    padding-top: rem(5);
+    padding-bottom: rem(3);
+  }
+}
+
+.logo__tagline {
+  color: var(--color-ink-2ry);
+  margin-top: -var(--size-half);
+}
+
+:is(.app.is-home, .page.is-home) .logo {
+  pointer-events: none;
+  cursor: default;
+
+  &:hover {
+    color: var(--logo-color);
+  }
+}

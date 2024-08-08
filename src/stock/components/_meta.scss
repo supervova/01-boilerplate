@@ -1,0 +1,49 @@
+@use '../styles/abstracts' as *;
+
+.meta {
+  display: flex;
+  align-items: center;
+}
+
+.meta time {
+  border-right: 1px solid var(--color-ink-border);
+  color: var(--color-ink-2ry);
+  margin-right: var(--size-1p5);
+  padding-right: var(--size-1p5) - rem(1);
+}
+
+.meta .icon {
+  margin-right: var(--size-half);
+  translate: 0 -1px;
+}
+
+.meta__comments {
+  display: none;
+
+  @media (--phone-l) {
+    border-radius: var(--border-radius-sm);
+    display: block;
+    margin-left: auto;
+    padding-block: var(--size-half);
+    padding-left: var(--size-1p5);
+    padding-right: var(--size-1);
+
+    &:active {
+      background: var(--color-bg-2ry);
+      text-decoration: none;
+    }
+
+    @media (any-hover: hover) and (pointer: fine) {
+      &:hover {
+        background: var(--color-bg-2ry);
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+:where(.meta) .is-share .popover__body {
+  bottom: 3.5rem;
+  right: -1rem;
+  left: auto;
+}

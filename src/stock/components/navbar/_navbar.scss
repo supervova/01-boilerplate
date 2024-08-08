@@ -1,0 +1,234 @@
+@use 'sass:math';
+@use '../../styles/abstracts' as *;
+
+// -----------------------------------------------------------------------------
+// BASE - MENU
+// -----------------------------------------------------------------------------
+// #region
+
+.navbar {
+  display: contents;
+
+  @media (--tablet) {
+    background-color: var(--color-bg-frosted-glass);
+    backdrop-filter: var(--backdrop-filter-elevated);
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    margin-inline: auto;
+    margin-top: rem(76);
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: calc(var(--size-1) * 10);
+    z-index: var(--zindex-fixed);
+  }
+}
+
+.navbar > div {
+  display: contents;
+
+  @media (--tablet) {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: var(--size-2p5);
+    width: 100%;
+    // 10 columns of max-width container + margins
+    max-width: calc(#{rem(1096)} + var(--size-5) * 2);
+  }
+
+  @media (--tablet-l) {
+    padding-right: var(--size-5);
+  }
+}
+
+.navbar__base {
+  background-color: var(--color-bg-frosted-glass);
+  backdrop-filter: var(--backdrop-filter-elevated);
+  display: flex;
+  justify-content: center;
+  padding: var(--size-1);
+  position: fixed;
+  top: auto;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: calc(var(--size-5) * 2);
+  z-index: var(--zindex-fixed);
+
+  @media (--tablet) {
+    background-color: transparent;
+    backdrop-filter: none;
+    padding-inline: 0;
+    position: relative;
+  }
+}
+
+// ITEMS
+.navbar__base li {
+  padding: 0;
+}
+
+// Top level
+.navbar__base > li {
+  @media (--phone) {
+    width: clamp(#{rem(76)}, 25%, #{rem(168)});
+  }
+}
+
+[lang='ru'] .navbar__item.is-about {
+  display: none;
+
+  @media (--phone-l) {
+    display: initial;
+  }
+}
+
+// LINKS & OVERFLOW MENU SUMMARY
+
+.navbar__link {
+  --menu-item-padding: #{rem(10) var(--size-1p5) var(--size-half)};
+
+  border-radius: var(--border-radius-xs);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: rem(10);
+  text-align: center;
+  text-decoration: none;
+  text-transform: none;
+  padding: var(--menu-item-padding);
+  height: var(--size-8);
+
+  &:active {
+    background: var(--color-ink-min);
+  }
+
+  @media (any-hover: hover) and (pointer: fine) {
+    &:hover {
+      background: var(--color-ink-min);
+      text-decoration: none;
+    }
+  }
+
+  @media (--tablet) {
+    width: calc(var(--size-1) * 10);
+    padding-inline: var(--size-1);
+  }
+}
+
+// LABELS
+
+.navbar__link > span {
+  @include label(false);
+  @include text-truncate;
+
+  color: var(--color-ink-2ry);
+  max-width: 100%;
+}
+
+// #endregion
+
+// -----------------------------------------------------------------------------
+// POPOVER MENU (IN PLANS)
+// -----------------------------------------------------------------------------
+// #region
+.navbar .is-more summary {
+  @include menu-item;
+
+  cursor: pointer;
+
+  @media (--tablet-only) {
+    border-radius: 0;
+  }
+}
+
+:where(.navbar .is-more [open]) summary {
+  background-color: var(--color-ink-min);
+}
+
+.navbar .is-more summary::after {
+  @media (--laptop-down) {
+    display: none;
+  }
+
+  @media (--laptop) {
+    margin-left: auto;
+    margin-inline-start: auto;
+    rotate: -90deg;
+  }
+}
+
+.navbar .is-more .popover__body {
+  top: auto;
+  bottom: 100%;
+  left: auto;
+  right: 2px;
+
+  @media (--tablet) {
+    bottom: 0;
+    right: auto;
+    left: 100%;
+  }
+}
+// #endregion
+
+// -----------------------------------------------------------------------------
+// ACTIONS: SEARCH AND LANGUAGE TOGGLES
+// -----------------------------------------------------------------------------
+// #region
+
+.navbar__actions {
+  display: flex;
+  align-items: center;
+
+  @media (--tablet) {
+    border-left: 1px solid var(--color-ink-border);
+    align-items: stretch;
+    margin-left: var(--size-1);
+    padding-left: var(--size-1);
+  }
+
+  @media (--tablet-l) {
+    margin-left: var(--size-2);
+    padding-left: var(--size-2);
+  }
+}
+
+.navbar__actions li {
+  @media (--tablet) {
+    padding-block: var(--size-1);
+  }
+}
+
+// Language toggle
+.navbar__actions a {
+  border-radius: var(--border-radius-xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--size-1p5);
+  height: var(--size-6);
+
+  &:active {
+    background: var(--color-ink-min);
+  }
+
+  &:focus-visible {
+    @include state-focus;
+  }
+
+  @media (any-hover: hover) and (pointer: fine) {
+    &:hover {
+      background: var(--color-ink-min);
+    }
+  }
+}
+
+.navbar__actions a,
+.navbar__actions .btn.is-search {
+  @media (--tablet) {
+    height: 100%;
+  }
+}
+// #endregion

@@ -1,0 +1,29 @@
+@use '../styles/abstracts' as *;
+
+.footer {
+  color: var(--color-ink-2ry);
+  margin-top: var(--size-8);
+  margin-inline: auto;
+  padding-bottom: calc(var(--size-line) * 6);
+  padding-inline: var(--size-2p5);
+  transition: background-color (var(--duration-xl) * 4) var(--easing-base);
+  width: 100%;
+
+  .col-1\/1 {
+    border-top: 1px solid var(--color-ink-border);
+    flex-direction: row;
+    align-items: center;
+    gap: var(--size-line);
+    justify-content: center;
+    text-align: center;
+    padding-top: calc(var(--size-line) * 3);
+  }
+
+  :where(.page.is-home) & {
+    margin-top: 0;
+  }
+
+  @media (--tablet) {
+    padding-bottom: calc(var(--size-line) * 3);
+  }
+}

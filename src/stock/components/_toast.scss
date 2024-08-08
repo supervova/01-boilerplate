@@ -1,0 +1,54 @@
+@use '../styles/abstracts' as *;
+
+.toast {
+  --background: var(--color-bg-2ry);
+  --background-image: var(--icon-info);
+  --color: var(--color-ink-2ry);
+
+  background-color: var(--background);
+  background-image: var(--background-image);
+  background-position: left var(--size-2) top var(--size-2p5);
+  background-repeat: no-repeat;
+  background-size: var(--size-icon) auto;
+  border-radius: var(--border-radius-base);
+  box-shadow: var(--box-shadow-level-01);
+  color: var(--color-success-text);
+  padding-top: calc(var(--padding-top-base) + var(--size-1p5));
+  padding-bottom: calc(var(--padding-bottom-base) + var(--size-2));
+  padding-right: var(--size-3);
+  padding-left: var(--size-6);
+  opacity: 0;
+  position: fixed;
+  left: 50%;
+  bottom: var(--size-2);
+  translate: -50% (var(--size-6));
+  transition: translate var(--duration-sm) var(--easing-base),
+    opacity var(--duration-sm) var(--easing-base);
+  width: fit-content;
+  min-width: var(--width-sm);
+  max-width: calc(100vw - var(--padding-x-container) * 2);
+  z-index: var(--zindex-fixed);
+
+  @media (--tablet-l) {
+    max-width: var(--width-xl);
+  }
+}
+
+.toast.is-success,
+.toast.is-error {
+  opacity: 1;
+  translate: -50% 0;
+}
+
+.toast.is-success {
+  --background: var(--color-success-background);
+  --background-image: var(--icon-success);
+  --color: var(--color-success-text);
+}
+
+.toast.is-error {
+  --background: var(--color-error-background);
+  --background-image: var(--icon-error);
+  --color: var(--color-error-text);
+}
+// #endregion

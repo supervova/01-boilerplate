@@ -57,7 +57,7 @@ function handleMenuOverflow() {
 
       // Create a details.popover…
       const details = document.createElement('details');
-      details.className = 'popover js-popover';
+      details.setAttribute('data-role', 'popover');
       moreItem.appendChild(details);
 
       // … and a summary.menu__link.

@@ -1,6 +1,5 @@
-
 @use 'sass:math';
-@use '../config' as *;
+@use '../../styles/abstracts' as *;
 
 // use :where() to write the selector with zero-specificity
 :where(.parent) a {
@@ -15,5 +14,13 @@
 // Tailwind: exclude some ancestors weight
 .dark .dark\:prose-dark :where(strong):not(:where([class~='not-prose'] *)) {
   // ...
+}
+
+// Targeting only Firefox
+// stylelint-disable-next-line at-rule-no-vendor-prefix
+@-moz-document url-prefix() {
+  body {
+    background-color: #f00;
+  }
 }
 // #endregion

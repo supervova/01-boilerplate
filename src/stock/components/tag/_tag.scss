@@ -1,0 +1,62 @@
+@use '../../styles/abstracts' as *;
+
+.tag {
+  --tag-background: var(--color-brand-100);
+  --tag-background-hover: var(--color-brand-50);
+  --tag-height: var(--size-line);
+
+  @include label;
+  @include text-truncate;
+
+  background-color: var(--tag-background);
+  border-radius: var(--border-radius-pill);
+  color: var(--color-brand-text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-feature-settings: 'tnum';
+  font-variant: tabular-nums;
+  line-height: var(--tag-height);
+  text-decoration: none;
+  word-break: break-word;
+  margin: 0 var(--size-1) var(--size-1) 0;
+  padding: 0 calc(var(--size-1) * 1).5);
+  outline: none;
+  position: relative;
+  transition: background-color var(--duration-xxs) var(--easing-base);
+  vertical-align: baseline; // or middle
+  max-width: calc(var(--size-2) * 10);
+  min-width: var(--size-2p5);
+  height: var(--tag-height);
+
+  &[href]:hover {
+    background: var(--tag-background-hover);
+    color: var(--color-brand-text);
+    text-decoration: none;
+  }
+
+  &:focus-visible {
+    @include state-focus;
+  }
+}
+
+.tag.is-error {
+  background: var(--color-error-background);
+  color: var(--color-error-text);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--size-1);
+
+  @supports not (gap: 4px) {
+    > * {
+      margin-bottom: var(--size-1);
+    }
+
+    .tag + .tag {
+      margin-left: var(--size-1);
+    }
+  }
+}

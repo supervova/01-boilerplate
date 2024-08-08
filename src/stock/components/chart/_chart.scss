@@ -1,0 +1,84 @@
+@use '../../styles/abstracts' as *;
+
+// -----------------------------------------------------------------------------
+// CHART BARS: TABLE
+// -----------------------------------------------------------------------------
+
+.table.is-chart-bars {
+  vertical-align: middle;
+
+  tr {
+    display: block;
+
+    @media (--tablet) {
+      display: table-row;
+    }
+  }
+
+  th,
+  td {
+    display: inline-block;
+    padding: 0 0 var(--size-1);
+    vertical-align: middle;
+
+    @media (--tablet) {
+      display: table-cell;
+      padding-bottom: var(--size-1);
+    }
+  }
+
+  td {
+    font-weight: bolder;
+  }
+}
+
+.is-skills {
+  table-layout: fixed;
+
+  th {
+    width: calc(100% - 5ch);
+  }
+
+  td {
+    text-align: right;
+    white-space: nowrap;
+    width: 4.5ch;
+  }
+
+  @media (--tablet) {
+    margin-inline: calc(var(--size-1p5) * -1);
+    width: calc(100% + var(--size-3));
+
+    td {
+      width: 5ch;
+      border-right: var(--size-1p5) solid transparent;
+    }
+
+    th {
+      border-left: var(--size-1p5) solid transparent;
+    }
+  }
+}
+
+.table__track {
+  background: var(--color-bg-2ry);
+  border-radius: var(--border-radius-sm);
+  width: 100%;
+}
+
+.table__caption {
+  background-image: var(--color-brand-gradient-triple);
+  border-radius: var(--border-radius-sm);
+  color: var(--color-ink-inverse-base);
+  font-size: var(--font-size-caption);
+  line-height: 1;
+  text-transform: uppercase;
+  text-shadow: 0 1px 0 rgb(0 0 0 / 0.12);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-top: (var(--size-2));
+  padding-right: (var(--size-2));
+  padding-left: (var(--size-2));
+  overflow: hidden;
+  height: (var(--size-5));
+}

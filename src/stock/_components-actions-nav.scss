@@ -1,10 +1,10 @@
 @use 'sass:math';
-@use '../config' as *;
+@use '../../styles/abstracts' as *;
 
 // RATING
 // #region
 
-$rating-font-size: $size-4;
+$rating-font-size: var(--size-4);
 $rating-point-color: var(--color-ink-min);
 $rating-point-background: var(--color-error-base);
 $rating-percent: calc(var(--rating) * 50%);
@@ -72,7 +72,7 @@ Note that we use `flex-direction: row-reverse` on the container */
     display: inline-block;
     font-size: var(--rating-font-size);
     // make sure ♥︎/★ appears correctly
-    font-family: Times;
+    font-family: Times, serif;
     line-height: 1;
     letter-spacing: 1px;
     vertical-align: middle;
@@ -82,9 +82,9 @@ Note that we use `flex-direction: row-reverse` on the container */
 .rating__count {
   color: var(--color-ink-3ry);
   display: inline-block;
-  font-size: var(--font-size-small);
-  line-height: var(--line-height-small);
-  margin-left: $size-1p5;
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-caption);
+  margin-left: var(--size-1p5);
   padding: 0;
   vertical-align: middle;
 }

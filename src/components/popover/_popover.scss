@@ -1,0 +1,75 @@
+@use '../../styles/abstracts' as *;
+
+// Container
+.popover {
+  --popover-body-background: var(--color-background);
+  --popover-body-border-radius: var(--border-radius-base);
+  --popover-body-border: 0;
+  --popover-body-box-shadow: var(--box-shadow-base);
+  --popover-body-color: var(--color-text);
+  --popover-body-width: var(--width-medium);
+
+  position: relative;
+}
+
+.popover__body {
+  background-color: var(--popover-body-background);
+  border-radius: var(--popover-body-border-radius);
+  border: var(--popover-body-border);
+  box-shadow: var(--popover-body-box-shadow);
+  color: var(--popover-body-color);
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin: 0;
+  padding: var(--padding-small) var(--padding-medium);
+  position: absolute;
+  width: var(--popover-body-width);
+  z-index: var(--zindex-popover);
+
+  // Position adjustments
+  .is-up > & {
+    bottom: 100%;
+  }
+
+  .is-right > & {
+    left: auto;
+    right: 0;
+  }
+}
+
+// Summary Marker
+.popover summary::after {
+  background-image: var(--icon-chevron);
+  background-position: right center;
+  background-repeat: no-repeat;
+  content: '';
+  display: block;
+  width: var(--size-icon);
+  height: var(--size-icon);
+}
+
+// Share Specific Styles
+.popover.is-share {
+  summary {
+    border-radius: var(--border-radius-small);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-small);
+
+    &:hover {
+      background-color: var(--color-background-hover);
+    }
+
+    &::after {
+      display: none;
+    }
+  }
+
+  .popover__body {
+    bottom: var(--size-offset);
+    right: calc(var(--size-offset) * -1);
+    left: auto;
+  }
+}

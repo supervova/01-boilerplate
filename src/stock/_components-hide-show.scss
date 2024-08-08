@@ -1,5 +1,5 @@
 @use 'sass:math';
-@use '../config' as *;
+@use '../../styles/abstracts' as *;
 
 /*
 Accordion RTL
@@ -18,29 +18,29 @@ Popover +
 
   &::after {
     right: auto;
-    left: $size-1;
+    left: var(--size-1);
   }
 }
 
 // Sidebar Accordion
-$sidebar-accordion-summary-padding-top: $size-2;
-$sidebar-accordion-summary-small-margin-bottom: -1px;
-$sidebar-accordion-summary-small-padding-top: 2px;
-
 // stylelint-disable selector-max-compound-selectors
 .sidebar .accordion summary {
+  --sidebar-accordion-summary-padding-top: var(--size-2);
+  --sidebar-accordion-summary-small-margin-bottom: -1px;
+  --sidebar-accordion-summary-small-padding-top: 2px;
+
   @include label;
 }
 
 :where(.sidebar .accordion summary) small {
   @include text-truncate;
 
-  animation: fade-in-by-display-opacity $duration-sm;
+  animation: fade-in-by-display-opacity var(--duration-sm);
   display: block;
   text-transform: none;
-  font-weight: normal;
-  margin-bottom: $sidebar-accordion-summary-small-margin-bottom;
-  padding-top: $sidebar-accordion-summary-small-padding-top;
+  font-weight: 400;
+  margin-bottom: var(--sidebar-accordion-summary-small-margin-bottom);
+  padding-top: var(--sidebar-accordion-summary-small-padding-top);
   pointer-events: none;
 
   &:empty {
@@ -72,7 +72,7 @@ $sidebar-accordion-summary-small-padding-top: 2px;
   margin-top: 0;
 
   summary {
-    padding-top: $sidebar-accordion-summary-padding-top - rem(1);
+    padding-top: var(--sidebar-accordion-summary-padding-top) - rem(1);
   }
 
   summary::after {
@@ -92,15 +92,15 @@ $sidebar-accordion-summary-small-padding-top: 2px;
 .accordion__body {
   display: grid;
   grid-template-rows: 0;
-  padding: $size-2 var(--padding-x-box);
-  transition: grid-template-rows $duration-md $easing-base;
+  padding: var(--size-2) var(--padding-x-box);
+  transition: grid-template-rows var(--duration-md) var(--easing-base);
 
   > div {
     overflow: hidden;
   }
 
   ul {
-    padding-left: $size-2;
+    padding-left: var(--size-2);
   }
 
   [open] & {
@@ -124,7 +124,7 @@ $drawer-width: var(--width-base);
   right: 0;
   bottom: 0;
   translate: calc(-1 * $drawer-width);
-  transition: translate $duration-md $easing-base;
+  transition: translate var(--duration-md) var(--easing-base);
   width: $drawer-width;
 
   &[open] {

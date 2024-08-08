@@ -1,5 +1,6 @@
+// stylelint-disable no-descending-specificity
 @use 'sass:math';
-@use '../config' as *;
+@use '../../styles/abstracts' as *;
 
 /*
 
@@ -29,21 +30,21 @@ Misc
 // CSS only solution. @see docs for markup
 .input {
   position: relative;
-  margin-top: $size-4; // To create space for floating inputs
+  margin-top: var(--size-4); // To create space for floating inputs
   margin-inline: auto;
-  max-width: $width-md;
+  max-width: var(--width-md);
 }
 
 .input > input {
   background-color: transparent;
   border: 1px solid var(--color-ink-border);
-  border-radius: $border-radius-sm;
+  border-radius: var(--border-radius-sm);
   color: var(--color-ink-base);
   font-size: var(--font-size-base);
-  padding-block: $size-1;
-  padding-right: $size-5; // To avoid overlapping with the clear button
-  padding-left: $size-2;
-  transition: border-color $duration-xxs;
+  padding-block: var(--size-1);
+  padding-right: var(--size-5); // To avoid overlapping with the clear button
+  padding-left: var(--size-2);
+  transition: border-color var(--duration-xxs);
   width: 100%;
 
   &:focus {
@@ -64,22 +65,20 @@ Misc
 }
 
 .input > label {
-  background: var(--color-background-base);
+  background: var(--color-bg-base);
   color: var(--color-ink-3ry);
   pointer-events: none;
   position: absolute;
-  top: $size-1;
-  left: $size-2;
+  top: var(--size-1);
+  left: var(--size-2);
   transform-origin: left center;
-  transition:
-    color $duration-sm,
-    transform $duration-sm;
+  transition: color var(--duration-sm), transform var(--duration-sm);
 }
 
 .input input:focus + label,
 .input input:not(:placeholder-shown) + label {
   color: var(--color-ink-base);
-  transform: translateY(calc(-100% + #{$size-1})) scale(.75);
+  transform: translateY(calc(-100% + var(--size-1))) scale(0.75);
 }
 
 .input .btn.is-icon {
@@ -89,7 +88,7 @@ Misc
   top: 50%;
   right: 0;
   transform: translateY(-50%);
-  transition: color $duration-xs;
+  transition: color var(--duration-xs);
 }
 
 :where(.input .input:placeholder-shown + .label) + .btn.is-icon {
@@ -99,11 +98,10 @@ Misc
 /* CSS+JS solution. JavaScript is used to add class `is-filled`.
 The base styles is the same as that of a static label. */
 .is-filled label {
-  font-size: var(--font-size-small);
-  line-height: var(--line-height-small);
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-caption);
   top: 0;
 }
-
 
 /* -----------------------------------------------------------------------------
  * SWITCH
@@ -112,51 +110,50 @@ The base styles is the same as that of a static label. */
 
 // [type='checkbox']
 .switch,
-label:has([type='checkbox'][role='switch']) {
+label:has([type='checkbox'][role='switch'], [switch]) {
   color: var(--color-ink-2ry);
-  margin: 0 $size-1 0 0;
-  padding-left: ($size-line * 2);
+  margin: 0 var(--size-1) 0 0;
+  padding-left: calc(var(--size-line) * 2);
 
   > [type='checkbox'][role='switch'] {
-    top: $size-1;
+    top: var(--size-1);
   }
 }
 
-$switch-background: var(--color-ink-border);
-$switch-background-checked: var(--color-brand-primary);
-$switch-border-width: rem(2);
-$switch-height: $size-2p5;
-$switch-width: $size-5;
-
 [type='checkbox'][role='switch'] {
-  // Styles
-  background-color: $switch-background;
-  border-radius: $border-radius-pill;
-  border: $switch-border-width solid $switch-background;
+  --switch-background: var(--color-ink-border);
+  --switch-background-checked: var(--color-brand-primary);
+  --switch-border-width: #{rem(2)};
+  --switch-height: var(--size-2p5);
+  --switch-width: var(--size-5);
+
+  background-color: var(--switch-background);
+  border-radius: var(--border-radius-pill);
+  border: var(--switch-border-width) solid var(--switch-background);
   display: flex;
   align-items: center;
-  width: $switch-width;
-  height: $switch-height;
+  width: var(--switch-width);
+  height: var(--switch-height);
 
   // Thumb
   &::before {
-    background-color: var(--color-background-2ry);
+    background-color: var(--color-bg-2ry);
     border-radius: 50%;
     content: '';
     display: block;
-    transition: margin $duration-xxs $easing-base;
-    width: $switch-height - $switch-border-width * 2;
-    height: $switch-height - $switch-border-width * 2;
+    transition: margin var(--duration-xxs) var(--easing-base);
+    width: var(--switch-height) - var(--switch-border-width) * 2;
+    height: var(--switch-height) - var(--switch-border-width) * 2;
   }
 
   &:checked {
-    background-color: $switch-background-checked;
+    background-color: var(--switch-background-checked);
     background-image: none;
-    border-color: $switch-background-checked;
+    border-color: var(--switch-background-checked);
 
     &::before {
-      margin-left: $switch-width * .5;
-      margin-inline-start: $switch-width * .5;
+      margin-left: var(--switch-width) * 0.5;
+      margin-inline-start: var(--switch-width) * 0.5;
     }
   }
 }
@@ -171,18 +168,18 @@ $switch-width: $size-5;
 
 .filter {
   border: 1px solid var(--color-ink-border);
-  border-radius: $border-radius-base;
-  box-shadow: var(--box-shadow-z2);
+  border-radius: var(--border-radius-base);
+  box-shadow: var(--box-shadow-level-01);
   overflow-y: auto;
   padding: var(--padding-x-box);
-  min-height: $size-line * 10;
+  min-height: calc(var(--size-line) * 10);
 }
 
 // Checkboxes and radio buttons
 
 .filter .input.has-option {
   display: flex;
-  padding-left: $size-line;
+  padding-left: var(--size-line);
 }
 
 .filter .input__option-label {
@@ -193,26 +190,26 @@ $switch-width: $size-5;
 
 .filter__counter {
   display: inline-block;
-  font-size: var(--font-size-small);
+  font-size: var(--font-size-caption);
   font-weight: 500;
-  line-height: var(--line-height-small);
+  line-height: var(--line-height-caption);
   text-align: right;
   padding-top: var(--padding-top-base);
   padding-left: 1ch;
 }
 
 .filter .input__field:focus-visible {
-  box-shadow: inset var(--box-shadow-focus-outline-sm);
+  @include state-focus;
 }
 
 // Button 'Show more'
 .filter__more {
   color: var(--color-ink-2ry);
   text-transform: none;
-  padding: 0 $size-1 0 0;
+  padding: 0 var(--size-1) 0 0;
 
   .icon {
-    margin: -2px $size-half 0 0;
+    margin: -2px var(--size-half) 0 0;
   }
 }
 
@@ -220,7 +217,7 @@ $switch-width: $size-5;
   &:hover,
   &:focus-visible {
     box-shadow: none;
-    background-color: var(--color-background-2ry);
+    background-color: var(--color-bg-2ry);
   }
 }
 // #endregion
@@ -231,10 +228,10 @@ $switch-width: $size-5;
 // #region
 
 $range-border-color: var(--color-ink-border);
-$range-thumb-border-width: $size-half;
+$range-thumb-border-width: var(--size-half);
 $range-thumb-color: var(--color-brand-primary);
-$range-thumb-height: $size-2p5;
-$range-track-height: $size-half;
+$range-thumb-height: var(--size-2p5);
+$range-track-height: var(--size-half);
 
 [type='range'] {
   appearance: none;
@@ -252,10 +249,9 @@ $range-track-height: $size-half;
   // ⚠️ Selector chain does not work. Use the mixin in the separated style blocks
   @mixin range-track {
     background-color: $range-border-color;
-    border-radius: $border-radius-pill;
-    transition:
-      background $duration-xxs $easing-base,
-      box-shadow $duration-xxs $easing-base;
+    border-radius: var(--border-radius-pill);
+    transition: background var(--duration-xxs) var(--easing-base),
+      box-shadow var(--duration-xxs) var(--easing-base);
     width: 100%;
     height: $range-track-height;
   }
@@ -277,13 +273,12 @@ $range-track-height: $size-half;
     appearance: none;
     background-color: $range-thumb-color;
     border-radius: 50%;
-    border: 3px solid var(--color-background-base);
-    box-shadow: var(--box-shadow-z2);
+    border: 3px solid var(--color-bg-base);
+    box-shadow: var(--box-shadow-level-01);
     cursor: pointer;
-    margin-top: -($range-thumb-height * .5 - $range-track-height * .5);
-    transition:
-      background $duration-xxs $easing-base,
-      transform $duration-xxs $easing-base;
+    margin-top: -($range-thumb-height * 0.5 - $range-track-height * 0.5);
+    transition: background var(--duration-xxs) var(--easing-base),
+      transform var(--duration-xxs) var(--easing-base);
     width: $range-thumb-height;
     height: $range-thumb-height;
   }
@@ -325,6 +320,7 @@ $range-track-height: $size-half;
  * TWO-HANDLE SLIDER
  * -------------------------------------------------------------------------- */
 // #region
+// stylelint-disable declaration-no-important, selector-class-pattern
 
 /* The HTML5 range input only accepts one input. If we need the double range
 slider use [noUiSlider](https://refreshless.com/nouislider/) or
@@ -340,19 +336,19 @@ slider use [noUiSlider](https://refreshless.com/nouislider/) or
 // Slider containers. Set safe paddings
 
 .input.has-slider {
-  padding: $size-4 $size-2 0;
+  padding: var(--size-4) var(--size-2) 0;
 }
 
 // Track. The class is added to the element noUiSlider.create() is called on.
 .noUi-target {
   background: var(--color-ink-border);
-  border-radius: $border-radius-pill;
+  border-radius: var(--border-radius-pill);
   position: relative;
 }
 
 // Track height modification
 .noUi-horizontal {
-  height: $size-half;
+  height: var(--size-half);
 }
 
 // The slider bar. Serves as the calculating point for the slider handles,
@@ -366,7 +362,7 @@ slider use [noUiSlider](https://refreshless.com/nouislider/) or
 }
 
 .noUi-connects {
-  border-radius: $border-radius-xs;
+  border-radius: var(--border-radius-xs);
   overflow: hidden;
   height: 100%;
   z-index: 0;
@@ -410,13 +406,13 @@ slider use [noUiSlider](https://refreshless.com/nouislider/) or
 .noUi-handle {
   backface-visibility: hidden;
   background: var(--color-ink-3ry);
-  border: 2px solid var(--color-background-base);
-  border-radius: $border-radius-pill;
-  box-shadow: var(--box-shadow-z2);
+  border: 2px solid var(--color-bg-base);
+  border-radius: var(--border-radius-pill);
+  box-shadow: var(--box-shadow-level-01);
   cursor: default;
   position: absolute;
-  width: $size-1 * 2.5;
-  height: $size-1 * 2.5;
+  width: calc(var(--size-1) * 2).5;
+  height: calc(var(--size-1) * 2).5;
 }
 
 // Active handle
@@ -426,8 +422,8 @@ slider use [noUiSlider](https://refreshless.com/nouislider/) or
 
 // An empty div within .noUi-handle. Can be styled larger if desired.
 .noUi-touch-area {
-  width: ($size-line * 2);
-  height: ($size-line * 2);
+  width: calc(var(--size-line) * 2);
+  height: calc(var(--size-line) * 2);
 }
 
 .noUi-horizontal .noUi-handle {
@@ -446,7 +442,7 @@ this call will reject any user input. noUiSlider will remove this class after
 300ms, leaving that timespan to perform visual animations. */
 .noUi-state-tap .noUi-connect,
 .noUi-state-tap .noUi-origin {
-  transition: transform $duration-md;
+  transition: transform var(--duration-md);
 }
 
 .noUi-state-drag * {
@@ -475,7 +471,7 @@ this call will reject any user input. noUiSlider will remove this class after
 [disabled] .noUi-handle,
 [disabled].noUi-handle,
 [disabled].noUi-target {
-  cursor: not-allowed;
+  @include state-disabled();
 }
 
 // Slider Pips
@@ -498,7 +494,7 @@ this call will reject any user input. noUiSlider will remove this class after
 
 .noUi-value-sub {
   color: var(--color-ink-border);
-  font-size: $size-1;
+  font-size: var(--size-1);
 }
 
 .noUi-marker {
@@ -515,7 +511,7 @@ this call will reject any user input. noUiSlider will remove this class after
 }
 
 .noUi-pips-horizontal {
-  padding: $size-1 0;
+  padding: var(--size-1) 0;
   height: 80px;
   top: 100%;
   left: 0;
@@ -537,15 +533,15 @@ this call will reject any user input. noUiSlider will remove this class after
 }
 
 .noUi-marker-horizontal.noUi-marker-sub {
-  height: $size-1;
+  height: var(--size-1);
 }
 
 .noUi-marker-horizontal.noUi-marker-large {
-  height: $size-2;
+  height: var(--size-2);
 }
 
 .noUi-pips-vertical {
-  padding: 0 $size-1;
+  padding: 0 var(--size-1);
   height: 100%;
   top: 0;
   left: 100%;
@@ -553,7 +549,7 @@ this call will reject any user input. noUiSlider will remove this class after
 
 .noUi-value-vertical {
   transform: translate(0, -50%);
-  padding-left: $size-line;
+  padding-left: var(--size-line);
 }
 
 .noUi-rtl .noUi-value-vertical {
@@ -567,25 +563,25 @@ this call will reject any user input. noUiSlider will remove this class after
 }
 
 .noUi-marker-vertical.noUi-marker-sub {
-  width: $size-1;
+  width: var(--size-1);
 }
 
 .noUi-marker-vertical.noUi-marker-large {
-  width: $size-2;
+  width: var(--size-2);
 }
 
 // Slider Tooltips
 
 .noUi-tooltip {
   background: var(--color-ink-base);
-  border-radius: $border-radius-xs;
+  border-radius: var(--border-radius-xs);
   color: var(--color-ink-inverse-base);
-  font-size: var(--font-size-small);
-  line-height: var(--line-height-small);
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-caption);
   display: none;
   text-align: center;
   white-space: nowrap;
-  padding: $size-1 $size-2;
+  padding: var(--size-1) var(--size-2);
   position: absolute;
 }
 
@@ -617,32 +613,32 @@ For markup see stepper.md. Use it with stepper.js */
 
 .stepper {
   border: 1px solid var(--color-ink-border);
-  border-radius: $border-radius-xs;
+  border-radius: var(--border-radius-xs);
   display: flex;
   overflow: hidden;
-  height: $size-5;
+  height: var(--size-5);
   width: 152px;
 }
 
 .stepper__button {
-  background-color: var(--color-background-base);
+  background-color: var(--color-bg-base);
   color: var(--color-ink-2ry);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: var(--font-size-base);
-  transition: background-color $duration-xxs;
-  width: $size-5;
-  height: $size-5 -2px;
+  transition: background-color var(--duration-xxs);
+  width: var(--size-5);
+  height: var(--size-5) -2px;
 
   &:hover {
     box-shadow: none;
-    background-color: var(--color-background-2ry);
+    background-color: var(--color-bg-2ry);
     transform: none;
   }
 
   &:focus-visible {
-    box-shadow: var(--box-shadow-focus-outline)-compact;
+    @include state-focus;
   }
 
   &.is-decrement {
@@ -660,15 +656,14 @@ For markup see stepper.md. Use it with stepper.js */
 
 .stepper__value {
   appearance: textfield;
-  background-color: var(--color-background-base);
+  background-color: var(--color-bg-base);
   border: 0;
   border-radius: 0;
   flex: 1;
   text-align: center;
 
   &:focus-visible {
-    outline: 0;
-    box-shadow: var(--box-shadow-focus-outline)-compact;
+    @include state-focus;
   }
 
   &::-webkit-outer-spin-button,
@@ -684,10 +679,10 @@ For markup see stepper.md. Use it with stepper.js */
  * -------------------------------------------------------------------------- */
 // #region
 
-:--input-text-default:valid.is-touched,
-:--input-text-default[aria-invalid='false'] {
+:--text-field:valid.is-touched,
+:--text-field[aria-invalid='false'] {
   background-image: var(--icon-success);
-  background-position: top rem(11) right $size-1;
+  background-position: top rem(11) right var(--size-1);
   background-repeat: no-repeat;
 }
 // #endregion
@@ -699,7 +694,7 @@ For markup see stepper.md. Use it with stepper.js */
 
 [type='color'] {
   cursor: pointer;
-  padding: $size-1;
+  padding: var(--size-1);
   width: auto;
 
   // Wrapper
@@ -719,7 +714,7 @@ For markup see stepper.md. Use it with stepper.js */
   @mixin color-swatch {
     aspect-ratio: 1;
     border: 0;
-    border-radius: $border-radius-xs;
+    border-radius: var(--border-radius-xs);
   }
 
   &::-webkit-color-swatch {
@@ -740,10 +735,10 @@ For markup see stepper.md. Use it with stepper.js */
 // stylelint-disable max-nesting-depth
 [dir='rtl'] {
   &[type='search'] {
-    background-position: center right $size-2;
+    background-position: center right var(--size-2);
 
     &[aria-invalid] {
-      background-position: center right $size-2, center left $size-1p5;
+      background-position: center right var(--size-2), center left var(--size-1p5);
     }
   }
 }
@@ -765,19 +760,19 @@ For markup see stepper.md. Use it with stepper.js */
 form .is-icon {
   padding: 0;
   position: absolute;
-  top: $size-1;
-  left: $size-1;
-  width: $size-icon-xy;
-  height: $size-icon-xy;
+  top: var(--size-1);
+  left: var(--size-1);
+  width: var(--size-icon);
+  height: var(--size-icon);
 }
 
 // RTL - Invalid inputs
 // stylelint-disable no-duplicate-selectors
-[dir='rtl'] :--input-text-default {
+[dir='rtl'] :--text-field {
   &[aria-invalid],
   &[aria-invalid='true'],
   &[aria-invalid='false'] {
-    background-position: center left $size-1p5;
+    background-position: center left var(--size-1p5);
   }
 }
 // stylelint-enable no-duplicate-selectors
@@ -785,11 +780,12 @@ form .is-icon {
 // RTL - Select
 // stylelint-disable no-duplicate-selectors
 [dir='rtl'] select:not([multiple]):not([size]) {
-  background-position: center left $size-1p5;
+  background-position: center left var(--size-1p5);
 }
 
 // RTL - Date / time pickers
-[dir='rtl'] :is([type='date'], [type='datetime-local'], [type='month'], [type='time'], [type='week']) {
+[dir='rtl']
+  :is([type='date'], [type='datetime-local'], [type='month'], [type='time'], [type='week']) {
   text-align: right;
 }
 // stylelint-enable no-duplicate-selectors

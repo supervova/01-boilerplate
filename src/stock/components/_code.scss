@@ -1,0 +1,55 @@
+@use '../styles/abstracts' as *;
+
+/* -----------------------------------------------------------------------------
+ * CODE STYLES
+ * -------------------------------------------------------------------------- */
+
+// Basic code elements
+code,
+kbd,
+pre,
+samp {
+  background-color: var(--color-bg-code, var(--color-bg-2ry));
+  border-radius: var(--border-radius-xs);
+  color: var(--color-code, var(--color-ink-base));
+  font-family: var(--font-family-mono, monospace);
+  font-size: inherit;
+}
+
+kbd {
+  // Using box-shadow instead of border to avoid layout shifts
+  box-shadow: inset 0 0 0 1px var(--color-ink-border);
+}
+
+code,
+kbd {
+  @include text-inline-block();
+
+  white-space: nowrap;
+}
+
+// Links with code
+a > code {
+  color: inherit;
+}
+
+// Preformatted text
+pre {
+  display: block;
+  white-space: pre;
+  margin-top: 0;
+  margin-bottom: var(--size-2);
+  padding:
+    calc(var(--padding-top-base) + var(--size-2))
+    var(--padding-x-box)
+    calc(var(--padding-bottom-base) + var(--size-line));
+  overflow-x: auto;
+  max-width: 100%;
+
+  code,
+  samp {
+    background-color: transparent;
+    display: block;
+    padding: 0;
+  }
+}

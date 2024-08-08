@@ -1,0 +1,150 @@
+@use 'sass:math';
+@use '../styles/abstracts' as *;
+
+.section.is-services .grid {
+  --gap: var(--size-line);
+}
+
+.plan {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-inline: auto;
+  margin-bottom: var(--size-line);
+  width: 100%;
+  max-width: var(--width-md);
+
+  @media (--tablet) {
+    flex: none;
+    margin-bottom: 0;
+  }
+}
+
+.plan h4 {
+  background: var(--color-brand-primary);
+  border-radius: var(--border-radius-base) var(--border-radius-base) 0 0;
+  color: var(--color-ink-inverse-base);
+  font-weight: 400;
+  line-height: var(--size-6);
+  text-align: center;
+  text-transform: none;
+  margin-bottom: 0;
+  padding: 0;
+  position: relative;
+
+  &::before {
+    background-repeat: no-repeat;
+    border-radius: var(--border-radius-base) var(--border-radius-base) 0 0;
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: rem(144);
+  }
+}
+
+.plan__body {
+  background: var(--color-bg-2ry);
+  border-radius: 0 0 var(--border-radius-base) var(--border-radius-base);
+  box-shadow: var(--box-shadow-z1);
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  text-align: center;
+  padding-top: var(--size-2);
+  padding-bottom: var(--size-line);
+  padding-inline: var(--size-2);
+}
+
+.plan__price {
+  display: flex;
+  align-items: center;
+  gap: var(--size-1);
+  justify-content: center;
+
+  > b {
+    font-family: var(--font-family-titles);
+    font-size: var(--font-size-title);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+  }
+
+  > small {
+    display: inline-block;
+    line-height: rem(18);
+    text-align: left;
+    vertical-align: text-bottom;
+    width: min-content;
+  }
+}
+
+.plan p {
+  color: var(--color-ink-2ry);
+  margin-bottom: 0;
+}
+
+.plan__action {
+  display: block;
+  color: var(--color-ink-link);
+  margin-top: auto;
+  padding-top: var(--padding-top-base);
+  padding-bottom: var(--padding-bottom-base);
+}
+
+// Hourly wage
+.is-hourly-wage {
+  @media (--phone) {
+    margin-top: var(--size-5);
+  }
+}
+
+.is-hourly-wage h4 {
+  &::before {
+    background-image: url('/src/pages/home/prices-violet.svg');
+    background-position: right var(--size-line) bottom;
+    top: -1 * rem(144);
+  }
+
+  @media (--tablet) {
+    margin-top: rem(144);
+  }
+}
+
+// 100 hours and full time
+.is-100-hours h4,
+.is-full-time h4 {
+  padding-top: rem(144);
+  height: rem(192);
+
+  &::before {
+    border-bottom: 1px solid hsl(var(--h) var(--s) 65%);
+  }
+}
+
+.is-100-hours h4 {
+  &::before {
+    background-image: url('/src/pages/home/prices-elastigirl.svg');
+    background-position: center bottom;
+  }
+
+  @media (--tablet) {
+    &::before {
+      background-image: url('/src/pages/home/prices-elastigirl.svg'),
+        url('/src/pages/home/prices-mr-incredible.svg'),
+        url('/src/pages/home/prices-ovals.svg');
+      background-position: center bottom, right -220px bottom,
+        right -220px bottom;
+    }
+  }
+}
+
+.is-full-time h4 {
+  &::before {
+    background-image: url('/src/pages/home/prices-mr-incredible.svg'),
+      url('/src/pages/home/prices-ovals.svg');
+    background-position: right -10px bottom, right bottom;
+  }
+}
+
+// #endregion

@@ -1,12 +1,62 @@
 @use 'sass:math';
-@use '../config' as *;
+@use '../../styles/abstracts' as *;
 
 /*
+Sidebar Global Nav: Rearrange base layout template areas
 Hero: Creating a duotone image background with CSS blend modes
 Sections: Elements (header, summary) and modifiers (highlight and full-bleed)
 Pricing Table
 Alt Containers
+Responsive card: fit image height to text block height
 */
+
+/* -----------------------------------------------------------------------------
+ * SIDEBAR GLOBAL NAV
+ * -------------------------------------------------------------------------- */
+// #region
+@media (--tablet) {
+  @if $enable-sidebar-global-nav {
+    body {
+      display: grid;
+      // rows / columns
+      grid-template: auto 1fr auto / var(--width-navbar) 1fr;
+      /*
+      hd - header
+      mn - main
+      ft - footer
+      .. - empty area for fixed navbar */
+      grid-template-areas:
+        '.. hd'
+        '.. mn'
+        '.. ft';
+    }
+
+    .header {
+      grid-area: hd;
+    }
+
+    .main {
+      grid-area: mn;
+    }
+
+    .footer {
+      grid-area: ft;
+    }
+  }
+}
+
+@media (--tablet-l) {
+  @if $enable-sidebar-global-nav {
+    body {
+      grid-template: var(--size-1p5) 1fr auto / var(--width-navbar) 1fr var(--size-half);
+      // sb - sidebar
+      grid-template-areas:
+        '.. hd hd'
+        '.. mn sb'
+        '.. ft ft';
+    }
+  }
+}
 
 /* -----------------------------------------------------------------------------
  * HERO
@@ -14,9 +64,8 @@ Alt Containers
 // #region
 
 .hero {
-  background-color: var(--color-brand-background-dark);
-  background-image:
-    linear-gradient(
+  background-color: var(--color-brand-bg-dark);
+  background-image: linear-gradient(
       var(--color-brand-scrim),
       var(--color-brand-scrim)
     ),
@@ -30,8 +79,7 @@ Alt Containers
   padding: 0 var(--padding-x-container);
 
   @media (--tablet-l) {
-    background-image:
-      linear-gradient(
+    background-image: linear-gradient(
         var(--color-brand-scrim),
         var(--color-brand-scrim)
       ),
@@ -68,7 +116,7 @@ Alt Containers
 // VARIATIONS
 
 .section.is-alt {
-  background-color: var(--color-background-2ry);
+  background-color: var(--color-bg-2ry);
 }
 
 .section.is-above-the-fold {
@@ -78,7 +126,7 @@ Alt Containers
 // Highlight
 
 .section.is-highlight {
-  background-color: var(--color-brand-background-dark);
+  background-color: var(--color-brand-bg-dark);
 
   h2,
   p {
@@ -92,15 +140,15 @@ Alt Containers
  * -------------------------------------------------------------------------- */
 // #region
 
-$plan-border-radius: $border-radius-base;
-$plan-padding-x: $size-line;
-$plan-header-padding-top: $size-2;
-$plan-header-padding-bottom: $size-2;
-$plan-size-radio: $size-2p5;
+$plan-border-radius: var(--border-radius-base);
+$plan-padding-x: var(--size-line);
+$plan-header-padding-top: var(--size-2);
+$plan-header-padding-bottom: var(--size-2);
+$plan-size-radio: var(--size-2p5);
 
 .grid.is-plans {
   @include container;
-  margin-bottom: $size-line;
+  margin-bottom: var(--size-line);
   padding: 0;
 
   @media (--phone) {
@@ -113,23 +161,23 @@ $plan-size-radio: $size-2p5;
 }
 
 .plan {
-  background-color: var(--color-background-base);
+  background-color: var(--color-bg-base);
   border-radius: $plan-border-radius;
   display: flex;
   flex-direction: column;
   position: relative;
-  transition: box-shadow $duration-xs $easing-base;
+  transition: box-shadow var(--duration-xs) var(--easing-base);
 
   &:hover {
-    box-shadow: var(--box-shadow-z3);
+    box-shadow: var(--box-shadow-level-02);
   }
 
   &:has(input:checked) {
-    box-shadow: 0 0 0 $size-half var(--color-success-base);
+    box-shadow: 0 0 0 var(--size-half) var(--color-success-base);
   }
 
   &:has(input:checked):has(.plan__radio:focus-visible) {
-    box-shadow: 0 0 0 $size-1 var(--color-success-base);
+    box-shadow: 0 0 0 var(--size-1) var(--color-success-base);
   }
 }
 
@@ -156,25 +204,23 @@ $plan-size-radio: $size-2p5;
   }
 
   &:focus-visible::after {
-    box-shadow: var(--box-shadow-focus-outline);
+    @include state-focus;
   }
 }
 
 // header
 .plan__header {
-  background: var(--color-brand-background-dark);
+  background: var(--color-brand-bg-dark);
   border-radius: $plan-border-radius $plan-border-radius 0 0;
-  padding:
-    $plan-header-padding-top
-    $plan-padding-x
-    $plan-header-padding-bottom;
+  padding: $plan-header-padding-top $plan-padding-x $plan-header-padding-bottom;
 }
 
-/* h2-h4 */.plan__type {
+/* h2-h4 */
+.plan__type {
   @include text-format(big);
 
   color: var(--color-ink-inverse-base);
-  margin-bottom: -$size-1;
+  margin-bottom: calc(var(--size-1) * -1);
 }
 
 .plan__price {
@@ -185,7 +231,7 @@ $plan-size-radio: $size-2p5;
 .plan__price small {
   color: var(--color-ink-inverse-base);
   font-size: initial;
-  font-weight: normal;
+  font-weight: 400;
   line-height: normal;
   vertical-align: baseline;
 }
@@ -208,14 +254,14 @@ $plan-size-radio: $size-2p5;
 // #region
 /* .container, */
 %container {
-  --container-width: #{$width-container};
-  --container-margin: #{$size-5};
+  --container-width: var(--width-container);
+  --container-margin: var(--size-5);
 
   margin-inline: auto;
   width: min(var(--container-width), calc(100% - var(--container-margin)));
 
   @media (--tablet) {
-    --container-margin: #{$size-5 * 2};
+    --container-margin: calc(var(--size-5) * 2);
   }
 }
 
@@ -234,5 +280,65 @@ $plan-size-radio: $size-2p5;
 %col {
   display: flex;
   flex-direction: column;
+}
+// #endregion
+
+/* -----------------------------------------------------------------------------
+ * RESPONSIVE CARD
+ * -------------------------------------------------------------------------- */
+// #region
+// Markup — src/stock/docs/ru/responsive-card.ru.md
+
+.card.tablet\:is-landscape {
+  --gap: var(--size-line);
+
+  display: grid;
+  gap: var(--gap);
+  grid-template-columns: 1fr;
+
+  @media (--tablet) {
+    align-items: stretch;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+}
+
+:where(.card.tablet\:is-landscape) .col.has-image {
+  @media (--tablet) {
+    // The image column occupies 5 columns span by default
+    grid-column: span 5;
+  }
+
+  @media (--tablet-l) {
+    grid-column: span 4;
+  }
+
+  @media (--laptop) {
+    grid-column: span 3;
+  }
+}
+
+:where(.card.tablet\:is-landscape) .col.has-copy {
+  @media (--tablet) {
+    // The copy column occupies 7 columns span by default
+    grid-column: span 7;
+  }
+
+  @media (--tablet-l) {
+    grid-column: span 8;
+  }
+
+  @media (--laptop) {
+    grid-column: span 9;
+  }
+}
+
+.card.tablet\:is-landscape img {
+  @media (--tablet) {
+    aspect-ratio: auto;
+    object-fit: cover;
+    object-position: top left;
+    width: 100%;
+    height: 100%;
+  }
 }
 // #endregion

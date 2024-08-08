@@ -1,0 +1,14 @@
+@use '../styles/abstracts' as *;
+
+.eyebrow {
+  @include label;
+  @include text-truncate;
+
+  // it can be --color-brand-text, --color-brand-ink-2ry too
+  color: var(--color-ink-2ry);
+  // It's for a.eyebrow
+  display: block;
+  margin: 0 0 var(--size-1);
+  padding-top: var(--padding-top-caption);
+  padding-bottom: var(--padding-bottom-caption);
+}

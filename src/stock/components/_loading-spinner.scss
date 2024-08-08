@@ -1,0 +1,41 @@
+// stylelint-disable selector-no-qualifying-type
+@use '../styles/abstracts' as *;
+
+// Cursor
+[aria-busy='true'] {
+  cursor: progress;
+}
+
+// Buttons and links
+a,
+button,
+input[type='submit'],
+input[type='button'],
+input[type='reset'] {
+  &[aria-busy='true'] {
+    gap: var(--size-1);
+    pointer-events: none;
+  }
+}
+
+// Spinning Bagel
+[aria-busy='true']:not(input):not(select):not(textarea)::after {
+  animation: spinner calc(var(--duration-xl) * 1.5) cubic-bezier(0, 0, 0.38, 0.9) infinite;
+  border: var(--size-half) solid var(--color-brand-primary);
+  border-right-color: var(--color-ink-border-translucent);
+  border-radius: 50%;
+  content: '';
+  display: inline-block;
+  margin: auto;
+  position: relative;
+  transform: rotate(0);
+  width: var(--size-icon);
+  height: var(--size-icon);
+}
+
+// Animation: rotate
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}

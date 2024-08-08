@@ -1,0 +1,29 @@
+@use '../../styles/abstracts' as *;
+
+// class applies to select element itself, not a wrapper element
+select {
+  &:not([multiple]):not([size]) {
+    background-image: var(--icon-sm-chevron-down);
+    background-position: center right var(--size-1);
+    background-size: var(--size-2p5);
+    background-repeat: no-repeat;
+    padding-right: var(--padding-x-input-lg);
+    padding-inline-end: var(--padding-x-input-lg);
+  }
+
+  // Hide arrow icon in IE browsers
+  &::-ms-expand {
+    display: none;
+  }
+}
+
+option {
+  font-weight: 400;
+}
+
+// stylelint-disable-next-line selector-no-qualifying-type
+select[multiple] {
+  background-image: none;
+  overflow-y: auto;
+  padding-right: var(--size-2);
+}

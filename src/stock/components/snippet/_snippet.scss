@@ -1,0 +1,45 @@
+@use '../../styles/abstracts' as *;
+
+.snippet {
+  position: relative;
+  margin-bottom: calc(var(--size-line) * 2);
+
+  &:not(:first-of-type) {
+    border-top: 1px solid var(--color-ink-border);
+    padding-top: var(--size-4) - rem(1);
+  }
+
+  &:first-of-type {
+    padding-top: var(--size-4);
+  }
+}
+
+.snippet__title {
+  font-weight: 400;
+  margin-bottom: var(--size-1);
+}
+
+.snippet__title > a {
+  text-decoration: none;
+
+  &::before {
+    border-radius: var(--border-radius-base);
+    content: '';
+    position: absolute;
+    top: var(--size-3);
+    right: 0;
+    bottom: var(--size-4);
+    left: 0;
+    overflow: hidden;
+  }
+
+  &:focus-visible {
+    &::before {
+      @include state-focus;
+    }
+  }
+}
+
+.snippet__title .eyebrow {
+  @include visually-hidden;
+}

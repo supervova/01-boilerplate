@@ -1,0 +1,28 @@
+-
+  const site = {
+    lang: 'ru',
+    title: {
+      ru: '_Project',
+      en: '_Project',
+    },
+    shortName: '_Project',
+    desc: {
+      ru: '_project tagline ru',
+      en: '_project tagline en',
+    },
+    url: "https://www._project.tld",
+    slag: "_project",
+    cover: '/src/assets/images/cover.png',
+    color: '#f00',
+    fonts: {
+      google: 'Inter:wght@300;400;600',
+    },
+    social: {
+      facebook: '_project'
+    }
+  }
+
+- const currentYear = new Date().getFullYear();
+
+- const pageTitle = (page.title ? page.title + ' | ' : '') + (page.section ? page.section + ' | ' : '') + (page.lang == 'ru' ? site.title.ru : site.title.en)
+- const pageDesc = page.desc || (page.lang == 'ru' ? site.desc.ru : site.desc.en)

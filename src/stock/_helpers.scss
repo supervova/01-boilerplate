@@ -1,12 +1,13 @@
-// stylelint-disable selector-no-qualifying-type
+// stylelint-disable selector-no-qualifying-type, declaration-no-important
 
 @use 'sass:math';
-@use '../config' as *;
+@use '../../styles/abstracts' as *;
 
 /*
 Bullet for non list items
 Reset element
 Section or widget level reset and scope
+media queries
 */
 
 /* -----------------------------------------------------------------------------
@@ -59,6 +60,31 @@ Section or widget level reset and scope
   // My widget styles
   .btn {
     color: var(--color-ink-inverse-base);
+  }
+}
+// #endregion
+
+/* -----------------------------------------------------------------------------
+ * SECTION OR WIDGET LEVEL RESET AND SCOPE
+ * -------------------------------------------------------------------------- */
+// #region
+
+@media (any-hover: hover) and (pointer: fine) {
+  /* Behavior for PCs and other devices that support hovering. E.g. reveal
+  the button only on hover */
+  .message .btn.is-more {
+    opacity: 0;
+  }
+
+  .message:hover .btn.is-more {
+    opacity: 1;
+  }
+}
+
+@media (any-hover: none) and (pointer: coarse) {
+  // Touchscreen only E.g. show the button all the time
+  .message .btn.is-more {
+    opacity: 1;
   }
 }
 // #endregion

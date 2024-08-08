@@ -1,0 +1,27 @@
+@use '../styles/abstracts' as *;
+
+.badge {
+  background-color: var(--color-brand-primary);
+  border-radius: var(--border-radius-pill);
+  box-shadow: var(--box-shadow-z1);
+  font-size: var(--font-size-caption);
+  line-height: 1;
+  color: var(--color-ink-inverse-base);
+  margin-left: var(--size-half);
+  margin-inline-start: var(--size-half);
+  padding: 2px var(--size-half);
+  // Minimum width should be equal the height to prevent thin badges
+  min-width: calc(var(--font-size-caption) + var(--size-half));
+
+  [role='menuitem'] & {
+    margin-left: auto;
+    margin-inline-start: auto;
+  }
+
+  /* sup */
+  &.badge.is-sup {
+    margin-left: 0;
+    margin-inline-start: 0;
+    top: -2px;
+  }
+}

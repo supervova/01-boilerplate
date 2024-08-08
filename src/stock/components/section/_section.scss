@@ -1,0 +1,84 @@
+@use '../../styles/abstracts' as *;
+
+.section {
+  padding-top: calc(var(--size-line) * 2);
+  padding-bottom: calc(var(--size-line) * 2);
+}
+
+.is-auto-visible {
+  content-visibility: auto;
+  contain-intrinsic-size: var(--section-height, 640px);
+}
+
+// -----------------------------------------------------------------------------
+// SECTION ELEMENTS
+// -----------------------------------------------------------------------------
+// #region
+
+// Heading + extra stuff
+.section__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.section__title {
+  @include text-format(h2);
+
+  margin: 0;
+}
+
+.section__summary {
+  @include text-format(big);
+  margin: 0;
+}
+// #endregion
+
+// -----------------------------------------------------------------------------
+// WIDE ELEMENTS
+// -----------------------------------------------------------------------------
+// #region
+
+// Section inside col-1/1
+.section.is-full-bleed {
+  margin-left: 50%;
+  translate: -50%, 0;
+  width: 100vw;
+}
+
+:where(.section) {
+  > img, // It's outside grid and column, so, let expand it
+  > table,
+  > .border,
+  > .scroller {
+    margin-inline: auto;
+    max-width: var(--width-content-10-col);
+  }
+
+  > .border {
+    width: fit-content;
+  }
+}
+
+// #endregion
+
+// -----------------------------------------------------------------------------
+// VARIATIONS
+// -----------------------------------------------------------------------------
+// #region
+
+.section.is-alt {
+  background-color: var(--color-bg-2ry);
+}
+
+// HIGHLIGHT
+
+.section.is-highlight {
+  background-color: var(--color-brand-bg-dark);
+
+  h2,
+  p {
+    color: var(--color-ink-inverse-base);
+  }
+}
+// #endregion

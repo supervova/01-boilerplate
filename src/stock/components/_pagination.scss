@@ -1,0 +1,65 @@
+@use '../../styles/abstracts' as *;
+
+.pagination {
+  padding-top: calc(var(--size-line) * 3);
+  padding-bottom: var(--size-line);
+}
+
+.pagination > ul {
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  list-style: none;
+}
+
+.pagination__item {
+  padding-bottom: 0;
+
+  &::marker {
+    display: none;
+  }
+}
+
+.pagination__link {
+  background-color: transparent;
+  border-radius: var(--border-radius-sm);
+  color: var(--color-ink-link);
+  display: flex;
+  justify-content: center;
+  padding: var(--size-1p5) var(--size-half);
+  position: relative;
+  text-decoration: none;
+  transition:
+    box-shadow var(--duration-xs),
+    background-color var(--duration-xxs);
+  min-width: 44px;
+
+  &:hover {
+    background-color: var(--color-bg-2ry);
+    filter: none;
+    text-decoration: none;
+    z-index: 2;
+  }
+
+  &:focus-visible {
+    @include state-focus;
+    background-color: var(--color-bg-2ry);
+    z-index: 3;
+  }
+
+  &.is-active {
+    background-color: var(--color-brand-bg-dark);
+    color: var(--color-ink-inverse-base);
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  &.is-disabled {
+    @include state-disabled();
+    pointer-events: none;
+  }
+}
+
+.pagination__item:first-child .icon {
+  transform: scaleX(-1);
+}

@@ -1,0 +1,45 @@
+@use '../../styles/abstracts' as *;
+
+.list.is-nested-ol {
+  counter-reset: item;
+  list-style-type: none;
+  padding-top: var(--padding-top-base);
+  padding-bottom: var(--padding-bottom-base);
+
+  ol {
+    margin-bottom: 0;
+  }
+
+  li {
+    padding-bottom: var(--padding-bottom-li);
+  }
+
+  li:has(.list.is-nested-ol) {
+    padding-bottom: 0;
+  }
+
+  > li {
+    counter-increment: item;
+    position: relative;
+
+    &::before {
+      content: counter(item) '. ';
+      position: absolute;
+      left: -1.5em;
+    }
+  }
+}
+
+// Second level
+:where(.list.is-nested-ol > li) > .list.is-nested-ol {
+  counter-reset: subitem;
+
+  > li {
+    counter-increment: subitem;
+
+    &::before {
+      content: counter(item) '.' counter(subitem) '. ';
+      left: -2.5em;
+    }
+  }
+}

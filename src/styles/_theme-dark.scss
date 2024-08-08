@@ -1,0 +1,49 @@
+@mixin dark {
+  color-scheme: dark;
+
+  --sd: 80%; // desaturate colors by 4-10%
+
+  /*
+  Copy from theme-light and update:
+  Semantic Brand
+  Backgrounds
+  Inks
+    [base]
+    Inverse
+    Neutrals
+  Feedback
+  Code (opt.)
+  Shadows Opacity
+    Ring
+    Low
+  Icons
+  Scroll thumb and track
+
+  Or set the minimal dark mode */
+  * {
+    background-color: inherit;
+    color: inherit;
+  }
+
+  html {
+    filter: invert(1) hue-rotate(180deg);
+  }
+
+  // Add a bit of transparency so light media isn't so glaring in dark mode
+  img,
+  video {
+    opacity: 0.8;
+  }
+}
+
+@media only screen and (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    @include dark;
+  }
+}
+
+/* Dark theme (Forced)
+Enabled if forced with data-theme="dark" */
+[data-theme='dark'] {
+  @include dark;
+}

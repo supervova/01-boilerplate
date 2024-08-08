@@ -1,0 +1,96 @@
+@use '../../styles/abstracts' as *;
+
+.tabs {
+  --panel-height: auto;
+
+  display: flex;
+  flex-direction: column;
+
+  // Hide non active slides in row. The content scrolls within the panels.
+  overflow: hidden;
+  position: relative;
+}
+
+// -----------------------------------------------------------------------------
+// BUTTONS
+// -----------------------------------------------------------------------------
+
+[role='tablist'] {
+  border: var(--border-width) solid var(--color-ink-border);
+  border-radius: var(--border-radius-sm);
+  display: flex;
+  flex-shrink: 0;
+  gap: var(--size-half);
+
+  width: 100%;
+  // logical min-height
+  min-block-size: fit-content;
+}
+
+[role='tab'] {
+  --height-btn: var(--size-5);
+
+  background-color: transparent;
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  flex-grow: 1;
+  text-align: center;
+  outline: none;
+  padding: var(--size-1);
+  // If tabs scrolling on mobiles
+  scroll-snap-align: start;
+  z-index: 1;
+
+  &:hover {
+    background: var(--color-ink-min);
+  }
+}
+
+[role='tab'][aria-selected='true'] {
+  background: var(--color-brand-primary);
+  color: var(--color-ink-inverse-base);
+  cursor: default;
+  pointer-events: none;
+}
+
+// Panes container
+.tabs__content {
+  display: grid;
+  place-content: center;
+
+  > * {
+    grid-area: 1 / 1;
+  }
+
+  // logical height: 100%
+  block-size: 100%;
+
+  // Carousel-like behavior related
+  // grid-auto-flow: column;
+  // grid-auto-columns: 100%;
+  // scrollbar-width: none;
+  // &::-webkit-scrollbar {
+  //   display: none;
+  // }
+}
+
+[role='tabpanel'] {
+  pointer-events: none;
+  opacity: 0;
+  overflow: auto;
+  // overscroll-behavior-y: contain;
+  transition: opacity var(--duration-sm) var(--easing-base);
+  width: 100%;
+  height: var(--panel-height);
+}
+
+[role='tabpanel'].is-active {
+  pointer-events: all;
+  opacity: 1;
+}
+
+[role='tabpanel'] > ul {
+  margin-top: var(--size-line);
+  margin-bottom: calc(var(--size-line) * 2);
+  padding-left: var(--size-2);
+}

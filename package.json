@@ -8,9 +8,16 @@
     "url": "https://super-mark.ru/"
   },
   "license": "MIT",
+  "keywords": [
+    "css",
+    "stylesheet",
+    "framework"
+  ],
   "scripts": {
-    "b": "gulp --p",
-    "start": "concurrently --kill-others 'gulp s' 'gulp w'"
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
+    "lint:styles": "stylelint 'src/**/*.scss'"
   },
   "engines": {
     "node": ">=10",
@@ -18,62 +25,78 @@
   },
   "stylelint": {
     "extends": [
-      "stylelint-config-sass-guidelines"
-    ],
-    "ignoreFiles": [
-      "**/*.css",
-      "**/*.html",
-      "node_modules/**/*"
+      "stylelint-config-recommended-scss"
     ],
     "rules": {
-      "comment-whitespace-inside": "always",
+      "at-rule-empty-line-before": null,
+      "at-rule-no-vendor-prefix": true,
+      "color-named": "never",
+      "declaration-empty-line-before": null,
+      "declaration-no-important": true,
       "font-family-name-quotes": "always-where-recommended",
-      "function-parentheses-space-inside": "never-single-line",
-      "max-nesting-depth": 3,
-      "media-feature-colon-space-after": "always",
-      "media-feature-colon-space-before": "never",
-      "media-feature-range-operator-space-after": "always",
-      "media-feature-range-operator-space-before": "always",
-      "no-duplicate-selectors": true,
-      "number-leading-zero": "never",
-      "order/order": [
-        "custom-properties",
-        "dollar-variables",
-        {
-          "type": "at-rule",
-          "name": "include"
-        },
-        "declarations",
-        "rules",
-        {
-          "type": "at-rule",
-          "name": "include",
-          "hasBlock": true
-        }
-      ],
-      "order/properties-alphabetical-order": null,
-      "property-no-unknown": [
-        true,
-        {
-          "ignoreProperties": [
-            "appearance"
-          ]
-        }
-      ],
-      "rule-empty-line-before": [
-        "always",
+      "font-weight-notation": [
+        "numeric",
         {
           "ignore": [
-            "after-comment",
-            "inside-block"
+            "relative"
           ]
         }
       ],
-      "scss/at-extend-no-missing-placeholder": null,
-      "scss/dollar-variable-colon-space-after": null,
-      "scss/selector-no-redundant-nesting-selector": null,
+      "function-url-no-scheme-relative": true,
+      "function-url-quotes": "always",
+      "length-zero-no-unit": true,
+      "media-feature-name-no-vendor-prefix": true,
+      "no-descending-specificity": null,
+      "no-duplicate-selectors": true,
+      "no-empty-source": null,
+      "media-feature-name-no-unknown": [
+        true,
+        {
+          "ignoreMediaFeatureNames": [
+            "prefers-reduced-motion"
+          ]
+        }
+      ],
+      "property-no-vendor-prefix": true,
+      "rule-empty-line-before": null,
+      "scss/dollar-variable-default": null,
       "selector-attribute-quotes": "always",
-      "selector-class-pattern": "[a-zA-Z0-9]+[a-za-zA-Z0-9-_]*"
+      "selector-class-pattern": [
+        "^[a-z0-9-_\\/:]+$",
+        {
+          "message": "Class names should only contain lowercase letters, numbers, hyphens, underscores (for BEM elements only), and may include forward slashes for fractions and colons."
+        }
+      ],
+      "selector-max-attribute": 3,
+      "selector-max-class": 3,
+      "selector-max-combinators": 3,
+      "selector-max-compound-selectors": 3,
+      "selector-max-id": 0,
+      "selector-max-specificity": null,
+      "selector-max-type": 2,
+      "selector-max-universal": 1,
+      "selector-no-qualifying-type": null,
+      "selector-no-vendor-prefix": true,
+      "value-keyword-case": [
+        "lower",
+        {
+          "camelCaseSvgKeywords": true,
+          "ignoreKeywords": [
+            "BlinkMacSystemFont",
+            "Roboto",
+            "Arial",
+            "Inter",
+            "Baskerville",
+            "Georgia",
+            "Times",
+            "SFMono-Regular",
+            "Menlo",
+            "Monaco",
+            "Consolas"
+          ]
+        }
+      ],
+      "value-no-vendor-prefix": true
     }
   },
   "eslintConfig": {
@@ -82,17 +105,21 @@
       "airbnb-base",
       "plugin:prettier/recommended"
     ],
+    "globals": {
+      "wp": true
+    },
     "env": {
       "browser": true,
-      "es2022": true,
-      "node": true
+      "es2021": true,
+      "node": true,
+      "jquery": true
     },
     "plugins": [
       "eslint-plugin-prettier",
       "import"
     ],
     "parserOptions": {
-      "ecmaVersion": 2022,
+      "ecmaVersion": 2021,
       "sourceType": "module"
     },
     "settings": {
@@ -133,45 +160,15 @@
       ]
     }
   },
-  "postcss": {
-    "map": false,
-    "plugins": {
-      "@fullhuman/postcss-purgecss": {
-        "content": ["./*.html", "./examples/*.html"],
-        "dynamicAttributes": ["aria-selected"],
-        "fontFace": true,
-        "keyframes": true,
-        "safelist": ["button", "/^(is-|has-)/", "/^(.*?)(m|p)(t|b)-/"],
-        "variables": true
-      },
-      "postcss-easing-gradients": {},
-      "postcss-inline-svg": {},
-      "postcss-preset-env": {
-        "stage": 2,
-        "features": {
-          "cascade-layers": false,
-          "custom-media-queries": true,
-          "custom-properties": false,
-          "custom-selectors": true,
-          "has-pseudo-class": true,
-          "image-set-function": true,
-          "is-pseudo-class": false,
-          "logical-properties-and-values": false,
-          "media-query-ranges": true,
-          "nesting-rules": true,
-          "unset-value": true
-        }
-      }
-    }
-  },
-  "babel": {
-    "presets": [
-      "@babel/preset-env"
-    ]
-  },
   "prettier": {
-    "singleQuote": true,
+    "arrowParens": "always",
     "bracketSpacing": true,
+    "endOfLine": "auto",
+    "jsxSingleQuote": false,
+    "printWidth": 80,
+    "quoteProps": "as-needed",
+    "semi": true,
+    "singleQuote": true,
     "trailingComma": "es5",
     "overrides": [
       {
@@ -185,8 +182,61 @@
       }
     ]
   },
+  "postcss": {
+    "map": false,
+    "plugins": {
+      "postcss-easing-gradients": {},
+      "postcss-inline-svg": {},
+      "postcss-preset-env": {
+        "stage": 2,
+        "features": {
+          "cascade-layers": false,
+          "color-mix": true,
+          "custom-media-queries": true,
+          "custom-properties": false,
+          "custom-selectors": true,
+          "has-pseudo-class": true,
+          "image-set-function": true,
+          "is-pseudo-class": false,
+          "logical-properties-and-values": false,
+          "media-query-ranges": true,
+          "nesting-rules": true,
+          "unset-value": true
+        },
+        "autoprefixer": {
+          "cascade": false
+        }
+      }
+    }
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  },
   "browserslist": [
     "> 1%",
     "last 2 versions"
-  ]
+  ],
+  "dependencies": {
+    "vite": "^5.3.5",
+    "vite-plugin-imagemin": "^0.4.6",
+    "vite-plugin-pug": "^0.3.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@babel/preset-env": "^7.25.3",
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-prettier": "^5.2.1",
+    "postcss": "^8.4.41",
+    "postcss-easing-gradients": "^3.0.1",
+    "postcss-inline-svg": "^6.0.0",
+    "postcss-preset-env": "^10.0.0",
+    "prettier": "^3.3.3",
+    "stylelint": "^16.8.1",
+    "stylelint-config-recommended-scss": "^14.1.0",
+    "stylelint-scss": "^6.5.0"
+  }
 }

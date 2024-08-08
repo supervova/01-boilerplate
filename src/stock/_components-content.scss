@@ -1,5 +1,5 @@
 @use 'sass:math';
-@use '../config' as *;
+@use '../../styles/abstracts' as *;
 
 /*
 Avatar
@@ -26,17 +26,17 @@ Table
  * -------------------------------------------------------------------------- */
 // #region
 
-$avatar-size-lg: $size-line * 5;
-$avatar-size-sm: $size-5;
-$avatar-border-radius: $border-radius-pill;
+$avatar-size-lg: calc(var(--size-line) * 5);
+$avatar-size-sm: var(--size-5);
+$avatar-border-radius: var(--border-radius-pill);
 
 .avatar {
   background-color: var(--color-brand-100);
   background-image: var(--icon-user);
   background-position: 50% 50%;
   background-repeat: no-repeat;
-  background-size: $size-icon-xy * 2;
-  border: $size-half solid var(--color-background-base);
+  background-size: var(--size-icon) * 2;
+  border: var(--size-half) solid var(--color-bg-base);
   border-radius: $avatar-border-radius;
   overflow: hidden;
   width: $avatar-size-lg;
@@ -55,7 +55,7 @@ $avatar-border-radius: $border-radius-pill;
 .header .avatar {
   @include border;
 
-  background-size: $size-icon-xy;
+  background-size: var(--size-icon);
   border: 0;
   width: $avatar-size-sm;
   height: $avatar-size-sm;
@@ -106,7 +106,7 @@ code {
 
   // Variable
   var {
-    font-weight: bold;
+    font-weight: 700;
     font-style: normal;
   }
 }
@@ -118,7 +118,7 @@ code {
 // #region
 .feature {
   text-align: center;
-  padding-bottom: $size-line * 2 + $size-1;
+  padding-bottom: calc(var(--size-line) * 2) + var(--size-1);
 }
 
 .feature__icon {
@@ -130,8 +130,8 @@ code {
   margin-right: auto;
   margin-left: auto;
   margin-inline: auto;
-  width: $size-8;
-  height: $size-8;
+  width: var(--size-8);
+  height: var(--size-8);
 
   > .icon {
     fill: var(--color-ink-inverse-base);
@@ -139,7 +139,7 @@ code {
 }
 
 .feature__heading {
-  margin-bottom: -$size-line;
+  margin-bottom: calc(var(--size-line) * -1);
 }
 
 .feature__copy {
@@ -157,7 +157,7 @@ code {
 
   color: var(--color-brand-ink-2ry);
   display: block;
-  font-family: $font-family-title;
+  font-family: var(--font-family-titles);
   font-weight: var(--font-weight-hero-title);
   text-align: center;
 
@@ -173,7 +173,7 @@ code {
   color: var(--color-ink-2ry);
   display: block;
   text-align: center;
-  margin-top: -$size-line;
+  margin-top: calc(var(--size-line) * -1);
   padding-top: var(--padding-top-base);
   padding-bottom: var(--padding-bottom-base);
 }
@@ -190,7 +190,7 @@ Set the position relative to a parent */
   text-decoration: none;
 
   &::before {
-    border-radius: $border-radius-base;
+    border-radius: var(--border-radius-base);
     content: '';
     position: absolute;
     top: 0;
@@ -204,7 +204,7 @@ Set the position relative to a parent */
 
   &:focus-visible {
     &::before {
-      box-shadow: var(--box-shadow-focus-outline);
+      @include state-focus;
     }
   }
 }
@@ -213,7 +213,7 @@ Set the position relative to a parent */
 
 @mixin chevron(
   $color: var(--color-brand-ink-2ry),
-  $line-height: $size-line,
+  $line-height: var(--size-line),
   $top: 2px
 ) {
   color: $color;
@@ -221,7 +221,7 @@ Set the position relative to a parent */
   display: inline;
   font-size: 150%;
   content: '\203a';
-  font-weight: normal;
+  font-weight: 400;
   line-height: $line-height;
   text-decoration: none;
   padding-left: .3em;
@@ -246,13 +246,13 @@ Set the position relative to a parent */
   }
 
   &:focus-visible::after {
-    background-color: var(--box-shadow-focus-outline);
+    @include state-focus;
     content: '';
     position: absolute;
-    bottom: $size-1;
+    bottom: var(--size-1);
     left: 0;
     right: 0;
-    height: $size-half;
+    height: var(--size-half);
   }
 
   &.is-centered {
@@ -300,19 +300,19 @@ main#main(tabindex='-1') */
 
   &:focus-visible {
     background-color: #fff;
-    border-radius: $border-radius-sm;
-    box-shadow: var(--box-shadow-z2);
+    border-radius: var(--border-radius-sm);
+    box-shadow: var(--box-shadow-level-01);
     clip: auto;
     color: var(--color-ink-2ry);
     display: block;
     line-height: normal;
     text-decoration: none;
-    padding: $size-2;
-    top: $size-1;
-    left: $size-1;
+    padding: var(--size-2);
+    top: var(--size-1);
+    left: var(--size-1);
     width: auto;
     height: auto;
-    z-index: $zindex-popover;
+    z-index: var(--zindex-popover);
   }
 }
 // #endregion
@@ -374,7 +374,7 @@ body {
   counter-increment: ol-marker;
 
   &::before {
-    background-color: var(--color-background-2ry);
+    background-color: var(--color-bg-2ry);
     content: counter(ol-marker) '. ';
     display: inline-block;
   }
@@ -386,7 +386,6 @@ body {
  * -------------------------------------------------------------------------- */
 // #region
 
-// .content__full-width
 .pull-quote {
   border-block: 2px solid var(--color-brand-border);
   margin-right: auto;
@@ -408,14 +407,15 @@ body {
  * -------------------------------------------------------------------------- */
 // #region
 
+// stylelint-disable-next-line selector-max-type
 table[role='grid'] tbody tr:nth-child(odd) {
-  background-color: var(--color-background-2ry);
+  background-color: var(--color-bg-2ry);
 }
 
 // Hover
 tbody tr:hover {
-  filter: $color-brightness-down;
-  transition: filter $duration-xxs;
+  filter: var(--filter-brightness-up);
+  transition: filter var(--duration-xxs);
 }
 
 // Row numbers

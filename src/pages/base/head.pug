@@ -1,0 +1,18 @@
+meta(charset='utf-8')
+meta(name='viewport' content='width=device-width,initial-scale=1,viewport-fit=cover')
+title= pageTitle
+meta(name='description' content=pageDesc)
+
+meta(property="og:title" content=pageTitle)
+meta(property='og:description' content=pageDesc)
+meta(property='og:type' content='website')
+if page.link
+  meta(property='og:url' content=page.link)
+meta(property='og:image' content=page.thumbnail || site.cover)
+meta(name='twitter:card' content='summary_large_image')
+if page.link
+  link(rel='canonical' href=page.link)
+link(rel='icon' href='/favicon.ico' sizes='32x32')
+link(rel='icon' href='/src/components/icon/icon.svg' type='image/svg+xml')
+link(rel='apple-touch-icon' href='/icon-192.png')
+link(rel='manifest' href='/manifest.json')
