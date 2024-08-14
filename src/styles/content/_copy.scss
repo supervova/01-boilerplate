@@ -125,43 +125,35 @@ hr {
  * INLINE
  * -------------------------------------------------------------------------- */
 
-// Links
-@mixin a-hover {
-  filter: brightness(var(--filter-brightness-up));
-  text-decoration: underline;
-  text-decoration-thickness: max(0.08em, 1px);
-  text-underline-offset: 0.15em;
-}
-
-a:not([class]) {
-  color: var(--color-link);
-  text-decoration: underline;
-  text-decoration-skip-ink: auto;
-}
-
-a,
+:where(a:not(.btn):not([role='button'])),
 [role='link'] {
-  color: var(--color-link);
-  cursor: pointer;
+  --color: var(--color-ink-link);
+  --background-focus: var(--color-brand-background);
+
+  color: var(--color);
   text-decoration: none;
-  transition: color var(--duration-xxs);
+  outline: none;
+  transition:
+    background-color var(--duration-xxs),
+    color var(--duration-xxs),
+    text-decoration var(--duration-xxs);
 
   &:is(:active, :focus-visible) {
-    @include a-hover;
-  }
-
-  &:focus-visible {
-    @include state-focus;
+    @include state-hover-a;
   }
 
   @media (hover: hover) and (pointer: fine) {
     &:hover {
-      @include a-hover;
+      @include state-hover-a;
     }
   }
 
+  &:focus-visible {
+    --background-color: var(--background-focus);
+  }
+
   &:is([aria-current]) {
-    color: var(--color-current);
+    color: var(--color-current, var(--color-ink-base));
   }
 }
 

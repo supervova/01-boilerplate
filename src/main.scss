@@ -7,20 +7,20 @@
 @use 'styles/abstracts/custom';
 @use 'styles/fonts';
 @use 'styles/variables';
-@use 'styles/scheme-light';
+@use 'styles/theme-light';
 
 // Uncomment everything else needed
-// @use 'styles/scheme-dark';
+// @use 'styles/theme-dark';
 
 @layer base, components, pages, helpers, print;
 
 @layer base {
   @include meta.load-css('styles/reset');
   @include meta.load-css('styles/doc');
-  /* @include meta.load-css('styles/content/headings');
+  @include meta.load-css('styles/content/headings');
   @include meta.load-css('styles/content/copy');
   @include meta.load-css('styles/content/media');
-  @include meta.load-css('styles/layout/containers'); */
+  @include meta.load-css('styles/layout/containers');
 }
 
 // @layer helpers {
@@ -33,13 +33,16 @@
 
 @layer base {
   @include meta.load-css('components/icon/icon');
-  /* @include meta.load-css('components/logo/logo');
-  @include meta.load-css('components/form/form');
-  @include meta.load-css('components/form/checkbox-radio');
-  @include meta.load-css('components/form/select');
   @include meta.load-css('components/button/button');
+
+  /*
+  @include meta.load-css('components/form/checkbox-radio');
+  @include meta.load-css('components/form/form');
+  @include meta.load-css('components/form/select');
+  @include meta.load-css('components/logo/logo');
   @include meta.load-css('styles/helpers/animation');
-  @include meta.load-css('styles/layout/grid') */;
+  @include meta.load-css('styles/layout/grid');
+  */
 }
 
 /*
@@ -65,9 +68,9 @@
 
   @include meta.load-css('components/navbar/navbar');
   /*
-  @include meta.load-css('components/menu/menu');
-  @include meta.load-css('components/pagination');
 
+  @include meta.load-css('components/pagination');
+  @include meta.load-css('components/menu/menu');
   // Structure
   */
 

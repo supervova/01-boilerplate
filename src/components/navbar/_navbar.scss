@@ -37,12 +37,6 @@
     @media (--phone) {
       overflow: auto;
       scrollbar-gutter: stable;
-
-      @media (pointer: fine) {
-        &:hover {
-          @include scrollbar();
-        }
-      }
     }
   }
 
@@ -178,9 +172,9 @@
 // #region
 
 .navbar .is-more summary {
-  @include menu-item;
-
   cursor: pointer;
+
+  @include menu-item;
 
   @media (--tablet-only) {
     border-radius: var(--border-radius);

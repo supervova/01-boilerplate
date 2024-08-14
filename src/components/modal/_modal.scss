@@ -63,10 +63,6 @@
     scrollbar-gutter: stable both-edges;
   }
 
-  @media (pointer: fine) {
-    @include scrollbar();
-  }
-
   @media (--tablet) {
     border-radius: var(--modal-border-radius);
     height: max-content;

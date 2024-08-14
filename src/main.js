@@ -1,14 +1,8 @@
 // Get external content, utilities
-import './components/js/modal';
+import './components/modal/modal';
 
 // Close popovers on Esc
-import initPopovers from './components/js/popover';
-
-// Adaptive navigation with overflow menu
-import './stock/js/navbar-adaptive-h';
-
-// Toggle search form on mobiles
-// import './components/js/header';
+import initPopovers from './components/popover/popover';
 
 document.addEventListener('DOMContentLoaded', () => {
   initPopovers();

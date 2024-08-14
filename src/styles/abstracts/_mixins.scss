@@ -22,13 +22,14 @@
  * visually-hidden          - Hides elements visually but keeps them accessible
  * state-disabled           - Uses visual cues to indicate that the button is disabled
  * state-focus              - Adds a focus ring for accessibility
+ * state-hover-a            - Adds a :hover underscore to links
  * menu-item                - Styles for menu items with padding, alignment, and focus behavior
  * button-base              - Base styles for buttons including alignment, cursor, and touch-action
  * button                   - Comprehensive button styles with customizable properties
  * button-primary           - Styles for primary buttons with specific background, color, and shadow
  * -------------------------------------------------------------------------- */
 
- @use 'sass:map';
+@use 'sass:map';
 @use 'sass:math';
 @use 'functions' as *;
 @use 'config' as *;
@@ -337,7 +338,14 @@
 
 @mixin state-focus($size: var(--size-half)) {
   outline: $size solid Highlight;
-  outline: $size solid -webkit-state-focus-color;
+  outline: $size solid solid -webkit-focus-ring-color;
+}
+
+@mixin state-hover-a {
+  text-decoration-skip-ink: auto;
+  text-decoration: underline;
+  text-decoration-thickness: max(0.08em, 1px);
+  text-underline-offset: 0.125em;
 }
 // #endregion
 
@@ -368,13 +376,13 @@
     color var(--duration-xxs);
   width: 100%;
 
+  &:focus-visible {
+    @include state-focus();
+  }
+
   &:is(:active, :focus-visible) {
     background-color: var(--color-ink-min);
     text-decoration: none;
-  }
-
-  &:focus-visible {
-    @include state-focus();
   }
 }
 

@@ -12,8 +12,8 @@ h5, h6 {
   text-rendering: optimizeLegibility;
   text-wrap: balance;
   margin-top: 0;
-  margin-bottom: var(--heading-margin-bottom, 1em); // Общий отступ снизу
-  font-weight: var(--heading-font-weight, bold); // Общий вес шрифта
+  margin-bottom: var(--size-2);
+  font-weight: var(--font-weight-titles-sm, bold);
 }
 
 /* -----------------------------------------------------------------------------

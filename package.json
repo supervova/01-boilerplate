@@ -1,6 +1,5 @@
 {
   "name": "01boilerplate",
-  "version": "1.0.0",
   "description": "",
   "author": {
     "name": "Vladimir Nikishin",
@@ -8,20 +7,13 @@
     "url": "https://super-mark.ru/"
   },
   "license": "MIT",
-  "keywords": [
-    "css",
-    "stylesheet",
-    "framework"
-  ],
+  "version": "1.0.0",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "serve": "vite preview",
+    "preview": "vite preview",
     "lint:styles": "stylelint 'src/**/*.scss'"
-  },
-  "engines": {
-    "node": ">=10",
-    "npm": ">=3"
   },
   "stylelint": {
     "extends": [
@@ -67,10 +59,10 @@
           "message": "Class names should only contain lowercase letters, numbers, hyphens, underscores (for BEM elements only), and may include forward slashes for fractions and colons."
         }
       ],
-      "selector-max-attribute": 3,
-      "selector-max-class": 3,
-      "selector-max-combinators": 3,
-      "selector-max-compound-selectors": 3,
+      "selector-max-attribute": 2,
+      "selector-max-class": 4,
+      "selector-max-combinators": 4,
+      "selector-max-compound-selectors": 4,
       "selector-max-id": 0,
       "selector-max-specificity": null,
       "selector-max-type": 2,
@@ -87,7 +79,6 @@
             "Arial",
             "Inter",
             "Baskerville",
-            "Georgia",
             "Times",
             "SFMono-Regular",
             "Menlo",
@@ -182,33 +173,6 @@
       }
     ]
   },
-  "postcss": {
-    "map": false,
-    "plugins": {
-      "postcss-easing-gradients": {},
-      "postcss-inline-svg": {},
-      "postcss-preset-env": {
-        "stage": 2,
-        "features": {
-          "cascade-layers": false,
-          "color-mix": true,
-          "custom-media-queries": true,
-          "custom-properties": false,
-          "custom-selectors": true,
-          "has-pseudo-class": true,
-          "image-set-function": true,
-          "is-pseudo-class": false,
-          "logical-properties-and-values": false,
-          "media-query-ranges": true,
-          "nesting-rules": true,
-          "unset-value": true
-        },
-        "autoprefixer": {
-          "cascade": false
-        }
-      }
-    }
-  },
   "babel": {
     "presets": [
       "@babel/preset-env"
@@ -218,11 +182,6 @@
     "> 1%",
     "last 2 versions"
   ],
-  "dependencies": {
-    "vite": "^5.3.5",
-    "vite-plugin-imagemin": "^0.4.6",
-    "vite-plugin-pug": "^0.3.2"
-  },
   "devDependencies": {
     "@babel/core": "^7.25.2",
     "@babel/preset-env": "^7.25.3",
@@ -235,8 +194,14 @@
     "postcss-inline-svg": "^6.0.0",
     "postcss-preset-env": "^10.0.0",
     "prettier": "^3.3.3",
+    "pug": "^3.0.3",
+    "sass": "^1.77.8",
     "stylelint": "^16.8.1",
     "stylelint-config-recommended-scss": "^14.1.0",
-    "stylelint-scss": "^6.5.0"
+    "stylelint-scss": "^6.5.0",
+    "vite": "^5.3.1",
+    "vite-plugin-imagemin": "^0.6.1",
+    "vite-plugin-pug": "^0.3.2",
+    "vite-plugin-static-copy": "^1.0.6"
   }
 }
