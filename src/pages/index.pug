@@ -7,7 +7,7 @@ append config
   -
     const page = {
       lang: 'ru',
-      title: 'Home | ' + site.title.ru,
+      title: 'Yey!',
       desc: site.desc.ru,
       bodyClasses: 'page is-home',
     }
@@ -16,20 +16,21 @@ append config
 
 block content
   main.main
-    h1 Lorem ipsum dolor sit amet
-    p Lorem ipsum dolor sit, amet consectetur adipisicing elit. Architecto dolores dolorum facilis, est esse illum non accusamus minus dolor harum mollitia commodi ducimus laboriosam, magni ipsa sint veniam rerum recusandae?
+    .container
+      h1 Welcome to my world
+      p Lorem ipsum dolor sit, amet consectetur adipisicing elit. Architecto dolores dolorum facilis, est esse illum non accusamus minus dolor harum mollitia commodi ducimus laboriosam, magni ipsa sint veniam rerum recusandae?
 
-    +icon('star')
-    +icon('star', 'is-dummy')
+      +icon('star')
+      +icon('star', 'is-dummy')
 
-    +snippet(
-      'Lorem ipsum dolor sit amet',
-      'Lorem ipsum dolor sit amet',
-      'img'
-    )
+      +snippet(
+        'Lorem ipsum dolor sit amet',
+        'Lorem ipsum dolor sit amet',
+        'cover.png'
+      )
 
-    form
-      p
-        +formItem('My Label', 'my-input', 'text', false, 'Message')
+      form
+        p
+          +formItem('My Label', 'my-input', 'text', false, 'Message')
 
-    +button('My Button', false, false, false, 'submit')
+      +button('My Button', false, false, false, 'submit')

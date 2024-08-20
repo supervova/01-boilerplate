@@ -10,9 +10,8 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
+    "format": "prettier --write 'src/**/*.{js,html}'",
+    "lint:js": "eslint 'src/**/*.js'",
     "lint:styles": "stylelint 'src/**/*.scss'"
   },
   "stylelint": {
@@ -96,25 +95,19 @@
       "airbnb-base",
       "plugin:prettier/recommended"
     ],
-    "globals": {
-      "wp": true
-    },
     "env": {
       "browser": true,
-      "es2021": true,
-      "node": true,
-      "jquery": true
+      "es2023": true,
+      "node": true
     },
     "plugins": [
-      "eslint-plugin-prettier",
       "import"
     ],
     "parserOptions": {
-      "ecmaVersion": 2021,
+      "ecmaVersion": 2023,
       "sourceType": "module"
     },
     "settings": {
-      "import/core-modules": [],
       "import/ignore": [
         "node_modules",
         "\\.(coffee|scss|css|less|hbs|svg|json)$"
@@ -122,6 +115,16 @@
     },
     "rules": {
       "import/no-extraneous-dependencies": "off",
+      "import/extensions": [
+        "error",
+        "ignorePackages",
+        {
+          "js": "always",
+          "jsx": "always",
+          "ts": "never",
+          "tsx": "never"
+        }
+      ],
       "max-len": [
         "error",
         {
@@ -183,25 +186,44 @@
     "last 2 versions"
   ],
   "devDependencies": {
-    "@babel/core": "^7.25.2",
-    "@babel/preset-env": "^7.25.3",
-    "eslint": "^8.57.0",
+    "@babel/core": "^7.21.0",
+    "@babel/preset-env": "^7.21.0",
+    "@fullhuman/postcss-purgecss": "^6.0.0",
+    "autoprefixer": "^10.4.13",
+    "browser-sync": "^3.0.2",
+    "cssnano": "^7.0.5",
+    "del": "^7.1.0",
+    "esbuild": "^0.16.10",
+    "eslint": "^8.34.0",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-prettier": "^5.2.1",
-    "postcss": "^8.4.41",
-    "postcss-easing-gradients": "^3.0.1",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "gulp": "^5.0.0",
+    "gulp-esbuild": "^0.12.1",
+    "gulp-if": "^3.0.0",
+    "gulp-imagemin": "^9.1.0",
+    "gulp-newer": "^1.4.0",
+    "gulp-notify": "^4.0.0",
+    "gulp-plumber": "^1.2.1",
+    "gulp-postcss": "^10.0.0",
+    "gulp-pug": "^5.0.0",
+    "gulp-sass": "^5.1.0",
+    "gulp-size": "^5.0.0",
+    "gulp-sourcemaps": "^3.0.0",
+    "gulp-svg-sprite": "^2.0.3",
+    "imagemin-gifsicle": "^7.0.0",
+    "imagemin-mozjpeg": "^10.0.0",
+    "imagemin-pngquant": "^10.0.0",
+    "imagemin-svgo": "^11.0.1",
+    "postcss": "^8.4.19",
     "postcss-inline-svg": "^6.0.0",
-    "postcss-preset-env": "^10.0.0",
-    "prettier": "^3.3.3",
-    "pug": "^3.0.3",
+    "postcss-preset-env": "^10.0.2",
+    "prettier": "^2.8.4",
     "sass": "^1.77.8",
-    "stylelint": "^16.8.1",
-    "stylelint-config-recommended-scss": "^14.1.0",
-    "stylelint-scss": "^6.5.0",
-    "vite": "^5.3.1",
-    "vite-plugin-imagemin": "^0.6.1",
-    "vite-plugin-pug": "^0.3.2",
-    "vite-plugin-static-copy": "^1.0.6"
+    "stylelint": "^15.11.0",
+    "stylelint-config-recommended-scss": "^9.0.0",
+    "stylelint-scss": "^4.4.0",
+    "yargs": "^17.7.2"
   }
 }

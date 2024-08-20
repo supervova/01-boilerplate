@@ -121,16 +121,7 @@ select,
 textarea,
 input:not([type='checkbox']):not([type='radio']):not([type='submit']):not([type='reset']):not([type='search']) {
   border-radius: var(--border-radius-sm);
-  padding-inline-start: var(--size-6);
-}
-
-textarea,
-[type='text'],
-[type='email'],
-[type='tel'],
-[type='number'],
-[type='url'] {
-  padding-inline-end: var(--padding-x-input);
+  padding-inline: var(--padding-x-input);
 }
 
 [type='password'] {

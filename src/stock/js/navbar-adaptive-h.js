@@ -1,34 +1,6 @@
-/*
+/* TODO: попросить ChatGPT переписать */
 
-Отладка — ни хера не работает. Попробовать скрестить код вот с таким
-
-// создать moreItem в начале кода
-
-// но скрыть его
-moreItem.style.display = "none";
-
-container.appendChild(moreItem);
-
-let totalWidth = 0;
-
-items.forEach(item => {
-  totalWidth += item.offsetWidth;
-});
-
-// проверка, нужен ли элемент moreItem
-if (totalWidth + moreItem.offsetWidth > container.offsetWidth) {
-  moreItem.style.display = "block";
-}
-
-Потом добавить медиазапрос
-
-if (
-  window.matchMedia(
-    '(min-width: 768px) and (min-height: 414px), (min-width: 1024px)'
-  ).matches
-) {}
-
-*/
+let moreItem;
 
 function handleMenuOverflow() {
   const menus = document.getElementsByClassName('js-adaptive-menu');

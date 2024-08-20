@@ -12,7 +12,8 @@
     },
     url: "https://www._project.tld",
     slag: "_project",
-    cover: '/src/assets/images/cover.png',
+    theme: '/assets/',
+    cover: '/assets/images/cover.png',
     color: '#f00',
     fonts: {
       google: 'Inter:wght@300;400;600',
@@ -22,7 +23,6 @@
     }
   }
 
-- const currentYear = new Date().getFullYear();
-
-- const pageTitle = (page.title ? page.title + ' | ' : '') + (page.section ? page.section + ' | ' : '') + (page.lang == 'ru' ? site.title.ru : site.title.en)
-- const pageDesc = page.desc || (page.lang == 'ru' ? site.desc.ru : site.desc.en)
+- const now = new Date();
+- const currentYear = now.getFullYear();
+- const timestamp = now.getTime();

@@ -1,8 +1,8 @@
 //- Icon
 mixin icon(name, classes=false)
-  - const iconClasses = [`icon`, `is-${name}`, classes].filter(Boolean).join(' ')
+  - const iconClasses = [`is-${name}`, classes].filter(Boolean).join(' ')
   svg.icon(class=iconClasses, aria-hidden='true', focusable='false')
-    use(href=`/src/components/icon/sprite.svg#icon-${name}`)
+    use(href=`/assets/img/components/icon/sprite.svg#icon-${name}`)
 
 //- Button
 mixin button(label, icon=false, classes=false, iconOnly=false, type='button')
@@ -23,7 +23,7 @@ mixin snippet(title, summary, img=false, link='#')
   article.snippet(id!=attributes.id, itemscope, itemtype='http://schema.org/Article')
     if img
       figure.snippet__img
-        img(src=img, alt=title)
+        img(src='/assets/img/' + img, alt=title)
     .snippet__copy
       a(href=link)
         h3(itemprop='headline')= title

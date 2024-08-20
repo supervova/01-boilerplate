@@ -88,14 +88,14 @@
   --padding-bottom-hero-title: #{rem(1)};
 
   --font-size-title:      #{rem(28)};
-  --font-weight-title:    var(--font-weight-titles-sm);
+  --font-weight-title:    var(--font-weight-titles);
   --letter-spacing-title: 0;
   --line-height-title:    #{math.div(32, 28)};
   --padding-top-title:    #{rem(6)};
   --padding-bottom-title: #{rem(2)};
 
   --font-size-h2:       #{rem(22)};
-  --font-weight-h2:     var(--font-weight-titles-sm);
+  --font-weight-h2:     var(--font-weight-titles);
   --letter-spacing-h2:  0;
   --line-height-h2:     #{math.div(24, 22)};
   --padding-top-h2:     #{rem(4)};
@@ -154,16 +154,16 @@
   --padding-x-container: var(--size-2p5);
 
   --padding-y-btn:       0;
-  --padding-x-btn:       0;
+  --padding-x-btn:       var(--size-2);
   --height-btn:          var(--size-4);
 
   --padding-x-input:     var(--size-2);
   --padding-y-input:     #{rem(5)};
 
-  --size-icon:           rem(24);
-  --size-icon-sm:        rem(20);
+  --size-icon:           #{rem(24)};
+  --size-icon-sm:        #{rem(20)};
 
-  --border-width: rem(1);
+  --border-width: #{rem(1)};
 
   // RADIUS
   // Rectangular Images

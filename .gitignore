@@ -1,10 +1,7 @@
 # Working stuff
 *~.*
-_site
-_tmp
 deploy.sh
 dist
-notes
 
 # Media Files
 *.avi

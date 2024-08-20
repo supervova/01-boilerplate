@@ -1,0 +1,2256 @@
+@charset "UTF-8";
+/* -----------------------------------------------------------------------------
+ * Table of contents
+ * -----------------------------------------------------------------------------
+ *
+ * grid-base                - Base grid layout with default column, row, and gap settings
+ * grid-12                  - 12-column grid layout with specific settings
+ * grid                     - Responsive grid layout combining base and 12-column layouts
+ * grid-columns             - Generates column classes for grid with custom breakpoints
+ * flex-base                - Base flex layout with default settings
+ * flex-row                 - Use this one within media query. Change --items value to 2, 3 etc to define columns
+ * container                - Centers content with a max-width and auto margins
+ * centering-max-width      - Centers elements with a maximum width and customizable margins
+ * heading-base             - Basic styles for headings including font and color
+ * text-format              - Sets font size, line height, and padding for text elements
+ * label                    - Styles for labels with optional uppercase transformation
+ * text-truncate            - Single line text truncation with ellipsis
+ * multiline-truncate       - Multi-line text truncation with ellipsis
+ * multiline-truncate-reset - Resets multi-line truncation
+ * border                   - Adds a border overlay with flex display and overflow handling
+ * chevron-down             - Adds a chevron down icon with specific positioning and styles
+ * utility-classes          - Generates utility classes based on provided properties
+ * visually-hidden          - Hides elements visually but keeps them accessible
+ * state-disabled           - Uses visual cues to indicate that the button is disabled
+ * state-focus              - Adds a focus ring for accessibility
+ * state-hover-a            - Adds a :hover underscore to links
+ * menu-item                - Styles for menu items with padding, alignment, and focus behavior
+ * button-base              - Base styles for buttons including alignment, cursor, and touch-action
+ * button                   - Comprehensive button styles with customizable properties
+ * button-primary           - Styles for primary buttons with specific background, color, and shadow
+ * -------------------------------------------------------------------------- */
+/* -----------------------------------------------------------------------------
+  * LAYOUT
+  * -------------------------------------------------------------------------- */
+/* -----------------------------------------------------------------------------
+  * TYPOGRAPHY
+  * -------------------------------------------------------------------------- */
+/* -----------------------------------------------------------------------------
+  * GRAPHICS
+  * -------------------------------------------------------------------------- */
+/* -----------------------------------------------------------------------------
+  * UTILITIES / HELPERS
+  * -------------------------------------------------------------------------- */
+/* -----------------------------------------------------------------------------
+  * ELEMENTS
+  * -------------------------------------------------------------------------- */
+/* Mixins were created in order to quickly style the buttons of plugins, like woocommerce */
+@custom-media --phone only screen and (width < 768px);
+@custom-media --phone-p only screen and (width < 568px);
+@custom-media --phone-l only screen and (width >= 568px);
+@custom-media --phone-l-height only screen and (max-height: 360px);
+@custom-media --tablet only screen and (width >= 768px) and (min-height: 361px);
+@custom-media --tablet-p-only only screen and (768px <= width <= 1023px) and (min-height: 361px);
+@custom-media --tablet-l-down only screen and (width < 1024px);
+@custom-media --tablet-l only screen and (width >= 1024px) and (min-height: 361px);
+@custom-media --tablet-only only screen and (768px <= width <= 1360px) and (min-height: 361px);
+@custom-media --laptop-down only screen and (width < 1360px);
+@custom-media --laptop only screen and (width >= 1360px) and (min-height: 361px);
+@custom-media --desktop only screen and (width >= 1920px) and (min-height: 361px);
+@custom-media --retina print,
+  (-webkit-min-device-pixel-ratio: 1.25),
+  (min-resolution: 1.25dppx),
+  (min-resolution: 120dpi);
+@custom-selector :--text-field :where(input:not([type="checkbox"]):not([type="radio"]), select, textarea):not(:focus);
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 100 900;
+  font-stretch: 75% 125%;
+  src: url("/src/assets/fonts/Inter-VariableFont_slnt,wght.ttf") format("truetype");
+}
+:root {
+  --h-blue: 210;
+  --h-green: 110;
+  --h-red: 350;
+  --h-yellow: 60;
+  --h: 10;
+  --s: 87%;
+  --sn: 16%;
+  --l: 69%;
+  --color-brand-primary: hsl(var(--h) var(--s) var(--l));
+  --color-alpha-dark-max: rgb(0 0 0);
+  --color-alpha-dark-900: rgb(0 0 0 / 0.87);
+  --color-alpha-dark-600: rgb(0 0 0 / 0.6);
+  --color-alpha-dark-400: rgb(0 0 0 / 0.38);
+  --color-alpha-dark-100: rgb(0 0 0 / 0.12);
+  --color-alpha-dark-min: rgb(0 0 0 / 0.05);
+  --color-alpha-light-max: hsl(0 0% 100%);
+  --color-alpha-light-900: hsl(0 0% 100% / 0.87);
+  --color-alpha-light-600: hsl(0 0% 100% / 0.6);
+  --color-alpha-light-400: hsl(0 0% 100% / 0.38);
+  --color-alpha-light-200: hsl(0 0% 100% / 0.2);
+  --color-alpha-light-min: hsl(0 0% 100% / 0.07);
+  --color-shadow: var(--h) var(--sn) 10%;
+  --color-neutral-950: hsl(var(--h) var(--sn) 14%);
+  --color-neutral-900: hsl(var(--h) var(--sn) 20%);
+  --backdrop-filter-elevated: saturate(180%) blur(20px);
+  --filter-brightness-up: brightness(1.16);
+  --filter-brightness-down: brightness(0.84);
+  --font-family-emoji:
+   "Apple Color Emoji",
+   "Segoe UI Emoji",
+   "Segoe UI Symbol",
+   "Noto Color Emoji";
+  --font-family-sans:
+   -apple-system,
+    BlinkMacSystemFont,
+    Inter,
+    sans-serif;
+  --font-family-mono:
+    ui-monospace,
+    SFMono-Regular,
+    Monaco,
+    Consolas,
+   "Andale Mono",
+    monospace,
+    var(--font-family-emoji);
+  --font-family-base: var(--font-family-sans), var(--font-family-emoji);
+  --font-family-titles: var(--font-family-base);
+  --font-family-doc: var(--font-family-base);
+  --font-size-doc: 16px;
+  --font-weight-titles: 600;
+  --font-weight-titles-sm: 500;
+  --font-weight-titles-xs: 400;
+  --font-size-hero-title: 2.125rem;
+  --font-weight-hero-title: var(--font-weight-titles-sm);
+  --letter-spacing-hero-title: 0;
+  --line-height-hero-title: 1.1764705882;
+  --padding-top-hero-title: 0.4375rem;
+  --padding-bottom-hero-title: 0.0625rem;
+  --font-size-title: 1.75rem;
+  --font-weight-title: var(--font-weight-titles);
+  --letter-spacing-title: 0;
+  --line-height-title: 1.1428571429;
+  --padding-top-title: 0.375rem;
+  --padding-bottom-title: 0.125rem;
+  --font-size-h2: 1.375rem;
+  --font-weight-h2: var(--font-weight-titles);
+  --letter-spacing-h2: 0;
+  --line-height-h2: 1.0909090909;
+  --padding-top-h2: 0.25rem;
+  --padding-bottom-h2: 0.25rem;
+  --margin-top-subhead: var(--size-line);
+  --font-size-big: 1.0625rem;
+  --font-weight-big: var(--font-weight-titles-sm);
+  --letter-spacing-big: 0;
+  --line-height-big: 1.4117647059;
+  --padding-top-big: 0.375rem;
+  --padding-bottom-big: 0.125rem;
+  --font-size-base: 1.0625rem;
+  --line-height-base: 1.4117647059;
+  --letter-spacing-base: 0;
+  --padding-top-base: 0.375rem;
+  --padding-bottom-base: 0.125rem;
+  --font-size-caption: 0.75rem;
+  --letter-spacing-caption: 0;
+  --line-height-caption: 1.3333333333;
+  --padding-top-caption: 0.25rem;
+  --padding-bottom-caption: 0.25rem;
+  --size-half: 0.25rem;
+  --size-1: 0.5rem;
+  --size-1p5: 0.75rem;
+  --size-2: 1rem;
+  --size-2p5: 1.25rem;
+  --size-3: 1.5rem;
+  --size-4: 2rem;
+  --size-5: 2.5rem;
+  --size-6: 3rem;
+  --size-7: 3.5rem;
+  --size-8: 4rem;
+  --size-line: var(--size-3);
+  --spacer: var(--size-line);
+  --gap-base: var(--size-2p5);
+  --gap-large: var(--size-4);
+  --padding-bottom-list: 1rem;
+  --padding-bottom-li: 0.625rem;
+  --padding-x-box: var(--size-2);
+  --padding-x-container: var(--size-2p5);
+  --padding-y-btn: 0;
+  --padding-x-btn: var(--size-2);
+  --height-btn: var(--size-4);
+  --padding-x-input: var(--size-2);
+  --padding-y-input: 0.3125rem;
+  --size-icon: 1.5rem;
+  --size-icon-sm: 1.25rem;
+  --border-width: 0.0625rem;
+  --border-radius-xs: var(--size-half);
+  --border-radius-sm: var(--size-1);
+  --border-radius-base: var(--size-2);
+  --border-radius-lg: var(--size-3);
+  --border-radius-xl: var(--size-4);
+  --border-radius-pill: 100vmax;
+  --zindex-sticky: 10;
+  --zindex-fixed: 20;
+  --zindex-fab: 30;
+  --zindex-popover: 40;
+  --zindex-tooltip: 50;
+  --zindex-drawer: 70;
+  --zindex-modal: 80;
+  --width-sm: 17rem;
+  --width-base: 20rem;
+  --width-md: 28rem;
+  --width-lg: 34rem;
+  --width-xl: 45rem;
+  --width-container: 73.5rem;
+  --width-readable: 70ch;
+  --box-shadow-min: 0 1px 0 hsl(var(--color-shadow) / 0.12);
+  --box-shadow-level-01:
+    0 0 0.5px 1px var(--color-alpha-light-min),
+    0 0 0 1px hsl(var(--color-shadow) / var(--shadow-ring, 0.04)),
+    0 1px 2px hsl(var(--color-shadow) / var(--shadow-opacity-low, 0.06)),
+    0 2px 4px -1px hsl(var(--color-shadow) / var(--shadow-opacity-low, 0.06));
+  --box-shadow-level-02:
+    0 0 0.5px 1px var(--color-alpha-light-min),
+    0 0 0 1px hsl(var(--color-shadow) / var(--shadow-ring, 0.04)),
+    0 2px 4px hsl(var(--color-shadow) / var(--shadow-opacity-low, 0.06)),
+    0 6px 12px -2px hsl(var(--color-shadow) / var(--shadow-opacity-low, 0.06)),
+    0 14px 28px -4px hsl(var(--color-shadow) / var(--shadow-opacity-low, 0.06));
+  --box-shadow-level-03:
+    0 0 0.5px 1px var(--color-alpha-light-min),
+    0 0 0 1px hsl(var(--color-shadow) / var(--shadow-ring, 0.04)),
+    0 3px 6px hsl(var(--color-shadow) / var(--shadow-opacity-low, 0.06)),
+    0 8px 16px -2px hsl(var(--color-shadow) / var(--shadow-opacity-low, 0.06)),
+    0 18px 36px -4px hsl(var(--color-shadow) / var(--shadow-opacity-low, 0.06)),
+    0 30px 60px -4px hsl(var(--color-shadow) / var(--shadow-opacity-low, 0.06));
+  --duration-xxs: 0.07s;
+  --duration-xs: 0.11s;
+  --duration-sm: 0.15s;
+  --duration-md: 0.24s;
+  --duration-lg: 0.4s;
+  --duration-xl: 0.7s;
+  --easing-base: cubic-bezier(0.2, 0, 0.38, 0.9);
+  --easing-appearance: cubic-bezier(0, 0, 0.38, 0.9);
+  --easing-disappearance: cubic-bezier(0.2, 0, 1, 0.9);
+  --easing-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+@media (--tablet) {
+  :root {
+    --font-size-hero-title: 3.5rem;
+    --font-weight-hero-title: var(--font-weight-titles-xs);
+    --line-height-hero-title: 1.1428571429;
+    --padding-top-hero-title: 0.1875rem;
+    --padding-bottom-hero-title: 0.3125rem;
+    --font-size-title: 3.5rem;
+    --font-weight-title: var(--font-weight-titles-xs);
+    --line-height-title: 1.1428571429;
+    --padding-top-title: 0.1875rem;
+    --padding-bottom-title: 0.3125rem;
+    --font-size-h2: 2.6875rem;
+    --font-weight-h2: var(--font-weight-titles-xs);
+    --line-height-h2: 1.1162790698;
+    --padding-top-h2: 0;
+    --padding-bottom-h2: 0;
+    --font-size-big: 2.5rem;
+    --font-weight-big: var(--font-weight-titles-xs);
+    --line-height-big: 1.3333333333;
+    --padding-top-big: 0.0625rem;
+    --padding-bottom-big: 0.4375rem;
+    --spacer: calc(var(--size-line) * 3);
+    --padding-x-box: var(--size-line);
+    --padding-x-container: var(--size-5);
+  }
+}
+@media (--desktop) {
+  :root {
+    --font-size-ui-title: 0.6875rem;
+    --letter-spacing-ui-title: 0.00625rem;
+    --line-height-ui-title: 1.4545454545;
+    --padding-top-ui-title: 0.25rem;
+    --padding-bottom-ui-title: 0.25rem;
+    --font-size-ui-label: 0.875rem;
+    --letter-spacing-ui-label: 0;
+    --line-height-ui-label: 1.4285714286;
+    --padding-top-ui-label: 0.0625rem;
+    --padding-bottom-ui-label: 0.1875rem;
+    --padding-bottom-list: 1rem;
+    --padding-bottom-li: var(--size-1);
+    --height-btn: var(--size-4);
+  }
+}
+
+[data-theme=light],
+:root:not([data-theme=dark]) {
+  --color-brand-bg: hsl(var(--h) var(--s) 96%);
+  --color-brand-bg-bold: hsl(var(--h) var(--s) 55%);
+  --color-brand-text: hsl(var(--h) var(--s) 42%);
+  --color-brand-ink-2ry: hsl(var(--h) var(--s) 55%);
+  --color-brand-border: hsl(var(--h) var(--s) 93%);
+  --color-brand-gradient:
+    linear-gradient(
+      hsl(var(--h) var(--s) 71%),
+      hsl(var(--h) var(--s) 67%)
+    );
+  --color-bg-base: hsl(var(--h) var(--sn) 99%);
+  --color-bg-2ry: hsl(var(--h) var(--sn) 97%);
+  --color-bg-bold: hsl(--color-neutral-900);
+  --color-bg-layer-01: var(--color-bg-base);
+  --color-bg-layer-02: color-mix(in hsl, var(--color-bg-base) 88%, transparent);
+  --color-bg-2ry-layer-02: color-mix(in hsl, var(--color-bg-2ry) 88%, transparent);
+  --color-bg-layer-03: var(--color-bg-layer-02);
+  --color-bg-scrim: var(--color-alpha-dark-400);
+  --color-ink-base: var(--color-neutral-950);
+  --color-ink-2ry: hsl(var(--h) var(--sn) 47%);
+  --color-ink-3ry: hsl(var(--h) var(--sn) 62%);
+  --color-ink-icon: var(--color-ink-3ry);
+  --color-ink-border: hsl(var(--color-shadow) / 0.08);
+  --color-ink-min: hsl(var(--color-shadow) / 0.04);
+  --color-ink-link: var(--color-discovery-text);
+  --color-ink-inverse-max: var(--color-alpha-light-max);
+  --color-ink-inverse-base: var(--color-alpha-light-900);
+  --color-ink-inverse-2ry: var(--color-alpha-light-600);
+  --color-ink-inverse-3ry: var(--color-alpha-light-400);
+  --color-ink-inverse-icon: var(--color-ink-inverse-3ry);
+  --color-ink-inverse-border: var(--color-alpha-light-200);
+  --color-ink-inverse-glow: var(--color-alpha-light-min);
+  --color-ink-neutral-text: var(--color-alpha-dark-900);
+  --color-ink-neutral-2ry: var(--color-alpha-dark-600);
+  --color-ink-neutral-3ry: var(--color-alpha-dark-400);
+  --color-ink-neutral-border: var(--color-alpha-dark-100);
+  --color-discovery-base: hsl(var(--h-blue) var(--s) 66%);
+  --color-discovery-background: hsl(var(--h-blue) var(--s) 92%);
+  --color-discovery-text: hsl(var(--h-blue) var(--s) 41%);
+  --color-discovery-ink-2ry: hsl(var(--h-blue) var(--s) 52%);
+  --color-error-base: hsl(var(--h-red) var(--s) 73%);
+  --color-error-background: hsl(var(--h-red) var(--s) 94%);
+  --color-error-text: hsl(var(--h-red) var(--s) 44%);
+  --color-error-ink-2ry: hsl(var(--h-red) var(--s) 60%);
+  --color-warning-base: hsl(var(--h-yellow) var(--s) 46%);
+  --color-warning-background: hsl(var(--h-yellow) var(--s) 54%);
+  --color-warning-text: hsl(var(--h-yellow) var(--s) 22%);
+  --color-warning-ink-2ry: hsl(var(--h-yellow) var(--s) 29%);
+  --color-success-base: hsl(var(--h-green) var(--s) 39%);
+  --color-success-background: hsl(var(--h-green) var(--s) 83%);
+  --color-success-text: hsl(var(--h-green) var(--s) 25%);
+  --color-success-ink-2ry: hsl(var(--h-green) var(--s) 32%);
+  --shadow-ring: 0.04;
+  --shadow-opacity-low: 0.06;
+  --icon-checkbox: url("data:image/svg+xml;charset=utf-8,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M6%2011L9%2014L15%208%22%20stroke%3D%22white%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E%0A");
+  --icon-chevron-down: url("data:image/svg+xml;charset=utf-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M5%207L8%2010L11%207%22%20stroke%3D%22%23B1918B%22%20stroke-width%3D%222%22%20stroke-miterlimit%3D%2210%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E%0A");
+  --icon-error: url("data:image/svg+xml;charset=utf-8,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M21%2012C21%2016.9706%2016.9706%2021%2012%2021C7.02944%2021%203%2016.9706%203%2012C3%207.02944%207.02944%203%2012%203C16.9706%203%2021%207.02944%2021%2012Z%22%20fill%3D%22%23FDE2E7%22%2F%3E%3Cpath%20d%3D%22M12%2016.9V17M12%207V13M21%2012C21%2016.9706%2016.9706%2021%2012%2021C7.02944%2021%203%2016.9706%203%2012C3%207.02944%207.02944%203%2012%203C16.9706%203%2021%207.02944%2021%2012Z%22%20stroke%3D%22%23F2405E%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%2F%3E%3C%2Fsvg%3E%0A");
+  --icon-minus: url("data:image/svg+xml;charset=utf-8,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cline%20x1%3D%225%22%20y1%3D%2210%22%20x2%3D%2215%22%20y2%3D%2210%22%20stroke%3D%22white%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%2F%3E%3C%2Fsvg%3E");
+  --icon-search: url("data:image/svg+xml;charset=utf-8,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M14.3074%2014.3074C16.6653%2011.9494%2016.6653%208.12643%2014.3074%205.76847C11.9494%203.41051%208.12643%203.41051%205.76847%205.76847C3.41051%208.12643%203.41051%2011.9494%205.76847%2014.3074C8.12643%2016.6653%2011.9494%2016.6653%2014.3074%2014.3074ZM14.3074%2014.3074L20%2020%22%20stroke%3D%22%23B1918B%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%2F%3E%3C%2Fsvg%3E");
+  --icon-success: url("data:image/svg+xml;charset=utf-8,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M12%2021C16.9706%2021%2021%2016.9706%2021%2012C21%207.02944%2016.9706%203%2012%203C7.02944%203%203%207.02944%203%2012C3%2016.9706%207.02944%2021%2012%2021Z%22%20fill%3D%22%23BBF9AE%22%2F%3E%3Cpath%20d%3D%22M9%2012L11%2014L15%2010%22%20fill%3D%22%23BBF9AE%22%2F%3E%3Cpath%20d%3D%22M9%2012L11%2014L15%2010M21%2012C21%2016.9706%2016.9706%2021%2012%2021C7.02944%2021%203%2016.9706%203%2012C3%207.02944%207.02944%203%2012%203C16.9706%203%2021%207.02944%2021%2012Z%22%20stroke%3D%22%2322990A%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E%0A");
+  --color-scroll-thumb: var(--color-alpha-dark-100);
+  --color-scroll-track: var(--color-alpha-dark-min);
+}
+
+@layer base, components, pages, helpers, print;
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  * {
+    margin: 0;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  .h1,
+  .h2,
+  .h3,
+  .h4 {
+    text-wrap: balance;
+  }
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    overflow-wrap: break-word;
+  }
+  a,
+  button {
+    cursor: pointer;
+  }
+  ul[role=list],
+  ol[role=list] {
+    list-style: none;
+  }
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+  input,
+  textarea,
+  select {
+    color: inherit;
+  }
+  textarea:not([rows]) {
+    min-height: 10em;
+  }
+  legend {
+    float: left;
+    line-height: inherit;
+    padding: 0;
+    width: 100%;
+  }
+  legend + * {
+    clear: left;
+  }
+  summary {
+    cursor: pointer;
+    list-style: none;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary::marker {
+    display: none;
+  }
+  summary::-moz-list-bullet {
+    list-style-type: none;
+  }
+  /* fix the feature of 'hidden' attribute.
+  display:revert; revert to element instead of attribute */
+  :where([hidden]) {
+    display: none;
+  }
+  :target {
+    scroll-margin-block: 5ex;
+  }
+  :where([contenteditable]) {
+    overflow-wrap: break-word;
+  }
+  :where([draggable=true]) {
+    -webkit-user-drag: element;
+  }
+  #root,
+  #__next {
+    isolation: isolate;
+  }
+  /* -----------------------------------------------------------------------------
+   * Table of contents
+   * -----------------------------------------------------------------------------
+   *
+   * grid-base                - Base grid layout with default column, row, and gap settings
+   * grid-12                  - 12-column grid layout with specific settings
+   * grid                     - Responsive grid layout combining base and 12-column layouts
+   * grid-columns             - Generates column classes for grid with custom breakpoints
+   * flex-base                - Base flex layout with default settings
+   * flex-row                 - Use this one within media query. Change --items value to 2, 3 etc to define columns
+   * container                - Centers content with a max-width and auto margins
+   * centering-max-width      - Centers elements with a maximum width and customizable margins
+   * heading-base             - Basic styles for headings including font and color
+   * text-format              - Sets font size, line height, and padding for text elements
+   * label                    - Styles for labels with optional uppercase transformation
+   * text-truncate            - Single line text truncation with ellipsis
+   * multiline-truncate       - Multi-line text truncation with ellipsis
+   * multiline-truncate-reset - Resets multi-line truncation
+   * border                   - Adds a border overlay with flex display and overflow handling
+   * chevron-down             - Adds a chevron down icon with specific positioning and styles
+   * utility-classes          - Generates utility classes based on provided properties
+   * visually-hidden          - Hides elements visually but keeps them accessible
+   * state-disabled           - Uses visual cues to indicate that the button is disabled
+   * state-focus              - Adds a focus ring for accessibility
+   * state-hover-a            - Adds a :hover underscore to links
+   * menu-item                - Styles for menu items with padding, alignment, and focus behavior
+   * button-base              - Base styles for buttons including alignment, cursor, and touch-action
+   * button                   - Comprehensive button styles with customizable properties
+   * button-primary           - Styles for primary buttons with specific background, color, and shadow
+   * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * LAYOUT
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * TYPOGRAPHY
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * GRAPHICS
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * UTILITIES / HELPERS
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * ELEMENTS
+    * -------------------------------------------------------------------------- */
+  /* Mixins were created in order to quickly style the buttons of plugins, like woocommerce */
+  html {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    color-scheme: light dark;
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-doc);
+    font-synthesis: none;
+    font-weight: 400;
+    hanging-punctuation: first last;
+    text-rendering: optimizeLegibility;
+    text-size-adjust: 100%;
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+  }
+  html:focus-within {
+    scroll-behavior: smooth;
+  }
+  body {
+    accent-color: var(--color-brand-primary);
+    background: var(--color-bg-base);
+    color: var(--color-ink-base);
+    display: flex;
+    flex-direction: column;
+    font-size: var(--font-size-base);
+    font-variant-numeric: oldstyle-nums;
+    letter-spacing: var(--letter-spacing-base, 0.011em);
+    line-height: var(--line-height-base);
+    text-align: left;
+    margin: 0;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    overflow-x: hidden;
+    min-width: 320px;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+  * {
+    scrollbar-color: var(--color-scroll-thumb) var(--color-scroll-track);
+    scrollbar-width: thin;
+  }
+  *::-webkit-scrollbar {
+    width: var(--size-1);
+    height: var(--size-1);
+  }
+  *::-webkit-scrollbar-track {
+    background: var(--color-scroll-track);
+  }
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--color-scroll-thumb);
+    border-radius: var(--border-radius-pill);
+    border: var(--size-half) solid transparent;
+  }
+  /* -----------------------------------------------------------------------------
+   * Table of contents
+   * -----------------------------------------------------------------------------
+   *
+   * grid-base                - Base grid layout with default column, row, and gap settings
+   * grid-12                  - 12-column grid layout with specific settings
+   * grid                     - Responsive grid layout combining base and 12-column layouts
+   * grid-columns             - Generates column classes for grid with custom breakpoints
+   * flex-base                - Base flex layout with default settings
+   * flex-row                 - Use this one within media query. Change --items value to 2, 3 etc to define columns
+   * container                - Centers content with a max-width and auto margins
+   * centering-max-width      - Centers elements with a maximum width and customizable margins
+   * heading-base             - Basic styles for headings including font and color
+   * text-format              - Sets font size, line height, and padding for text elements
+   * label                    - Styles for labels with optional uppercase transformation
+   * text-truncate            - Single line text truncation with ellipsis
+   * multiline-truncate       - Multi-line text truncation with ellipsis
+   * multiline-truncate-reset - Resets multi-line truncation
+   * border                   - Adds a border overlay with flex display and overflow handling
+   * chevron-down             - Adds a chevron down icon with specific positioning and styles
+   * utility-classes          - Generates utility classes based on provided properties
+   * visually-hidden          - Hides elements visually but keeps them accessible
+   * state-disabled           - Uses visual cues to indicate that the button is disabled
+   * state-focus              - Adds a focus ring for accessibility
+   * state-hover-a            - Adds a :hover underscore to links
+   * menu-item                - Styles for menu items with padding, alignment, and focus behavior
+   * button-base              - Base styles for buttons including alignment, cursor, and touch-action
+   * button                   - Comprehensive button styles with customizable properties
+   * button-primary           - Styles for primary buttons with specific background, color, and shadow
+   * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * LAYOUT
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * TYPOGRAPHY
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * GRAPHICS
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * UTILITIES / HELPERS
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * ELEMENTS
+    * -------------------------------------------------------------------------- */
+  /* Mixins were created in order to quickly style the buttons of plugins, like woocommerce */
+  /* -----------------------------------------------------------------------------
+   * BASE STYLES FOR HEADINGS
+   * -------------------------------------------------------------------------- */
+  h1,
+  .h1,
+  h2,
+  .h2,
+  h3,
+  .h3,
+  h4,
+  .h4,
+  h5,
+  h6 {
+    text-rendering: optimizeLegibility;
+    text-wrap: balance;
+    margin-top: 0;
+    margin-bottom: var(--size-2);
+  }
+  /* -----------------------------------------------------------------------------
+   * H1
+   * -------------------------------------------------------------------------- */
+  h1,
+  .h1 {
+    font-size: var(--font-size-title);
+    line-height: var(--line-height-title);
+    padding-top: var(--padding-top-title);
+    padding-bottom: var(--padding-bottom-title);
+    font-weight: var(--font-weight-h1, bold);
+    letter-spacing: var(--letter-spacing-h1, normal);
+  }
+  /* -----------------------------------------------------------------------------
+   * H2
+   * -------------------------------------------------------------------------- */
+  h2,
+  .h2 {
+    font-size: var(--font-size-h2);
+    line-height: var(--line-height-h2);
+    padding-top: var(--padding-top-h2);
+    padding-bottom: var(--padding-bottom-h2);
+    font-weight: var(--font-weight-h2, bold);
+    letter-spacing: var(--letter-spacing-h2, normal);
+  }
+  /* -----------------------------------------------------------------------------
+   * H3
+   * -------------------------------------------------------------------------- */
+  h3,
+  .h3 {
+    font-size: var(--font-size-big);
+    line-height: var(--line-height-big);
+    padding-top: var(--padding-top-big);
+    padding-bottom: var(--padding-bottom-big);
+    font-weight: var(--font-weight-h3, bold);
+  }
+  /* -----------------------------------------------------------------------------
+   * H4, H5, H6
+   * -------------------------------------------------------------------------- */
+  h4,
+  .h4,
+  h5,
+  h6 {
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+    padding-top: var(--padding-top-base);
+    padding-bottom: var(--padding-bottom-base);
+    font-weight: var(--font-weight-h4, bold);
+  }
+  /* -----------------------------------------------------------------------------
+   * ADDITIONAL STYLES
+   * -------------------------------------------------------------------------- */
+  :where(address, blockquote, div, dl, figure, form, ol, p, pre, table, ul) + :is(h2, h3, h4, h5, h6) {
+    margin-top: var(--margin-top-subhead, var(--size-line));
+  }
+  /* -----------------------------------------------------------------------------
+   * Table of contents
+   * -----------------------------------------------------------------------------
+   *
+   * grid-base                - Base grid layout with default column, row, and gap settings
+   * grid-12                  - 12-column grid layout with specific settings
+   * grid                     - Responsive grid layout combining base and 12-column layouts
+   * grid-columns             - Generates column classes for grid with custom breakpoints
+   * flex-base                - Base flex layout with default settings
+   * flex-row                 - Use this one within media query. Change --items value to 2, 3 etc to define columns
+   * container                - Centers content with a max-width and auto margins
+   * centering-max-width      - Centers elements with a maximum width and customizable margins
+   * heading-base             - Basic styles for headings including font and color
+   * text-format              - Sets font size, line height, and padding for text elements
+   * label                    - Styles for labels with optional uppercase transformation
+   * text-truncate            - Single line text truncation with ellipsis
+   * multiline-truncate       - Multi-line text truncation with ellipsis
+   * multiline-truncate-reset - Resets multi-line truncation
+   * border                   - Adds a border overlay with flex display and overflow handling
+   * chevron-down             - Adds a chevron down icon with specific positioning and styles
+   * utility-classes          - Generates utility classes based on provided properties
+   * visually-hidden          - Hides elements visually but keeps them accessible
+   * state-disabled           - Uses visual cues to indicate that the button is disabled
+   * state-focus              - Adds a focus ring for accessibility
+   * state-hover-a            - Adds a :hover underscore to links
+   * menu-item                - Styles for menu items with padding, alignment, and focus behavior
+   * button-base              - Base styles for buttons including alignment, cursor, and touch-action
+   * button                   - Comprehensive button styles with customizable properties
+   * button-primary           - Styles for primary buttons with specific background, color, and shadow
+   * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * LAYOUT
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * TYPOGRAPHY
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * GRAPHICS
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * UTILITIES / HELPERS
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * ELEMENTS
+    * -------------------------------------------------------------------------- */
+  /* Mixins were created in order to quickly style the buttons of plugins, like woocommerce */
+  :focus-visible {
+    scroll-padding-block-end: var(--scroll-padding-end, 8vh);
+  }
+  /* -----------------------------------------------------------------------------
+   * BLOCK
+   * -------------------------------------------------------------------------- */
+  address,
+  dl,
+  p {
+    margin-top: 0;
+    margin-bottom: var(--size-2);
+    padding-top: var(--padding-top-base);
+    padding-bottom: var(--padding-bottom-base);
+  }
+  address {
+    font-style: normal;
+  }
+  div,
+  dd,
+  dt,
+  li,
+  p,
+  td,
+  th {
+    overflow-wrap: break-word;
+  }
+  .lead {
+    font-size: var(--font-size-big);
+    line-height: var(--line-height-big);
+    padding-top: var(--padding-top-big);
+    padding-bottom: var(--padding-bottom-big);
+    margin: 0;
+  }
+  ol,
+  ul {
+    margin-top: 0;
+    margin-bottom: var(--size-2);
+  }
+  ul {
+    padding-left: var(--size-3);
+  }
+  @media (--tablet) {
+    ul {
+      padding-left: 0;
+    }
+  }
+  ul:not(.list.is-unstyled):not(.list.is-inline) > li::marker {
+    color: var(--color-primary);
+    content: "•  ";
+  }
+  ol {
+    --start-counter: 1;
+    display: grid;
+    gap: var(--size-1);
+    grid-template-columns: minmax(var(--size-5), max-content) 1fr;
+    padding-inline: 0;
+  }
+  ol li {
+    counter-increment: list-item var(--start-counter);
+    display: grid;
+    grid-column: 1/-1;
+    grid-template-columns: subgrid;
+  }
+  ol li::before {
+    color: var(--color-secondary);
+    content: counter(list-item) ".";
+    text-align: right;
+  }
+  nav ul,
+  .list.is-unstyled,
+  .list.is-inline {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+  }
+  .list.is-inline li {
+    display: inline-block;
+  }
+  .list.is-inline li:not(:last-child) {
+    margin-right: var(--size-half);
+  }
+  dl {
+    display: grid;
+    gap: var(--size-1) var(--size-2);
+    grid-template-columns: auto 1fr;
+  }
+  dt {
+    font-weight: bolder;
+  }
+  dd {
+    margin-left: 0;
+  }
+  hr {
+    --margin: calc(var(--size-line) * 3);
+    border: 0;
+    border-top: var(--border-width) solid var(--color-border);
+    margin-top: calc(var(--margin) - var(--border-width));
+    margin-bottom: var(--margin);
+  }
+  /* -----------------------------------------------------------------------------
+   * INLINE
+   * -------------------------------------------------------------------------- */
+  :where(a:not(.btn):not([role=button])),
+  [role=link] {
+    --color: var(--color-ink-link);
+    --background-focus: var(--color-brand-background);
+    color: var(--color);
+    text-decoration: none;
+    outline: none;
+    transition: background-color var(--duration-xxs), color var(--duration-xxs), text-decoration var(--duration-xxs);
+  }
+  :where(a:not(.btn):not([role=button])):is(:active, :focus-visible),
+  [role=link]:is(:active, :focus-visible) {
+    text-decoration-skip-ink: auto;
+    text-decoration: underline;
+    text-decoration-thickness: max(0.08em, 1px);
+    text-underline-offset: 0.125em;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    :where(a:not(.btn):not([role=button])):hover,
+    [role=link]:hover {
+      text-decoration-skip-ink: auto;
+      text-decoration: underline;
+      text-decoration-thickness: max(0.08em, 1px);
+      text-underline-offset: 0.125em;
+    }
+  }
+  :where(a:not(.btn):not([role=button])):focus-visible,
+  [role=link]:focus-visible {
+    --background-color: var(--background-focus);
+  }
+  :where(a:not(.btn):not([role=button])):is([aria-current]),
+  [role=link]:is([aria-current]) {
+    color: var(--color-current, var(--color-ink-base));
+  }
+  .link.is-forward {
+    display: inline-block;
+    padding-right: var(--size-3);
+    position: relative;
+  }
+  .link.is-forward .icon {
+    position: absolute;
+    top: var(--padding-top-base);
+    right: 0;
+  }
+  :target {
+    scroll-padding-block-start: var(--size-4);
+  }
+  b,
+  strong {
+    font-weight: bolder;
+  }
+  em,
+  i {
+    font-style: italic;
+  }
+  small {
+    font-size: var(--font-size-caption);
+    line-height: var(--line-height-caption);
+  }
+  .petit {
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-small);
+    padding-top: var(--padding-top-small);
+    padding-bottom: var(--padding-bottom-small);
+  }
+  ::selection {
+    background: var(--color-selection-background);
+    color: var(--color-selection-text);
+    text-shadow: none;
+  }
+  sub,
+  sup {
+    font-size: var(--font-size-caption);
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+  }
+  sub {
+    bottom: -0.25em;
+  }
+  sup {
+    top: -0.5em;
+  }
+  /* -----------------------------------------------------------------------------
+   * Table of contents
+   * -----------------------------------------------------------------------------
+   *
+   * grid-base                - Base grid layout with default column, row, and gap settings
+   * grid-12                  - 12-column grid layout with specific settings
+   * grid                     - Responsive grid layout combining base and 12-column layouts
+   * grid-columns             - Generates column classes for grid with custom breakpoints
+   * flex-base                - Base flex layout with default settings
+   * flex-row                 - Use this one within media query. Change --items value to 2, 3 etc to define columns
+   * container                - Centers content with a max-width and auto margins
+   * centering-max-width      - Centers elements with a maximum width and customizable margins
+   * heading-base             - Basic styles for headings including font and color
+   * text-format              - Sets font size, line height, and padding for text elements
+   * label                    - Styles for labels with optional uppercase transformation
+   * text-truncate            - Single line text truncation with ellipsis
+   * multiline-truncate       - Multi-line text truncation with ellipsis
+   * multiline-truncate-reset - Resets multi-line truncation
+   * border                   - Adds a border overlay with flex display and overflow handling
+   * chevron-down             - Adds a chevron down icon with specific positioning and styles
+   * utility-classes          - Generates utility classes based on provided properties
+   * visually-hidden          - Hides elements visually but keeps them accessible
+   * state-disabled           - Uses visual cues to indicate that the button is disabled
+   * state-focus              - Adds a focus ring for accessibility
+   * state-hover-a            - Adds a :hover underscore to links
+   * menu-item                - Styles for menu items with padding, alignment, and focus behavior
+   * button-base              - Base styles for buttons including alignment, cursor, and touch-action
+   * button                   - Comprehensive button styles with customizable properties
+   * button-primary           - Styles for primary buttons with specific background, color, and shadow
+   * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * LAYOUT
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * TYPOGRAPHY
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * GRAPHICS
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * UTILITIES / HELPERS
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * ELEMENTS
+    * -------------------------------------------------------------------------- */
+  /* Mixins were created in order to quickly style the buttons of plugins, like woocommerce */
+  /* -----------------------------------------------------------------------------
+   * BORDER FOR MEDIA ELEMENTS
+   * -------------------------------------------------------------------------- */
+  .border {
+    border-radius: var(--border-radius-base);
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    max-width: max-content;
+  }
+  .border::after {
+    border-radius: var(--border-radius-base);
+    box-shadow: inset 0 0 0 1px var(--color-ink-neutral-border);
+    content: "";
+    display: block;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+  .border:empty {
+    display: none;
+  }
+  .border > :is(iframe, img) {
+    margin-bottom: 0;
+    width: 100%;
+  }
+  /* -----------------------------------------------------------------------------
+   * FIGURES AND IFRAMES
+   * -------------------------------------------------------------------------- */
+  iframe {
+    border-style: none;
+  }
+  figure,
+  iframe {
+    margin-top: 0;
+    margin-bottom: var(--media-margin-bottom, 1rem);
+  }
+  figcaption {
+    color: var(--color-ink-2ry);
+    padding-top: var(--padding-top-base);
+    padding-bottom: var(--padding-bottom-base);
+  }
+  /* -----------------------------------------------------------------------------
+   * IMAGES, VIDEO, SVG
+   * -------------------------------------------------------------------------- */
+  img,
+  video {
+    border-style: none;
+    max-width: 100%;
+    height: auto;
+  }
+  img:not([class]),
+  figure img {
+    display: block;
+  }
+  svg:not(:root) {
+    overflow: hidden;
+  }
+  /* -----------------------------------------------------------------------------
+   * Table of contents
+   * -----------------------------------------------------------------------------
+   *
+   * grid-base                - Base grid layout with default column, row, and gap settings
+   * grid-12                  - 12-column grid layout with specific settings
+   * grid                     - Responsive grid layout combining base and 12-column layouts
+   * grid-columns             - Generates column classes for grid with custom breakpoints
+   * flex-base                - Base flex layout with default settings
+   * flex-row                 - Use this one within media query. Change --items value to 2, 3 etc to define columns
+   * container                - Centers content with a max-width and auto margins
+   * centering-max-width      - Centers elements with a maximum width and customizable margins
+   * heading-base             - Basic styles for headings including font and color
+   * text-format              - Sets font size, line height, and padding for text elements
+   * label                    - Styles for labels with optional uppercase transformation
+   * text-truncate            - Single line text truncation with ellipsis
+   * multiline-truncate       - Multi-line text truncation with ellipsis
+   * multiline-truncate-reset - Resets multi-line truncation
+   * border                   - Adds a border overlay with flex display and overflow handling
+   * chevron-down             - Adds a chevron down icon with specific positioning and styles
+   * utility-classes          - Generates utility classes based on provided properties
+   * visually-hidden          - Hides elements visually but keeps them accessible
+   * state-disabled           - Uses visual cues to indicate that the button is disabled
+   * state-focus              - Adds a focus ring for accessibility
+   * state-hover-a            - Adds a :hover underscore to links
+   * menu-item                - Styles for menu items with padding, alignment, and focus behavior
+   * button-base              - Base styles for buttons including alignment, cursor, and touch-action
+   * button                   - Comprehensive button styles with customizable properties
+   * button-primary           - Styles for primary buttons with specific background, color, and shadow
+   * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * LAYOUT
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * TYPOGRAPHY
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * GRAPHICS
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * UTILITIES / HELPERS
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * ELEMENTS
+    * -------------------------------------------------------------------------- */
+  /* Mixins were created in order to quickly style the buttons of plugins, like woocommerce */
+  .container {
+    margin-inline: auto;
+    position: relative;
+    width: min(100% - var(--padding-x-container) * 2, var(--width-container));
+  }
+  .col-1\/1 {
+    list-style: none;
+    margin: 0 auto;
+    width: min(100%, var(--width-readable));
+  }
+  .main {
+    padding-top: var(--padding-top-base);
+  }
+  @media (--tablet) {
+    .main {
+      padding-top: var(--padding-top-lg);
+    }
+  }
+  .main.col-1\/1 {
+    padding-top: var(--padding-top-lg);
+  }
+  @media (--tablet) {
+    .main.col-1\/1 {
+      padding-top: var(--padding-top-xl);
+    }
+  }
+}
+@layer base {
+  /* -----------------------------------------------------------------------------
+   * Table of contents
+   * -----------------------------------------------------------------------------
+   *
+   * grid-base                - Base grid layout with default column, row, and gap settings
+   * grid-12                  - 12-column grid layout with specific settings
+   * grid                     - Responsive grid layout combining base and 12-column layouts
+   * grid-columns             - Generates column classes for grid with custom breakpoints
+   * flex-base                - Base flex layout with default settings
+   * flex-row                 - Use this one within media query. Change --items value to 2, 3 etc to define columns
+   * container                - Centers content with a max-width and auto margins
+   * centering-max-width      - Centers elements with a maximum width and customizable margins
+   * heading-base             - Basic styles for headings including font and color
+   * text-format              - Sets font size, line height, and padding for text elements
+   * label                    - Styles for labels with optional uppercase transformation
+   * text-truncate            - Single line text truncation with ellipsis
+   * multiline-truncate       - Multi-line text truncation with ellipsis
+   * multiline-truncate-reset - Resets multi-line truncation
+   * border                   - Adds a border overlay with flex display and overflow handling
+   * chevron-down             - Adds a chevron down icon with specific positioning and styles
+   * utility-classes          - Generates utility classes based on provided properties
+   * visually-hidden          - Hides elements visually but keeps them accessible
+   * state-disabled           - Uses visual cues to indicate that the button is disabled
+   * state-focus              - Adds a focus ring for accessibility
+   * state-hover-a            - Adds a :hover underscore to links
+   * menu-item                - Styles for menu items with padding, alignment, and focus behavior
+   * button-base              - Base styles for buttons including alignment, cursor, and touch-action
+   * button                   - Comprehensive button styles with customizable properties
+   * button-primary           - Styles for primary buttons with specific background, color, and shadow
+   * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * LAYOUT
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * TYPOGRAPHY
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * GRAPHICS
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * UTILITIES / HELPERS
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * ELEMENTS
+    * -------------------------------------------------------------------------- */
+  /* Mixins were created in order to quickly style the buttons of plugins, like woocommerce */
+  .icon {
+    --icon-fill: none;
+    --icon-stroke: var(--color-ink-icon);
+    --icon-stroke-width: 2;
+    display: inline-block;
+    flex-shrink: 0;
+    overflow: hidden;
+    transition: fill var(--duration-xxs), opacity var(--duration-xxs);
+    vertical-align: middle;
+    width: var(--size-icon);
+    height: var(--size-icon);
+  }
+  @media (--retina) {
+    .icon {
+      --icon-stroke-width: 1.5;
+    }
+  }
+  @-moz-document url-prefix() {
+    .icon {
+      fill: transparent;
+    }
+  }
+  /* -----------------------------------------------------------------------------
+   * Table of contents
+   * -----------------------------------------------------------------------------
+   *
+   * grid-base                - Base grid layout with default column, row, and gap settings
+   * grid-12                  - 12-column grid layout with specific settings
+   * grid                     - Responsive grid layout combining base and 12-column layouts
+   * grid-columns             - Generates column classes for grid with custom breakpoints
+   * flex-base                - Base flex layout with default settings
+   * flex-row                 - Use this one within media query. Change --items value to 2, 3 etc to define columns
+   * container                - Centers content with a max-width and auto margins
+   * centering-max-width      - Centers elements with a maximum width and customizable margins
+   * heading-base             - Basic styles for headings including font and color
+   * text-format              - Sets font size, line height, and padding for text elements
+   * label                    - Styles for labels with optional uppercase transformation
+   * text-truncate            - Single line text truncation with ellipsis
+   * multiline-truncate       - Multi-line text truncation with ellipsis
+   * multiline-truncate-reset - Resets multi-line truncation
+   * border                   - Adds a border overlay with flex display and overflow handling
+   * chevron-down             - Adds a chevron down icon with specific positioning and styles
+   * utility-classes          - Generates utility classes based on provided properties
+   * visually-hidden          - Hides elements visually but keeps them accessible
+   * state-disabled           - Uses visual cues to indicate that the button is disabled
+   * state-focus              - Adds a focus ring for accessibility
+   * state-hover-a            - Adds a :hover underscore to links
+   * menu-item                - Styles for menu items with padding, alignment, and focus behavior
+   * button-base              - Base styles for buttons including alignment, cursor, and touch-action
+   * button                   - Comprehensive button styles with customizable properties
+   * button-primary           - Styles for primary buttons with specific background, color, and shadow
+   * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * LAYOUT
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * TYPOGRAPHY
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * GRAPHICS
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * UTILITIES / HELPERS
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * ELEMENTS
+    * -------------------------------------------------------------------------- */
+  /* Mixins were created in order to quickly style the buttons of plugins, like woocommerce */
+  /* -----------------------------------------------------------------------------
+   * BASE STYLES FOR BUTTONS
+   * -------------------------------------------------------------------------- */
+  .btn,
+  button,
+  input[type=submit],
+  input[type=button],
+  input[type=reset],
+  a[role=button] {
+    --btn-border-outline: 1px solid var(--color-brand-border);
+    --btn-color-outline: var(--color-brand-text);
+    background: var(--color-ink-min);
+    border-radius: var(--border-radius-pill);
+    border: 0;
+    box-shadow: none;
+    color: var(--color-brand-text);
+    font-weight: bolder;
+    line-height: var(--height-btn);
+    white-space: nowrap;
+    overflow: visible;
+    padding-block: var(--padding-y-btn);
+    padding-inline: var(--padding-x-btn);
+    transition: background var(--duration-xxs) var(--easing-base), box-shadow var(--duration-xxs) var(--easing-base);
+    max-width: 100%;
+    height: var(--height-btn);
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-caption);
+    font-weight: 500;
+    letter-spacing: 0.2px;
+    line-height: var(--line-height, var(--line-height-caption));
+    appearance: button;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    justify-content: center;
+    font-family: inherit;
+    text-align: center;
+    text-decoration: none;
+    outline: 0;
+    position: relative;
+    touch-action: manipulation;
+    transition: background var(--duration-xxs) var(--easing-base), box-shadow var(--duration-xxs) var(--easing-base);
+    user-select: none;
+    vertical-align: middle;
+    min-width: 0;
+  }
+  .btn:focus-visible,
+  button:focus-visible,
+  input[type=submit]:focus-visible,
+  input[type=button]:focus-visible,
+  input[type=reset]:focus-visible,
+  a[role=button]:focus-visible {
+    outline: var(--size-half) solid Highlight;
+    outline: var(--size-half) solid solid -webkit-focus-ring-color;
+  }
+  .btn > span,
+  button > span,
+  input[type=submit] > span,
+  input[type=button] > span,
+  input[type=reset] > span,
+  a[role=button] > span {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .btn:active,
+  button:active,
+  input[type=submit]:active,
+  input[type=button]:active,
+  input[type=reset]:active,
+  a[role=button]:active {
+    filter: brightness(var(--filter-brightness-down));
+  }
+  @media (any-hover: hover) and (pointer: fine) {
+    .btn:hover,
+    button:hover,
+    input[type=submit]:hover,
+    input[type=button]:hover,
+    input[type=reset]:hover,
+    a[role=button]:hover {
+      box-shadow: none;
+      filter: brightness(var(--filter-brightness-up));
+      text-decoration: none;
+    }
+  }
+  :where(button, [type=button], [type=reset], [type=submit])::-moz-focus-inner {
+    border-style: none;
+    padding: 0;
+  }
+  /* -----------------------------------------------------------------------------
+   * OUTLINE AND GHOST BUTTONS
+   * -------------------------------------------------------------------------- */
+  .btn.is-outline,
+  .btn.is-ghost {
+    background: transparent;
+    color: var(--btn-color-outline);
+  }
+  .btn.is-outline:active, .btn.is-outline:focus-visible,
+  .btn.is-ghost:active,
+  .btn.is-ghost:focus-visible {
+    background: var(--color-ink-min);
+  }
+  @media (any-hover: hover) and (pointer: fine) {
+    .btn.is-outline:hover,
+    .btn.is-ghost:hover {
+      background: var(--color-ink-min);
+    }
+  }
+  .btn.is-outline {
+    border: var(--btn-border-outline);
+  }
+  /* -----------------------------------------------------------------------------
+   * ICON BUTTONS
+   * -------------------------------------------------------------------------- */
+  .btn.is-icon {
+    padding: 0;
+    width: var(--size-5);
+    height: var(--size-5);
+  }
+  /* -----------------------------------------------------------------------------
+   * DISABLED STATE
+   * -------------------------------------------------------------------------- */
+  .btn[disabled],
+  button[disabled],
+  input[type=submit][disabled],
+  input[type=button][disabled],
+  input[type=reset][disabled],
+  a[role=button][disabled] {
+    filter: grayscale(100%);
+    opacity: 0.5;
+  }
+  .btn[disabled]:hover,
+  button[disabled]:hover,
+  input[type=submit][disabled]:hover,
+  input[type=button][disabled]:hover,
+  input[type=reset][disabled]:hover,
+  a[role=button][disabled]:hover {
+    filter: grayscale(100%);
+  }
+  /* -----------------------------------------------------------------------------
+   * BUTTON GROUP
+   * -------------------------------------------------------------------------- */
+  .buttons {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--size-2);
+  }
+  @supports not (gap: 4px) {
+    .buttons > * {
+      margin-bottom: var(--size-2);
+    }
+    @media (--tablet) {
+      .buttons > * {
+        margin-bottom: 0;
+      }
+    }
+    .buttons .button + .button {
+      margin-left: var(--size-1);
+    }
+  }
+  /* -----------------------------------------------------------------------------
+   * Table of contents
+   * -----------------------------------------------------------------------------
+   *
+   * grid-base                - Base grid layout with default column, row, and gap settings
+   * grid-12                  - 12-column grid layout with specific settings
+   * grid                     - Responsive grid layout combining base and 12-column layouts
+   * grid-columns             - Generates column classes for grid with custom breakpoints
+   * flex-base                - Base flex layout with default settings
+   * flex-row                 - Use this one within media query. Change --items value to 2, 3 etc to define columns
+   * container                - Centers content with a max-width and auto margins
+   * centering-max-width      - Centers elements with a maximum width and customizable margins
+   * heading-base             - Basic styles for headings including font and color
+   * text-format              - Sets font size, line height, and padding for text elements
+   * label                    - Styles for labels with optional uppercase transformation
+   * text-truncate            - Single line text truncation with ellipsis
+   * multiline-truncate       - Multi-line text truncation with ellipsis
+   * multiline-truncate-reset - Resets multi-line truncation
+   * border                   - Adds a border overlay with flex display and overflow handling
+   * chevron-down             - Adds a chevron down icon with specific positioning and styles
+   * utility-classes          - Generates utility classes based on provided properties
+   * visually-hidden          - Hides elements visually but keeps them accessible
+   * state-disabled           - Uses visual cues to indicate that the button is disabled
+   * state-focus              - Adds a focus ring for accessibility
+   * state-hover-a            - Adds a :hover underscore to links
+   * menu-item                - Styles for menu items with padding, alignment, and focus behavior
+   * button-base              - Base styles for buttons including alignment, cursor, and touch-action
+   * button                   - Comprehensive button styles with customizable properties
+   * button-primary           - Styles for primary buttons with specific background, color, and shadow
+   * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * LAYOUT
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * TYPOGRAPHY
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * GRAPHICS
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * UTILITIES / HELPERS
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * ELEMENTS
+    * -------------------------------------------------------------------------- */
+  /* Mixins were created in order to quickly style the buttons of plugins, like woocommerce */
+  /* -----------------------------------------------------------------------------
+   * CONTAINERS
+   * -------------------------------------------------------------------------- */
+  form {
+    accent-color: var(--color-brand-text);
+    caret-color: var(--color-brand-ink-2ry);
+  }
+  fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+  }
+  form p,
+  form > div:not([class]) {
+    position: relative;
+    padding: 0;
+  }
+  /* -----------------------------------------------------------------------------
+   * LEGEND AND LABELS
+   * -------------------------------------------------------------------------- */
+  label,
+  legend {
+    display: block;
+  }
+  legend {
+    font-weight: 500;
+    white-space: normal;
+    margin: 0;
+    max-width: 100%;
+  }
+  label {
+    color: var(--color-ink-2ry);
+    margin: 0;
+    padding-top: var(--padding-top-caption);
+    padding-bottom: var(--padding-bottom-caption);
+    position: relative;
+  }
+  /* -----------------------------------------------------------------------------
+   * FIELDS NORMALIZE
+   * -------------------------------------------------------------------------- */
+  ::-moz-focus-inner {
+    border-style: none;
+    padding: 0;
+  }
+  :-moz-focusring {
+    outline: 0;
+  }
+  :-moz-ui-invalid {
+    box-shadow: none;
+  }
+  ::-ms-expand {
+    display: none;
+  }
+  /* -----------------------------------------------------------------------------
+   * INPUT, TEXTAREA, SELECT BASE
+   * -------------------------------------------------------------------------- */
+  input,
+  optgroup,
+  select,
+  textarea {
+    font-family: inherit;
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+    letter-spacing: inherit;
+  }
+  input,
+  select,
+  textarea {
+    background-color: var(--color-bg-base);
+    hanging-punctuation: none;
+  }
+  select,
+  textarea,
+  input:not([type=checkbox]):not([type=radio]):not([type=submit]):not([type=reset]) {
+    appearance: none;
+    background-color: var(--color-bg-2ry);
+    border: 0;
+    color: var(--color-ink-base);
+    display: block;
+    padding-block: var(--padding-y-input);
+    overflow: visible;
+    transition: box-shadow var(--easing-base) var(--duration-xxs), color var(--easing-base) var(--duration-xxs);
+    width: 100%;
+    min-height: calc(var(--size-line) * 2);
+  }
+  select:focus-visible,
+  textarea:focus-visible,
+  input:not([type=checkbox]):not([type=radio]):not([type=submit]):not([type=reset]):focus-visible {
+    outline: var(--size-half) solid Highlight;
+    outline: var(--size-half) solid solid -webkit-focus-ring-color;
+    color: var(--color-ink-base);
+    border-color: transparent;
+  }
+  select::placeholder,
+  textarea::placeholder,
+  input:not([type=checkbox]):not([type=radio]):not([type=submit]):not([type=reset])::placeholder {
+    color: var(--color-ink-3ry);
+    opacity: 1;
+  }
+  select,
+  textarea,
+  input:not([type=checkbox]):not([type=radio]):not([type=submit]):not([type=reset]):not([type=search]) {
+    border-radius: var(--border-radius-sm);
+    padding-inline: var(--padding-x-input);
+  }
+  [type=password] {
+    padding-inline-end: var(--padding-x-input-lg);
+  }
+  /* -----------------------------------------------------------------------------
+   * SPECIFIC
+   * -------------------------------------------------------------------------- */
+  textarea {
+    padding-top: 0.6875rem;
+    overflow: auto;
+    resize: vertical;
+  }
+  textarea:not([rows]) {
+    height: calc(var(--size-line) * 6);
+  }
+  [disabled],
+  [readonly] {
+    filter: grayscale(100%);
+    opacity: 0.5;
+  }
+  [disabled]:hover,
+  [readonly]:hover {
+    filter: grayscale(100%);
+  }
+  /* -----------------------------------------------------------------------------
+   * HINTS
+   * -------------------------------------------------------------------------- */
+  form small {
+    color: var(--color-ink-2ry);
+    margin-top: var(--size-1);
+    max-width: var(--width-readable);
+    display: block;
+  }
+  .form__disclaimer {
+    margin-block: var(--size-line);
+  }
+  /* -----------------------------------------------------------------------------
+   * BUTTONS
+   * -------------------------------------------------------------------------- */
+  .form__footer > * {
+    margin-bottom: var(--size-2);
+  }
+  @media (--tablet) {
+    .form__footer {
+      display: flex;
+      align-items: center;
+      padding-top: var(--padding-top-form-actions);
+      padding-bottom: var(--padding-bottom-form-actions);
+    }
+    .form__footer > :not(:last-child) {
+      margin-right: var(--size-2);
+    }
+  }
+  /* -----------------------------------------------------------------------------
+   * CAPTCHA
+   * -------------------------------------------------------------------------- */
+  .grecaptcha-badge {
+    opacity: 0;
+    pointer-events: none;
+  }
+  /*
+  @include meta.load-css('components/form/checkbox-radio');
+  @include meta.load-css('components/form/select');
+  @include meta.load-css('components/logo/logo');
+  @include meta.load-css('styles/helpers/animation');
+  @include meta.load-css('styles/layout/grid');
+  */
+}
+/*
+// _Tmp — keep only on 01-boilerplate
+@layer stock {
+  @include meta.load-css('stock/base');
+  @include meta.load-css('stock/components-actions-nav');
+  @include meta.load-css('stock/components-content');
+  @include meta.load-css('stock/components-feedback');
+  @include meta.load-css('stock/components-form');
+  @include meta.load-css('stock/components-hide-show');
+  @include meta.load-css('stock/components-structures');
+  @include meta.load-css('stock/config');
+  @include meta.load-css('stock/tricks');
+  @include meta.load-css('stock/helpers');
+  // @include meta.load-css('stock/woocommerce');
+}
+*/
+@layer components {
+  /* -----------------------------------------------------------------------------
+   * Table of contents
+   * -----------------------------------------------------------------------------
+   *
+   * grid-base                - Base grid layout with default column, row, and gap settings
+   * grid-12                  - 12-column grid layout with specific settings
+   * grid                     - Responsive grid layout combining base and 12-column layouts
+   * grid-columns             - Generates column classes for grid with custom breakpoints
+   * flex-base                - Base flex layout with default settings
+   * flex-row                 - Use this one within media query. Change --items value to 2, 3 etc to define columns
+   * container                - Centers content with a max-width and auto margins
+   * centering-max-width      - Centers elements with a maximum width and customizable margins
+   * heading-base             - Basic styles for headings including font and color
+   * text-format              - Sets font size, line height, and padding for text elements
+   * label                    - Styles for labels with optional uppercase transformation
+   * text-truncate            - Single line text truncation with ellipsis
+   * multiline-truncate       - Multi-line text truncation with ellipsis
+   * multiline-truncate-reset - Resets multi-line truncation
+   * border                   - Adds a border overlay with flex display and overflow handling
+   * chevron-down             - Adds a chevron down icon with specific positioning and styles
+   * utility-classes          - Generates utility classes based on provided properties
+   * visually-hidden          - Hides elements visually but keeps them accessible
+   * state-disabled           - Uses visual cues to indicate that the button is disabled
+   * state-focus              - Adds a focus ring for accessibility
+   * state-hover-a            - Adds a :hover underscore to links
+   * menu-item                - Styles for menu items with padding, alignment, and focus behavior
+   * button-base              - Base styles for buttons including alignment, cursor, and touch-action
+   * button                   - Comprehensive button styles with customizable properties
+   * button-primary           - Styles for primary buttons with specific background, color, and shadow
+   * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * LAYOUT
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * TYPOGRAPHY
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * GRAPHICS
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * UTILITIES / HELPERS
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * ELEMENTS
+    * -------------------------------------------------------------------------- */
+  /* Mixins were created in order to quickly style the buttons of plugins, like woocommerce */
+  .navbar {
+    --menu-height-phone: calc(var(--size-5) * 2);
+    background-color: var(--color-bg-base);
+    backdrop-filter: var(--backdrop-filter-elevated);
+    box-shadow: 0 -1px 0 var(--color-border);
+    display: flex;
+    padding: var(--padding-base);
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: var(--navbar-height);
+    z-index: var(--zindex-fixed);
+  }
+  @media (--tablet) {
+    .navbar {
+      background-color: var(--color-bg-2ry);
+      backdrop-filter: none;
+      border-right: var(--border-width) solid var(--color-border);
+      box-shadow: none;
+      align-items: flex-start;
+      flex-direction: column;
+      padding: var(--padding-alt);
+      top: 0;
+      right: auto;
+      width: var(--navbar-width-tablet);
+      height: 100vh;
+    }
+  }
+  @media (--tablet) and (--phone) {
+    .navbar {
+      overflow: auto;
+      scrollbar-gutter: stable;
+    }
+  }
+  @media (--laptop) {
+    .navbar {
+      padding: var(--padding-laptop);
+      width: var(--navbar-width-laptop);
+    }
+  }
+  .navbar__logo {
+    display: none;
+  }
+  @media (--tablet) {
+    .navbar__logo {
+      display: flex;
+      flex-direction: column;
+      gap: var(--size-2);
+      margin-bottom: var(--margin-bottom-tablet);
+    }
+  }
+  @media (--tablet-only) {
+    .navbar__logo {
+      text-align: center;
+      padding: var(--padding-logo);
+    }
+  }
+  @media (--laptop) {
+    .navbar__logo {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+  @media (--tablet-only) {
+    .navbar__logo img {
+      margin: auto;
+    }
+  }
+  .navbar > .menu {
+    display: flex;
+    padding: 0;
+  }
+  @media (--phone) {
+    .navbar > .menu {
+      align-items: stretch;
+      height: var(--menu-height-phone);
+    }
+  }
+  @media (--tablet) {
+    .navbar > .menu {
+      flex: 1;
+      flex-direction: column;
+      height: auto;
+    }
+  }
+  .navbar__menu li {
+    padding: 0;
+  }
+  @media (--phone) {
+    .navbar__menu > li {
+      width: clamp(80px, 25%, 168px);
+    }
+  }
+  .navbar__menu .menu__link {
+    padding: var(--padding-menu-item);
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    height: var(--menu-item-height);
+  }
+  @media (--tablet-only) {
+    .navbar__menu .menu__link {
+      border-radius: var(--border-radius);
+      height: var(--menu-item-height-tablet);
+    }
+  }
+  @media (--laptop) {
+    .navbar__menu .menu__link {
+      padding: var(--padding-menu-item-laptop);
+      flex-direction: row;
+      justify-content: flex-start;
+      height: var(--menu-item-height-laptop);
+    }
+  }
+  .navbar__menu .menu__link > .label {
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-caption);
+    font-weight: 500;
+    letter-spacing: 0.2px;
+    line-height: var(--line-height, var(--line-height-caption));
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    color: var(--color-ink);
+    max-width: 100%;
+  }
+  @media (--laptop) {
+    .navbar__menu .menu__link > .label {
+      text-transform: uppercase;
+    }
+  }
+  .navbar__menu .menu__link > .icon {
+    display: block;
+    margin: 0 auto var(--size-half);
+  }
+  @media (--laptop) {
+    .navbar__menu .menu__link > .icon {
+      margin: 0 var(--size-1) 0 0;
+    }
+  }
+  @media (--laptop-down) {
+    .navbar__menu .menu__link > .badge {
+      position: absolute;
+      top: var(--size-half);
+      left: calc(50% + var(--size-half));
+    }
+  }
+  @media (--phone) {
+    .navbar__menu .menu__link > .badge {
+      top: calc(var(--size-1p5) * -1);
+    }
+  }
+  .navbar .is-more summary {
+    cursor: pointer;
+    border-radius: var(--border-radius-sm);
+    background-color: transparent;
+    color: var(--menu-color, var(--color-ink-2ry));
+    display: flex;
+    align-items: center;
+    gap: var(--size-1);
+    justify-content: flex-start;
+    font-size: inherit;
+    font-weight: inherit;
+    text-align: left;
+    text-decoration: none;
+    text-transform: none;
+    padding: var(--menu-item-padding, var(--size-1) var(--size-2));
+    position: relative;
+    outline: 0;
+    user-select: none;
+    transition: background var(--duration-xxs), color var(--duration-xxs);
+    width: 100%;
+  }
+  .navbar .is-more summary:focus-visible {
+    outline: var(--size-half) solid Highlight;
+    outline: var(--size-half) solid solid -webkit-focus-ring-color;
+  }
+  .navbar .is-more summary:is(:active, :focus-visible) {
+    background-color: var(--color-ink-min);
+    text-decoration: none;
+  }
+  @media (--tablet-only) {
+    .navbar .is-more summary {
+      border-radius: var(--border-radius);
+    }
+  }
+  :where(.navbar .is-more [open]) summary {
+    background-color: var(--color-bg-popover);
+  }
+  @media (--laptop-down) {
+    .navbar .is-more summary::after {
+      display: none;
+    }
+  }
+  @media (--laptop) {
+    .navbar .is-more summary::after {
+      margin-left: auto;
+      rotate: -90deg;
+    }
+  }
+  .navbar .is-more .popover__body {
+    bottom: 100%;
+    right: 2px;
+  }
+  @media (--tablet) {
+    .navbar .is-more .popover__body {
+      bottom: 0;
+      right: auto;
+      left: 100%;
+    }
+  }
+  @media (--phone) {
+    .navbar__footer {
+      display: none;
+    }
+  }
+  @media (--tablet) {
+    .navbar__footer {
+      margin: auto;
+      width: calc(100% - var(--size-2));
+    }
+  }
+  @media (--laptop) {
+    .navbar__footer {
+      width: 100%;
+    }
+  }
+  /*
+
+  @include meta.load-css('components/pagination');
+  @include meta.load-css('components/menu/menu');
+  // Structure
+  */
+  /* -----------------------------------------------------------------------------
+   * Table of contents
+   * -----------------------------------------------------------------------------
+   *
+   * grid-base                - Base grid layout with default column, row, and gap settings
+   * grid-12                  - 12-column grid layout with specific settings
+   * grid                     - Responsive grid layout combining base and 12-column layouts
+   * grid-columns             - Generates column classes for grid with custom breakpoints
+   * flex-base                - Base flex layout with default settings
+   * flex-row                 - Use this one within media query. Change --items value to 2, 3 etc to define columns
+   * container                - Centers content with a max-width and auto margins
+   * centering-max-width      - Centers elements with a maximum width and customizable margins
+   * heading-base             - Basic styles for headings including font and color
+   * text-format              - Sets font size, line height, and padding for text elements
+   * label                    - Styles for labels with optional uppercase transformation
+   * text-truncate            - Single line text truncation with ellipsis
+   * multiline-truncate       - Multi-line text truncation with ellipsis
+   * multiline-truncate-reset - Resets multi-line truncation
+   * border                   - Adds a border overlay with flex display and overflow handling
+   * chevron-down             - Adds a chevron down icon with specific positioning and styles
+   * utility-classes          - Generates utility classes based on provided properties
+   * visually-hidden          - Hides elements visually but keeps them accessible
+   * state-disabled           - Uses visual cues to indicate that the button is disabled
+   * state-focus              - Adds a focus ring for accessibility
+   * state-hover-a            - Adds a :hover underscore to links
+   * menu-item                - Styles for menu items with padding, alignment, and focus behavior
+   * button-base              - Base styles for buttons including alignment, cursor, and touch-action
+   * button                   - Comprehensive button styles with customizable properties
+   * button-primary           - Styles for primary buttons with specific background, color, and shadow
+   * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * LAYOUT
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * TYPOGRAPHY
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * GRAPHICS
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * UTILITIES / HELPERS
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * ELEMENTS
+    * -------------------------------------------------------------------------- */
+  /* Mixins were created in order to quickly style the buttons of plugins, like woocommerce */
+  .card {
+    background: var(--color-bg-base);
+    border-radius: var(--border-radius-base);
+    box-shadow: var(--box-shadow-level-01);
+    display: flex;
+    flex-direction: column;
+    padding: var(--padding-x-box);
+    text-align: left;
+  }
+  .card__heading {
+    font-size: var(--font-size-big);
+    line-height: var(--line-height-big);
+    padding-top: var(--padding-top-big);
+    padding-bottom: var(--padding-bottom-big);
+    font-family: var(--font-family-titles);
+    margin-bottom: var(--margin-bottom-heading);
+  }
+  .card__summary {
+    color: var(--color-ink-2ry);
+    margin-bottom: var(--margin-bottom-summary);
+  }
+  .card__img {
+    object-fit: cover;
+    width: 100%;
+    height: auto;
+  }
+  /* -----------------------------------------------------------------------------
+   * Table of contents
+   * -----------------------------------------------------------------------------
+   *
+   * grid-base                - Base grid layout with default column, row, and gap settings
+   * grid-12                  - 12-column grid layout with specific settings
+   * grid                     - Responsive grid layout combining base and 12-column layouts
+   * grid-columns             - Generates column classes for grid with custom breakpoints
+   * flex-base                - Base flex layout with default settings
+   * flex-row                 - Use this one within media query. Change --items value to 2, 3 etc to define columns
+   * container                - Centers content with a max-width and auto margins
+   * centering-max-width      - Centers elements with a maximum width and customizable margins
+   * heading-base             - Basic styles for headings including font and color
+   * text-format              - Sets font size, line height, and padding for text elements
+   * label                    - Styles for labels with optional uppercase transformation
+   * text-truncate            - Single line text truncation with ellipsis
+   * multiline-truncate       - Multi-line text truncation with ellipsis
+   * multiline-truncate-reset - Resets multi-line truncation
+   * border                   - Adds a border overlay with flex display and overflow handling
+   * chevron-down             - Adds a chevron down icon with specific positioning and styles
+   * utility-classes          - Generates utility classes based on provided properties
+   * visually-hidden          - Hides elements visually but keeps them accessible
+   * state-disabled           - Uses visual cues to indicate that the button is disabled
+   * state-focus              - Adds a focus ring for accessibility
+   * state-hover-a            - Adds a :hover underscore to links
+   * menu-item                - Styles for menu items with padding, alignment, and focus behavior
+   * button-base              - Base styles for buttons including alignment, cursor, and touch-action
+   * button                   - Comprehensive button styles with customizable properties
+   * button-primary           - Styles for primary buttons with specific background, color, and shadow
+   * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * LAYOUT
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * TYPOGRAPHY
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * GRAPHICS
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * UTILITIES / HELPERS
+    * -------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+    * ELEMENTS
+    * -------------------------------------------------------------------------- */
+  /* Mixins were created in order to quickly style the buttons of plugins, like woocommerce */
+  .header > .container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: var(--padding-base);
+    position: relative;
+    z-index: var(--zindex-fixed);
+  }
+  @media (--tablet) {
+    .header > .container {
+      justify-content: center;
+    }
+  }
+  .header__search-trigger {
+    background-color: transparent;
+    flex-shrink: 0;
+    margin-right: var(--size-2);
+    padding: var(--size-1);
+  }
+  @media (--tablet) {
+    .header__search-trigger {
+      display: none;
+    }
+  }
+  .header__search {
+    background-color: var(--color-bg-base);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--size-2);
+    opacity: 0;
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    transition: opacity var(--duration-sm), transform var(--duration-sm);
+    height: var(--size-3);
+    z-index: var(--zindex-fixed);
+  }
+  .header__search.is-open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+  .header__search p {
+    padding-bottom: 0;
+    flex-grow: 1;
+  }
+  .header__search [type=search] {
+    padding-right: var(--size-7);
+    min-width: 100%;
+  }
+  .header__search-submit,
+  .header__search-cancel {
+    height: var(--size-6);
+    background: transparent;
+  }
+  .header__search-submit {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    width: var(--size-6);
+  }
+  .header__search-cancel {
+    color: var(--color-ink-2ry);
+    margin-left: var(--size-1);
+  }
+  @media (--tablet) {
+    .header__search-cancel {
+      display: none;
+    }
+  }
+  .header__navbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0 var(--size-1);
+  }
+  @media (--tablet) {
+    .header__navbar {
+      align-items: center;
+      padding-left: 0;
+      position: static;
+    }
+  }
+  .header__sign-up,
+  .header__sign-in {
+    align-items: center;
+    padding: 0;
+    height: var(--size-2);
+  }
+  .header__sign-up > .btn.is-outline,
+  .header__sign-in > .btn.is-outline {
+    margin-right: var(--size-1);
+    max-width: var(--size-10);
+  }
+  @media (--phone) {
+    .header__sign-up > .btn.is-outline,
+    .header__sign-in > .btn.is-outline {
+      padding: var(--size-1);
+      height: var(--size-2);
+    }
+  }
+  @media (--phone-l) {
+    .header__sign-up > .btn.is-outline,
+    .header__sign-in > .btn.is-outline {
+      max-width: var(--size-7);
+    }
+  }
+  @media (--tablet) {
+    .header__sign-up {
+      margin-left: var(--size-1);
+    }
+  }
+  .header__user {
+    margin-right: var(--size-1);
+    padding: 0;
+  }
+  @media (--phone) {
+    .header__user {
+      position: static;
+    }
+  }
+  /*
+  @include meta.load-css('components/footer');
+  @include meta.load-css('components/hero/hero');
+  @include meta.load-css('components/scroller');
+  @include meta.load-css('components/section/section');
+  @include meta.load-css('components/snippet/snippet');
+
+  // Content
+  @include meta.load-css('components/badge');
+  @include meta.load-css('components/quote/blockquote');
+  @include meta.load-css('components/quote/callout');
+  @include meta.load-css('components/code');
+  @include meta.load-css('components/eyebrow');
+  @include meta.load-css('components/table/table');
+  @include meta.load-css('components/tag/tag');
+
+  // Feedback
+  @include meta.load-css('components/alert/alert');
+  @include meta.load-css('components/loading-spinner');
+
+  // Form
+  @include meta.load-css('components/form/date-time');
+  @include meta.load-css('components/form/file');
+  @include meta.load-css('components/form/validation');
+  @include meta.load-css('components/form-search/search');
+
+  // Show | Hide
+  @include meta.load-css('components/accordion/accordion');
+  @include meta.load-css('components/modal/modal');
+  @include meta.load-css('components/popover/popover');
+  @include meta.load-css('components/tabs/tabs');
+  @include meta.load-css('components/tooltip');
+  */
+}
+/*
+@layer helpers {
+  @include meta.load-css('styles/helpers/accessibility');
+  @include meta.load-css('styles/helpers/content');
+  @include meta.load-css('styles/helpers/display');
+  @include meta.load-css('styles/helpers/flex');
+  @include meta.load-css('styles/helpers/spacing');
+  @include meta.load-css('styles/helpers/width');
+}
+ */
+@layer print {
+  @media print {
+    .comments,
+    .pagination,
+    .social-tools,
+    body > *:not(main) {
+      display: none !important;
+    }
+    *,
+    *::before,
+    *::after {
+      background: transparent !important;
+      color: #000 !important;
+      box-shadow: none !important;
+      text-shadow: none !important;
+    }
+    body,
+    pre,
+    code,
+    summary,
+    details,
+    button,
+    input,
+    textarea {
+      background-color: #fff;
+    }
+    a:not(.btn) {
+      color: #00f !important;
+      text-decoration: underline;
+    }
+    a[href]::after {
+      content: ' (" attr(href) ")';
+    }
+    /* Don't show links that are fragment identifiers,
+    or use the `javascript:` pseudo protocol */
+    a[href^="#"]::after,
+    a[href^="javascript:"]::after {
+      content: "";
+    }
+    abbr[title]::after {
+      content: ' (" attr(title) ")';
+    }
+    article,
+    main {
+      padding: 0;
+    }
+    button,
+    input,
+    textarea {
+      border: 1px solid #000;
+    }
+    p,
+    h2,
+    h3,
+    h4 {
+      orphans: 3;
+      widows: 3;
+    }
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-weight: 700;
+      break-after: avoid;
+      break-inside: avoid;
+    }
+    h1 + p,
+    h2 + p,
+    h3 + p {
+      break-before: avoid;
+    }
+    pre {
+      white-space: pre-wrap !important;
+    }
+    pre,
+    blockquote {
+      border: 1px solid #999;
+    }
+    blockquote,
+    figure,
+    img,
+    pre,
+    table,
+    tr {
+      break-inside: avoid;
+    }
+    thead {
+      display: table-header-group;
+    }
+    @page {
+      margin: 2.97cm 2.1cm;
+    }
+    @page :right {
+      @bottom-right {
+        content: counter(page);
+      }
+    }
+    @page :left {
+      @bottom-left {
+        content: counter(page);
+      }
+    }
+  }
+}

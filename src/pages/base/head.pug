@@ -1,3 +1,6 @@
+- const pageTitle = (page.title ? page.title + ' | ' : '') + (page.section ? page.section + ' | ' : '') + (page.lang == 'ru' ? site.title.ru : site.title.en)
+- const pageDesc = page.desc || (page.lang == 'ru' ? site.desc.ru : site.desc.en)
+
 meta(charset='utf-8')
 meta(name='viewport' content='width=device-width,initial-scale=1,viewport-fit=cover')
 title= pageTitle
@@ -13,6 +16,12 @@ meta(name='twitter:card' content='summary_large_image')
 if page.link
   link(rel='canonical' href=page.link)
 link(rel='icon' href='/favicon.ico' sizes='32x32')
-link(rel='icon' href='/src/components/icon/icon.svg' type='image/svg+xml')
-link(rel='apple-touch-icon' href='/icon-192.png')
+link(rel='icon' href='/assets/img/components/icon/icon.svg' type='image/svg+xml')
+link(rel='apple-touch-icon' href='/assets/img/components/icon/icon-192.png')
 link(rel='manifest' href='/manifest.json')
+
+if site.fonts.google
+  link(rel='preconnect' href='https://fonts.googleapis.com')
+  link(rel='preconnect' href='https://fonts.gstatic.com' crossorigin)
+  link(rel='stylesheet' href='https://fonts.googleapis.com/css2?display=swap&family=' + site.fonts.google)
+link(rel='stylesheet' href=`${site.theme}css/main.css?${timestamp}`)
