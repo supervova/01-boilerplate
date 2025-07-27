@@ -1,0 +1,159 @@
+@use 'sass:list';
+@use 'sass:math';
+
+// -----------------------------------------------------------------------------
+// #region: TYPOGRAPHY
+// -----------------------------------------------------------------------------
+
+$html-font-size: 16px !default;
+$lh-step: 8px !default;
+
+// Font metrics for common fonts (cap-height, x-height ratios)
+// These can be obtained from Capsize CSS or measured manually
+$font-metrics: (
+  'system': (
+    cap-height: 0.68,
+    ascender: 0.92,
+    descender: 0.24,
+    line-gap: 0.05
+  ),
+  'inter': (
+    cap-height: 0.72,
+    ascender: 0.97,
+    descender: 0.21,
+    line-gap: 0.03
+  ),
+  'source-sans': (
+    cap-height: 0.70,
+    ascender: 0.94,
+    descender: 0.25,
+    line-gap: 0.04
+  )
+) !default;
+
+// Typography styles with calculated baseline offsets
+$typography-styles: (
+  'display': (
+    mobile: (
+      font-size: 34,
+      font-weight: var(--font-weight-titles),
+      letter-spacing: 0,
+      line-height: math.div(40, 34),
+      padding-top: 7,
+      padding-bottom: 1
+    ),
+    tablet: (
+      font-size: 56,
+      line-height: math.div(64, 56),
+      padding-top: 3,
+      padding-bottom: 5
+    )
+  ),
+  'title': (
+    mobile: (
+      font-size: 28,
+      font-weight: var(--font-weight-titles),
+      letter-spacing: -0.3,
+      line-height: math.div(32, 28),
+      padding-top: 5,
+      padding-bottom: 3
+    ),
+    tablet: (
+      font-size: 40,
+      line-height: math.div(48, 40),
+      padding-top: 1,
+      padding-bottom: 7
+    )
+  ),
+  'h2': (
+    mobile: (
+      font-size: 24,
+      font-weight: var(--font-weight-titles-bold),
+      letter-spacing: -0.2,
+      line-height: math.div(32, 24),
+      padding-top: 4,
+      padding-bottom: 6
+    ),
+    tablet: (
+      font-size: 32,
+      line-height: math.div(40, 32),
+      padding-top: 2,
+      padding-bottom: 6
+    )
+  ),
+  'h3': (
+    mobile: (
+      font-size: 20,
+      font-weight: var(--font-weight-titles-bold),
+      letter-spacing: -0.1,
+      line-height: math.div(24, 20),
+      padding-top: 6,
+      padding-bottom: 2
+    ),
+    tablet: (
+      font-size: 24,
+      line-height: math.div(32, 24),
+      padding-top: 4,
+      padding-bottom: 4
+    )
+  ),
+  'body': (
+    mobile: (
+      font-size: 17,
+      font-weight: var(--font-weight-body),
+      letter-spacing: normal,
+      line-height: math.div(24, 17),
+      padding-top: 6,
+      padding-bottom: 2
+    )
+  ),
+  'small': (
+    mobile: (
+      font-size: 14,
+      font-weight: var(--font-weight-body),
+      letter-spacing: normal,
+      line-height: math.div(20, 14),
+      padding-top: 4,
+      padding-bottom: 4
+    )
+  ),
+  'caption': (
+    mobile: (
+      font-size: 12,
+      font-weight: var(--font-weight-body),
+      letter-spacing: 0.1,
+      line-height: math.div(16, 12),
+      padding-top: 2,
+      padding-bottom: 6
+    )
+  )
+) !default;
+
+// Typography breakpoints
+$typography-breakpoints: tablet, laptop !default;
+
+// #endregion
+
+// -----------------------------------------------------------------------------
+// #region: UTILITIES
+// -----------------------------------------------------------------------------
+
+$enable-margin-x: true !default;
+$enable-shorthand-space: false !default;
+
+// #endregion
+
+// -----------------------------------------------------------------------------
+// #region: BREAKPOINTS
+// -----------------------------------------------------------------------------
+
+$phone-l-height: 361px !default;
+$phone-l: 568px !default;
+$tablet: 768px !default;
+$tablet-l: 1024px !default;
+$laptop: 1360px !default;
+$desktop: 1920px !default;
+
+$mq-breakpoints-base: phone, phone-p, phone-l, tablet-l-down !default;
+$mq-breakpoints-lg: tablet, tablet-l, laptop !default;
+$mq-breakpoints: list.join($mq-breakpoints-base, $mq-breakpoints-lg) !default;

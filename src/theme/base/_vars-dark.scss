@@ -1,0 +1,43 @@
+@mixin dark {
+  color-scheme: dark;
+
+  /*
+  Copy from vars-light and update:
+  Semantic Brand
+  Backgrounds
+  Inks
+    Base
+    Inverse
+    Neutrals
+  Feedback
+  Shadows Opacity
+  Icons
+  Scroll thumb and track
+
+  Or set the minimal dark mode */
+  * {
+    background-color: inherit;
+    color: inherit;
+  }
+
+  html {
+    filter: invert(1) hue-rotate(180deg);
+  }
+
+  // Add a bit of transparency so light media isn't so glaring in dark mode
+  img,
+  video {
+    opacity: 0.8;
+  }
+}
+
+@media only screen and (prefers-color-scheme: dark) {
+  :root:not(.theme-light) {
+    @include dark;
+  }
+}
+
+// Dark theme (Forced)
+.theme-dark {
+  @include dark;
+}

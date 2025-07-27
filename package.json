@@ -1,0 +1,282 @@
+{
+  "name": "01-boilerplate",
+  "description": "CSS Framework | Anti-Tailwind and LLM assistants baked.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Vladimir Nikishin",
+    "email": "vlaimir.nikishin@gmail.com",
+    "url": "https://super-mark.ru/"
+  },
+  "private": false,
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/main.css",
+  "scripts": {
+    "build": "vite build && npm run build:docs",
+    "build:docs": "vitepress build",
+    "build:play": "vite build --root example --outDir example/dist --base /play/",
+    "dev": "vite",
+    "format": "prettier --write 'src/**/*.{js,html}'",
+    "lint:js": "eslint 'src/**/*.js'",
+    "lint:styles": "stylelint 'src/**/*.scss'",
+    "preinstall": "npx only-allow pnpm",
+    "preview:docs": "vitepress dev",
+    "release": "changeset publish",
+    "test": "vitest"
+  },
+  "stylelint": {
+    "plugins": [
+      "stylelint-scss"
+    ],
+    "extends": [
+      "stylelint-config-recommended-scss"
+    ],
+    "customSyntax": "postcss-scss",
+    "rules": {
+      "at-rule-empty-line-before": null,
+      "at-rule-no-unknown": null,
+      "at-rule-no-vendor-prefix": true,
+      "color-named": "never",
+      "custom-media-pattern": "foo-.+",
+      "declaration-empty-line-before": null,
+      "declaration-no-important": true,
+      "font-family-name-quotes": "always-where-recommended",
+      "font-weight-notation": [
+        "numeric",
+        {
+          "ignore": [
+            "relative"
+          ]
+        }
+      ],
+      "function-url-no-scheme-relative": true,
+      "function-url-quotes": "always",
+      "length-zero-no-unit": true,
+      "media-feature-name-no-vendor-prefix": true,
+      "no-descending-specificity": null,
+      "no-duplicate-selectors": true,
+      "no-empty-source": null,
+      "media-feature-name-no-unknown": [
+        true,
+        {
+          "ignoreMediaFeatureNames": [
+            "prefers-reduced-motion"
+          ]
+        }
+      ],
+      "property-no-unknown": [
+        true,
+        {
+          "ignoreProperties": [
+            "interpolate-size"
+          ]
+        }
+      ],
+      "property-no-vendor-prefix": true,
+      "rule-empty-line-before": null,
+      "scss/dollar-variable-default": null,
+      "scss/at-rule-no-unknown": [
+        true,
+        {
+          "ignoreAtRules": [
+            "tailwind",
+            "layer",
+            "apply",
+            "config"
+          ]
+        }
+      ],
+      "selector-attribute-quotes": "always",
+      "selector-class-pattern": [
+        "^[a-z0-9-_\\/:]+$",
+        {
+          "message": "Class names should only contain lowercase letters, numbers, hyphens, underscores (for BEM elements only), and may include forward slashes for fractions and colons."
+        }
+      ],
+      "selector-max-attribute": 3,
+      "selector-max-class": 4,
+      "selector-max-combinators": 4,
+      "selector-max-compound-selectors": 4,
+      "selector-max-id": 0,
+      "selector-max-specificity": null,
+      "selector-max-universal": 1,
+      "selector-no-qualifying-type": null,
+      "selector-no-vendor-prefix": true,
+      "value-keyword-case": [
+        "lower",
+        {
+          "camelCaseSvgKeywords": true,
+          "ignoreFunctions": [
+            "color-mix"
+          ],
+          "ignoreKeywords": [
+            "Arial",
+            "Baskerville",
+            "BlinkMacSystemFont",
+            "Consolas",
+            "Georgia",
+            "Inter",
+            "Menlo",
+            "Monaco",
+            "Roboto",
+            "SFMono-Regular",
+            "Times"
+          ]
+        }
+      ],
+      "value-no-vendor-prefix": true
+    }
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "airbnb-base",
+      "plugin:prettier/recommended"
+    ],
+    "env": {
+      "browser": true,
+      "es2023": true,
+      "node": true
+    },
+    "plugins": [
+      "import"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 2023,
+      "sourceType": "module"
+    },
+    "settings": {
+      "import/ignore": [
+        "node_modules",
+        "\\.(coffee|scss|css|less|hbs|svg|json)$"
+      ]
+    },
+    "rules": {
+      "import/no-extraneous-dependencies": "off",
+      "import/extensions": [
+        "error",
+        "ignorePackages",
+        {
+          "js": "always",
+          "jsx": "always",
+          "ts": "never",
+          "tsx": "never"
+        }
+      ],
+      "max-len": [
+        "error",
+        {
+          "ignoreComments": true,
+          "ignoreStrings": true,
+          "ignoreTemplateLiterals": true
+        }
+      ],
+      "no-multi-spaces": [
+        "error",
+        {
+          "exceptions": {
+            "BinaryExpression": true,
+            "VariableDeclarator": true
+          }
+        }
+      ],
+      "no-plusplus": [
+        2,
+        {
+          "allowForLoopAfterthoughts": true
+        }
+      ],
+      "quotes": [
+        "error",
+        "single"
+      ]
+    }
+  },
+  "prettier": {
+    "arrowParens": "always",
+    "bracketSpacing": true,
+    "endOfLine": "auto",
+    "jsxSingleQuote": false,
+    "printWidth": 80,
+    "quoteProps": "as-needed",
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "overrides": [
+      {
+        "files": [
+          "*.html"
+        ],
+        "options": {
+          "printWidth": 40000,
+          "bracketSameLine": true
+        }
+      }
+    ]
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  },
+  "postcss": {
+    "map": false,
+    "plugins": {
+      "postcss-preset-env": {
+        "stage": 2,
+        "features": {
+          "cascade-layers": false,
+          "custom-media-queries": true,
+          "custom-properties": false,
+          "custom-selectors": true,
+          "has-pseudo-class": true,
+          "image-set-function": true,
+          "is-pseudo-class": false,
+          "logical-properties-and-values": false,
+          "media-query-ranges": true,
+          "nesting-rules": true,
+          "unset-value": true
+        },
+        "autoprefixer": {
+          "cascade": false
+        }
+      }
+    }
+  },
+  "browserslist": [
+    "> 0.5%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "packageManager": "pnpm@10.13.1",
+  "pnpm": {
+    "ignoredBuiltDependencies": [
+      "@parcel/watcher",
+      "esbuild"
+    ]
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.0.0",
+    "@fullhuman/postcss-purgecss": "^7.0.2",
+    "autoprefixer": "^10.4.13",
+    "eslint": "^9.32.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "postcss": "^8.4.19",
+    "postcss-color-contrast": "^1.1.0",
+    "postcss-csso": "^6.0.0",
+    "postcss-preset-env": "^10.0.2",
+    "postcss-scss": "^4.0.9",
+    "prettier": "^3.3.3",
+    "sass": "^1.78.0",
+    "stylelint": "^16.10.0",
+    "stylelint-config-recommended-scss": "^15.0.1",
+    "stylelint-scss": "^6.8.1",
+    "vite": "^7.0.6",
+    "vite-plugin-nunjucks": "^0.2.0",
+    "vitepress": "^1.6.3",
+    "vitest": "^3.2.4"
+  }
+}

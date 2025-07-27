@@ -1,0 +1,122 @@
+# ------------------------------------------------------------------------------
+# WIP
+# ------------------------------------------------------------------------------
+
+docs/ui/
+docs/index-old.md
+docs/init.md
+docs/plan.md
+
+# ------------------------------------------------------------------------------
+# WORKING STUFF
+# ------------------------------------------------------------------------------
+
+*~.*
+.env
+.env.*
+!.env.example
+deploy.sh
+notes.md
+tmp/
+temp/
+
+# ------------------------------------------------------------------------------
+# EDITORS
+# ------------------------------------------------------------------------------
+
+.obsidian
+.vscode/*
+!.vscode/settings.json
+*.code-workspace
+/GEMINI.md
+/gemini-notes.md
+
+# ------------------------------------------------------------------------------
+# PACKAGE MANAGERS
+# ------------------------------------------------------------------------------
+
+*.tgz
+.npm
+.pnpm-store/
+.yarn-integrity
+node_modules
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# All *.lock files should be checked into source control
+
+# ------------------------------------------------------------------------------
+# BUILD ARTIFACTS
+# ------------------------------------------------------------------------------
+
+*.sass-cache*
+.cache
+.eslintcache
+.tmp
+dist/
+sprite.symbol.html
+src/**/*.css
+
+# ------------------------------------------------------------------------------
+# LOGS, BACKUPS
+# ------------------------------------------------------------------------------
+
+*.bak
+*.log
+*.swp
+backup
+logs
+
+# ------------------------------------------------------------------------------
+# MEDIA FILES
+# ------------------------------------------------------------------------------
+/src/projects
+*.avi
+*.doc
+*.docx
+# *.gif
+# *.jpeg
+# *.jpg
+# *.mov
+*.mp3
+# *.mp4
+*.mpeg
+# *.pdf
+# *.png
+# *.svg
+# *.webm
+# *.webp
+*.wmv
+
+# ------------------------------------------------------------------------------
+# SYSTEM FILES
+# ------------------------------------------------------------------------------
+
+*.DS_Store
+*.app
+
+# Windows thumbnail cache files
+Thumbs.db
+ehthumbs.db
+ehthumbs_vista.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+docs/.vitepress/cache

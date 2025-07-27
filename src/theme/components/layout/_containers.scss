@@ -1,0 +1,25 @@
+@use '../../base/abstracts' as *;
+
+// -----------------------------------------------------------------------------
+// #region: BASE
+// -----------------------------------------------------------------------------
+
+@scope (.container) {
+  :scope {
+    @include container;
+  }
+
+  :scope.container-prose {
+    list-style: none;
+    margin-inline: auto;
+    width: min(100%, var(--width-prose));
+  }
+}
+
+@scope (.main) {
+  :scope {
+    padding-block-start: var(--spacer);
+  }
+}
+
+// #endregion
