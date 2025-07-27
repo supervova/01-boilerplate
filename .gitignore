@@ -1,0 +1,87 @@
+# WIP
+docs/ui/
+docs/index-old.md
+docs/init.md
+docs/plan.md
+
+# Working stuff
+*~.*
+.obsidian
+/GEMINI.md
+deploy.sh
+dist
+notes.md
+src/templates/html-ipsum.*
+
+# Media Files
+*.avi
+*.doc
+*.docx
+*.gif
+*.jpeg
+*.jpg
+*.mov
+*.mp3
+*.mp4
+*.mpeg
+*.pdf
+# *.png
+# *.svg
+*.webm
+*.webp
+*.wmv
+
+# Editors
+.vscode/*
+!.vscode/settings.json
+
+# Build artifacts
+*.sass-cache*
+.cache
+.eslintcache
+.tmp
+dist/
+docs/.vitepress/cache/
+docs/.vitepress/dist/
+
+# Logs, backups
+*.bak
+*.log
+*.swp
+backup
+logs
+
+# Package managers
+*.tgz
+.npm
+.pnpm-store/
+.yarn-integrity
+node_modules
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# All yarn.lock files should be checked into source control
+
+# dotenv environment variables file(s)
+.env
+.env.*
+!.env.example
+
+# SYSTEM FILES
+$RECYCLE.BIN/
+*.app
+.DS_Store
+.DocumentRevisions-V100
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+._*
+.com.apple.timemachine.donotpresent
+.fseventsd
+Desktop.ini
+Thumbs.db
+ehthumbs.db
+ehthumbs_vista.db
