@@ -12,7 +12,19 @@ jobs:
       - uses: pnpm/action-setup@v3
         with: { version: 9 }
       - run: pnpm install
+
+      # 1) VitePress site
       - run: pnpm run build:docs
+
+      # 2) Playground
+      - name: Build playground
+        run: pnpm run build:play
+
+      - name: Copy playground into docs
+        run: |
+          mkdir -p docs/.vitepress/dist/play
+          cp -R example/dist/* docs/.vitepress/dist/play
+
       - uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
