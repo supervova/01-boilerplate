@@ -11,6 +11,12 @@
   "license": "MIT",
   "type": "module",
   "main": "dist/main.css",
+  "pnpm": {
+    "ignoredBuiltDependencies": [
+      "@parcel/watcher",
+      "esbuild"
+    ]
+  },
   "scripts": {
     "build": "vite build && npm run build:docs",
     "build:docs": "vitepress build docs",
@@ -25,11 +31,14 @@
     "test": "vitest"
   },
   "stylelint": {
+    "plugins": ["stylelint-scss"],
     "extends": [
       "stylelint-config-recommended-scss"
     ],
+    "customSyntax": "postcss-scss",
     "rules": {
       "at-rule-empty-line-before": null,
+      "at-rule-no-unknown": null,
       "at-rule-no-vendor-prefix": true,
       "color-named": "never",
       "declaration-empty-line-before": null,
@@ -58,17 +67,29 @@
           ]
         }
       ],
-      "property-no-unknown": [
-        true,
+      "custom-media-pattern": [
+        "^--[a-z0-9-]+$",
         {
-          "ignoreProperties": [
-            "interpolate-size"
-          ]
+          "message": "Expected custom media query name to be kebab-case and start with --"
         }
       ],
+      "property-no-unknown": [true, {
+        "ignoreProperties": ["interpolate-size"]
+      }],
       "property-no-vendor-prefix": true,
       "rule-empty-line-before": null,
       "scss/dollar-variable-default": null,
+      "scss/at-rule-no-unknown": [
+        true,
+        {
+          "ignoreAtRules": [
+            "tailwind",
+            "layer",
+            "apply",
+            "config"
+          ]
+        }
+      ],
       "selector-attribute-quotes": "always",
       "selector-class-pattern": [
         "^[a-z0-9-_\\/:]+$",
@@ -89,9 +110,7 @@
         "lower",
         {
           "camelCaseSvgKeywords": true,
-          "ignoreFunctions": [
-            "color-mix"
-          ],
+          "ignoreFunctions": ["color-mix"],
           "ignoreKeywords": [
             "Arial",
             "Baskerville",
@@ -203,8 +222,9 @@
     ]
   },
   "browserslist": [
-    "> 1%",
-    "last 2 versions"
+    "> 0.5%",
+    "last 2 versions",
+    "not dead"
   ],
   "devDependencies": {
     "@changesets/cli": "^2.0.0",
@@ -218,6 +238,7 @@
     "postcss": "^8.4.19",
     "postcss-csso": "^6.0.0",
     "postcss-preset-env": "^10.0.2",
+    "postcss-scss": "^4.0.9",
     "prettier": "^3.3.3",
     "sass": "^1.78.0",
     "stylelint": "^16.10.0",
