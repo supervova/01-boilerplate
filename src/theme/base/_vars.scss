@@ -12,13 +12,13 @@
   --h-red:    350;
   --h-yellow: 60;
 
-  --s-base: 87%;
+  --s-base: 0%; // Increment me
   --s-2ry:  80%; // desaturate the base by 4-10% for dark theme
   --s-min:  16%; // for dark theme backgrounds
 
-  --h:  10;
+  --h:  var(--h-blue);
   --s:  var(--s-base);
-  --l:  69%;
+  --l:  20%; // Update me
 
   // DECLARATIVE PALETTE
   --color-brand-primary:  hsl(var(--h) var(--s) var(--l));
@@ -83,13 +83,13 @@
     var(--font-family-emoji);
 
   --font-family-base:   var(--font-family-sans), var(--font-family-emoji);
-  --font-family-titles: var(--font-family-base);
+  --font-family-titles: 'Manrope', sans-serif;
 
   --font-size-doc:         #{$html-font-size};
 
   --font-weight-titles-max: 600;
   --font-weight-titles:     500;
-  --font-weight-titles-min: 400;
+  --font-weight-titles-min: 300;
 
   --font-size-display:      #{rem(34)};
   --font-weight-display:    var(--font-weight-titles);
@@ -324,6 +324,7 @@
 
     --font-size-title:      #{rem(56)};
     --font-weight-titles:    var(--font-weight-titles);
+    --letter-spacing-title: #{rem(-0.8)};
     --line-height-title:    #{math.div(64, 56)};
     --padding-top-title:    #{rem(3)};
     --padding-bottom-title: #{rem(5)};

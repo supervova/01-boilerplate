@@ -16,7 +16,25 @@ export default defineConfig(({ command }) => {
       },
       css: {
         postcss: {
-          plugins: [require('autoprefixer'), require('postcss-csso')],
+          'postcss-preset-env': {
+            stage: 2,
+            features: {
+              'cascade-layers': false,
+              'custom-media-queries': true,
+              'custom-properties': false,
+              'custom-selectors': true,
+              'has-pseudo-class': true,
+              'image-set-function': true,
+              'is-pseudo-class': false,
+              'logical-properties-and-values': false,
+              'media-query-ranges': true,
+              'nesting-rules': true,
+              'unset-value': true,
+            },
+            autoprefixer: {
+              cascade: false,
+            },
+          },
         },
       },
     };

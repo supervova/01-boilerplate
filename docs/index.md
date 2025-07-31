@@ -39,66 +39,53 @@ npm i 01-boilerplate
 │     └─ main.js
 ├─ src/
 │  └─ theme/                        # 3
-│     ├─ base/
-│     │  └─ scss/                   # 4
-│     │     ├─ abstracts/           # 5
-│     │     ├─ _doc.scss            # 6
-│     │     ├─ _print.scss
-│     │     ├─ _reset.scss
-│     │     ├─ _vars-dark.scss
-│     │     ├─ _vars-light.scss
-│     │     └─ _vars.scss
+│     ├─ base/                      # 4
+│     │  ├─ abstracts/              # 5
+│     │  ├─ _doc.scss               # 6
+│     │  ├─ _fonts.scss
+│     │  ├─ _print.scss
+│     │  ├─ _reset.scss
+│     │  ├─ _vars-dark.scss
+│     │  ├─ _vars-light.scss
+│     │  └─ _vars.scss
 │     ├─ components/                # 7
-│     │  ├─ accordion/
-│     │  ├─ alert/
-│     │  ├─ avatar/
-│     │  ├─ badge/
-│     │  ├─ breadcrumb/
 │     │  ├─ button/
 │     │  ├─ card/
 │     │  ├─ content/
 │     │  │  ├─ _copy.scss
-│     │  │  ├─ _fonts.scss
 │     │  │  ├─ _headings.scss
 │     │  │  ├─ _media.scss
 │     │  │  └─ _table.scss
+│     │  ├─ footer/
 │     │  ├─ form/
-│     │  │  ├─ _checkbox.scss
-│     │  │  ├─ _combobox.scss
+│     │  │  ├─ _checkbox-radio.scss
 │     │  │  ├─ _input.scss
 │     │  │  ├─ _label.scss
-│     │  │  ├─ _radio-button.scss
 │     │  │  ├─ _select.scss
-│     │  │  ├─ _switch.scss
-│     │  │  ├─ _slider.scss
-│     │  │  └─ _textarea.scss
+│     │  │  ├─ _textarea.scss
+│     │  │  └─ _validation.scss
 │     │  ├─ header/                 # 8
 │     │  ├─ icon/
 │     │  ├─ layout/
 │     │  │  ├─ _containers.scss
-│     │  │  ├─ _flex.scss
 │     │  │  └─ _grid.scss
 │     │  ├─ menu/
 │     │  ├─ modal/
 │     │  ├─ navbar/
-│     │  ├─ pagination/
-│     │  ├─ popover/
-│     │  ├─ skeleton/
-│     │  ├─ tabs/
-│     │  ├─ toast/
-│     │  └─ tooltip/
-│     ├─ helpers/                   # 9
-│     ├─ pages/                     # 10
-│     └─ main.scss                  # 11
-├─ package.json                     # 12
+│     │  └─ popover/
+│     ├─ pages/                     # 9
+│     ├─ utils/                     # 10
+│     ├─ vendor/                    # 11
+│     └─ main.scss                  # 12
+├─ package.json                     # 13
 └─ vite.config.js
-                                    # 13
+                                    # 14
 ```
 
 1. Исходники сайта‑документации (VitePress)
 2. Страница-пример со всеми компонентами (Vite)
 3. Так как исходные файлы предполагают не только стили, все что связано с интерфейсом изолировано в папке `theme`.
-4. В моей структуре я группирую файлы не по типам а по уровням абстракции, поэтому в base, components и pages собираются вместе стили, скрипты, разметка, графика и справочные материалы.
+4. В моей структуре я группирую файлы не по типам а по уровням абстракции, поэтому в base, components и pages собираются вместе стили, скрипты, разметка, графика и справочные материалы. Вместе с тем, стили можно держать в корневых каталогах `base` и `utils` — оформление, как правило, чаще всего правят.
 5. Примеси, функции, пользовательские селекторы и медиазапросы
 6. Стили `html` и `body`.
 7. Разметка, стили, скрипты и изображения компонентов
@@ -112,12 +99,13 @@ my-component/
 └─ my-comp.twig
 ```
 
-8. «Шапка» включает горизонтальную панель основной навигации `.header-nav`.
+8. «Шапка» может включать либо поле поиска с меню пользователя, либо горизонтальную панель основной навигации `.header-nav`, либо то и другое
 9. Разметка, стили, скрипты и изображения страниц
-10. Вспомогательные классы.
-11. Точка входа: собирает все стили.
-12. package.json, кроме всего прочего, содержит настройки Eslint, Stylelint, Prettier, PostCSS.
-13. В корне также находятся стандартные служебные файлы: CHANGELOG.md, CONTRIBUTING.md, LICENSE.
+10. Вспомогательные классы. В первых версиях только `.text-truncate`, `.visually-hidden`.
+11. Папка для стилей, разметки и скриптов сторонних разработчиков.
+12. Точка входа: собирает все стили.
+13. package.json, кроме всего прочего, содержит настройки Eslint, Stylelint, Prettier, PostCSS.
+14. В корне также находятся стандартные служебные файлы: CHANGELOG.md, CONTRIBUTING.md, LICENSE.
 
 ## LSD (Layer-Scope-DOM) — селекторы
 

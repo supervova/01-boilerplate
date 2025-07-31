@@ -1,15 +1,20 @@
-@use 'abstracts' as *;
+@use '../../base/abstracts' as *;
 
 // GRID CONTAINER
 .grid {
   @include grid;
 }
 
-.grid.is-auto {
-  --layout-grid-min: calc(var(--size-line) * 7);
-
+.grid-auto {
   @media (--tablet) {
-    --grid-columns: repeat(auto-fit, minmax(min(100%, var(--layout-grid-min)), 1fr));
+    @include grid-auto;
+  }
+}
+
+.grid-center {
+  @media (--tablet) {
+    --grid-columns: repeat(auto-fit, minmax(0, max-content));
+    justify-content: center;
   }
 }
 

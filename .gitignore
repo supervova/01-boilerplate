@@ -1,57 +1,40 @@
+# ------------------------------------------------------------------------------
 # WIP
+# ------------------------------------------------------------------------------
+
 docs/ui/
 docs/index-old.md
 docs/init.md
 docs/plan.md
 
-# Working stuff
+# ------------------------------------------------------------------------------
+# WORKING STUFF
+# ------------------------------------------------------------------------------
+
 *~.*
-.obsidian
-/GEMINI.md
+.env
+.env.*
+!.env.example
 deploy.sh
-dist
 notes.md
-src/templates/html-ipsum.*
+tmp/
+temp/
 
-# Media Files
-*.avi
-*.doc
-*.docx
-*.gif
-*.jpeg
-*.jpg
-*.mov
-*.mp3
-*.mp4
-*.mpeg
-*.pdf
-# *.png
-# *.svg
-*.webm
-*.webp
-*.wmv
+# ------------------------------------------------------------------------------
+# EDITORS
+# ------------------------------------------------------------------------------
 
-# Editors
+.obsidian
 .vscode/*
 !.vscode/settings.json
+*.code-workspace
+/GEMINI.md
+/gemini-notes.md
 
-# Build artifacts
-*.sass-cache*
-.cache
-.eslintcache
-.tmp
-dist/
-docs/.vitepress/cache/
-docs/.vitepress/dist/
+# ------------------------------------------------------------------------------
+# PACKAGE MANAGERS
+# ------------------------------------------------------------------------------
 
-# Logs, backups
-*.bak
-*.log
-*.swp
-backup
-logs
-
-# Package managers
 *.tgz
 .npm
 .pnpm-store/
@@ -62,26 +45,78 @@ pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# All yarn.lock files should be checked into source control
+# All *.lock files should be checked into source control
 
-# dotenv environment variables file(s)
-.env
-.env.*
-!.env.example
+# ------------------------------------------------------------------------------
+# BUILD ARTIFACTS
+# ------------------------------------------------------------------------------
 
+*.sass-cache*
+.cache
+.eslintcache
+.tmp
+dist/
+sprite.symbol.html
+src/**/*.css
+
+# ------------------------------------------------------------------------------
+# LOGS, BACKUPS
+# ------------------------------------------------------------------------------
+
+*.bak
+*.log
+*.swp
+backup
+logs
+
+# ------------------------------------------------------------------------------
+# MEDIA FILES
+# ------------------------------------------------------------------------------
+/src/projects
+*.avi
+*.doc
+*.docx
+# *.gif
+# *.jpeg
+# *.jpg
+# *.mov
+*.mp3
+# *.mp4
+*.mpeg
+# *.pdf
+# *.png
+# *.svg
+# *.webm
+# *.webp
+*.wmv
+
+# ------------------------------------------------------------------------------
 # SYSTEM FILES
-$RECYCLE.BIN/
+# ------------------------------------------------------------------------------
+
+*.DS_Store
 *.app
-.DS_Store
+
+# Windows thumbnail cache files
+Thumbs.db
+ehthumbs.db
+ehthumbs_vista.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
 .DocumentRevisions-V100
+.fseventsd
 .Spotlight-V100
 .TemporaryItems
 .Trashes
 .VolumeIcon.icns
-._*
 .com.apple.timemachine.donotpresent
-.fseventsd
-Desktop.ini
-Thumbs.db
-ehthumbs.db
-ehthumbs_vista.db
+docs/.vitepress/cache

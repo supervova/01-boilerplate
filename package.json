@@ -11,12 +11,6 @@
   "license": "MIT",
   "type": "module",
   "main": "dist/main.css",
-  "pnpm": {
-    "ignoredBuiltDependencies": [
-      "@parcel/watcher",
-      "esbuild"
-    ]
-  },
   "scripts": {
     "build": "vite build && npm run build:docs",
     "build:docs": "vitepress build docs",
@@ -31,7 +25,9 @@
     "test": "vitest"
   },
   "stylelint": {
-    "plugins": ["stylelint-scss"],
+    "plugins": [
+      "stylelint-scss"
+    ],
     "extends": [
       "stylelint-config-recommended-scss"
     ],
@@ -73,9 +69,14 @@
           "message": "Expected custom media query name to be kebab-case and start with --"
         }
       ],
-      "property-no-unknown": [true, {
-        "ignoreProperties": ["interpolate-size"]
-      }],
+      "property-no-unknown": [
+        true,
+        {
+          "ignoreProperties": [
+            "interpolate-size"
+          ]
+        }
+      ],
       "property-no-vendor-prefix": true,
       "rule-empty-line-before": null,
       "scss/dollar-variable-default": null,
@@ -110,7 +111,9 @@
         "lower",
         {
           "camelCaseSvgKeywords": true,
-          "ignoreFunctions": ["color-mix"],
+          "ignoreFunctions": [
+            "color-mix"
+          ],
           "ignoreKeywords": [
             "Arial",
             "Baskerville",
@@ -221,11 +224,42 @@
       "@babel/preset-env"
     ]
   },
+  "postcss": {
+    "map": false,
+    "plugins": {
+      "postcss-preset-env": {
+        "stage": 2,
+        "features": {
+          "cascade-layers": false,
+          "custom-media-queries": true,
+          "custom-properties": false,
+          "custom-selectors": true,
+          "has-pseudo-class": true,
+          "image-set-function": true,
+          "is-pseudo-class": false,
+          "logical-properties-and-values": false,
+          "media-query-ranges": true,
+          "nesting-rules": true,
+          "unset-value": true
+        },
+        "autoprefixer": {
+          "cascade": false
+        }
+      }
+    }
+  },
   "browserslist": [
     "> 0.5%",
     "last 2 versions",
     "not dead"
   ],
+  "packageManager": "pnpm@10.13.1",
+  "pnpm": {
+    "ignoredBuiltDependencies": [
+      "@parcel/watcher",
+      "esbuild"
+    ]
+  },
   "devDependencies": {
     "@changesets/cli": "^2.0.0",
     "@fullhuman/postcss-purgecss": "^7.0.2",
@@ -236,6 +270,7 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^5.2.1",
     "postcss": "^8.4.19",
+    "postcss-color-contrast": "^1.1.0",
     "postcss-csso": "^6.0.0",
     "postcss-preset-env": "^10.0.2",
     "postcss-scss": "^4.0.9",
@@ -248,6 +283,5 @@
     "vite-plugin-nunjucks": "^0.2.0",
     "vitepress": "^1.6.3",
     "vitest": "^3.2.4"
-  },
-  "packageManager": "pnpm@10.13.1"
+  }
 }

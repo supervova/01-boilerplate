@@ -1,6 +1,16 @@
 @use '../../base/abstracts' as *;
 
 // -----------------------------------------------------------------------------
+// SCSS VARIABLES
+// -----------------------------------------------------------------------------
+// #region
+
+$button-active-offset: 1px;
+$button-disabled-opacity: 0.6;
+
+// #endregion
+
+// -----------------------------------------------------------------------------
 // SCSS MAPS
 // -----------------------------------------------------------------------------
 // #region
@@ -9,18 +19,22 @@
 $btn-variants: (
   'primary': (
     --button-bg: var(--color-brand-primary),
-    --button-color: var(--color-ink-inverse),
-    --button-border-color: transparent
+    --button-bg-hover: color-mix(in oklch, var(--color-brand-primary) 72%, #fff),
+    --button-color: var(--color-ink-text-inverse),
+    --button-border-color: transparent,
+    --button-transition:
+      'background-color var(--duration-50) var(--easing-base), transform var(--duration-50) var(--easing-base)',
+    --button-transform-hover: scale(1.05)
   ),
   'outline': (
     --button-bg: transparent,
-    --button-color: var(--color-brand-primary),
-    --button-border-color: var(--color-brand-primary),
+    --button-color: var(--color-ink-text-brand),
+    --button-border-color: var(--color-ink-border),
     --button-bg-hover: color-mix(in oklch, var(--color-brand-primary) 10%, transparent)
   ),
   'ghost': (
     --button-bg: transparent,
-    --button-color: var(--color-brand-primary),
+    --button-color: var(--color-ink-text-brand),
     --button-border-color: transparent,
     --button-bg-hover: color-mix(in oklch, var(--color-brand-primary) 10%, transparent)
   ),
@@ -30,7 +44,9 @@ $btn-variants: (
     --button-border-color: transparent,
     --button-height: auto,
     --button-padding-x: 0,
-    --button-radius: 0
+    --button-radius: 0,
+    --button-bg-hover: transparent,
+    --button-decoration-hover: underline
   )
 );
 
@@ -50,96 +66,109 @@ $btn-sizes: (
 // #endregion
 
 // -----------------------------------------------------------------------------
+// MIXINS
+// -----------------------------------------------------------------------------
+// #region
+
+@mixin button-base {
+  // Color variables
+  --button-bg: var(--color-ink-fill);
+  --button-bg-hover: color-mix(in oklch, var(--button-bg) 90%, #000);
+  --button-color: var(--color-ink-base);
+
+  // Border variables
+  --button-border-color: transparent;
+  --button-border-width: 1px;
+
+  // Layout variables
+  --button-height: var(--size-6);
+  --button-padding-x: var(--size-3);
+  --button-gap: var(--size-1);
+  --button-radius: var(--border-radius-base);
+
+  // Typography variables
+  --button-font-size: var(--font-size-base);
+  --button-font-weight: 500;
+
+  // Effect variables
+  --button-shadow-focus: 0 0 0 3px color-mix(in oklch, var(--color-focus) 35%, transparent);
+  --button-transition:
+    background-color var(--duration-50) var(--easing-base),
+    border-color var(--duration-50) var(--easing-base),
+    box-shadow var(--duration-50) var(--easing-base),
+    color var(--duration-50) var(--easing-base);
+  --button-transform-hover: none;
+
+  appearance: none;
+  background-color: var(--button-bg);
+  border-color: var(--button-border-color);
+  border-radius: var(--button-radius);
+  border-style: solid;
+  border-width: var(--button-border-width);
+  color: var(--button-color);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--button-gap);
+  justify-content: center;
+  font-size: var(--button-font-size);
+  font-weight: var(--button-font-weight);
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  padding-inline: var(--button-padding-x);
+  position: relative;
+  transition: var(--button-transition);
+  user-select: none;
+  height: var(--button-height);
+}
+
+@mixin button-states {
+  &:active {
+    transform: translateY($button-active-offset);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: $button-disabled-opacity;
+    pointer-events: none;
+  }
+
+  &:focus-visible {
+    box-shadow: var(--button-shadow-focus);
+    outline: none;
+  }
+
+  @media (any-hover: hover) {
+    &:hover {
+      background-color: var(--button-bg-hover);
+      text-decoration: var(--button-decoration-hover, none);
+    }
+  }
+}
+
+@mixin button-variants($variants-map) {
+  @each $name, $props in $variants-map {
+    &.btn-#{$name} {
+      @each $prop, $value in $props {
+        #{$prop}: #{$value};
+      }
+    }
+  }
+}
+// #endregion
+
+// -----------------------------------------------------------------------------
 // BASE AND MODIFIERS
 // -----------------------------------------------------------------------------
 // #region
 
 @scope (.btn) {
   :scope {
-    --button-bg: var(--color-ink-fill);
-    --button-bg-hover: color-mix(in oklch, var(--button-bg) 90%, #000);
-    --button-border-color: transparent;
-    --button-border-width: 1px;
-    --button-color: var(--color-ink-base);
-    --button-font-size: var(--font-size-base);
-    --button-font-weight: 500;
-    --button-gap: var(--size-1);
-    --button-height: var(--size-5);
-    --button-padding-x: var(--size-3);
-    --button-radius: var(--border-radius-base);
-    --button-shadow-focus: 0 0 0 3px color-mix(in oklch, var(--color-focus) 35%, transparent);
-
-    appearance: none;
-    background-color: var(--button-bg);
-    border-color: var(--button-border-color);
-    border-radius: var(--button-radius);
-    border-style: solid;
-    border-width: var(--button-border-width);
-    color: var(--button-color);
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: var(--button-gap);
-    justify-content: center;
-    font-size: var(--button-font-size);
-    font-weight: var(--button-font-weight);
-    line-height: 1;
-    text-decoration: none;
-    white-space: nowrap;
-    padding-inline: var(--button-padding-x);
-    position: relative;
-    transition:
-      background-color var(--duration-50) var(--easing-base),
-      border-color var(--duration-50) var(--easing-base),
-      box-shadow var(--duration-50) var(--easing-base),
-      color var(--duration-50) var(--easing-base);
-    user-select: none;
-    height: var(--button-height);
-  }
-
-  // States
-  :scope:active {
-    transform: translateY(1px);
-  }
-
-  :scope:disabled {
-    cursor: not-allowed;
-    opacity: 0.6;
-    pointer-events: none;
-  }
-
-  :scope:focus-visible {
-    box-shadow: var(--button-shadow-focus);
-    outline: none;
-  }
-
-  @media (any-hover: hover) {
-    :scope:hover {
-      background-color: var(--button-bg-hover);
-    }
-
-    :scope.btn-link:hover {
-      background-color: transparent;
-      text-decoration: underline;
-    }
-  }
-
-  // Color Modifiers
-  @each $name, $props in $btn-variants {
-    :scope.btn-#{$name} {
-      @each $prop, $value in $props {
-        #{$prop}: #{$value};
-      }
-    }
-  }
-
-  // Size Modifiers
-  @each $name, $props in $btn-sizes {
-    :scope.btn-#{$name} {
-      @each $prop, $value in $props {
-        #{$prop}: #{$value};
-      }
-    }
+    @include button-base;
+    @include button-states;
+    @include button-variants($btn-variants);
+    @include button-variants($btn-sizes);
   }
 
   // Icon Button
@@ -156,38 +185,15 @@ $btn-sizes: (
 // -----------------------------------------------------------------------------
 // #region
 
-%btn {
-  // We use @extend not for random linking, but to implement a clear architectural
-  // decision: the "Single Source of Truth".
-  // stylelint-disable-next-line scss/at-extend-no-missing-placeholder
-  @extend .btn;
-}
-
-button,
-input[type='submit'],
-input[type='button'],
-input[type='reset'],
-a[role='button'] {
-  @extend %btn;
-}
-
 // Removes internal indentation and border in Firefox
 :where(button, [type='button'], [type='reset'], [type='submit'])::-moz-focus-inner {
   border-style: none;
   padding: 0;
 }
-// #endregion
 
-// -----------------------------------------------------------------------------
-// BUTTON GROUP
-// -----------------------------------------------------------------------------
-// #region
-
-.btns {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: var(--size-2);
-}
-
+// Uncomment if you need tag selectors
+// :where(button, input[type='submit'], input[type='button'], input[type='reset'], a[role='button']) {
+//   @include button-base;
+//   @include button-states;
+// }
 // #endregion

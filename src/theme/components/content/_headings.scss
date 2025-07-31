@@ -1,4 +1,4 @@
-@use '../abstracts' as *;
+@use '../../base/abstracts' as *;
 
 // -----------------------------------------------------------------------------
 // BASE STYLES FOR HEADINGS
@@ -18,8 +18,8 @@ h5, h6 {
 .h1, .h2, .h3, .h4 { display: block; }
 
 h1, .h1,
-h2, .h2,
-h3, .h3 {
+h2, .h2 {
+  font-family: var(--font-family-titles);
   text-wrap: balance;
 }
 

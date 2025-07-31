@@ -56,7 +56,7 @@
 }
 
 // Auto grid
-@mixin grid-auto($min-width: rem(280)) {
+@mixin grid-auto($min-width: rem(80)) {
   --grid-columns: repeat(auto-fit, minmax(#{$min-width}, 1fr));
 }
 

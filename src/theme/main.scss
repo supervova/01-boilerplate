@@ -29,18 +29,18 @@
 @layer base {
   @include meta.load-css('components/icon/icon');
   @include meta.load-css('components/button/button');
-  @include meta.load-css('components/form/form');
+  // @include meta.load-css('components/form/form');                       // 👈
 
   // @include meta.load-css('components/form/checkbox-radio');
   // @include meta.load-css('components/form/select');
   // @include meta.load-css('utils/animation');
-  // @include meta.load-css('components/layout/grid');
+  @include meta.load-css('components/layout/grid');
 }
 
 // Structures
 @layer components {
-  @include meta.load-css('components/card/card');
-  @include meta.load-css('components/navbar/navbar');
+  // @include meta.load-css('components/card/card');                       // 👈
+  // @include meta.load-css('components/navbar/navbar');                   // 👈
   // @include meta.load-css('components/header/header');
   // @include meta.load-css('components/footer/footer');
   // @include meta.load-css('components/hero/hero');
@@ -54,7 +54,7 @@
   // @include meta.load-css('components/segmented-control/segmented-control');
 
   // Content
-  @include meta.load-css('components/content/table/table');
+  // @include meta.load-css('components/content/table/table');             // 👈
   // @include meta.load-css('components/badge/badge');
   // @include meta.load-css('components/content/blockquote/blockquote');
   // @include meta.load-css('components/content/callout/callout');
@@ -71,9 +71,9 @@
   // @include meta.load-css('components/form/validation');
   // @include meta.load-css('components/form/search');
 
-  // Show | Hide
-  @include meta.load-css('components/accordion/accordion');
-  @include meta.load-css('components/popover/popover');
+  // Disclosure
+  // @include meta.load-css('components/accordion/accordion');             // 👈
+  // @include meta.load-css('components/popover/popover');                 // 👈
   // @include meta.load-css('components/modal/modal');
   // @include meta.load-css('components/tabs/tabs');
   // @include meta.load-css('components/tooltip/tooltip');
@@ -90,5 +90,5 @@
 }
 
 @layer print {
-  @include meta.load-css('base/print');
+  // @include meta.load-css('base/print');                                 // 👈
 }
