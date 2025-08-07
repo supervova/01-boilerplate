@@ -1,0 +1,122 @@
+@use '../../theme/abstracts' as *;
+
+// -----------------------------------------------------------------------------
+// #region 🦸🏻‍♂️ HERO COMPONENT
+// -----------------------------------------------------------------------------
+
+@scope (.hero) {
+  :scope {
+    // CSS custom properties defaults
+    --hero-image-flex: 1 1 100%;
+    --hero-content-flex: 1 1 100%;
+    --hero-gap: var(--size-4);
+    --hero-justify: center;
+    --hero-padding-block: var(--size-4);
+
+    --button-height: var(--size-7);
+
+    // Background circles
+    --r: 216px; // radius
+    --x: 25%;
+    --y: 50%;
+    --fill: var(--color-ink-fill);
+    --feather: 1px;
+
+    background:
+      radial-gradient(
+        circle var(--r) at var(--x) var(--y),
+        var(--fill) 0 calc(var(--r) - var(--feather)),
+        transparent var(--r)
+      ),
+      var(--color-bg-2ry);
+
+    min-height: 100vh;
+    min-height: 100dvh;
+
+    @media (--phone) {
+      .hero-image {
+        order: -1;
+      }
+    }
+
+    @media (--tablet) {
+      --hero-image-flex: 1 1 calc(33.33% - var(--hero-gap) / 2);
+      --hero-content-flex: 1 1 calc(66.66% - var(--hero-gap) / 2);
+      --hero-gap: var(--size-4);
+      --hero-padding-block: var(--size-4);
+    }
+
+    @media (--desktop) {
+      --hero-gap: var(--size-5);
+      --hero-padding-block: var(--size-5);
+    }
+  }
+
+  // CONTAINER
+  .container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--hero-gap);
+    justify-content: var(--hero-justify);
+    padding-block: var(--hero-padding-block);
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  // HERO ELEMENTS
+  .hero-image {
+    flex: var(--hero-image-flex);
+    margin-block-end: 0;
+
+    img {
+      block-size: auto;
+      display: block;
+      position: relative;
+      max-width: 100%;
+      z-index: 1;
+    }
+  }
+
+  .hero-content {
+    flex: var(--hero-content-flex);
+  }
+
+  // Buttons
+  .grid {
+    --grid-gap: var(--size-1p5);
+  }
+
+  .btn {
+    @media (--tablet-l) {
+      --button-height: var(--size-7);
+    }
+  }
+
+  .btn-secondary:hover {
+    --button-bg-hover: var(--color-ink-fill);
+    box-shadow:
+      inset 0 0 0 1px var(--color-ink-border),
+      inset 0 0 2px rgb(255 255 255),
+      inset 0 0 4px 2px rgb(255 255 255 / 0.64),
+      inset 0 0 16px 2px rgb(255 255 255 / 0.48);
+  }
+
+  // TYPOGRAPHY
+  h1 {
+    @include text-format('display');
+
+    // stylelint-disable-next-line no-duplicate-selectors
+    & {
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: var(--size-1);
+    }
+  }
+
+  p {
+    @include text-format('h3');
+    margin-bottom: var(--size-4);
+  }
+}
+// #endregion

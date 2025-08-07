@@ -11,9 +11,9 @@ export default defineConfig({
   cleanUrls: true,
 
   rewrites: {
-    'src/theme/base/docs/index.md': 'index.md',
-    'src/theme/base/docs/base.md': 'base.md',
-    'src/theme/components/(.*).md': 'components/$1.md',
+    'src/front/readme.md': 'index.md',
+    'src/front/base/base.md': 'base.md',
+    'src/front/components/(.*).md': 'components/$1.md',
   },
 
   themeConfig: {

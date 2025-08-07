@@ -17,6 +17,7 @@ docs/plan.md
 !.env.example
 deploy.sh
 notes.md
+/public
 tmp/
 temp/
 

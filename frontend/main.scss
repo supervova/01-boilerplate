@@ -1,0 +1,96 @@
+// -----------------------------------------------------------------------------
+// ESSENTIALS
+// -----------------------------------------------------------------------------
+
+@use 'sass:meta';
+@use 'theme/abstracts/custom';
+@use 'theme/fonts';
+@use 'theme/vars';
+@use 'theme/vars-light';
+
+// Uncomment everything else needed
+// @use 'theme/vars-dark';
+
+@layer base, components, pages, helpers, print;
+
+@layer base {
+  @include meta.load-css('theme/reset');
+  @include meta.load-css('theme/doc');
+  @include meta.load-css('components/content/headings');
+  @include meta.load-css('components/content/copy');
+  @include meta.load-css('components/content/media');
+  @include meta.load-css('components/layout/containers');
+}
+
+// -----------------------------------------------------------------------------
+// EXTENDED
+// -----------------------------------------------------------------------------
+
+@layer base {
+  @include meta.load-css('components/icon/icon');
+  @include meta.load-css('components/button/button');
+  @include meta.load-css('components/form/form');
+  @include meta.load-css('components/form/label');
+
+  // @include meta.load-css('components/form/checkbox-radio');
+  // @include meta.load-css('components/form/select');
+  // @include meta.load-css('theme/utils/animation');
+  @include meta.load-css('components/layout/grid');
+  @include meta.load-css('components/layout/row');
+}
+
+// Structures
+@layer components {
+  @include meta.load-css('components/hero/hero');
+  @include meta.load-css('components/section/section');
+  @include meta.load-css('components/header/header');
+  // @include meta.load-css('components/card/card');                       // 👈
+  // @include meta.load-css('components/navbar/navbar');                   // 👈
+  // @include meta.load-css('components/footer/footer');
+  // @include meta.load-css('components/scroller/scroller');
+  // @include meta.load-css('components/snippet/snippet');
+
+  // Navigation & Actions
+  // @include meta.load-css('components/menu/menu');
+  // @include meta.load-css('components/pagination/pagination');
+  // @include meta.load-css('components/segmented-control/segmented-control');
+
+  // Content
+  // @include meta.load-css('components/content/table/table');             // 👈
+  // @include meta.load-css('components/badge/badge');
+  // @include meta.load-css('components/content/blockquote/blockquote');
+  // @include meta.load-css('components/content/callout/callout');
+  // @include meta.load-css('components/content/code/code');
+  // @include meta.load-css('components/content/tag/');
+
+  // Feedback
+  // @include meta.load-css('components/alert/alert');
+  // @include meta.load-css('components/loading-spinner/loading-spinner');
+
+  // Form
+  // @include meta.load-css('components/form/date-time');
+  // @include meta.load-css('components/form/file');
+  // @include meta.load-css('components/form/validation');
+  // @include meta.load-css('components/form/search');
+
+  // Disclosure
+  // @include meta.load-css('components/accordion/accordion');             // 👈
+  // @include meta.load-css('components/popover/popover');                 // 👈
+  // @include meta.load-css('components/modal/modal');
+  // @include meta.load-css('components/tabs/tabs');
+  // @include meta.load-css('components/tooltip/tooltip');
+}
+
+@layer helpers {
+  @include meta.load-css('theme/utils/essentials');
+  // @include meta.load-css('theme/utils/accessibility');
+  // @include meta.load-css('theme/utils/content');
+  // @include meta.load-css('theme/utils/display');
+  // @include meta.load-css('theme/utils/flex');
+  // @include meta.load-css('theme/utils/spacing');
+  // @include meta.load-css('theme/utils/width');
+}
+
+@layer print {
+  // @include meta.load-css('theme/utils/print');                                 // 👈
+}
