@@ -2,11 +2,32 @@
 @use 'sass:math';
 
 // -----------------------------------------------------------------------------
+// #region: UNIT GRID
+// -----------------------------------------------------------------------------
+
+$grid-unit: 8px !default;
+
+$grid-sizes: (
+  'half': 0.5,
+  '1': 1,
+  '1p5': 1.5,
+  '2': 2,
+  '2p5': 2.5,
+  '3': 3,
+  '4': 4,
+  '5': 5,
+  '6': 6,
+  '7': 7,
+  '8': 8,
+);
+
+// #endregion
+
+// -----------------------------------------------------------------------------
 // #region: TYPOGRAPHY
 // -----------------------------------------------------------------------------
 
 $html-font-size: 16px !default;
-$lh-step: 8px !default;
 
 // Font metrics for common fonts (cap-height, x-height ratios)
 // These can be obtained from Capsize CSS or measured manually

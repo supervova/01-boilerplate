@@ -86,7 +86,7 @@
   --font-family-base: var(--font-family-sans), var(--font-family-emoji);
   --font-family-titles: 'Manrope', sans-serif;
 
-  // Base font configuration
+  // Typography tokens
   --font-size-doc: #{$html-font-size};
 
   // Font weights
@@ -104,17 +104,9 @@
 
 :root {
   // Base spacing scale
-  --size-half: #{rem(4)};
-  --size-1: #{rem(8)};
-  --size-1p5: #{rem(12)};
-  --size-2: #{rem(16)};
-  --size-2p5: #{rem(20)};
-  --size-3: #{rem(24)};
-  --size-4: #{rem(32)};
-  --size-5: #{rem(40)};
-  --size-6: #{rem(48)};
-  --size-7: #{rem(56)};
-  --size-8: #{rem(64)};
+  @each $name, $multiplier in $grid-sizes {
+    --size-#{$name}: #{$grid-unit * $multiplier};
+  }
 
   // Semantic spacing
   --size-line: var(--size-3);

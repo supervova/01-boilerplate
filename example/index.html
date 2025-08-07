@@ -23,32 +23,56 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;500;600;700&display=swap">
 
-    <!-- Development styles -->
+    <!-- Debugging styles -->
     <style>
 
-    [id='section-typography']:hover {
-      background: transparent url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%228%22%20height%3D%2224%22%20viewBox%3D%220%200%208%2024%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Crect%20width%3D%228%22%20height%3D%221%22%20y%3D%2223%22%20fill%3D%22%23000%22%20fill-opacity%3D%22.24%22%2F%3E%3Crect%20width%3D%228%22%20height%3D%221%22%20y%3D%2215%22%20fill%3D%22%23F0F%22%20fill-opacity%3D%22.12%22%2F%3E%3Crect%20width%3D%228%22%20height%3D%221%22%20y%3D%227%22%20fill%3D%22%23F0F%22%20fill-opacity%3D%22.12%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E') repeat;
-    }
+      [id='section-typography'] {
+        --color-line: rgb(0 0 0 / 0.2);
+        --color-step: rgb(255 0 255 / 0.2);
+        --line-thickness: 0.0625rem; /* 1px */
 
-    [id='section-typography'] :is(h1, h2, h3, h4, dl, p, ol, ul, a):hover {
-      background: hsla(240, 100%, 50%, 0.24);
-    }
+        position: relative;
 
-    [id='section-typography'] table {
-      background-color: hsla(30, 100%, 50%, .12);
-    }
-
-    @media only screen and (max-width: 568px) {
-      .phone\:d-none {
-        display: none;
+        &:hover::after {
+          background-image:
+            /* major lines */
+            repeating-linear-gradient(
+              to bottom,
+              var(--color-line) 0 var(--line-thickness),
+              transparent var(--line-thickness) calc(var(--size-1) * 3)
+            ),
+            /* minor lines */
+            repeating-linear-gradient(
+              to bottom,
+              var(--color-step) 0 var(--line-thickness),
+              transparent var(--line-thickness) var(--size-1)
+            );
+          content: '';
+          pointer-events: none;
+          position: absolute;
+          inset: 0;
+          z-index: 1000;
+        }
       }
 
-      img {
-        height: 144px;
+      [id='section-typography'] :is(h1, h2, h3, h4, dl, p, ol, ul, a):hover {
+        background: hsla(240, 100%, 50%, 0.24);
       }
-    }
 
-  </style>
+      [id='section-typography'] table {
+        background-color: hsla(30, 100%, 50%, .12);
+      }
+
+      @media only screen and (max-width: 568px) {
+        .phone\:d-none {
+          display: none;
+        }
+
+        img {
+          height: 144px;
+        }
+      }
+    </style>
   </head>
   <body>
 

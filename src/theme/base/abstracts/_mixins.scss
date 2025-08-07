@@ -244,24 +244,35 @@
 }
 
 // Baseline debug helper
-@mixin baseline-debug($color: rgba(255, 0, 0, 0.2)) {
+@mixin baseline-debug(
+  $major-step: calc(var(--size-1) * 3),
+  $minor-step: var(--size-1),
+  $line-color: rgb(0 0 0 / 0.2),
+  $step-color: rgb(255 0 255 / 0.2)
+) {
   position: relative;
 
-  &::after {
-    background-image: repeating-linear-gradient(
-      transparent,
-      transparent #{rem($lh-step - 1)},
-      $color #{rem($lh-step - 1)},
-      $color #{rem($lh-step)}
-    );
-    content: '';
-    height: 100%;
-    left: 0;
-    pointer-events: none;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
+  @media (any-hover: hover) {
+    &:hover::after {
+      background-image:
+        /* major lines */
+        repeating-linear-gradient(
+          to bottom,
+          #{$line-color} 0 rem(1),
+          transparent rem(1) #{$major-step}
+        ),
+        /* minor lines */
+        repeating-linear-gradient(
+          to bottom,
+          #{$step-color} 0 rem(1),
+          transparent rem(1) #{$minor-step}
+        );
+      content: '';
+      pointer-events: none;
+      position: absolute;
+      inset: 0;
+      z-index: 1000;
+    }
   }
 }
 // #endregion
