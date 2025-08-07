@@ -2,18 +2,33 @@
 
 // GRID CONTAINER
 .grid {
-  @include grid;
+  @include grid-base();
+
+  @media (--tablet) {
+    --grid-gap: var(--size-3);
+    @include grid-auto;
+  }
+
+  @media (--tablet-l) {
+    --grid-gap: var(--size-4);
+  }
 }
 
-.grid-auto {
+.grid-12 {
   @media (--tablet) {
-    @include grid-auto;
+    @include multi-grid();
+  }
+}
+
+.grid-center,
+.grid-max-content {
+  @media (--tablet) {
+    --grid-columns: repeat(auto-fit, minmax(0, max-content));
   }
 }
 
 .grid-center {
   @media (--tablet) {
-    --grid-columns: repeat(auto-fit, minmax(0, max-content));
     justify-content: center;
   }
 }

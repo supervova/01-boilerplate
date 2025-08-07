@@ -1,27 +1,137 @@
 @use '../../base/abstracts' as *;
 
-// Focus visible
+// -----------------------------------------------------------------------------
+// #region: MAPS, VARIABLES & MIXINS
+// -----------------------------------------------------------------------------
+
+$list-variants: (
+  'unstyled': (
+    list-style: none,
+    margin-bottom: 0,
+    padding-left: 0,
+  ),
+  'inline': (
+    list-style: none,
+    margin-bottom: 0,
+    padding-left: 0,
+  ),
+  'ul': (
+    list-style: none,
+    padding-left: var(--size-2p5),
+  ),
+);
+
+$text-utilities: (
+  'lead': h3,
+  'petit': caption,
+);
+
+@mixin text-base {
+  font-variant-numeric: oldstyle-nums;
+  margin-top: 0;
+  overflow-wrap: break-word;
+  padding-bottom: var(--padding-bottom-base);
+  padding-top: var(--padding-top-base);
+  text-wrap: pretty;
+
+  @supports (text-box-trim: trim-both) {
+    padding-block: 0;
+    text-box: trim-both cap alphabetic;
+  }
+}
+
+@mixin list-base {
+  font-variant-numeric: oldstyle-nums;
+  margin-bottom: var(--size-2);
+  margin-top: 0;
+}
+
+@mixin list-variants($map) {
+  @each $variant, $props in $map {
+    &.list.is-#{$variant} {
+      @each $prop, $value in $props {
+        #{$prop}: #{$value};
+      }
+
+      @if $variant == 'inline' {
+        li {
+          display: inline-block;
+          padding: 0;
+
+          &:not(:last-child) {
+            margin-inline-end: var(--size-half);
+          }
+        }
+      }
+    }
+  }
+}
+
+@mixin link-states {
+  --background-focus: var(--color-bg-brand);
+
+  color: var(--color-ink-link);
+  outline: none;
+  text-decoration: none;
+  transition:
+    background-color var(--duration-shortest),
+    color var(--duration-shortest),
+    text-decoration var(--duration-shortest);
+
+  &:is(:active, :focus-visible) {
+    @include state-hover-a;
+  }
+
+  &:focus-visible {
+    --background-color: var(--background-focus);
+  }
+
+  &:is([aria-current]) {
+    color: var(--color-current, var(--color-ink-text));
+  }
+
+  @media (any-hover: hover) {
+    &:hover {
+      @include state-hover-a;
+    }
+  }
+}
+
+@mixin text-utilities($map) {
+  @each $utility, $level in $map {
+    .#{$utility} {
+      @include text-format($level);
+
+      @if $utility == 'lead' {
+        & {
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+
+// #endregion
+
+// -----------------------------------------------------------------------------
+// #region: BASE
+// -----------------------------------------------------------------------------
+
+// Focus management
 :focus-visible {
   scroll-padding-block-end: var(--scroll-padding-end, 8vh);
 }
 
-// -----------------------------------------------------------------------------
-// BLOCK
-// -----------------------------------------------------------------------------
+:target {
+  scroll-padding-block-start: var(--size-4);
+}
 
-// Basic block elements
+// Block elements
 address,
 dd,
 dt,
 p {
-  font-variant-numeric: oldstyle-nums;
-  margin-top: 0;
-  padding-top: var(--padding-top-base);
-  padding-bottom: var(--padding-bottom-base);
-}
-
-address, blockquote, dd, dt, li, p  {
-  text-wrap: pretty;
+  @include text-base;
 }
 
 address,
@@ -34,60 +144,52 @@ address {
 }
 
 div,
-dd,
-dt,
-li,
-p,
 td,
-th {
+th,
+li {
   overflow-wrap: break-word;
-}
-
-.lead {
-  @include text-format(h3);
-  margin: 0;
 }
 
 // Lists
 ol,
 ul {
-  font-variant-numeric: oldstyle-nums;
-  margin-top: 0;
-  margin-bottom: var(--size-2);
+  @include list-base;
+  @include list-variants($list-variants);
 }
 
-// nested
-ul ul,
-ul ol,
-ol ol,
-ol ul {
-  padding-top: var(--size-1);
+// Nested lists
+:where(ul ul, ul ol, ol ol, ol ul) {
   margin-bottom: 0;
+  padding-top: var(--size-1);
 }
 
-ul ul,
-ol ul {
-  padding-left: var(--size-2p5);
+:where(ul ul, ol ul) {
+  padding-inline-start: var(--size-2p5);
 }
 
 ul {
-  padding-left: var(--size-2p5);
+  padding-inline-start: 0;
 }
 
-ul:not([class]):not(nav ul) > li::marker,
-ul.list.is-ul > li::marker, {
+// List markers
+:where(ul:not([class]):not(nav ul)) > li::marker,
+ul.list.is-ul > li::marker {
   color: var(--color-brand-primary);
   content: '\2022\00a0\00a0';
 }
 
-// Ordered list
-:where(ol:not([class], nav ol)) {
-  @include ol;
+ol {
+  padding-inline-start: var(--size-4);
+
+  li::marker {
+    color: var(--color-ink-2ry);
+    font-variant-numeric: tabular-nums;
+  }
 }
 
+// List items
 li {
-  padding-top: var(--padding-top-base);
-  padding-bottom: var(--padding-bottom-base);
+  @include text-base;
 
   > p:first-child {
     padding-top: 0;
@@ -96,30 +198,24 @@ li {
   > p:last-child {
     padding-bottom: 0;
   }
-}
 
-nav ul,
-.list.is-unstyled,
-.list.is-inline {
-  list-style: none;
-  padding-left: 0;
-  margin-bottom: 0;
-}
-
-.list.is-inline {
-  li {
-    display: inline-block;
-    padding: 0;
-
-    &:not(:last-child) {
-      margin-right: var(--size-half);
-    }
+  @supports (text-box-trim: trim-both) {
+    margin-bottom: var(--size-1);
+    text-box: trim-both cap alphabetic;
   }
 }
 
-// Description list
+// Navigation lists
+nav ul {
+  list-style: none;
+  margin-bottom: 0;
+  padding-inline-start: 0;
+}
+
+// Description lists
 dl {
   --grid-columns: 1fr 2fr;
+
   display: grid;
   gap: var(--size-1) var(--size-3);
   grid-template-columns: var(--grid-columns);
@@ -130,66 +226,37 @@ dt {
 }
 
 dd {
-  margin-left: 0;
+  margin-inline-start: 0;
 }
 
 // Dividers
 hr {
   --margin: calc(var(--size-line) * 3);
+
   border: 0;
-  border-top: var(--border-width) solid var(--color-ink-border);
-  margin-top: calc(var(--margin) - var(--border-width));
-  margin-bottom: var(--margin);
+  border-block-start: var(--border-width) solid var(--color-ink-border);
+  margin-block: calc(var(--margin) - var(--border-width)) var(--margin);
 }
 
+// #endregion
+
 // -----------------------------------------------------------------------------
-// INLINE
+// #region: INLINE ELEMENTS
 // -----------------------------------------------------------------------------
 
 :where(a:not(.btn):not([role='button'])),
 [role='link'] {
-  --background-focus: var(--color-bg-brand);
-
-  color: var(--color-ink-link);
-  text-decoration: none;
-  outline: none;
-  transition:
-    background-color var(--duration-50),
-    color var(--duration-50),
-    text-decoration var(--duration-50);
-
-  &:is(:active, :focus-visible) {
-    @include state-hover-a;
-  }
-
-  @media (pointer: fine) {
-    &:hover {
-      @include state-hover-a;
-    }
-  }
-
-  &:focus-visible {
-    --background-color: var(--background-focus);
-  }
-
-  &:is([aria-current]) {
-    color: var(--color-current, var(--color-ink-text));
-  }
+  @include link-states;
 }
 
 .link.is-forward {
-  display: inline-flex;
   align-self: start;
-  white-space: nowrap;
+  display: inline-flex;
   position: relative;
+  white-space: nowrap;
 }
 
-// Scroll padding allowance above anchor links
-:target {
-  scroll-padding-block-start: var(--size-4);
-}
-
-// Miscellaneous
+// Text formatting
 b,
 strong {
   font-weight: bolder;
@@ -205,17 +272,7 @@ small {
   line-height: var(--line-height-caption);
 }
 
-.petit {
-  @include text-format(caption);
-}
-
-::selection {
-  background: var(--color-bg-bold-brand);
-  color: var(--color-ink-text-inverse);
-  text-shadow: none;
-}
-
-// Sub / Sup
+// Sub/Sup
 sub,
 sup {
   font-size: var(--font-size-caption);
@@ -225,9 +282,26 @@ sup {
 }
 
 sub {
-  bottom: -0.25em;
+  inset-block-end: -0.25em;
 }
 
 sup {
-  top: -0.5em;
+  inset-block-start: -0.5em;
 }
+
+// Selection
+::selection {
+  background: var(--color-bg-bold-brand);
+  color: var(--color-ink-text-inverse);
+  text-shadow: none;
+}
+
+// #endregion
+
+// -----------------------------------------------------------------------------
+// #region: UTILITIES
+// -----------------------------------------------------------------------------
+
+@include text-utilities($text-utilities);
+
+// #endregion

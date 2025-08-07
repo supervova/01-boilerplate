@@ -6,14 +6,11 @@
   Semantic Brand
   Backgrounds
   Inks
-    [base]
+    Base
     Inverse
     Neutrals
   Feedback
-  Code (opt.)
   Shadows Opacity
-    --shadow-ring:        0.04;
-    --shadow-opacity-low: 0.06;
   Icons
   Scroll thumb and track
 
@@ -35,13 +32,12 @@
 }
 
 @media only screen and (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) {
+  :root:not(.theme-light) {
     @include dark;
   }
 }
 
-/* Dark theme (Forced)
-Enabled if forced with data-theme="dark" */
-[data-theme='dark'] {
+// Dark theme (Forced)
+.theme-dark {
   @include dark;
 }

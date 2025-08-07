@@ -1,18 +1,25 @@
 @use '../../base/abstracts' as *;
 
-// BASE CONTAINER
-.container {
-  @include container;
+// -----------------------------------------------------------------------------
+// #region: BASE
+// -----------------------------------------------------------------------------
+
+@scope (.container) {
+  :scope {
+    @include container;
+  }
+
+  :scope.container-prose {
+    list-style: none;
+    margin-inline: auto;
+    width: min(100%, var(--width-prose));
+  }
 }
 
-// CONTENT CONTAINERS
-// For list view, e. g. SERP or blog feed
-.col-1\/1 {
-  list-style: none;
-  margin: 0 auto;
-  width: min(100%, var(--width-readable));
+@scope (.main) {
+  :scope {
+    padding-block-start: var(--spacer);
+  }
 }
 
-.main {
-  padding-top: var(--spacer);
-}
+// #endregion

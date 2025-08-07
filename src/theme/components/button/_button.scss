@@ -1,30 +1,23 @@
 @use '../../base/abstracts' as *;
 
 // -----------------------------------------------------------------------------
-// SCSS VARIABLES
+// #region: MAPS, VARIABLES & MIXINS
 // -----------------------------------------------------------------------------
-// #region
 
 $button-active-offset: 1px;
 $button-disabled-opacity: 0.6;
 
-// #endregion
-
-// -----------------------------------------------------------------------------
-// SCSS MAPS
-// -----------------------------------------------------------------------------
-// #region
-
 // stylelint-disable custom-property-no-missing-var-function
 $btn-variants: (
   'primary': (
-    --button-bg: var(--color-brand-primary),
-    --button-bg-hover: color-mix(in oklch, var(--color-brand-primary) 72%, #fff),
+    --button-bg: var(--color-gradient-brand),
+    --button-bg-hover: var(--color-gradient-brand),
+    --button-filter-hover: var(--filter-brightness-up),
+    --button-transform-hover: scale(1.05),
     --button-color: var(--color-ink-text-inverse),
     --button-border-color: transparent,
     --button-transition:
-      'background-color var(--duration-50) var(--easing-base), transform var(--duration-50) var(--easing-base)',
-    --button-transform-hover: scale(1.05)
+      'filter var(--duration-shortest) var(--easing-base), transform var(--duration-shortest) var(--easing-base)'
   ),
   'outline': (
     --button-bg: transparent,
@@ -63,22 +56,17 @@ $btn-sizes: (
   )
 );
 // stylelint-enable custom-property-no-missing-var-function
-// #endregion
-
-// -----------------------------------------------------------------------------
-// MIXINS
-// -----------------------------------------------------------------------------
-// #region
 
 @mixin button-base {
   // Color variables
   --button-bg: var(--color-ink-fill);
-  --button-bg-hover: color-mix(in oklch, var(--button-bg) 90%, #000);
+  --button-bg-hover: color-mix(in oklch, var(--button-bg) 60%, #fff);
+  --button-filter-hover: none;
   --button-color: var(--color-ink-base);
 
   // Border variables
   --button-border-color: transparent;
-  --button-border-width: 1px;
+  --button-border-width: 0;
 
   // Layout variables
   --button-height: var(--size-6);
@@ -93,14 +81,14 @@ $btn-sizes: (
   // Effect variables
   --button-shadow-focus: 0 0 0 3px color-mix(in oklch, var(--color-focus) 35%, transparent);
   --button-transition:
-    background-color var(--duration-50) var(--easing-base),
-    border-color var(--duration-50) var(--easing-base),
-    box-shadow var(--duration-50) var(--easing-base),
-    color var(--duration-50) var(--easing-base);
+    background var(--duration-shortest) var(--easing-base),
+    border-color var(--duration-shortest) var(--easing-base),
+    box-shadow var(--duration-shortest) var(--easing-base),
+    color var(--duration-shortest) var(--easing-base);
   --button-transform-hover: none;
 
   appearance: none;
-  background-color: var(--button-bg);
+  background: var(--button-bg);
   border-color: var(--button-border-color);
   border-radius: var(--button-radius);
   border-style: solid;
@@ -141,8 +129,10 @@ $btn-sizes: (
 
   @media (any-hover: hover) {
     &:hover {
-      background-color: var(--button-bg-hover);
+      background: var(--button-bg-hover);
+      filter: var(--button-filter-hover);
       text-decoration: var(--button-decoration-hover, none);
+      transform: var(--button-transform-hover);
     }
   }
 }
@@ -159,9 +149,8 @@ $btn-sizes: (
 // #endregion
 
 // -----------------------------------------------------------------------------
-// BASE AND MODIFIERS
+// #region: BASE
 // -----------------------------------------------------------------------------
-// #region
 
 @scope (.btn) {
   :scope {
@@ -181,9 +170,8 @@ $btn-sizes: (
 // #endregion
 
 // -----------------------------------------------------------------------------
-// CLASSLESS
+// #region: CLASSLESS
 // -----------------------------------------------------------------------------
-// #region
 
 // Removes internal indentation and border in Firefox
 :where(button, [type='button'], [type='reset'], [type='submit'])::-moz-focus-inner {

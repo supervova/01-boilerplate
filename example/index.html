@@ -21,9 +21,37 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;500;600&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;500;600;700&display=swap">
+
+    <!-- Development styles -->
+    <style>
+
+    [id='section-typography']:hover {
+      background: transparent url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%228%22%20height%3D%2224%22%20viewBox%3D%220%200%208%2024%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Crect%20width%3D%228%22%20height%3D%221%22%20y%3D%2223%22%20fill%3D%22%23000%22%20fill-opacity%3D%22.24%22%2F%3E%3Crect%20width%3D%228%22%20height%3D%221%22%20y%3D%2215%22%20fill%3D%22%23F0F%22%20fill-opacity%3D%22.12%22%2F%3E%3Crect%20width%3D%228%22%20height%3D%221%22%20y%3D%227%22%20fill%3D%22%23F0F%22%20fill-opacity%3D%22.12%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E') repeat;
+    }
+
+    [id='section-typography'] :is(h1, h2, h3, h4, dl, p, ol, ul, a):hover {
+      background: hsla(240, 100%, 50%, 0.24);
+    }
+
+    [id='section-typography'] table {
+      background-color: hsla(30, 100%, 50%, .12);
+    }
+
+    @media only screen and (max-width: 568px) {
+      .phone\:d-none {
+        display: none;
+      }
+
+      img {
+        height: 144px;
+      }
+    }
+
+  </style>
   </head>
   <body>
+
     <!-- Header -->
     <header>
       <nav class="container">
@@ -46,52 +74,65 @@
 
     <!-- Main -->
     <main class="main">
-      <!-- Preview -->
-      <section class="section" id="section-preview">
+      <!-- Avoid using `header` inside `main` unless it contains navigation or metadata.
+      For visual hero sections, prefer `section` to preserve semantic clarity. -->
+      <section class="hero">
         <div class="container">
-          <h1>Adventures in the Hundred Acre Wood</h1>
+          <figure class="hero-image">
+            <img src="assets/img/hero.png" alt="Illustration of Winnie-the-Pooh and friends">
+          </figure>
+          <div class="hero-content">
+            <h1>A hug is always &ldquo;the right size&rdquo;</h1>
+            <p>Sometimes the smallest things take up the most room in your heart.</p>
 
-          <p class="grid grid-center">
-            <button class="btn btn-primary">Primary</button>
-            <button class="btn">Default</button>
-            <button class="btn btn-icon">
-              <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
-              <span class="visually-hidden">Icon Button</span>
-            </button>
-            <button class="btn btn-outline">Outline</button>
-            <button class="btn btn-ghost">Ghost</button>
-            <button class="btn btn-link">Link</button>
-          </p>
-
-          <p>"How lucky I am to have something that makes saying goodbye so hard."</p>
-
-          <form>
-            <div class="grid">
-              <input aria-label="First name" name="firstname" placeholder="First name" required type="text">
-              <input aria-label="Email address" autocomplete="email" name="email" placeholder="Email address" required type="email">
-              <button type="submit">Subscribe</button>
+            <div class="grid grid-max-content">
+              <a class="btn btn-primary" href="#">Get honey</a>
+              <button class="btn">Let’s Bounce!</button>
             </div>
-            <fieldset>
-              <label for="terms">
-                <input id="terms" name="terms" role="switch" type="checkbox">
-                I agree to the <a href="#" onclick="event.preventDefault()">Privacy Policy</a>
-              </label>
-            </fieldset>
-          </form>
+          </div>
+        </div>
+      </section>
 
-          <article class="card">
-            <h3>Card Component</h3>
-            <p>"We didn't realize we were making memories, we just knew we were having fun."</p>
-            <footer>
-              <small>Card footer with additional information</small>
-            </footer>
-          </article>
+      <section class="mt-2l" id="section-cards">
+        <h2 class="visually-hidden">Characters</h2>
+        <div class="container">
+          <div class="grid">
+            <article class="card">
+              <img src="assets/img/pooh.png" srcset="assets/img/pooh@2x.png 2x" alt="Winnie-the-Pooh" loading="lazy">
+              <header>
+                <p class="eyebrow">Gentle Optimist</p>
+                <h3><a class="card-link" href="#">Winnie-the-Pooh</a></h3>
+              </header>
+              <p>People say nothing is impossible, but I do nothing every day.</p>
+              <time class="card-footer" datetime="1925-12-24">December&nbsp;24,&nbsp;1925</time>
+            </article>
+
+            <article class="card">
+              <img src="assets/img/piglet.png" srcset="assets/img/piglet@2x.png 2x" alt="Piglet" loading="lazy">
+              <header>
+                <p class="eyebrow">Timid Loyalist</p>
+                <h3><a class="card-link" href="#">Piglet</a></h3>
+              </header>
+              <p>It’s hard to be brave when you’re only a Very Small Animal.</p>
+              <time class="card-footer" datetime="1925-12-24">December&nbsp;24,&nbsp;1925</time>
+            </article>
+
+            <article class="card">
+              <img src="assets/img/tigger.png" srcset="assets/img/tigger@2x.png 2x" alt="Tigger" loading="lazy">
+              <header>
+                <p class="eyebrow">Energetic Wildcard</p>
+                <h3><a class="card-link" href="#">Tigger</a></h3>
+              </header>
+              <p>Tiggers don’t like honey. Gimme something to bounce!</p>
+              <time class="card-footer" datetime="1928-10-11">October&nbsp;11,&nbsp;1928</time>
+            </article>
+          </div>
         </div>
       </section>
 
       <!-- Typography -->
-      <section id="section-typography">
-        <div class="container">
+      <section class="section" id="section-typography">
+        <div class="container container-prose">
           <h2>Typography & Vertical Rhythm</h2>
           <p>"Sometimes the smallest things take up the most room in your heart."</p>
 
@@ -115,25 +156,61 @@
           <p>"People say nothing is impossible, but I do nothing every day."</p>
 
           <h3>Text Elements</h3>
-          <p>
-            This paragraph contains various inline elements: <strong>bold text</strong>,
-            <em>italic text</em>, <a href="#" onclick="event.preventDefault()">primary link</a>,
-            <a class="secondary" href="#" onclick="event.preventDefault()">secondary link</a>,
-            <code>inline code</code>, <mark>highlighted text</mark>,
-            <del>deleted text</del>, and <ins>inserted text</ins>.
-          </p>
+          <p>This paragraph contains various inline elements: <strong>bold text</strong>, <em>italic text</em>, <a href="#" onclick="event.preventDefault()">primary link</a>, <a class="secondary" href="#" onclick="event.preventDefault()">secondary link</a>, <code>inline code</code>, <mark>highlighted text</mark>, <del>deleted text</del>, and <ins>inserted text</ins>.</p>
 
           <h3>Lists</h3>
           <ul>
             <li>Unordered list item demonstrating proper spacing</li>
             <li>Second item showing consistent vertical rhythm</li>
             <li>Third item maintaining baseline alignment</li>
+            <li>Fourth item with a nested <code>ul</code>
+              <ul>
+                <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, consectetur ut. Voluptate nam ut qui quas, autem eius sed eaque!</li>
+                <li>Saepe, suscipit numquam? Rerum, libero iusto. Impedit nisi velit natus eveniet, necessitatibus expedita ducimus, assumenda quam commodi tenetur fuga odio?</li>
+                <li>Numquam molestiae quaerat consequuntur vitae sapiente necessitatibus corporis veritatis explicabo iste repellendus laudantium autem, fugit modi cupiditate natus similique voluptas.</li>
+                <li>Aliquam tempora facere sequi culpa, cumque libero dolorum commodi odio nihil eaque quia accusamus, perspiciatis asperiores vel? Quo, itaque ab!</li>
+              </ul>
+            </li>
+            <li>Fifth item with a longer description to illustrate line breaks and spacing.</li>
+            <li>The last item with a nested <code>ol</code>
+              <ol>
+                <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit natus iusto pariatur aut, earum veniam maiores esse sequi ab magnam.</li>
+                <li>Sint, autem! Consectetur, iusto velit? Ipsam aliquid totam, atque laborum sequi perspiciatis quae corrupti et quod amet eaque itaque laboriosam?</li>
+                <li>Eveniet expedita itaque repudiandae? Voluptatem sit voluptate nihil beatae, accusamus quibusdam quia cupiditate rem quo molestias at consequatur ullam reiciendis!</li>
+                <li>Minus deserunt esse veritatis, voluptas debitis voluptates repellendus explicabo qui, fuga a impedit consequuntur nisi magnam inventore architecto. Architecto, impedit.</li>
+              </ol>
+            </li>
           </ul>
 
-          <ol>
+          <ol start="8">
             <li>Ordered list with proper numbering</li>
             <li>Sequential items with consistent spacing</li>
             <li>Maintains rhythm with surrounding elements</li>
+            <li>I might have known,” said Eeyore. “After all, one can’t complain. I have my friends. Somebody spoke to me only yesterday. And was it last week or the week before that Rabbit bumped into me and said ‘Bother!’. The Social Round. Always something going on.</li>
+            <li>No brain at all, some of them [people], only grey fluff that's blown into their heads by mistake, and they don't Think.</li>
+            <li>"How do you spell 'love'?" - Piglet</li>
+            <li>"You don't spell it...you feel it." - Pooh</li>
+            <li>"What's for breakfast?" said Pooh. "What do you say, Piglet?"</li>
+            <li>"I say, I wonder what's going to happen exciting today?" said Piglet.</li>
+            <li>Pooh nodded thoughtfully. "It's the same thing," he said.</li>
+            <li>The eighteenth item with a nested <code>ul</code>
+              <ul>
+                <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, consectetur ut. Voluptate nam ut qui quas, autem eius sed eaque!</li>
+                <li>Saepe, suscipit numquam? Rerum, libero iusto. Impedit nisi velit natus eveniet, necessitatibus expedita ducimus, assumenda quam commodi tenetur fuga odio?</li>
+                <li>Numquam molestiae quaerat consequuntur vitae sapiente necessitatibus corporis veritatis explicabo iste repellendus laudantium autem, fugit modi cupiditate natus similique voluptas.</li>
+                <li>Aliquam tempora facere sequi culpa, cumque libero dolorum commodi odio nihil eaque quia accusamus, perspiciatis asperiores vel? Quo, itaque ab!</li>
+              </ul>
+            </li>
+            <li>"When you wake up in the morning, Pooh," said Piglet at last, "what's the first thing you say to yourself?"</li>
+            <li>The last item with a nested <code>ol</code>
+              <ol>
+                <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit natus iusto pariatur aut, earum veniam maiores esse sequi ab magnam.</li>
+                <li>Sint, autem! Consectetur, iusto velit? Ipsam aliquid totam, atque laborum sequi perspiciatis quae corrupti et quod amet eaque itaque laboriosam?</li>
+                <li>Eveniet expedita itaque repudiandae? Voluptatem sit voluptate nihil beatae, accusamus quibusdam quia cupiditate rem quo molestias at consequatur ullam reiciendis!</li>
+                <li>Minus deserunt esse veritatis, voluptas debitis voluptates repellendus explicabo qui, fuga a impedit consequuntur nisi magnam inventore architecto. Architecto, impedit.</li>
+              </ol>
+            </li>
+
           </ol>
 
           <dl>
@@ -146,34 +223,39 @@
       </section>
 
       <!-- Forms -->
-      <section id="section-forms">
+      <section class="section" id="section-forms">
         <div class="container">
           <h2>Form Elements</h2>
 
           <form>
             <div class="grid">
-              <label for="text">Text Input
+              <label for="text"
+                >Text Input
                 <input id="text" name="text" placeholder="Enter text" type="text">
               </label>
-              <label for="email-input">Email Input
+              <label for="email-input"
+                >Email Input
                 <input id="email-input" name="email-input" placeholder="Enter email" type="email">
               </label>
             </div>
 
             <div class="grid">
-              <label for="select">Select Dropdown
+              <label for="select"
+                >Select Dropdown
                 <select id="select" name="select" required>
                   <option value="">Choose option...</option>
                   <option value="1">Option 1</option>
                   <option value="2">Option 2</option>
                 </select>
               </label>
-              <label for="range">Range Slider
+              <label for="range"
+                >Range Slider
                 <input id="range" max="100" min="0" name="range" type="range" value="50">
               </label>
             </div>
 
-            <label for="textarea">Textarea
+            <label for="textarea"
+              >Textarea
               <textarea id="textarea" name="textarea" placeholder="Enter longer text"></textarea>
             </label>
 
@@ -216,13 +298,16 @@
             </div>
 
             <div class="grid">
-              <label for="valid">Valid State
+              <label for="valid"
+                >Valid State
                 <input aria-invalid="false" id="valid" name="valid" placeholder="Valid input" type="text">
               </label>
-              <label for="invalid">Invalid State
+              <label for="invalid"
+                >Invalid State
                 <input aria-invalid="true" id="invalid" name="invalid" placeholder="Invalid input" type="text">
               </label>
-              <label for="disabled">Disabled State
+              <label for="disabled"
+                >Disabled State
                 <input disabled id="disabled" name="disabled" placeholder="Disabled input" type="text">
               </label>
             </div>
@@ -239,7 +324,7 @@
       </section>
 
       <!-- Components -->
-      <section id="section-components">
+      <section class="section" id="section-components">
         <div class="container">
           <h2>Interactive Components</h2>
 
@@ -291,9 +376,7 @@
           <h3>Media</h3>
           <figure>
             <img alt="Landscape example" src="img/aleksandar-jason-a562ZEFKW8I-unsplash-2000x1000.jpg">
-            <figcaption>
-              Example image with caption
-            </figcaption>
+            <figcaption>Example image with caption</figcaption>
           </figure>
         </div>
       </section>
@@ -302,9 +385,7 @@
     <!-- Footer -->
     <footer class="footer">
       <div class="container">
-        <small>
-          Built with <a href="https://supervova.github.io/01-boilerplate/">01-boilerplate</a>
-        </small>
+        <small> Built with <a href="https://supervova.github.io/01-boilerplate/">01-boilerplate</a> </small>
       </div>
     </footer>
 
@@ -316,6 +397,31 @@
           <h3>Modal Example</h3>
         </header>
         <p>This is a sample modal dialog demonstrating the modal component.</p>
+        <p class="grid grid-center">
+          <button class="btn btn-primary">Primary</button>
+          <button class="btn">Default</button>
+          <button class="btn btn-icon">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></svg>
+            <span class="visually-hidden">Icon Button</span>
+          </button>
+          <button class="btn btn-outline">Outline</button>
+          <button class="btn btn-ghost">Ghost</button>
+          <button class="btn btn-link">Link</button>
+        </p>
+
+        <form>
+          <div class="grid">
+            <input aria-label="First name" name="firstname" placeholder="First name" required type="text">
+            <input aria-label="Email address" autocomplete="email" name="email" placeholder="Email address" required type="email">
+            <button type="submit">Subscribe</button>
+          </div>
+          <fieldset>
+            <label for="terms">
+              <input id="terms" name="terms" role="switch" type="checkbox">
+              I agree to the <a href="#" onclick="event.preventDefault()">Privacy Policy</a>
+            </label>
+          </fieldset>
+        </form>
         <footer>
           <button class="secondary" data-target="modal-example" onclick="toggleModal(event)">Cancel</button>
           <button autofocus data-target="modal-example" onclick="toggleModal(event)">Confirm</button>

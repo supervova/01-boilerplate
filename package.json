@@ -13,14 +13,14 @@
   "main": "dist/main.css",
   "scripts": {
     "build": "vite build && npm run build:docs",
-    "build:docs": "vitepress build docs",
+    "build:docs": "vitepress build",
     "build:play": "vite build --root example --outDir example/dist --base /play/",
     "dev": "vite",
     "format": "prettier --write 'src/**/*.{js,html}'",
     "lint:js": "eslint 'src/**/*.js'",
     "lint:styles": "stylelint 'src/**/*.scss'",
     "preinstall": "npx only-allow pnpm",
-    "preview:docs": "vitepress dev docs",
+    "preview:docs": "vitepress dev",
     "release": "changeset publish",
     "test": "vitest"
   },
@@ -37,6 +37,7 @@
       "at-rule-no-unknown": null,
       "at-rule-no-vendor-prefix": true,
       "color-named": "never",
+      "custom-media-pattern": "foo-.+",
       "declaration-empty-line-before": null,
       "declaration-no-important": true,
       "font-family-name-quotes": "always-where-recommended",
@@ -61,12 +62,6 @@
           "ignoreMediaFeatureNames": [
             "prefers-reduced-motion"
           ]
-        }
-      ],
-      "custom-media-pattern": [
-        "^--[a-z0-9-]+$",
-        {
-          "message": "Expected custom media query name to be kebab-case and start with --"
         }
       ],
       "property-no-unknown": [

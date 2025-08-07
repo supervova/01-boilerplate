@@ -1,74 +1,130 @@
+@use 'sass:map';
 @use '../../base/abstracts' as *;
 
 // -----------------------------------------------------------------------------
-// BASE STYLES FOR HEADINGS
+// #region: MAPS & MIXINS
 // -----------------------------------------------------------------------------
-// prettier-ignore
 
-h1, .h1,
-h2, .h2,
-h3, .h3,
-h4, .h4,
-h5, h6 {
+$heading-variants: (
+  'title': (
+    --heading-level: title,
+    --heading-weight: var(--font-weight-titles, bold),
+    --heading-spacing: var(--letter-spacing-title, normal),
+    --heading-family: var(--font-family-titles),
+  ),
+  'h2': (
+    --heading-level: h2,
+    --heading-weight: var(--font-weight-h2, bold),
+    --heading-spacing: var(--letter-spacing-h2, normal),
+    --heading-family: var(--font-family-titles),
+  ),
+  'h3': (
+    --heading-level: h3,
+    --heading-weight: var(--font-weight-h3, bold),
+    --heading-spacing: var(--letter-spacing-h3),
+    --heading-family: inherit,
+  ),
+  'base': (
+    --heading-level: base,
+    --heading-weight: var(--font-weight-h4, bold),
+    --heading-spacing: var(--letter-spacing-base),
+    --heading-family: inherit,
+  ),
+);
+
+$heading-elements: (
+  'h1': 'title',
+  'h2': 'h2',
+  'h3': 'h3',
+  'h4': 'base',
+  'h5': 'base',
+  'h6': 'base',
+);
+
+@mixin heading-base {
+  font-family: var(--heading-family, inherit);
+  font-weight: var(--heading-weight, bold);
+  letter-spacing: var(--heading-spacing, normal);
+  margin-block-end: var(--size-2);
+  margin-block-start: 0;
   text-rendering: optimizeLegibility;
-  margin-top: 0;
-  margin-bottom: var(--size-2);
+
+  @include text-format(var(--heading-level));
 }
 
-.h1, .h2, .h3, .h4 { display: block; }
-
-h1, .h1,
-h2, .h2 {
-  font-family: var(--font-family-titles);
+@mixin heading-display {
+  display: block;
   text-wrap: balance;
 }
 
+@mixin heading-elements($elements, $variants) {
+  @each $element, $variant in $elements {
+    #{$element} {
+      @extend %heading-base;
+      @each $prop, $value in map.get($variants, $variant) {
+        #{$prop}: #{$value};
+      }
+    }
+  }
+}
+// #endregion
+
 // -----------------------------------------------------------------------------
-// H1
+// #region: BASE
 // -----------------------------------------------------------------------------
 
-h1, .h1 {
-  @include text-format(title);
-  font-weight: var(--font-weight-titles, bold);
-  letter-spacing: var(--letter-spacing-title, normal);
+%heading-base {
+  @include heading-base;
 }
 
-// -----------------------------------------------------------------------------
-// H2
-// -----------------------------------------------------------------------------
+@include heading-elements($heading-elements, $heading-variants);
 
-h2, .h2 {
-  @include text-format(h2);
-  font-weight: var(--font-weight-h2, bold);
-  letter-spacing: var(--letter-spacing-h2, normal);
+// Utility classes
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  @extend %heading-base;
 }
 
-// -----------------------------------------------------------------------------
-// H3
-// -----------------------------------------------------------------------------
-
-h3, .h3 {
-  @include text-format(h3);
-  font-weight: var(--font-weight-h3, bold);
-  letter-spacing: var(--letter-spacing-h3);
+.h1 {
+  @include heading-display;
+  @each $prop, $value in map.get($heading-variants, 'title') {
+    #{$prop}: #{$value};
+  }
 }
 
-// -----------------------------------------------------------------------------
-// H4, H5, H6
-// -----------------------------------------------------------------------------
-
-h4, .h4,
-h5, h6 {
-  @include text-format(base);
-  font-weight: var(--font-weight-h4, bold);
-  letter-spacing: var(--letter-spacing-base);
+.h2 {
+  @include heading-display;
+  @each $prop, $value in map.get($heading-variants, 'h2') {
+    #{$prop}: #{$value};
+  }
 }
 
+.h3 {
+  @include heading-display;
+  @each $prop, $value in map.get($heading-variants, 'h3') {
+    #{$prop}: #{$value};
+  }
+}
+
+.h4 {
+  @include heading-display;
+  @each $prop, $value in map.get($heading-variants, 'base') {
+    #{$prop}: #{$value};
+  }
+}
+
+.h5, .h6 {
+  @each $prop, $value in map.get($heading-variants, 'base') {
+    #{$prop}: #{$value};
+  }
+}
+// #endregion
+
 // -----------------------------------------------------------------------------
-// ADDITIONAL STYLES
+// #region: CONTEXTUAL SPACING
 // -----------------------------------------------------------------------------
 
 :where(address, blockquote, div, dl, figure, form, ol, p, pre, table, ul)
-  + :is(h2, h3, h4, h5, h6) {
-  margin-top: var(--margin-top-subhead, var(--size-line));
+  + :is(h2, h3, h4, h5, h6, .h2, .h3, .h4, .h5, .h6) {
+  margin-block-start: var(--margin-top-subhead, var(--size-line));
 }
+// #endregion

@@ -6,6 +6,8 @@
 // grid-auto                   - Grid with automatic columns based on a minimum width
 // grid                        - Responsive grid layout combining base and 12-column layouts
 // grid-columns                - Generates column classes for grid with custom breakpoints
+// flex-base                   - Base flex layout with default settings
+// flex-grid                   - It can be a row or a 2-dimensional flex layout. Use this one within media query.
 // container                   - Centers content with a max-width and auto margins
 // text-format                 - Sets font size, line height, and padding for text elements
 // label                       - Styles for labels with optional uppercase transformation
@@ -13,10 +15,8 @@
 // multiline-truncate          - Multi-line text truncation with ellipsis
 // multiline-truncate-override - Override multi-line truncation
 // text-inline-block           - Text with inline-block display
-// ol                          - Ordered list styles
+// baseline-debug              - Baseline grid for debugging
 // border                      - Adds a border overlay with flex display and overflow handling
-// chevron-down                - Adds a chevron down icon with specific positioning and styles
-// spot-icon                   - An icon in a colored circle
 // utility-classes             - Generates utility classes based on provided properties
 // visually-hidden             - Hides elements visually but keeps them accessible
 // state-disabled              - Uses visual cues to indicate that the button is disabled
@@ -32,9 +32,8 @@
 @use 'config' as *;
 
 // -----------------------------------------------------------------------------
-// LAYOUT
+// #region: LAYOUT
 // -----------------------------------------------------------------------------
-// #region
 
 @mixin grid-base($gap: var(--size-2)) {
   display: grid;
@@ -44,7 +43,7 @@
 
   // HACK for grid and flex direct children in overflow
   // https://stackoverflow.com/questions/36247140/why-dont-flex-items-shrink-past-content-size
-  & > * {
+  > * {
     min-width: 0;
     min-height: 0;
   }
@@ -64,10 +63,8 @@
 @mixin grid($mobile-columns: 1fr, $desktop-columns: 12) {
   @include grid-base();
 
-  --grid-columns: #{$mobile-columns};
-
   @media (--tablet) {
-    @include multi-grid($desktop-columns);
+    @include multi-grid();
   }
 }
 
@@ -123,25 +120,86 @@
   }
 }
 
+@mixin flex-base() {
+  --columns: 1;
+  --gap: var(--size-2);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+// Use this one within media query. Use $columns to define base layout
+@mixin flex-grid($columns: 2, $gap: var(--size-3), $let-flex: false) {
+  --gap: #{$gap};
+  --columns: #{$columns};
+
+  @if $let-flex {
+    display: flex;
+  }
+
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  > * {
+    width: calc(
+      100% / var(--columns) - var(--gap) * (var(--columns) - 1) / var(--columns)
+    );
+  }
+}
+
 @mixin container($width: var(--width-container)) {
   margin-inline: auto;
+  max-width: $width;
   padding-inline: var(--padding-x-container);
   position: relative;
   width: 100%;
-  max-width: $width;
 }
 // #endregion
 
 // -----------------------------------------------------------------------------
-// TYPOGRAPHY
+// #region: TYPOGRAPHY
 // -----------------------------------------------------------------------------
-// #region
 
 @mixin text-format($level) {
   font-size: var(--font-size-#{$level});
   line-height: var(--line-height-#{$level});
-  padding-top: var(--padding-top-#{$level});
   padding-bottom: var(--padding-bottom-#{$level});
+  padding-top: var(--padding-top-#{$level});
+
+  @supports (text-box-trim: trim-both) {
+    text-box: trim-both cap alphabetic;
+    padding-block: 0;
+  }
+}
+
+// Добавить в _mixins.scss в раздел TYPOGRAPHY после существующих миксинов:
+
+// Generate CSS custom properties for typography styles
+@mixin generate-typography-vars($styles) {
+  @each $name, $data in $styles {
+    // Mobile-first declarations wrapped in & {}
+    & {
+      $mobile: map.get($data, mobile);
+      @if $mobile {
+        @each $prop, $val in $mobile {
+          --#{$prop}-#{$name}: #{_format-typography-value($prop, $val)};
+        }
+      }
+    }
+
+    // Tablet and up
+    @each $bp in $typography-breakpoints {
+      $bp-data: map.get($data, $bp);
+      @if $bp-data {
+        @media (--#{$bp}) {
+          @each $prop, $val in $bp-data {
+            --#{$prop}-#{$name}: #{_format-typography-value($prop, $val)};
+          }
+        }
+      }
+    }
+  }
 }
 
 @mixin label($uppercase: true) {
@@ -157,20 +215,19 @@
 }
 
 @mixin text-truncate() {
+  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  overflow: hidden;
 }
 
 @mixin multiline-truncate($lines: 4, $line-height: rem(24), $padding-block: rem(8)) {
   // All old stuff is required
-  -webkit-line-clamp: $lines;
   -webkit-box-orient: vertical;
+  -webkit-line-clamp: $lines;
   display: -webkit-box;
-
   line-clamp: $lines;
-  overflow: hidden;
   max-height: $lines * $line-height + $padding-block;
+  overflow: hidden;
 }
 
 @mixin multiline-truncate-override($lines: 4, $line-height: rem(24), $padding-block: rem(8)) {
@@ -186,40 +243,39 @@
   vertical-align: baseline;
 }
 
-@mixin ol($counter: counter(list-item) '.') {
-  --start-counter: 1;
+// Baseline debug helper
+@mixin baseline-debug($color: rgba(255, 0, 0, 0.2)) {
+  position: relative;
 
-  list-style: none;
-  padding-inline: 0;
-
-  > li {
-    counter-increment: list-item var(--start-counter);
-    position: relative;
-    padding-left: 2em;
-
-    &::before {
-      color: var(--color-ink-2ry);
-      content: $counter;
-      position: absolute;
-      left: 0;
-      text-align: right;
-    }
+  &::after {
+    background-image: repeating-linear-gradient(
+      transparent,
+      transparent #{rem($lh-step - 1)},
+      $color #{rem($lh-step - 1)},
+      $color #{rem($lh-step)}
+    );
+    content: '';
+    height: 100%;
+    left: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
   }
 }
 // #endregion
 
 // -----------------------------------------------------------------------------
-// GRAPHICS
+// #region: GRAPHICS
 // -----------------------------------------------------------------------------
-// #region
 
 @mixin border() {
   border-radius: var(--border-radius-base);
-
   display: flex;
-  position: relative;
-  overflow: hidden;
   max-width: max-content;
+  overflow: hidden;
+  position: relative;
 
   // Border
   &::after {
@@ -227,12 +283,9 @@
     box-shadow: inset 0 0 0 1px var(--color-ink-border-neutral);
     content: '';
     display: block;
+    inset: 0;
     pointer-events: none;
     position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
   }
 
   &:empty {
@@ -242,9 +295,8 @@
 // #endregion
 
 // -----------------------------------------------------------------------------
-// UTILITIES / HELPERS
+// #region: UTILITIES / HELPERS
 // -----------------------------------------------------------------------------
-// #region
 
 @mixin utility-classes($props) {
   // Generate classes for all breakpoints
@@ -279,65 +331,65 @@
 @mixin visually-hidden() {
   border: 0;
   clip: rect(0, 0, 0, 0);
+  height: 1px;
   margin: -1px;
-  padding: 0;
   overflow: hidden;
+  padding: 0;
   position: absolute;
   white-space: nowrap;
   width: 1px;
-  height: 1px;
 }
 
 @mixin state-disabled() {
   cursor: not-allowed;
   filter: grayscale(100%);
-  pointer-events: none;
   opacity: 0.5;
+  pointer-events: none;
 }
 
 @mixin state-focus($size: rem(2), $color: var(--color-ink-2ry-info)) {
-  outline: 0;
   box-shadow: 0 0 0 $size var(--color-ink-2ry-info);
+  outline: 0;
 
   // outline: $size solid $color;
   // outline-offset: $offset;
 }
 
 @mixin state-hover-a {
-  text-decoration-skip-ink: auto;
   text-decoration: underline;
+  text-decoration-skip-ink: auto;
   text-decoration-thickness: max(0.08em, 1px);
   text-underline-offset: 0.125em;
 }
 // #endregion
 
 // -----------------------------------------------------------------------------
-// ELEMENTS
+// #region: ELEMENTS
 // -----------------------------------------------------------------------------
-// #region
 
 @mixin menu-item() {
   --button-height: auto;
+
+  align-items: center;
+  background-color: transparent;
   border: 0;
   border-radius: var(--border-radius-sm);
-  background-color: transparent;
   color: var(--menu-color, var(--color-ink-2ry));
   display: flex;
-  align-items: center;
-  gap: var(--size-1);
-  justify-content: flex-start;
   font-size: inherit;
   font-weight: inherit;
+  gap: var(--size-1);
+  justify-content: flex-start;
+  outline: 0;
+  padding: var(--menu-item-padding, var(--size-1) var(--size-2));
+  position: relative;
   text-align: left;
   text-decoration: none;
   text-transform: none;
-  padding: var(--menu-item-padding, var(--size-1) var(--size-2));
-  position: relative;
-  outline: 0;
-  user-select: none;
   transition:
-    background var(--duration-50),
-    color var(--duration-50);
+    background var(--duration-shortest),
+    color var(--duration-shortest);
+  user-select: none;
   width: 100%;
 
   > * {
@@ -346,6 +398,13 @@
 
   &:focus-visible {
     @include state-focus();
+  }
+
+  @media (any-hover: hover) {
+    &:hover {
+      background-color: var(--color-ink-fill);
+      text-decoration: none;
+    }
   }
 
   &:is(:active, :focus-visible) {
@@ -364,8 +423,8 @@
 
   // Previous webkit browsers
   &::-webkit-scrollbar {
-    width: $size;
     height: $size;
+    width: $size;
   }
 
   &::-webkit-scrollbar-track {
@@ -377,8 +436,8 @@
   // Handle
   &::-webkit-scrollbar-thumb {
     background-color: $thumb-bg;
-    border-radius: var(--border-radius-pill);
     border: var(--size-half) solid transparent;
+    border-radius: var(--border-radius-pill);
   }
 }
 // #endregion
