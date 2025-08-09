@@ -43,9 +43,9 @@
 @layer components {
   @include meta.load-css('components/hero/hero');
   @include meta.load-css('components/layout/section');
+  @include meta.load-css('components/header/header');
   // @include meta.load-css('components/card/card');                       // 👈
   // @include meta.load-css('components/navbar/navbar');                   // 👈
-  // @include meta.load-css('components/header/header');
   // @include meta.load-css('components/footer/footer');
   // @include meta.load-css('components/scroller/scroller');
   // @include meta.load-css('components/snippet/snippet');

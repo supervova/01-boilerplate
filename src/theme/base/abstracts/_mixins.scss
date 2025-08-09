@@ -166,11 +166,6 @@
   line-height: var(--line-height-#{$level});
   padding-bottom: var(--padding-bottom-#{$level});
   padding-top: var(--padding-top-#{$level});
-
-  @supports (text-box-trim: trim-both) {
-    text-box: trim-both cap alphabetic;
-    padding-block: 0;
-  }
 }
 
 // Добавить в _mixins.scss в раздел TYPOGRAPHY после существующих миксинов:

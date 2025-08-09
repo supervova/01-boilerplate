@@ -1,0 +1,7 @@
+@use '../../base/abstracts' as *;
+
+.header {
+  position: fixed;
+  top: 0;
+  inset-inline: 0;
+}

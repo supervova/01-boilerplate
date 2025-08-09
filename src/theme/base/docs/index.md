@@ -19,7 +19,6 @@ npm i 01-boilerplate
 - Class-light. стиль именования [`.comp-child-mod`](comp-modifier-vs-has-is.md)
 - [@scope](base/scope.md) и [@layer](base/cascade-layers.md)
 - [`:is`, `:has`, `:where`](base/use-new-features-for-cleaner-css.md)
-- [`text-box-trim`, `text-box-edge`](type/text-box-vertical-rhythm.md), `lh`, `rlh`
 - [`image-set()`, `field-sizing: content`, `:user-invalid`, `transition-behavior: allow-discrete`](20s-new-features.md) и пр. полезные штучки
 - пользовательские медиазапросы и новый синтаксис диапазонов
 - отказ от [Tailwind](tailwind/01-tailwind-vs-custom-framework.md), [CSS-модулей](../react/02-styling/02-css-modules.md), [БЭМ](base/cascade-layers-instead-bem.md) и пр. «изоляционистских» подходов

@@ -32,23 +32,23 @@ $html-font-size: 16px !default;
 // Font metrics for common fonts (cap-height, x-height ratios)
 // These can be obtained from Capsize CSS or measured manually
 $font-metrics: (
-  'system': (
-    cap-height: 0.68,
-    ascender: 0.92,
-    descender: 0.24,
-    line-gap: 0.05
+  'Manrope': (
+    cap-height: math.div(1440, 2000),
+    ascender: math.div(2132, 2000),
+    descender: math.div(-600, 2000),
+    line-gap: 0
   ),
-  'inter': (
-    cap-height: 0.72,
-    ascender: 0.97,
-    descender: 0.21,
-    line-gap: 0.03
+  'Inter': (
+    cap-height: math.div(1490, 2048),
+    ascender: math.div(1984, 2048),
+    descender: math.div(-494, 2048),
+    line-gap: 0
   ),
-  'source-sans': (
-    cap-height: 0.70,
-    ascender: 0.94,
-    descender: 0.25,
-    line-gap: 0.04
+  '-apple-system': (
+    cap-height: math.div(1443, 2048),
+    ascender: math.div(1980, 2048),
+    descender: math.div(-432, 2048),
+    line-gap: 0
   )
 ) !default;
 

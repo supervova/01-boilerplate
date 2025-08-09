@@ -16,7 +16,7 @@
   }
 }
 
-@scope (.main) {
+@scope (.main:not(:has(> .hero))) {
   :scope {
     padding-block-start: var(--spacer);
   }
