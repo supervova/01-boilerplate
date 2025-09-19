@@ -1,0 +1,278 @@
+@use '../../theme/abstracts' as *;
+
+// -----------------------------------------------------------------------------
+// #region: BASE
+// -----------------------------------------------------------------------------
+
+// Focus management
+:focus-visible {
+  scroll-padding-block-end: var(--scroll-padding-end, 8vh);
+}
+
+:target {
+  scroll-padding-block-start: var(--size-4);
+}
+
+// Block elements
+address,
+dd,
+dt,
+li,
+p {
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  font-variant-numeric: oldstyle-nums;
+  font-weight: var(--font-weight-base);
+  letter-spacing: var(--letter-spacing-base);
+  line-height: var(--line-height-base);
+  text-wrap: pretty;
+  margin-top: 0;
+  padding-block-start: var(--padding-top-base);
+  padding-block-end: var(--padding-bottom-base);
+  overflow-wrap: break-word;
+}
+
+address,
+p {
+  margin-bottom: var(--size-2);
+}
+
+address {
+  font-style: normal;
+}
+
+div,
+td,
+th,
+li {
+  overflow-wrap: break-word;
+}
+
+// Lists
+ol,
+ul {
+  font-variant-numeric: oldstyle-nums;
+  margin-bottom: var(--size-2);
+  margin-top: 0;
+}
+
+
+ul {
+  padding-inline-start: 0;
+}
+
+// List markers
+:where(ul:not([class]):not(nav ul)) > li::marker,
+ul.list-unordered > li::marker {
+  color: var(--color-brand-primary);
+  content: '\2022\00a0\00a0';
+}
+
+ol {
+  padding-inline-start: var(--size-4);
+
+  > li::marker {
+    color: var(--color-ink-2ry);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+// List items
+li {
+  > p:first-child {
+    padding-top: 0;
+  }
+
+  > p:last-child {
+    padding-bottom: 0;
+  }
+}
+
+// Nested lists
+:where(ul ul, ul ol, ol ol, ol ul) {
+  margin-bottom: 0;
+  // Extra padding compensates for lost parent’s first-line padding
+  padding-top: calc(var(--size-1) + var(--padding-bottom-base));
+}
+
+:is(ul ul, ol ul) {
+  padding-inline-start: var(--size-2);
+}
+
+// Now remove the extra padding added at the top of the nested list
+li:has(>ul, >ol) {
+  padding-bottom: 0;
+}
+
+// Navigation lists
+nav ul {
+  list-style: none;
+  margin-bottom: 0;
+  padding-inline-start: 0;
+}
+
+.list-unstyled,
+.list-inline {
+  list-style: none;
+  margin-bottom: 0;
+  padding-left: 0;
+}
+
+.list-inline li {
+  display: inline-block;
+  padding: 0;
+}
+
+.list-inline li:not(:last-child) {
+  margin-inline-end: var(--size-half);
+}
+
+:where(ul:not([class]):not(nav ul)),
+ul.list-unordered {
+  list-style: none;
+  padding-left: var(--size-2p5);
+}
+
+// Description lists
+dl {
+  margin: 0;
+  padding: 0;
+}
+
+dt,
+dd {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
+dt {
+  font-weight: 500;
+}
+
+dd {
+  &::before {
+    content: ' ';
+  }
+
+  &::after {
+    content: '';
+    display: block;
+    height: var(--size-1);
+  }
+}
+
+// Dividers
+hr {
+  --margin: calc(var(--size-line) * 3);
+
+  border: 0;
+  border-block-start: var(--border-width) solid var(--color-ink-border);
+  margin-block: calc(var(--margin) - var(--border-width)) var(--margin);
+}
+
+// #endregion
+
+// -----------------------------------------------------------------------------
+// #region: INLINE ELEMENTS
+// -----------------------------------------------------------------------------
+
+:where(a:not(.btn):not([role='button'])),
+[role='link'] {
+  --background-focus: var(--color-bg-brand);
+  color: var(--color-ink-link);
+  outline: none;
+  text-decoration: none;
+  transition:
+    background-color var(--duration-shortest),
+    color var(--duration-shortest),
+    text-decoration var(--duration-shortest);
+
+  &:is(:active, :focus-visible) {
+    @include state-hover-a;
+  }
+
+  &:focus-visible {
+    --background-color: var(--background-focus);
+  }
+
+  &:is([aria-current]) {
+    color: var(--color-current, var(--color-ink-text));
+  }
+}
+
+@media (any-hover: hover) {
+  :where(a:not(.btn):not([role='button'])),
+  [role='link'] {
+    &:hover {
+      @include state-hover-a;
+    }
+  }
+}
+
+// Link with chevron icon
+.link-forward {
+  align-self: start;
+  display: inline-flex;
+  position: relative;
+  white-space: nowrap;
+}
+
+// Text formatting
+b,
+strong {
+  font-weight: bolder;
+}
+
+em,
+i {
+  font-style: italic;
+}
+
+small {
+  font-weight: var(--font-weight-caption, inherit);
+  letter-spacing: var(--letter-spacing-caption, normal);
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-caption);
+}
+
+// Sub/Sup
+sub,
+sup {
+  font-size: var(--font-size-caption);
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  inset-block-end: -0.25em;
+}
+
+sup {
+  inset-block-start: -0.5em;
+}
+
+// Selection
+::selection {
+  background: var(--color-bg-bold-brand);
+  color: var(--color-ink-text-inverse);
+  text-shadow: none;
+}
+
+// #endregion
+
+// -----------------------------------------------------------------------------
+// #region: UTILITIES
+// -----------------------------------------------------------------------------
+
+.lead {
+  @include text-format(h3);
+  margin: 0;
+}
+
+.caption {
+  @include text-format(caption);
+}
+
+// #endregion

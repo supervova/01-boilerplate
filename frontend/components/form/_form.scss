@@ -1,0 +1,342 @@
+@use '../../theme/abstracts' as *;
+
+// -----------------------------------------------------------------------------
+// #region: MAPS & MIXINS
+// -----------------------------------------------------------------------------
+
+// stylelint-disable custom-property-no-missing-var-function
+$form-field-variants: (
+  'error': (
+    --form-field-border-color: var(--color-error-border),
+    --form-field-bg: var(--color-error-bg),
+    --form-field-text-color: var(--color-error-text),
+  ),
+  'success': (
+    --form-field-border-color: var(--color-success-border),
+    --form-field-bg: var(--color-success-bg),
+    --form-field-text-color: var(--color-success-text),
+  ),
+  'warning': (
+    --form-field-border-color: var(--color-warning-border),
+    --form-field-bg: var(--color-warning-bg),
+    --form-field-text-color: var(--color-warning-text),
+  ),
+);
+
+$form-field-sizes: (
+  'sm': (
+    --form-field-padding-y: var(--size-1),
+    --form-field-padding-x: var(--size-2),
+    --form-field-font-size: var(--font-size-sm),
+    --form-field-min-height: calc(var(--size-line) * 1.5),
+  ),
+  'lg': (
+    --form-field-padding-y: var(--size-2),
+    --form-field-padding-x: var(--size-3),
+    --form-field-font-size: var(--font-size-lg),
+    --form-field-min-height: calc(var(--size-line) * 2.5),
+  ),
+);
+// stylelint-enable custom-property-no-missing-var-function
+
+@mixin form-field-variants($map) {
+  @each $variant, $props in $map {
+    &.form-field-#{$variant} {
+      @each $prop, $value in $props {
+        #{$prop}: #{$value};
+      }
+    }
+  }
+}
+
+@mixin form-field-states($root) {
+  #{$root}:focus,
+  #{$root}:focus-visible {
+    @include state-focus;
+
+    border-color: transparent;
+    color: var(--form-field-text-color);
+  }
+
+  #{$root}:disabled,
+  #{$root}[readonly] {
+    @include state-disabled();
+  }
+
+  #{$root}::placeholder {
+    color: var(--color-ink-3ry);
+    opacity: 1;
+  }
+}
+
+// #endregion
+
+// -----------------------------------------------------------------------------
+// #region: BASE
+// -----------------------------------------------------------------------------
+
+form {
+  accent-color: var(--color-ink-text-brand);
+  caret-color: var(--color-ink-2ry-brand);
+}
+
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+legend {
+  @include text-format(base);
+
+  // stylelint-disable-next-line no-duplicate-selectors
+  & {
+    display: block;
+    font-weight: 500;
+    margin: 0;
+    max-width: 100%;
+    white-space: normal;
+  }
+}
+
+// #endregion
+
+// -----------------------------------------------------------------------------
+// #region: CONTAINERS
+// -----------------------------------------------------------------------------
+
+@scope (.form-container) {
+  :scope {
+    p,
+    > div:not([class]) {
+      padding: 0;
+      position: relative;
+    }
+  }
+}
+
+@scope (.form-row) {
+  :scope {
+    --form-row-gap: var(--size-2);
+    --form-row-columns: 1fr;
+
+    display: grid;
+    gap: var(--form-row-gap);
+    grid-template-columns: var(--form-row-columns);
+    margin-bottom: var(--size-2);
+
+    @media (--tablet) {
+      --form-row-columns: repeat(auto-fit, minmax(0%, 1fr));
+    }
+  }
+
+  :scope.form-row-phone-2-columns {
+    @media (--phone) {
+      --form-row-columns: 1fr 1fr;
+    }
+  }
+}
+
+@scope (.form-item) {
+  :scope {
+    --form-item-padding-y: var(--size-1);
+    --form-item-gap: var(--size-2);
+
+    align-items: center;
+    border-top: 1px solid var(--color-ink-border);
+    display: flex;
+    gap: var(--form-item-gap);
+    padding-block: var(--form-item-padding-y);
+  }
+
+  label {
+    flex-grow: 1;
+  }
+
+  label strong,
+  label span {
+    display: block;
+  }
+
+  label strong {
+    color: var(--color-ink-text);
+    margin-bottom: rem(-4);
+    padding-block: var(--padding-top-base) var(--padding-bottom-base);
+  }
+
+  label span {
+    @include text-format(caption);
+  }
+
+  select,
+  input[type='radio'],
+  [role='switch'] {
+    order: 1;
+  }
+
+  :scope.form-item-select select {
+    background-color: transparent;
+    background-image: var(--icon-chevron-up-down);
+    color: var(--color-ink-text-brand);
+    min-height: auto;
+    padding-block: 0;
+    padding-inline-end: var(--size-4);
+    text-align: end;
+    width: auto;
+  }
+
+  :scope.form-item-input input {
+    width: var(--width, auto);
+  }
+}
+
+// #endregion
+
+// -----------------------------------------------------------------------------
+// #region: FIELDS
+// -----------------------------------------------------------------------------
+
+@scope (.form-field) {
+  input,
+  optgroup,
+  select,
+  textarea {
+    font-family: inherit;
+    font-size: var(--form-field-font-size, var(--font-size-base));
+    letter-spacing: inherit;
+    line-height: var(--line-height-base);
+  }
+
+  :scope:--text-field,
+  [type='search'] {
+    --form-field-bg: hsl(var(--h) var(--s) 90% / 0.05);
+    --form-field-padding-y: var(--padding-y-input);
+    --form-field-padding-x: var(--padding-x-input);
+    --form-field-text-color: var(--color-ink-text);
+    --form-field-min-height: calc(var(--size-line) * 2);
+
+    appearance: none;
+    background-color: var(--form-field-bg);
+    border: 0;
+    border-radius: var(--border-radius-sm);
+    color: var(--form-field-text-color);
+    display: block;
+    min-height: var(--form-field-min-height);
+    overflow: visible;
+    padding-block: var(--form-field-padding-y);
+    padding-inline: var(--form-field-padding-x);
+    transition:
+      box-shadow var(--easing-base) var(--duration-shortest),
+      color var(--easing-base) var(--duration-shortest);
+    width: 100%;
+
+    @include form-field-variants($form-field-variants);
+    @include form-field-variants($form-field-sizes);
+  }
+
+  @include form-field-states(
+    ':scope:--text-field, [type="search"]'
+  );
+
+  input[type='password'] {
+    padding-inline-end: var(--padding-x-input-lg);
+  }
+
+  textarea {
+    overflow: auto;
+    resize: vertical;
+
+    &:not([rows]) {
+      height: calc(var(--size-line) * 6);
+    }
+  }
+}
+
+// #endregion
+
+// -----------------------------------------------------------------------------
+// #region: HINTS & MESSAGES
+// -----------------------------------------------------------------------------
+
+@scope (.form-hint) {
+  :scope {
+    color: var(--color-ink-2ry);
+    display: block;
+    margin-top: var(--size-half);
+    max-width: var(--width-prose);
+    padding-block: var(--padding-top-caption);
+    padding-inline: var(--size-2);
+    text-align: left;
+  }
+}
+
+@scope (.form-disclaimer) {
+  :scope {
+    margin-block: var(--size-line);
+  }
+}
+
+// #endregion
+
+// -----------------------------------------------------------------------------
+// #region: ACTIONS
+// -----------------------------------------------------------------------------
+
+@scope (.form-footer) {
+  :scope {
+    > * {
+      margin-bottom: var(--size-2);
+    }
+
+    @media (--tablet) {
+      align-items: center;
+      display: flex;
+      padding-block: var(--padding-top-form-actions) var(--padding-bottom-form-actions);
+
+      > :not(:last-child) {
+        margin-inline-end: var(--size-2);
+      }
+    }
+  }
+}
+
+@scope (.form-password-toggle) {
+  :scope {
+    background: transparent;
+    position: absolute;
+    inset-block-start: var(--size-half);
+    inset-inline-end: var(--size-1);
+
+    @media (any-hover: hover) {
+      &:hover {
+        --icon-stroke: var(--color-ink-text);
+        background: transparent;
+      }
+    }
+  }
+}
+
+// #endregion
+
+// -----------------------------------------------------------------------------
+// #region: BROWSER NORMALIZE
+// -----------------------------------------------------------------------------
+
+::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+
+:-moz-focusring {
+  outline: 0;
+}
+
+:-moz-ui-invalid {
+  box-shadow: none;
+}
+
+::-ms-expand {
+  display: none;
+}
+
+// #endregion

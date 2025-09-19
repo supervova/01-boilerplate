@@ -1,0 +1,76 @@
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:math';
+@use 'sass:meta';
+@use 'sass:string';
+@use 'config' as *;
+
+// -----------------------------------------------------------------------------
+// #region: UNIT CONVERSION
+// -----------------------------------------------------------------------------
+
+// Removes unit from a value
+@function strip-unit($value) {
+  @return math.div($value, ($value * 0 + 1));
+}
+
+// Converts px values to rem units based on root font size
+@function rem($value) {
+  @if $value == 0 {
+    @return 0;
+  }
+  @return math.div(strip-unit($value), strip-unit($html-font-size)) * 1rem;
+}
+
+// We reduce any number to px if it does not contain the number one.
+@function to-px($n) {
+  @if meta.type-of($n) == 'number' and math.is-unitless($n) { @return $n * 1px; }
+  @return $n;
+}
+
+// line-height -> px: если unitless, умножаем на font-size (в px), иначе просто приводим к px
+@function lh-to-px($fs, $lh) {
+  $fs-px: to-px($fs);
+  @if meta.type-of($lh) == 'number' and math.is-unitless($lh) {
+    @return $fs-px * $lh;
+  }
+  @return to-px($lh);
+}
+
+// #endregion
+
+// -----------------------------------------------------------------------------
+// #region: TYPOGRAPHY
+// -----------------------------------------------------------------------------
+
+// Round line height to nearest step
+@function round-line-height($font-size, $target-ratio: 1.5) {
+  $target-px: $font-size * $target-ratio;
+  $steps: math.ceil($target-px / $grid-unit);
+  @return $steps * $grid-unit;
+}
+
+// Helper function to format typography values
+@function format-typography-value($prop, $val) {
+  // Properties that need rem conversion from px values
+  $rem-props: 'font-size', 'padding-top', 'padding-bottom', 'letter-spacing';
+
+  // Skip conversion for CSS variables and keywords
+  @if meta.type-of($val) == string and (string.index($val, 'var(') == 1 or $val == 'normal') {
+    @return $val;
+  }
+
+  // Skip conversion for unitless line-height ratios
+  @if $prop == 'line-height' and meta.type-of($val) == 'number' and math.is-unitless($val) {
+    @return $val;
+  }
+
+  // Convert to rem for specific properties
+  @if list.index($rem-props, $prop) and meta.type-of($val) == 'number' and math.is-unitless($val) and $val != 0 {
+    @return rem($val);
+  }
+
+  @return $val;
+}
+
+// #endregion
