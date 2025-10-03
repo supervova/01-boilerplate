@@ -1,0 +1,153 @@
+/* -------------------------------------------------------------------------- */
+/* #region: BASE                                                              */
+/* -------------------------------------------------------------------------- */
+
+.btn {
+  --button-bg: var(--color-fill);
+  --button-bg-hover: color-mix(in oklch, var(--button-bg) 60%, #fff);
+  --button-filter-hover: none;
+  --button-color: var(--color-text);
+  --button-border-color: transparent;
+  --button-border-width: 0;
+  --button-height: var(--size-6);
+  --button-padding-x: var(--size-3);
+  --button-gap: var(--size-1);
+  --button-radius: var(--border-radius-base);
+  --button-font-size: var(--font-size-base);
+  --button-font-weight: 500;
+  --button-shadow-focus: 0 0 0 3px color-mix(in oklch, var(--color-focus) 35%, transparent);
+  --button-transition:
+    background var(--duration-50) var(--easing-base),
+    border-color var(--duration-50) var(--easing-base),
+    box-shadow var(--duration-50) var(--easing-base),
+    color var(--duration-50) var(--easing-base);
+  --button-box-shadow: none;
+  --button-box-shadow-hover: none;
+  --button-decoration-hover: none;
+
+  align-items: center;
+  appearance: none;
+  background: var(--button-bg);
+  border-color: var(--button-border-color);
+  border-radius: var(--button-radius);
+  border-style: solid;
+  border-width: var(--button-border-width);
+  box-shadow: var(--button-box-shadow);
+  color: var(--button-color);
+  cursor: pointer;
+  display: inline-flex;
+  gap: var(--button-gap);
+  justify-content: center;
+  font-size: var(--button-font-size);
+  font-weight: var(--button-font-weight);
+  line-height: 1;
+  padding-inline: var(--button-padding-x);
+  position: relative;
+  text-decoration: none;
+  transition: var(--button-transition);
+  user-select: none;
+  white-space: nowrap;
+  height: var(--button-height);
+}
+
+.btn:focus-visible {
+  box-shadow: var(--button-shadow-focus);
+  outline: none;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+@media (any-hover: hover) {
+  .btn:hover {
+    background: var(--button-bg-hover);
+    box-shadow: var(--button-box-shadow-hover);
+    filter: var(--button-filter-hover);
+    text-decoration: var(--button-decoration-hover, none);
+  }
+}
+
+.btn.btn-icon {
+  aspect-ratio: 1;
+  padding-inline: 0;
+  width: var(--button-height);
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: VARIANTS                                                          */
+/* -------------------------------------------------------------------------- */
+
+.btn-primary {
+  --button-bg: var(--color-gradient-brand);
+  --button-bg-hover: var(--color-gradient-brand);
+  --button-filter-hover: var(--filter-brightness-up);
+  --button-box-shadow-hover:
+    inset 0 0 0 1px hsl(0deg 0% 0% / 8%),
+    inset 0 0 2px hsl(0deg 0% 100% / 40%),
+    inset 0 0 4px 2px rgb(255 255 255 / 24%),
+    inset 0 0 16px 2px rgb(255 255 255 / 12%);
+  --button-color: var(--color-text-inverse);
+  --button-border-color: transparent;
+  --button-transition:
+    filter var(--duration-50) var(--easing-base),
+    box-shadow var(--duration-50) var(--easing-base);
+}
+
+.btn-outline {
+  --button-bg: transparent;
+  --button-color: var(--color-text-brand);
+  --button-border-color: var(--color-border);
+  --button-bg-hover: color-mix(in oklch, var(--color-brand) 10%, transparent);
+}
+
+.btn-ghost {
+  --button-bg: transparent;
+  --button-color: var(--color-text-brand);
+  --button-border-color: transparent;
+  --button-bg-hover: color-mix(in oklch, var(--color-brand) 10%, transparent);
+}
+
+.btn-link {
+  --button-bg: transparent;
+  --button-color: var(--color-link);
+  --button-border-color: transparent;
+  --button-height: auto;
+  --button-padding-x: 0;
+  --button-radius: 0;
+  --button-bg-hover: transparent;
+  --button-decoration-hover: underline;
+}
+
+.btn-sm {
+  --button-height: var(--size-4);
+  --button-padding-x: var(--size-2);
+  --button-font-size: var(--font-size-sm);
+}
+
+.btn-lg {
+  --button-height: var(--size-7);
+  --button-padding-x: var(--size-4);
+  --button-font-size: var(--font-size-lg);
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: CLASSLESS                                                         */
+/* -------------------------------------------------------------------------- */
+
+:where(button, [type='button'], [type='reset'], [type='submit'])::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+
+/* #endregion */

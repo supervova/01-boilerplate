@@ -174,7 +174,7 @@ my-component/
 // components/Button/_button.scss
 
 .btn {
-  --btn-bg: var(--color-ink-fill);
+  --btn-bg: var(--color-fill);
   --btn-color: var(--color-text-02);
   --btn-font-weight: 500;
   --btn-height: var(--size-6);
@@ -220,7 +220,7 @@ $btn-variants: (
   ),
   'link': (
     '--btn-bg': transparent,
-    '--btn-color': var(--color-ink-link),
+    '--btn-color': var(--color-link),
     '--btn-bg-hover': transparent,
   ),
   'icon': (

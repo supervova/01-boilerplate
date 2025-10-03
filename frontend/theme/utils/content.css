@@ -1,0 +1,43 @@
+/* -------------------------------------------------------------------------- */
+/* #region: CONTENT UTILITIES                                                 */
+/* -------------------------------------------------------------------------- */
+
+.bg-highlight { background-color: var(--color-bg-bold-brand); }
+.text-info-title { color: var(--color-text-02-brand); }
+.text-02 { color: var(--color-text-02); }
+
+.text-start { text-align: start; }
+.text-center { text-align: center; }
+.text-end { text-align: end; }
+
+[class$='text-center'] > p {
+  margin-inline: auto;
+}
+
+.nobr { white-space: nowrap; }
+.vertical-middle { vertical-align: middle; }
+
+.snap-x {
+  overflow: auto hidden;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .snap-x {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (hover: none) {
+  .snap-x {
+    scrollbar-width: none;
+  }
+
+  .snap-x::-webkit-scrollbar {
+    height: 0;
+    width: 0;
+  }
+}
+
+/* #endregion */

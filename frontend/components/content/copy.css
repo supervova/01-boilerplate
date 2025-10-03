@@ -1,0 +1,212 @@
+/* ------------------------------------------------------------------------ */
+/* #region: BASE                                                            */
+/* ------------------------------------------------------------------------ */
+
+body {
+  color: var(--color-text);
+  font-family: var(--font-family-base);
+}
+
+:where(:focus-visible) {
+  scroll-padding-block-end: var(--scroll-padding-end, 8vh);
+}
+
+:where(:target) {
+  scroll-padding-block-start: var(--size-4);
+}
+
+:where(address, dd, dt, li, p) {
+  font-size: var(--font-size-base);
+  font-variant-numeric: oldstyle-nums;
+  font-weight: 400;
+  letter-spacing: var(--letter-spacing-base);
+  line-height: var(--line-height-base);
+  margin: 0;
+  overflow-wrap: break-word;
+  padding-block: var(--padding-top-base) var(--padding-bottom-base);
+  text-wrap: pretty;
+}
+
+:where(address, p) {
+  margin-block-end: var(--size-2);
+}
+
+:where(address) {
+  font-style: normal;
+}
+
+:where(div, li, td, th) {
+  overflow-wrap: break-word;
+}
+
+hr {
+  --copy-divider-margin: calc(var(--size-line) * 3);
+  border: 0;
+  border-block-start: var(--border-width) solid var(--color-border);
+  margin-block: calc(var(--copy-divider-margin) - var(--border-width)) var(--copy-divider-margin);
+}
+
+/* #endregion */
+
+/* ------------------------------------------------------------------------ */
+/* #region: LISTS                                                           */
+/* ------------------------------------------------------------------------ */
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding-inline-start: var(--size-2p5);
+}
+
+ol {
+  margin: 0;
+  padding-inline-start: var(--size-4);
+}
+
+:where(ul:not([class], nav ul)) > li::marker,
+ul.list-unordered > li::marker {
+  color: var(--color-brand);
+  content: '\2022\00a0\00a0';
+}
+
+ol > li::marker {
+  color: var(--color-text-02);
+  font-variant-numeric: tabular-nums;
+}
+
+li > p:first-child {
+  padding-block-start: 0;
+}
+
+li > p:last-child {
+  padding-block-end: 0;
+}
+
+:where(ul ul, ul ol, ol ul, ol ol) {
+  margin-block-end: 0;
+  padding-block-start: calc(var(--size-1) + var(--padding-bottom-base));
+}
+
+:where(ul ul, ol ul) {
+  padding-inline-start: var(--size-2);
+}
+
+li:has(> ul, > ol) {
+  padding-block-end: 0;
+}
+
+nav ul,
+.list-unstyled,
+.list-inline {
+  list-style: none;
+  margin: 0;
+  padding-inline-start: 0;
+}
+
+.list-inline li {
+  display: inline-block;
+  margin-inline-end: var(--size-half);
+  padding: 0;
+}
+
+.list-inline li:last-child {
+  margin-inline-end: 0;
+}
+
+dl {
+  margin: 0;
+  padding: 0;
+}
+
+dt,
+dd {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
+dt {
+  font-weight: 500;
+}
+
+dd::before {
+  content: ' ';
+}
+
+dd::after {
+  content: '';
+  display: block;
+  height: var(--size-1);
+}
+
+/* #endregion */
+
+/* ------------------------------------------------------------------------ */
+/* #region: INLINE                                                          */
+/* ------------------------------------------------------------------------ */
+
+:where(a:not(.btn, [role='button'])),
+[role='link'] {
+  --background-focus: var(--color-bg-brand);
+  color: var(--color-link);
+  outline: none;
+  text-decoration: none;
+  transition:
+    background-color var(--duration-50),
+    color var(--duration-50),
+    text-decoration var(--duration-50);
+}
+
+:where(a:not(.btn, [role='button'])):is(:active, :focus-visible),
+[role='link']:is(:active, :focus-visible) {
+  text-decoration: underline;
+  text-decoration-skip-ink: auto;
+  text-decoration-thickness: max(0.08em, 1px);
+  text-underline-offset: 0.125em;
+}
+
+:where(a:not(.btn, [role='button'])):focus-visible,
+[role='link']:focus-visible {
+  background-color: var(--background-focus);
+}
+
+:where(a:not(.btn, [role='button']))[aria-current],
+[role='link'][aria-current] {
+  color: var(--color-current, var(--color-text));
+}
+
+mark {
+  background: var(--color-bg-brand);
+  color: inherit;
+  padding-inline: var(--size-half);
+}
+
+code {
+  background: var(--color-bg-02);
+  border-radius: var(--border-radius-sm);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-body-sm);
+  padding-inline: var(--size-half);
+}
+
+/* #endregion */
+
+/* ------------------------------------------------------------------------ */
+/* #region: UTILITIES                                                       */
+/* ------------------------------------------------------------------------ */
+
+.text-muted {
+  color: var(--color-text-02);
+}
+
+.text-small {
+  font-size: var(--font-size-body-sm);
+  line-height: var(--line-height-body-sm);
+}
+
+.text-uppercase {
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* #endregion */

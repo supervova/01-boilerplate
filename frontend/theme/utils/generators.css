@@ -1,0 +1,13 @@
+/* Grid column classes generation */
+$screens: (phone, tablet, laptop, desktop);
+
+@each $screen in $screens {
+  /* stylelint-disable media-query-no-invalid */
+  @media (--$(screen)) {
+    @for $i from 1 to 12 {
+      .$(screen)\:col-$(i) {
+        grid-column: auto / span $i;
+      }
+    }
+  }
+}

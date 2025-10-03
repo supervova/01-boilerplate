@@ -1,0 +1,101 @@
+/* -------------------------------------------------------------------------- */
+/* #region: DARK THEME VARIABLES                                              */
+/* -------------------------------------------------------------------------- */
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+
+    --color-bg: hsl(var(--h) var(--s-min) 14%);
+    --color-bg-02: var(--color-bg-z3);
+    --color-bg-z1: hsl(var(--h) var(--s-min) 18%);
+    --color-bg-z2: hsl(var(--h) var(--s-min) 21%);
+    --color-bg-z3: hsl(var(--h) var(--s-min) 24%);
+    --color-bg-inverse: hsl(var(--h) var(--s-min) 96%);
+    --color-fill: hsl(var(--h) var(--s-min) 99% / 4%);
+    --color-scrim: hsl(var(--h) var(--s-min) 14%);
+    --color-text: hsl(var(--h) var(--s-min) 99% / 87%);
+    --color-text-02: hsl(var(--h) var(--s-min) 99% / 60%);
+    --color-text-03: hsl(var(--h) var(--s-min) 99% / 38%);
+    --color-icon: var(--color-text-03);
+    --color-border: hsl(var(--color-shadow) / 32%);
+    --color-link: hsl(var(--h-blue) var(--s) 70%);
+    --color-code: hsl(var(--h-blue) var(--s-dim) 70%);
+
+    --color-text-inverse: hsl(var(--h) var(--s-min) 14%);
+    --color-text-02-inverse: hsl(var(--h) var(--s-min) 47%);
+    --color-text-03-inverse: hsl(var(--h) var(--s-min) 62%);
+    --color-icon-inverse: var(--color-text-03-inverse);
+    --color-border-inverse: hsl(var(--color-shadow) / 8%);
+    --color-text-neutral: hsl(0deg 0% 100% / 87%);
+    --color-text-02-neutral: hsl(0deg 0% 100% / 60%);
+    --color-text-03-neutral: hsl(0deg 0% 100% / 38%);
+    --color-border-neutral: hsl(0deg 0% 100% / 8%);
+    --color-focus: color-mix(in oklch, var(--color-brand) 50%, transparent);
+    --color-info: hsl(var(--h-blue) var(--s) 64%);
+    --color-bg-info: hsl(var(--h-blue) var(--s-min) 26%);
+    --color-text-info: hsl(var(--h-blue) var(--s) 80%);
+    --color-text-02-info: hsl(var(--h-blue) var(--s) 68%);
+    --color-error: hsl(var(--h-red) var(--s) 64%);
+    --color-error-bg: hsl(var(--h-red) var(--s-min) 26%);
+    --color-error-text: hsl(var(--h-red) var(--s) 82%);
+    --color-error-border: hsl(var(--h-red) var(--s) 68%);
+    --color-warning: hsl(var(--h-yellow) var(--s) 52%);
+    --color-warning-bg: hsl(var(--h-yellow) var(--s-min) 28%);
+    --color-warning-text: hsl(var(--h-yellow) var(--s) 78%);
+    --color-warning-border: hsl(var(--h-yellow) var(--s) 64%);
+    --color-success: hsl(var(--h-green) var(--s) 48%);
+    --color-success-bg: hsl(var(--h-green) var(--s-min) 24%);
+    --color-success-text: hsl(var(--h-green) var(--s) 78%);
+    --color-success-border: hsl(var(--h-green) var(--s) 62%);
+  }
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  --color-bg: hsl(var(--h) var(--s-min) 14%);
+  --color-bg-02: var(--color-bg-z3);
+  --color-bg-z1: hsl(var(--h) var(--s-min) 18%);
+  --color-bg-z2: hsl(var(--h) var(--s-min) 21%);
+  --color-bg-z3: hsl(var(--h) var(--s-min) 24%);
+  --color-bg-inverse: hsl(var(--h) var(--s-min) 96%);
+  --color-fill: hsl(var(--h) var(--s-min) 99% / 4%);
+  --color-scrim: hsl(var(--h) var(--s-min) 14%);
+  --color-text: hsl(var(--h) var(--s-min) 99% / 87%);
+  --color-text-02: hsl(var(--h) var(--s-min) 99% / 60%);
+  --color-text-03: hsl(var(--h) var(--s-min) 99% / 38%);
+  --color-icon: var(--color-text-03);
+  --color-border: hsl(var(--color-shadow) / 32%);
+  --color-link: hsl(var(--h-blue) var(--s) 70%);
+  --color-code: hsl(var(--h-blue) var(--s-dim) 70%);
+
+  --color-text-inverse: hsl(var(--h) var(--s-min) 14%);
+  --color-text-02-inverse: hsl(var(--h) var(--s-min) 47%);
+  --color-text-03-inverse: hsl(var(--h) var(--s-min) 62%);
+  --color-icon-inverse: var(--color-text-03-inverse);
+  --color-border-inverse: hsl(var(--color-shadow) / 8%);
+  --color-text-neutral: hsl(0deg 0% 100% / 87%);
+  --color-text-02-neutral: hsl(0deg 0% 100% / 60%);
+  --color-text-03-neutral: hsl(0deg 0% 100% / 38%);
+  --color-border-neutral: hsl(0deg 0% 100% / 8%);
+  --color-focus: color-mix(in oklch, var(--color-brand) 50%, transparent);
+  --color-info: hsl(var(--h-blue) var(--s) 64%);
+  --color-bg-info: hsl(var(--h-blue) var(--s-min) 26%);
+  --color-text-info: hsl(var(--h-blue) var(--s) 80%);
+  --color-text-02-info: hsl(var(--h-blue) var(--s) 68%);
+  --color-error: hsl(var(--h-red) var(--s) 64%);
+  --color-error-bg: hsl(var(--h-red) var(--s-min) 26%);
+  --color-error-text: hsl(var(--h-red) var(--s) 82%);
+  --color-error-border: hsl(var(--h-red) var(--s) 68%);
+  --color-warning: hsl(var(--h-yellow) var(--s) 52%);
+  --color-warning-bg: hsl(var(--h-yellow) var(--s-min) 28%);
+  --color-warning-text: hsl(var(--h-yellow) var(--s) 78%);
+  --color-warning-border: hsl(var(--h-yellow) var(--s) 64%);
+  --color-success: hsl(var(--h-green) var(--s) 48%);
+  --color-success-bg: hsl(var(--h-green) var(--s-min) 24%);
+  --color-success-text: hsl(var(--h-green) var(--s) 78%);
+  --color-success-border: hsl(var(--h-green) var(--s) 62%);
+}
+
+/* #endregion */

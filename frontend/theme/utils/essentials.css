@@ -1,0 +1,101 @@
+/* -------------------------------------------------------------------------- */
+/* #region: ESSENTIAL UTILITIES                                               */
+/* -------------------------------------------------------------------------- */
+
+/* ------------------------------------------------------------------------ */
+/* #region: SPACING                                                          */
+/* ------------------------------------------------------------------------ */
+
+.mt-1 { margin-top: var(--size-1); }
+.mt-2 { margin-top: var(--size-2); }
+.mt-1l { margin-top: var(--size-line); }
+.mt-2l { margin-top: var(--size-6); }
+
+.mb-1 { margin-bottom: var(--size-1); }
+.mb-2 { margin-bottom: var(--size-2); }
+.mb-1l { margin-bottom: var(--size-line); }
+
+.pt-half-max { padding-top: var(--spacer-half-max); }
+.pb-half-max { padding-bottom: var(--spacer-half-max); }
+.py-half-max { padding-block: var(--spacer-half-max); }
+
+.pt-max { padding-top: var(--spacer-max); }
+.pb-max { padding-bottom: var(--spacer-max); }
+
+/* #endregion */
+
+/* ------------------------------------------------------------------------ */
+/* #region: DISPLAY                                                          */
+/* ------------------------------------------------------------------------ */
+
+.d-none { display: none; }
+.d-block { display: block; }
+.d-flex { display: flex; }
+
+@media (--phone-l) {
+  .phone-l\:d-none { display: none; }
+  .phone-l\:d-inline { display: inline; }
+}
+
+@media (--tablet) {
+  .tablet\:d-none { display: none; }
+  .tablet\:d-inline { display: inline; }
+  .tablet\:d-flex { display: flex; }
+  .tablet\:d-block { display: block; }
+}
+
+@media (--tablet-l) {
+  .tablet-l\:d-none { display: none; }
+  .tablet-l\:d-block { display: block; }
+  .tablet-l\:d-inline { display: inline; }
+}
+
+@media (--laptop) {
+  .laptop\:d-none { display: none; }
+}
+
+/* #endregion */
+
+/* ------------------------------------------------------------------------ */
+/* #region: TYPOGRAPHY                                                       */
+/* ------------------------------------------------------------------------ */
+
+.font-light { font-weight: 300; }
+.nobr { white-space: nowrap; }
+.text-02 { color: var(--color-text-02); }
+.text-info { color: var(--color-text-info); }
+.text-success { color: var(--color-success-text); }
+.text-error { color: var(--color-error-text); }
+.text-center { text-align: center; }
+
+.text-sm {
+  font-size: var(--font-size-body-sm);
+  letter-spacing: var(--letter-spacing-body-sm, normal);
+  line-height: var(--line-height-body-sm);
+  padding-bottom: var(--padding-bottom-body-sm);
+  padding-top: var(--padding-top-body-sm);
+}
+
+/* #endregion */
+
+/* ------------------------------------------------------------------------ */
+/* #region: MISC                                                             */
+/* ------------------------------------------------------------------------ */
+
+.visually-hidden {
+  border: 0;
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.w-fit { width: fit-content; }
+
+/* #endregion */
+
+/* #endregion */

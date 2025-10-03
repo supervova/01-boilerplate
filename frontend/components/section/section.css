@@ -1,0 +1,32 @@
+@layer components {
+  .section {
+    margin-block-start: var(--spacer-max);
+    padding-block: var(--spacer);
+  }
+
+  .section.section-header-centered {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin-inline: auto;
+    max-width: 622px;
+    padding-block-end: var(--size-7);
+    text-align: center;
+  }
+
+  .section.section-header-centered h2 {
+    margin-block: var(--size-1) 0;
+  }
+
+  .section-title {
+    color: var(--color-text);
+  }
+
+  .section-title.section-title-highlight {
+    background-clip: text;
+    background-image: var(--color-gradient-brand);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    color: transparent;
+  }
+}

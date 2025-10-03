@@ -1,0 +1,23 @@
+/* -------------------------------------------------------------------------- */
+/* #region: BASE                                                              */
+/* -------------------------------------------------------------------------- */
+
+.container {
+  margin-inline: auto;
+  max-width: var(--width-container);
+  padding-inline: var(--padding-x-container);
+  position: relative;
+  width: 100%;
+}
+
+.container.container-prose {
+  list-style: none;
+  margin-inline: auto;
+  width: min(100%, var(--width-prose));
+}
+
+.main:not(:has(> .hero)) {
+  padding-block-start: var(--spacer);
+}
+
+/* #endregion */

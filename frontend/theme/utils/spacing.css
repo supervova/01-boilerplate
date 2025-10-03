@@ -1,0 +1,57 @@
+/* -------------------------------------------------------------------------- */
+/* #region: SPACING UTILITIES                                                 */
+/* -------------------------------------------------------------------------- */
+
+$padding-values: (
+  0: 0,
+  '1s': var(--size-1),
+  '2s': var(--size-2),
+  '4s': var(--size-4),
+  '5s': var(--size-5),
+  '7s': var(--size-7),
+  '8s': var(--size-8),
+  1: var(--size-line),
+  2: calc(var(--size-line) * 2),
+  3: calc(var(--size-line) * 3),
+  4: calc(var(--size-line) * 4)
+);
+
+$margin-values: (
+  0: 0,
+  '1s': var(--size-1),
+  '2s': var(--size-2),
+  '4s': var(--size-4),
+  '5s': var(--size-5),
+  '7s': var(--size-7),
+  '8s': var(--size-8),
+  1: var(--size-line),
+  2: calc(var(--size-line) * 2),
+  3: calc(var(--size-line) * 3),
+  4: calc(var(--size-line) * 4),
+  'n1s': calc(var(--size-1) * -1),
+  'n2s': calc(var(--size-2) * -1),
+  n1: calc(var(--size-line) * -1),
+  auto: auto
+);
+
+@each $name, $value in $padding-values {
+  .p-$(name) { padding: $value; }
+  .py-$(name) { padding-block: $value; }
+  .px-$(name) { padding-inline: $value; }
+  .pt-$(name) { padding-top: $value; }
+  .pb-$(name) { padding-bottom: $value; }
+  .ps-$(name) { padding-inline-start: $value; }
+  .pe-$(name) { padding-inline-end: $value; }
+}
+
+@each $name, $value in $margin-values {
+  .m-$(name) { margin: $value; }
+  .my-$(name) { margin-block: $value; }
+  .mx-$(name) { margin-inline: $value; }
+  .mt-$(name) { margin-top: $value; }
+  .mb-$(name) { margin-bottom: $value; }
+  .ms-$(name) { margin-inline-start: $value; }
+  .me-$(name) { margin-inline-end: $value; }
+}
+
+/* #endregion */

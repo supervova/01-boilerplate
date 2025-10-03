@@ -1,0 +1,130 @@
+/* -------------------------------------------------------------------------- */
+/* #region: TYPOGRAPHY MAPS                                                   */
+/* -------------------------------------------------------------------------- */
+
+$typography-styles: (
+  display: (
+    mobile: (
+      font-size: 40px,
+      font-weight: var(--font-weight-titles),
+      letter-spacing: -0.5px,
+      line-height: 1.2,
+      padding-top: 1,
+      padding-bottom: 7
+    ),
+    tablet: (
+      font-size: 48px,
+      letter-spacing: -0.5px,
+      line-height: 1.1667,
+      padding-top: 2,
+      padding-bottom: 6
+    ),
+    tablet-l: (
+      font-size: 68px,
+      letter-spacing: -2px,
+      line-height: 1.0588,
+      padding-top: 2,
+      padding-bottom: 6
+    )
+  ),
+  title: (
+    mobile: (
+      font-size: 28px,
+      font-weight: var(--font-weight-titles),
+      letter-spacing: -0.3px,
+      line-height: 1.1429,
+      padding-top: 1,
+      padding-bottom: 7
+    ),
+    tablet: (
+      font-size: 48px,
+      letter-spacing: -0.5px,
+      line-height: 1.1667,
+      padding-top: 2,
+      padding-bottom: 6
+    )
+  ),
+  h2: (
+    mobile: (
+      font-size: 23px,
+      font-weight: var(--font-weight-titles),
+      letter-spacing: -0.2px,
+      line-height: 1.3913,
+      padding-top: 7,
+      padding-bottom: 1
+    ),
+    tablet: (
+      font-size: 34px,
+      letter-spacing: -1.3px,
+      line-height: 1.1765,
+      padding-top: 7,
+      padding-bottom: 1
+    )
+  ),
+  h3: (
+    mobile: (
+      font-size: 17px,
+      font-weight: var(--font-weight-titles),
+      letter-spacing: -0.1px,
+      line-height: 1.4118,
+      padding-top: 6,
+      padding-bottom: 2
+    ),
+    tablet: (
+      font-size: 24px,
+      letter-spacing: -0.3px,
+      line-height: 1.3333,
+      padding-top: 7,
+      padding-bottom: 1
+    )
+  ),
+  base: (
+    mobile: (
+      font-size: 17px,
+      font-weight: 400,
+      letter-spacing: 0px,
+      line-height: 1.4118,
+      padding-top: 6,
+      padding-bottom: 2
+    )
+  ),
+  body-sm: (
+    mobile: (
+      font-size: 15px,
+      font-weight: 400,
+      letter-spacing: 0px,
+      line-height: 1.3333,
+      padding-top: 1,
+      padding-bottom: 3
+    )
+  ),
+  label: (
+    mobile: (
+      font-size: 15px,
+      font-weight: 500,
+      letter-spacing: 0px,
+      line-height: 1.3333,
+      padding-top: 1,
+      padding-bottom: 3
+    )
+  ),
+  caption: (
+    mobile: (
+      font-size: 12px,
+      font-weight: 400,
+      letter-spacing: 0.1px,
+      line-height: 1.3333,
+      padding-top: 4,
+      padding-bottom: 4
+    )
+  )
+);
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: MIXINS                                                            */
+/* -------------------------------------------------------------------------- */
+/* Typography mixins are defined via explicit custom properties in vars.css. */
+
+/* #endregion */

@@ -1,0 +1,75 @@
+/* -------------------------------------------------------------------------- */
+/* #region: MEDIA BORDER                                                      */
+/* -------------------------------------------------------------------------- */
+
+.border {
+  border-radius: var(--border-radius-base);
+  display: flex;
+  max-width: max-content;
+  overflow: hidden;
+  position: relative;
+}
+
+.border > :is(iframe, img) {
+  margin-block-end: 0;
+  width: 100%;
+}
+
+.border::after {
+  border-radius: var(--border-radius-base);
+  box-shadow: inset 0 0 0 1px var(--color-border-neutral);
+  content: '';
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.border:empty {
+  display: none;
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: FIGURES AND IFRAMES                                             */
+
+/* ------------------------------------------------------------------------ */
+
+iframe {
+  border-style: none;
+}
+
+figure,
+iframe {
+  margin-block: 0 var(--media-margin-bottom, 1rem);
+}
+
+figcaption {
+  color: var(--color-text-02);
+  padding-block: var(--padding-top-base) var(--padding-bottom-base);
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: IMAGES, VIDEO, SVG                                                */
+/* -------------------------------------------------------------------------- */
+
+img,
+video {
+  border-style: none;
+  height: auto;
+  max-width: 100%;
+}
+
+img:not([class]),
+figure img {
+  display: block;
+}
+
+svg:not(:root) {
+  overflow: hidden;
+}
+
+/* #endregion */
+

@@ -58,6 +58,7 @@ yarn-error.log*
 .eslintcache
 .tmp
 dist/
+docs/.vitepress/cache
 sprite.symbol.html
 src/**/*.css
 
@@ -121,4 +122,3 @@ $RECYCLE.BIN/
 .Trashes
 .VolumeIcon.icns
 .com.apple.timemachine.donotpresent
-docs/.vitepress/cache
