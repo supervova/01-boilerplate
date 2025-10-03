@@ -1,0 +1,25 @@
+/* If necessary, add classes for other breakpoints.
+@media (--phone-l) { .phone-l\:col-* { ... }}
+@media (--tablet-l) { .tablet-l\:col-* { ... }}
+@media (--desktop) { .desktop\:col-* { ... }} */
+
+.d-inline { display: inline; }
+.d-inline-block { display: inline-block; }
+.d-table { display: table; }
+.d-inline-flex { display: inline-flex; }
+
+@media (--tablet) {
+  .tablet\:.d-inline-block { display: inline-block; }
+  .tablet\:.d-table { display: table; }
+  .tablet\:.d-inline-flex { display: inline-flex; }
+}
+
+@media (--laptop) {
+  .laptop\:.d-block { display: block; }
+  .laptop\:d-inline { display: inline; }
+  .laptop\:d-inline-block { display: inline-block; }
+  .laptop\:d-table { display: table; }
+  .laptop\:d-flex { display: flex; }
+  .laptop\:d-inline-flex { display: inline-flex; }
+  .laptop\:d-none { display: none; }
+}

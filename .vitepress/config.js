@@ -22,4 +22,8 @@ export default defineConfig({
       { text: 'Base Styles', link: '/base' },
     ],
   },
+
+  vite: {
+    postcss: {},
+  },
 });

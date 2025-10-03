@@ -22,49 +22,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;500;600;700&display=swap" />
-
-    <!-- Debugging styles -->
-    <style>
-      .hero-content,
-      [id='section-typography'] {
-        --color-line: rgb(0 0 0 / 0.2);
-        --color-step: rgb(255 0 255 / 0.2);
-        --line-thickness: 0.0625rem; /* 1px */
-
-        position: relative;
-      }
-
-      .hero-content:hover::after,
-      [id='section-typography']:hover::after {
-        background-image:
-          /* major lines */
-          repeating-linear-gradient(to bottom, var(--color-line) 0 var(--line-thickness), transparent var(--line-thickness) calc(var(--size-1) * 3)),
-          /* minor lines */ repeating-linear-gradient(to bottom, var(--color-step) 0 var(--line-thickness), transparent var(--line-thickness) var(--size-1));
-        content: '';
-        pointer-events: none;
-        position: absolute;
-        inset: 0;
-        z-index: 1000;
-      }
-
-      [id='section-typography'] :is(h1, h2, h3, h4, dl, p, ol, ul, a):hover {
-        background: hsla(240, 100%, 50%, 0.24);
-      }
-
-      [id='section-typography'] table {
-        background-color: hsla(30, 100%, 50%, 0.12);
-      }
-
-      @media only screen and (max-width: 568px) {
-        .phone\:d-none {
-          display: none;
-        }
-
-        .img-on-grid {
-          height: 144px;
-        }
-      }
-    </style>
   </head>
   <body>
     <!-- Header -->
@@ -169,6 +126,11 @@
           <h2 class="h1">Typography & Vertical Rhythm</h2>
 
           <p>"Key idea: switch the design by changing only CSS variables."</p>
+
+          <p>A Card is a flexible and reusable UI container used to group related information. It commonly includes content such as a title, image, summary, action buttons, and optionally metadata. Cards are ideal for presenting information in a modular, scannable, and responsive format.</p>
+          <p>To make sure the image-generation model understands that you want a close-up portrait, use phrases like these in your prompt — they’re universal and work well across most models (DALL·E, Midjourney, Stable Diffusion, etc.).</p>
+          <p>Why it works: <code>margin-top: var(--flow-space)</code> takes the variable value from the computed style of the element itself — the one that the “owl” selector (<code>&gt; * + *</code>) applies to. We just locally override <code>--flow-space</code> on the specific headings, and their margins change accordingly. Rule order doesn’t matter, since <code>var()</code> is resolved after the cascade.</p>
+          <p>You’re adding lengths (<code>1em</code>, padding values) to a “bare” number <code>0</code>. Inside <code>calc()</code>, it’s treated as a number type, which can’t be combined with length units (<code>px</code>, <code>rem</code>, <code>em</code>, etc.). As a result, the expression becomes invalid at computed-value time, and the property is ignored. Use a zero with a unit: <code>0px</code> or <code>0rem</code>.</p>
 
           <h2>Corepack attaches a packageManager; run it only in the repo you intend</h2>
 
@@ -505,6 +467,8 @@
 
     <!-- Scripts -->
     <script src="assets/js/modal.js"></script>
-    <script type="module" src="main.js"></script>
+    <script type="module">
+      import '../frontend/main-quick.css';
+    </script>
   </body>
 </html>

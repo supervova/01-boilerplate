@@ -18,6 +18,8 @@ docs/plan.md
 deploy.sh
 notes.md
 /public
+sandbox/*
+!sandbox/README.md
 tmp/
 temp/
 
@@ -52,11 +54,13 @@ yarn-error.log*
 # BUILD ARTIFACTS
 # ------------------------------------------------------------------------------
 
+*.map
 *.sass-cache*
 .cache
 .eslintcache
 .tmp
 dist/
+docs/.vitepress/cache
 sprite.symbol.html
 src/**/*.css
 
@@ -120,4 +124,3 @@ $RECYCLE.BIN/
 .Trashes
 .VolumeIcon.icns
 .com.apple.timemachine.donotpresent
-docs/.vitepress/cache

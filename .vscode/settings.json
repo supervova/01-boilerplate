@@ -1,0 +1,6 @@
+{
+  "stylelint.stylelintPath": "./node_modules/.pnpm/stylelint@16.25.0/node_modules/stylelint/lib/index.cjs",
+  "stylelint.validate": ["css", "postcss"],
+  "stylelint.enable": true,
+  "css.validate": false
+}
