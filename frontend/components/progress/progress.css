@@ -1,0 +1,35 @@
+progress {
+  --progress-height: var(--dim-1);
+  --progress-radius: var(--radius-pill);
+  --progress-bg: var(--color-fill);
+  --progress-fill: var(--color-brand);
+  --progress-speed: 1s;
+
+  appearance: none;
+  background: var(--progress-bg);
+  border-radius: var(--progress-radius);
+  border: 0;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: var(--progress-height);
+
+  /* WebKit */
+  &::-webkit-progress-bar {
+    background: var(--progress-bg);
+    border-radius: var(--progress-radius);
+  }
+
+  &::-webkit-progress-value {
+    background: var(--progress-fill);
+    border-radius: var(--progress-radius);
+    transition: width var(--duration-100) var(--easing-base);
+  }
+
+  /* Firefox */
+  &::-moz-progress-bar {
+    background: var(--progress-fill);
+    border-radius: var(--progress-radius);
+    transition: width var(--duration-100) var(--easing-base);
+  }
+}

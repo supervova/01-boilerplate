@@ -1,0 +1,30 @@
+.section {
+  margin-top: var(--spacer-max);
+  padding-block: var(--spacer);
+}
+
+.section-header-centered {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-inline: auto;
+  padding-bottom: var(--dim-7);
+  text-align: center;
+  max-width: 622px;
+}
+
+.section-header-centered h2 {
+  margin-block: var(--dim-1) 0;
+}
+
+.section-title {
+  color: var(--color-text);
+}
+
+.section-title-highlight {
+  background-clip: text;
+  background-image: var(--color-gradient-brand);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  color: transparent;
+}

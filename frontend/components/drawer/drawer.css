@@ -1,0 +1,164 @@
+/* -------------------------------------------------------------------------- */
+/* #region: BASE                                                              */
+/* -------------------------------------------------------------------------- */
+
+@scope (.drawer) {
+  :scope {
+    --drawer-bg: var(--color-bg-z3);
+    --drawer-header-border-color: var(--color-border);
+    --drawer-box-shadow: var(--shadow-z3);
+    --drawer-closed: -50% 100%;
+    --drawer-open: -50% 0;
+    --drawer-header-height: var(--dim-7);
+    --drawer-footer-height: 80px;
+    --margin-top-subhead: var(--lh);
+
+    background-color: var(--drawer-bg);
+    backdrop-filter: var(--backdrop-glass);
+    border: 0;
+    box-shadow: var(--drawer-box-shadow);
+    display: grid;
+    grid-template-rows: var(--drawer-header-height) 1fr;
+    grid-template-areas:
+      'header'
+      'body';
+    padding: 0;
+    position: fixed;
+    z-index: var(--z-drawer);
+
+    &:focus {
+      outline: 0;
+    }
+  }
+
+  /* MODIFIERS */
+  :scope.drawer-horizontal {
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+    bottom: 0;
+    left: 50%;
+    width: 100%;
+    height: 312px;
+
+    & .drawer-header {
+      border-radius: calc(var(--dim-2) + 1rem) calc(var(--dim-2) + 1rem) 0 0;
+    }
+  }
+
+  :scope.drawer-vertical {
+    --drawer-closed: 100% 0;
+    --drawer-open: 0 0;
+
+    inset-block: 0;
+    inset-inline: auto 0;
+    width: var(--width-md);
+    height: 100%;
+  }
+
+  /* STATES */
+  :scope.drawer-closed {
+    animation:
+      drawer-out calc(var(--duration-200) * 0.8) var(--easing-disappearance) forwards;
+    translate: var(--drawer-closed);
+  }
+
+  :scope.drawer-open {
+    animation: drawer-in var(--duration-200) var(--easing-appearance) forwards;
+    translate: var(--drawer-open);
+  }
+
+  /* Content inline padding */
+  .drawer-header,
+  .drawer-body,
+  .drawer-footer {
+    padding-inline: var(--dim-2p5);
+
+    @media (--phone-l) {
+      padding-inline: var(--lh);
+    }
+
+    @media (--tablet) {
+      padding-inline: var(--dim-4);
+    }
+  }
+
+  /* HEADER */
+  .drawer-header {
+    background-color: var(--color-bg-02);
+    border-bottom: 1px solid var(--drawer-header-border-color);
+    display: flex;
+    align-items: center;
+    grid-area: header;
+    position: relative;
+    height: var(--drawer-header-height);
+  }
+
+  .drawer-title,
+  .drawer-header :is(h2, h3) {
+    @mixin text-format base;
+    font-weight: var(--font-weight-strong);
+    margin: 0;
+
+    /* Additional space for close button */
+    padding-inline-end: var(--lh);
+  }
+
+  .drawer-header .btn-close {
+    position: absolute;
+    top: var(--dim-2);
+    inset-inline-end: var(--dim-2);
+  }
+
+  /* BODY */
+  .drawer-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    grid-area: body;
+    padding-top: var(--lh);
+    padding-bottom: calc(var(--drawer-footer-height) + var(--lh));
+    overflow: hidden auto;
+    overscroll-behavior-y: contain;
+    scrollbar-width: thin;
+
+    @media (--tablet) {
+      padding-top: var(--dim-4);
+    }
+  }
+
+  /* FOOTER */
+  .drawer-footer {
+    background-color: var(--color-bg-z2);
+    backdrop-filter: var(--backdrop-glass);
+    box-shadow: 0 -1px 0 hsl(var(--color-shadow) / 0.08);
+    display: flex;
+    align-items: center;
+    align-self: end;
+    gap: var(--dim-2);
+    justify-content: end;
+    grid-area: body;
+    padding-block: var(--dim-2);
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+  }
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: ANIMATIONS                                                        */
+/* -------------------------------------------------------------------------- */
+
+@keyframes drawer-in {
+  from { translate: var(--drawer-closed); }
+  to { translate: var(--drawer-open); }
+}
+
+@keyframes drawer-out {
+  from { translate: var(--drawer-open); }
+  to { translate: var(--drawer-closed); }
+}
+
+/* #endregion */

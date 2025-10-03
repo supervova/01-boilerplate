@@ -2,17 +2,6 @@
 
 ## Переменные
 
-Шрифтовых классов больше, чем переменных:
-
-- `--font-size-h3` используется в `.text-lg` (названия в стиле Tailwind) и в `h3`, `.h3`
-- `--font-size-base` — в `body` (`p`, списки, таблицы) и в `h4`, `.h4`.
-
-Суффиксы `mobile` и т.п. не нужны — значения переменных переопределяются в медиазапросах. Если появится необходимость в других размерах, добавлям суффиксы `sm` или `lg`.
-
-### CSS и Sass переменные
-
-Sass-переменные используем только в миксинах, для медиазапросов и базового размера шрифта — см. `abstracts/config`.
-
 ### Цвета
 
 Для создания палитры, сохраняем уровень насыщенности и, если возможно, уровень светлости, и меняем тон основного на определенный градус.
@@ -34,7 +23,7 @@ Sass-переменные используем только в миксинах,
 Для создания светлых (tint) и темных (shade) оттенков меняем значение `lightness` в `hsl`.
 
 ```scss
---color-ink-link: hsl(var(--h), var(--s), 41%);
+--color-link: hsl(var(--h), var(--s), 41%);
 ```
 
 - Base backgrounds. For the sake of design, we can violate the recommendations in contrast, but only where, it will not spoil the UX.
@@ -120,20 +109,19 @@ Light theme (default) can be forced with the `data-theme="light"` attributes and
 @mixin dark-theme {
   color-scheme: dark;
 
-  // The saturation and lightness reduced a relative 20%.
-  --s: 64%;
+  // The saturation and lightness reduced a relative 20%. --s-02: 64%;
 
-  --color-brand-primary: hsl(var(--h), var(--s), 44%);
+  --color-brand: hsl(var(--h), var(--s-02), 44%);
 
-  --color-bg-base: hsl(var(--h) 10% 10%);
-  --color-bg-2ry: hsl(var(--h) 10% 15%);
-  --color-bg-z3: hsl(var(--h) 5%  20%);
-  --color-bg-z5: hsl(var(--h) 5% 25%);
+  --color-bg: hsl(var(--h) var(--s-min) 10%);
+  --color-bg-z1: hsl(var(--h)  var(--s-min) 15%);
+  --color-bg-z3: hsl(var(--h) var(--s-min) 20%);
+  --color-bg-z5: hsl(var(--h) var(--s-min) 25%);
 
-  --color-ink-text: hsl(var(--h) 15% 85%);
-  --color-ink-2ry: hsl(var(--h) 5% 65%);
+  --color-text: hsl(var(--h) var(--s-min) 85%);
+  --color-text-02: hsl(var(--h) var(--s-min) 65%);
 
-  --color-ink-shadow: var(--h) 50% 3%;
+  --color-shadow: var(--h) var(--s-min) 3%;
 
   // Etc
 }
@@ -188,7 +176,7 @@ html(data-theme='light')
 
 ## Анимационный дизайн
 
-- Длительность анимации зависит от объекта, его размеров и растояния, которое он преодолевает на экране. Расчитать можно по одному из ключевых факторов.
+- Длительность анимации зависит от объекта, его размеров и расстояния, которое он преодолевает на экране. Рассчитать можно по одному из ключевых факторов.
   - Размер объекта. Минимальная продолжительность — 100–200 мс — для кнопок и пр. маленьких компонентов. Максимальная — 500–700 мс — для переходов или анимаций всего экрана.
   - Дистанция. 100 мс на каждые 10vw.
   - Сложность анимации. 2-5 одновременно анимируемых объектов — 300–400 мс. 6–10 объектов — 500–700 мс.
@@ -207,20 +195,20 @@ html(data-theme='light')
   var(--duration-200):  .15s !default;
 
   // Раскрытие средних блоков, тосты, системные сообщения
-  var(--duration-500):  .24s !default;
+  var(--duration-300):  .24s !default;
 
   // Раскрытие больших блоков, важные сообщения
-  var(--duration-700):  .4s !default;
+  var(--duration-400):  .4s !default;
 
   // Смена фонового цвета
-  var(--duration-900):  .7s !default;
+  var(--duration-500):  .7s !default;
   ```
 
-- Длительность сложных полноэкранных анимаций можно задавать увеличением одного из стартных периодов в несколько раз. Например, `var(--duration-700) * 4`.
+- Длительность сложных полноэкранных анимаций можно задавать увеличением одного из стартных периодов в несколько раз. Например, `var(--duration-400) * 4`.
 - Для расчета новой шкалы можно использовать коэффициент геометрической прогрессии — также, как в размерной шкале шрифта. Например, малую септиму: 1.778 (9:16).
 - Элементы в идеале должны исчезать с экрана быстрее, чем появляться. Для этого используем свойство `transition` в обоих положениях.
 
   ```scss
-  .el { transition: all (var(--duration-500) * .8) $motion-easing-disappearance; }
-  .el-hidden { transition: all var(--duration-500) $motion-easing-appearance; }
+  .el { transition: all (var(--duration-300) * .8) $motion-easing-disappearance; }
+  .el-hidden { transition: all var(--duration-300) $motion-easing-appearance; }
   ```

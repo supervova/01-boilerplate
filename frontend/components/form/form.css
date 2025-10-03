@@ -1,0 +1,256 @@
+/* -------------------------------------------------------------------------- */
+/* #region: BASE                                                              */
+/* -------------------------------------------------------------------------- */
+
+form {
+  caret-color: var(--color-text-02-brand);
+}
+
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: CONTAINERS                                                        */
+/* -------------------------------------------------------------------------- */
+
+.form-container {
+  position: relative;
+}
+
+.form-container > p,
+.form-container > div:not([class]) {
+  padding: 0;
+  position: relative;
+}
+
+.form-row {
+  --form-row-gap: var(--dim-2);
+  --form-row-columns: 1fr;
+
+  display: grid;
+  gap: var(--form-row-gap);
+  grid-template-columns: var(--form-row-columns);
+  margin-bottom: var(--dim-2);
+}
+
+@media (--tablet) {
+  .form-row {
+    --form-row-columns: repeat(auto-fit, minmax(0%, 1fr));
+  }
+}
+
+@media (--phone) {
+  .form-row.form-row-phone-2-columns {
+    --form-row-columns: 1fr 1fr;
+  }
+}
+
+.form-item {
+  --form-item-padding-y: var(--dim-1);
+  --form-item-gap: var(--dim-2);
+
+  align-items: center;
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  gap: var(--form-item-gap);
+  padding-block: var(--form-item-padding-y);
+}
+
+.form-item label {
+  flex-grow: 1;
+}
+
+.form-item label strong,
+.form-item label span {
+  display: block;
+}
+
+.form-item label strong {
+  color: var(--color-text);
+  margin-bottom: -4px;
+}
+
+.form-item label span {
+  @mixin text-format fine-print;
+}
+
+.form-item select,
+.form-item input[type='radio'],
+.form-item [role='switch'] {
+  order: 1;
+}
+
+.form-item.form-item-select select {
+  background-color: transparent;
+  background-image: var(--icon-chevron-up-down);
+  color: var(--color-text-brand);
+  min-height: auto;
+  padding-block: 0;
+  padding-inline-end: var(--dim-4);
+  text-align: end;
+  width: auto;
+}
+
+.form-item.form-item-input input {
+  width: var(--width, auto);
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: FIELDS                                                            */
+/* -------------------------------------------------------------------------- */
+
+.form-field {
+  --form-field-bg: hsl(var(--h) var(--s) 90% / 0.05);
+  --form-field-padding-y: var(--padding-y-input);
+  --form-field-padding-x: var(--padding-x-input);
+  --form-field-text-color: var(--color-text);
+  --form-field-border-color: transparent;
+  --form-field-min-height: calc(var(--lh) * 2);
+}
+
+.form-field :is(:--text-field, [type='search']) {
+  background-color: var(--form-field-bg);
+  border: 0;
+  border-radius: var(--radius-sm);
+  color: var(--form-field-text-color);
+  min-height: var(--form-field-min-height);
+  padding-block: var(--form-field-padding-y);
+  padding-inline: var(--form-field-padding-x);
+  transition:
+    box-shadow var(--duration-50) var(--easing-base),
+    color var(--duration-50) var(--easing-base);
+}
+
+.form-field input,
+.form-field optgroup,
+.form-field select,
+.form-field textarea {
+  font-family: inherit;
+  font-size: var(--form-field-font-size, var(--font-size-base));
+  letter-spacing: inherit;
+  line-height: var(--line-height-base);
+}
+
+.form-field input[type='password'] {
+  padding-inline-end: var(--padding-x-input-lg);
+}
+
+.form-field textarea {
+  overflow: auto;
+  resize: vertical;
+}
+
+.form-field textarea:not([rows]) {
+  height: calc(var(--lh) * 6);
+}
+
+.form-field.form-field-error {
+  --form-field-bg: var(--color-bg-error);
+  --form-field-text-color: var(--color-text-error);
+}
+
+.form-field.form-field-success {
+  --form-field-bg: var(--color-bg-success);
+  --form-field-text-color: var(--color-text-success);
+}
+
+.form-field.form-field-warning {
+  --form-field-bg: var(--color-bg-warning);
+  --form-field-text-color: var(--color-text-warning);
+}
+
+.form-field.form-field-sm {
+  --form-field-padding-y: var(--dim-1);
+  --form-field-padding-x: var(--dim-2);
+  --form-field-font-size: var(--font-size-sm);
+  --form-field-min-height: calc(var(--lh) * 1.5);
+}
+
+.form-field.form-field-lg {
+  --form-field-padding-y: var(--dim-2);
+  --form-field-padding-x: var(--lh);
+  --form-field-font-size: var(--font-size-h3);
+  --form-field-min-height: calc(var(--lh) * 2.5);
+}
+
+.form-field :is(:--text-field, [type='search']):focus,
+.form-field :is(:--text-field, [type='search']):focus-visible {
+  border-color: transparent;
+  box-shadow: 0 0 0 2px var(--color-text-02-info);
+  color: var(--form-field-text-color);
+  outline: 0;
+}
+
+.form-field :is(:--text-field, [type='search']):disabled,
+.form-field :is(:--text-field, [type='search'])[readonly] {
+  cursor: not-allowed;
+  filter: grayscale(100%);
+  opacity: 0.5;
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: HINTS & MESSAGES                                                  */
+/* -------------------------------------------------------------------------- */
+
+.form-hint {
+  color: var(--color-text-02);
+  display: block;
+  margin-top: var(--dim-0p5);
+  padding-inline: var(--dim-2);
+  text-align: left;
+  max-width: var(--width-prose);
+}
+
+.form-disclaimer {
+  margin-block: var(--lh);
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: ACTIONS                                                           */
+/* -------------------------------------------------------------------------- */
+
+.form-footer {
+  padding-block: var(--dim-1);
+}
+
+.form-footer > * {
+  margin-bottom: var(--dim-2);
+}
+
+@media (--tablet) {
+  .form-footer {
+    align-items: center;
+    display: flex;
+  }
+
+  .form-footer > :not(:last-child) {
+    margin-inline-end: var(--dim-2);
+  }
+}
+
+.form-password-toggle {
+  background: transparent;
+  top: var(--dim-0p5);
+  inset-inline-end: var(--dim-1);
+  position: absolute;
+}
+
+@media (any-hover: hover) {
+  .form-password-toggle:hover {
+    --icon-stroke: var(--color-text);
+    background: transparent;
+  }
+}
+
+/* #endregion */

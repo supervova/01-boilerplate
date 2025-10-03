@@ -1,0 +1,136 @@
+/* stylelint-disable selector-no-qualifying-type, declaration-no-important */
+/* -------------------------------------------------------------------------- */
+/* #region: PRINT UTILITIES                                                   */
+/* -------------------------------------------------------------------------- */
+
+@media print {
+  .actions,
+  .back-to-top,
+  .breadcrumbs,
+  .comments,
+  .main-tools,
+  .modal,
+  .pagination,
+  .print-hidden,
+  .toast,
+  .toolbar,
+  /* main header and footer, nav, sidebars / aside, form, video, audio */
+  body > *:not(main) {
+    display: none !important;
+  }
+
+  /* Print hidden content */
+  .tabs-panel,
+  .accordion-body {
+    display: block !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    box-shadow: none !important;
+    color: #000 !important;
+    text-shadow: none !important;
+  }
+
+  body,
+  pre,
+  code,
+  summary,
+  details,
+  button,
+  input,
+  textarea {
+    background-color: #fff;
+  }
+
+  a:not(.btn) {
+    color: #00f !important;
+    text-decoration: underline;
+  }
+
+  a[href]::after {
+    content: ' (" attr(href) ")';
+  }
+
+  a[href^='#']::after,
+  a[href^='javascript:']::after {
+    content: '';
+  }
+
+  abbr[title]::after {
+    content: ' (" attr(title) ")';
+  }
+
+  article,
+  main {
+    padding: 0;
+  }
+
+  button,
+  input,
+  textarea {
+    border: 1px solid #000;
+  }
+
+  p,
+  h2,
+  h3,
+  h4 {
+    orphans: 3;
+    widows: 3;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    break-after: avoid;
+    break-inside: avoid;
+    font-weight: 700;
+  }
+
+  h1 + p,
+  h2 + p,
+  h3 + p {
+    break-before: avoid;
+  }
+
+  dl,
+  p,
+  ol,
+  ul {
+    hyphens: auto;
+    text-align: justify;
+    text-wrap: pretty;
+  }
+
+  pre {
+    white-space: pre-wrap !important;
+  }
+
+  pre,
+  blockquote {
+    border: 1px solid #999;
+  }
+
+  blockquote,
+  figure,
+  img,
+  pre,
+  table,
+  tr {
+    break-inside: avoid;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  @page {
+    margin: 2.33cm 2.33cm 3.5cm;
+  }
+}
+
+/* #endregion */

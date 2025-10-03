@@ -1,0 +1,74 @@
+/*
+ * Quick vertical rhythm system using flow-space custom property.
+ * Works by:
+ * 1. Adjusting margin-top on siblings (e.g., `h1 + *`)
+ * 2. Changing --flow-space on elements to control spacing after them
+ */
+
+/* -------------------------------------------------------------------------- */
+/* #region: BASE                                                         */
+/* -------------------------------------------------------------------------- */
+@scope (.prose) {
+  :scope {
+    --flow-space: var(--dim-2);
+  }
+
+  /* Reset margins on direct children */
+  :scope > * {
+    margin: 0;
+  }
+
+  /* Lobotomized Owl: space only between siblings */
+  /* stylelint-disable-next-line selector-max-universal */
+  :scope > * + * {
+    margin-top: var(--flow-space);
+  }
+
+  /* Extra space after h1 */
+  :scope > :is(h1, .h1) + * {
+    --flow-space: var(--dim-7);
+  }
+
+  /* Larger space before h2/h3 */
+  :scope > :is(h2, .h2, h3, .h3) {
+    --flow-space: var(--dim-6);
+  }
+
+  /* Medium space before h4-h6 */
+  :scope > :is(h4, .h4, h5, h6) {
+    --flow-space: var(--dim-4);
+  }
+
+  /* Reduced space after h4-h6 */
+  :scope > :is(h4, .h4, h5, h6) + * {
+    --flow-space: var(--dim-1);
+  }
+
+  /* No extra margin for nested lists (parent li handles spacing) */
+  :scope :is(ul, ol) :is(ul, ol) {
+    margin-top: 0;
+  }
+
+  /* Increased space before media elements */
+  :scope > :is(img, picture, figure, video, blockquote) {
+    --flow-space: var(--dim-6);
+    margin-bottom: var(--flow-space);
+  }
+
+  /* Space between list items */
+  li + li {
+    margin-top: var(--dim-1);
+  }
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: UTILITIES                                                         */
+/* -------------------------------------------------------------------------- */
+
+.eyebrow {
+  --eyebrow-margin-bottom: var(--dim-1);
+}
+
+/* #endregion */

@@ -1,0 +1,107 @@
+/* -------------------------------------------------------------------------- */
+/* #region: BASE                                                              */
+/* -------------------------------------------------------------------------- */
+
+@scope (.header) {
+  :scope {
+    --header-bg: var(--color-bg-02);
+    --header-shadow: var(--shadow-z2);
+    --header-position: fixed;
+    --header-top: 0;
+    --header-start: 0;
+    --header-end: 0;
+    --header-padding-top: var(--dim-2p5);
+    --header-padding-bottom: var(--dim-2p5);
+    --header-padding-start: 0;
+    --header-translate-y: -100%;
+    --header-transition-duration: var(--duration-200);
+    --header-nav-offset: 6rem;
+    --header-overlay-bg: var(--color-backdrop);
+    --header-overlay-filter: var(--backdrop-blur-min);
+
+    background-color: var(--header-bg);
+    box-shadow: var(--header-shadow);
+    padding-bottom: var(--header-padding-bottom);
+    padding-top: var(--header-padding-top);
+    padding-inline-start: var(--header-padding-start);
+    position: var(--header-position);
+    top: var(--header-top);
+    inset-inline-end: var(--header-end);
+    inset-inline-start: var(--header-start);
+    translate: 0 var(--header-translate-y);
+    transition: translate var(--header-transition-duration) var(--easing-base);
+    z-index: var(--z-drawer);
+  }
+
+  :scope::after {
+    content: none;
+  }
+
+  > .container {
+    align-items: center;
+    display: flex;
+    gap: 0;
+    justify-content: space-between;
+  }
+
+  @media (--tablet) {
+    :scope {
+      --header-bg: transparent;
+      --header-shadow: none;
+      --header-position: static;
+      --header-end: auto;
+      --header-start: auto;
+      --header-padding-bottom: 0;
+      --header-padding-top: var(--dim-5);
+      --header-padding-start: var(--header-nav-offset);
+      --header-translate-y: 0;
+    }
+
+    > .container {
+      gap: var(--lh);
+    }
+  }
+
+  @media (--tablet-l) {
+    > .container {
+      display: grid;
+      gap: var(--dim-4);
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (--laptop) {
+    > .container {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: MODIFIERS                                                         */
+/* -------------------------------------------------------------------------- */
+
+@scope (.header) {
+  :scope:is(.header-open) {
+    --header-translate-y: 0;
+  }
+
+  @media (--phone) {
+    :scope:is(.header-open)::after {
+      background-color: var(--header-overlay-bg);
+      backdrop-filter: var(--header-overlay-filter);
+      content: '';
+      height: 100vh;
+      top: 100%;
+      inset-inline-start: 0;
+      pointer-events: none;
+      position: fixed;
+      width: 100%;
+      z-index: -1;
+    }
+  }
+}
+
+/* #endregion */

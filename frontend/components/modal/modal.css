@@ -1,0 +1,259 @@
+/* -------------------------------------------------------------------------- */
+/* #region: BASE                                                              */
+/* -------------------------------------------------------------------------- */
+
+@scope (.modal) {
+  :scope {
+    --modal-bg: var(--color-bg);
+    --modal-text: var(--color-text);
+    --modal-shadow: var(--shadow-z3);
+    --modal-radius: var(--radius-lg);
+    --modal-radius-mobile: var(--radius-base);
+    --modal-padding-block: var(--lh);
+    --modal-padding-inline: var(--padding-inline-md, var(--lh));
+    --modal-overlay-bg: var(--color-backdrop);
+    --modal-overlay-filter: var(--backdrop-glass);
+    --modal-duration: var(--duration-500);
+    --modal-offset: var(--dim-5);
+    --modal-scroll-inset: var(--dim-2);
+    --modal-scroll-padding: var(--dim-1);
+    --modal-tab-shift: var(--lh);
+    --modal-gap: var(--dim-1);
+    --modal-max-width: var(--width-xl);
+    --modal-patch-offset: var(--modal-padding-block);
+
+    align-items: center;
+    background-color: var(--modal-overlay-bg);
+    backdrop-filter: var(--modal-overlay-filter);
+    border: 0;
+    display: flex;
+    height: inherit;
+    inset: 0;
+    justify-content: center;
+    min-height: 100%;
+    min-width: 100%;
+    opacity: 1;
+    padding: 0;
+    position: fixed;
+    transition: opacity var(--modal-duration) var(--easing-base);
+    width: inherit;
+  }
+
+  :scope:not([open]) {
+    display: none;
+    opacity: 0;
+  }
+
+  :scope[closing] {
+    opacity: 0;
+  }
+
+  :scope[closing] > .modal-base {
+    opacity: 0;
+    translate: 0 50%;
+
+    @media (--tablet) {
+      translate: 0 -50%;
+    }
+  }
+
+  @starting-style {
+    :scope {
+      opacity: 0;
+    }
+  }
+
+  :scope > .modal-base {
+    background: var(--modal-bg);
+    border-radius: var(--modal-radius-mobile) var(--modal-radius-mobile) 0 0;
+    box-shadow: var(--modal-shadow);
+    color: var(--modal-text);
+    display: flex;
+    flex-direction: column;
+    inset: auto 0 0;
+    margin: auto;
+    max-height: calc(100% - var(--modal-offset));
+    max-width: var(--modal-max-width);
+    opacity: 1;
+    padding-block-end: var(--modal-padding-block);
+    padding-block-start: var(--modal-radius-mobile);
+    padding-inline: var(--dim-1);
+    position: fixed;
+    translate: 0;
+    transition:
+      translate var(--modal-duration) var(--easing-base),
+      opacity var(--modal-duration) var(--easing-base);
+    width: 100%;
+
+    @starting-style {
+      translate: 0 50%;
+    }
+  }
+
+  :scope:not([open]) > .modal-base {
+    opacity: 0;
+    translate: 0 50%;
+
+    @media (--tablet) {
+      translate: 0 -50%;
+    }
+  }
+
+  .modal-body {
+    overflow-y: auto;
+    padding-inline: calc(var(--modal-padding-inline) - var(--dim-1));
+    scrollbar-gutter: stable both-edges;
+  }
+
+  .modal-body.form {
+    padding-block: var(--modal-scroll-padding);
+    padding-inline: var(--modal-padding-inline);
+  }
+
+  @media (pointer: fine) {
+    :scope .modal-body {
+      clip-path: inset(0 var(--modal-scroll-inset));
+      scrollbar-color: var(--color-scroll-thumb) var(--color-scroll-track);
+      scrollbar-width: thin;
+      transition: clip-path var(--modal-duration) var(--easing-base);
+
+      &:hover {
+        clip-path: inset(0);
+      }
+
+      &::-webkit-scrollbar {
+        width: var(--dim-1);
+      }
+
+      &::-webkit-scrollbar-track {
+        background: var(--color-scroll-track);
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: var(--color-scroll-thumb);
+        border-radius: var(--radius-pill);
+      }
+    }
+  }
+
+  .modal-tabs {
+    position: relative;
+  }
+
+  .modal-tab {
+    min-height: 100%;
+    opacity: 1;
+    transition:
+      translate var(--modal-duration) var(--easing-base),
+      opacity var(--modal-duration) var(--easing-base);
+    translate: 0;
+    visibility: visible;
+  }
+
+  .modal-tab ~ .modal-tab {
+    height: 100%;
+    inset: 0;
+    position: absolute;
+    width: 100%;
+  }
+
+  .modal-tab-hidden {
+    opacity: 0;
+    pointer-events: none;
+    translate: var(--modal-tab-shift) 0;
+    visibility: hidden;
+  }
+
+  :scope .modal-base .modal-close {
+    background: transparent;
+    inset-block-start: var(--dim-2);
+    inset-inline-end: var(--dim-2);
+    position: absolute;
+  }
+
+  @media (any-hover: hover) {
+    :scope .modal-base .modal-close:hover {
+      --icon-stroke: var(--color-text);
+
+      background-color: var(--color-fill);
+    }
+  }
+
+  :scope > .modal-base > footer,
+  :scope .modal-base > footer {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--modal-gap);
+    justify-content: flex-end;
+    padding-inline: var(--modal-padding-inline);
+    position: sticky;
+    inset-block-end: 0;
+    z-index: 3;
+  }
+
+  @media (--tablet) {
+    :scope {
+      height: 100%;
+    }
+
+    :scope > .modal-base {
+      border-radius: var(--modal-radius);
+      height: max-content;
+      inset: 0;
+      max-height: calc(100vh - var(--dim-8));
+      padding-block: var(--modal-padding-block);
+      padding-inline: var(--modal-padding-inline);
+      position: fixed;
+
+      @starting-style {
+        translate: 0 -50%;
+      }
+    }
+
+    :scope > .modal-base::before,
+    :scope > .modal-base::after {
+      content: '';
+      display: block;
+      height: var(--dim-4);
+      inset-inline: var(--modal-padding-inline);
+      pointer-events: none;
+      position: absolute;
+      z-index: 1;
+    }
+
+    :scope > .modal-base::before {
+      background-image: linear-gradient(var(--color-bg-patch));
+      inset-block-start: var(--modal-patch-offset);
+    }
+
+    :scope > .modal-base::after {
+      background-image: linear-gradient(to top, var(--color-bg-patch));
+      inset-block-end: var(--modal-patch-offset);
+    }
+  }
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: MODIFIERS                                                         */
+/* -------------------------------------------------------------------------- */
+
+@scope (.modal) {
+  :scope.modal-sm > .modal-base {
+    --modal-max-width: var(--width-md);
+  }
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: GLOBAL                                                            */
+/* -------------------------------------------------------------------------- */
+
+html:has(dialog[open]) {
+  overflow: clip;
+}
+
+/* #endregion */

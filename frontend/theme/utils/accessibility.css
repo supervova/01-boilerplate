@@ -1,0 +1,38 @@
+/* -------------------------------------------------------------------------- */
+/* #region: ACCESSIBILITY UTILITIES                                           */
+/* -------------------------------------------------------------------------- */
+
+[aria-controls] {
+  cursor: pointer;
+}
+
+[disabled],
+[aria-disabled='true'] {
+  cursor: not-allowed;
+}
+
+/* Allows animating elements out while keeping them accessible before removal */
+[aria-hidden='false'][hidden] {
+  display: initial;
+}
+
+[aria-hidden='false'][hidden]:not(:focus) {
+  clip-path: inset(50%);
+  position: absolute;
+}
+
+a,
+area,
+button,
+input,
+select,
+summary,
+textarea,
+[tabindex] {
+  touch-action: manipulation;
+}
+
+[dir='rtl'] {
+  direction: rtl;
+}
+/* #endregion */

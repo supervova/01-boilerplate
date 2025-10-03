@@ -1,0 +1,351 @@
+/* stylelint-disable comment-empty-line-before, no-duplicate-selectors */
+
+:root {
+  color-scheme: light dark;
+
+  /* ------------------------------------------------------------------------ */
+  /* #region: COLORS                                                          */
+  /* ------------------------------------------------------------------------ */
+
+  /* Base hues for semantic colors */
+  --h-blue: 210;
+  --h-green: 120;
+  --h-red: 0;
+  --h-yellow: 60;
+  --h-purple: 290;
+
+  /* The boilerplate is set to zero base saturation by default.
+     Customize this value to match your project's design palette. */
+  --s-base: 0%;
+
+  /* Base saturation is rarely zero in real-world projects.
+     Desaturate it by 4-10% for dark themes to maintain balance. */
+  --s-02: 70%;
+
+  /* Additional saturation level for dark theme backgrounds. */
+  --s-03: 20%;
+
+  /* Minimum saturation applied to text, icons, borders, and dark theme
+     backgrounds. */
+  --s-min: 12%;
+
+  /* Brand color foundation */
+  --h: var(--h-red);
+  --s: var(--s-base);
+
+  /* Lightness value for adjusting base color brightness via `calc()`. */
+  --l: 20%;
+
+  --color-brand: hsl(var(--h) var(--s) var(--l));
+
+  --color-gradient-brand:
+    radial-gradient(
+      circle farthest-corner at 0% 100%,
+      rgb(255 255 255 / 0.8),
+      rgb(255 255 255 / 0.76) 2%,
+      rgb(255 255 255 / 0.64) 10%,
+      rgb(255 255 255 / 0.49) 21%,
+      rgb(255 255 255 / 0.31) 36%,
+      rgb(255 255 255 / 0.16) 54%,
+      rgb(255 255 255 / 0.04) 76%,
+      rgb(255 255 255 / 0)
+    ),
+    radial-gradient(
+      circle farthest-side at 100% 0%,
+      #fff,
+      rgb(255 255 255 / 0.75) 2%,
+      rgb(255 255 255 / 0.6) 10%,
+      rgb(255 255 255 / 0.41) 21%,
+      rgb(255 255 255 / 0.19) 36%,
+      rgb(255 255 255 / 0) 54%,
+      rgb(255 255 255 / 0) 76%,
+      rgb(255 255 255 / 0)
+    ),
+    linear-gradient(
+      to bottom right,
+      hsl(var(--h) var(--s) var(--l-brand-start, 15%)),
+      hsl(var(--h) var(--s) var(--l-brand-end, 25%))
+    );
+
+  /* Shadow base color */
+  --color-shadow: var(--h) var(--s-min) 10%;
+  --color-shadow-light: hsl(0 0% 100% / 0.04);
+
+  /* Background gradient patch */
+  --color-bg-patch:
+    var(--color-bg),
+    hsl(from var(--color-bg) h s l / 0.9) 16%,
+    hsl(from var(--color-bg) h s l / 0.8) 32%,
+    hsl(from var(--color-bg) h s l / 0.6) 48%,
+    hsl(from var(--color-bg) h s l / 0.4) 56%,
+    hsl(from var(--color-bg) h s l / 0.2) 72%,
+    hsl(from var(--color-bg) h s l / 0.05) 80%,
+    hsl(from var(--color-bg) h s l / 0);
+
+  /* Scroll */
+  --color-scroll-thumb: color-mix(in oklch, var(--color-text-03) 80%, transparent);
+  --color-scroll-track: transparent;
+
+  /* Backdrop filters */
+  --backdrop-glass: blur(20px);
+  --backdrop-blur-min: blur(4px);
+
+  /* Visual adjustments */
+  --filter-brightness-up: brightness(1.16);
+  --filter-brightness-down: brightness(0.84);
+
+  /* #endregion */
+
+  /* ------------------------------------------------------------------------ */
+  /* #region: RHYTHM & SPACING                                                        */
+  /* ------------------------------------------------------------------------ */
+
+  /* Baseline & micro spacing tokens: 1rlh = 24px (8px rhythm) for small
+     margins/padding and minor element sizes. */
+
+  font-size: 16px;
+  line-height: 1.5;
+
+  --lh: 1rlh; /* 24px */
+
+  @supports not (line-height: 1rlh) {
+    --lh: 1.5rem;
+  }
+
+  /* Sizing tokens (dim = dimension */
+  --dim-0p5: calc(var(--lh) / 6);      /* 4px */
+  --dim-1: calc(var(--lh) / 3);        /* 8px */
+  --dim-1p5: calc(var(--dim-1) * 1.5); /* 12px */
+  --dim-2: calc(var(--dim-1) * 2);     /* 16px */
+  --dim-2p5: calc(var(--dim-1) * 2.5); /* 20px */
+  --dim-3: calc(var(--dim-1) * 3);     /* 24px = --lh */
+  --dim-4: calc(var(--dim-1) * 4);     /* 32px */
+  --dim-5: calc(var(--dim-1) * 5);     /* 40px */
+  --dim-6: calc(var(--dim-1) * 6);     /* 48px */
+  --dim-7: calc(var(--dim-1) * 7);     /* 56px */
+  --dim-8: calc(var(--dim-1) * 8);     /* 64px */
+
+  --spacer: var(--lh);
+  --spacer-half-max: var(--dim-4);
+  --spacer-max: var(--dim-8);
+  --gap-base: var(--lh);
+  --gap-large: var(--dim-4);
+
+  @media (--tablet) {
+    --spacer: calc(var(--lh) * 3);
+    --spacer-half-max: var(--dim-8);
+    --spacer-max: calc(var(--dim-8) * 2);
+  }
+
+  /* #endregion */
+
+  /* ------------------------------------------------------------------------ */
+  /* #region: TYPOGRAPHY                                                      */
+  /* ------------------------------------------------------------------------ */
+
+  /* Font stacks */
+  --font-family-emoji: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-family-sans: -apple-system, BlinkMacSystemFont, Inter, sans-serif;
+  --font-family-mono: ui-monospace, SFMono-Regular, Monaco, Consolas, 'Andale Mono', monospace, var(--font-family-emoji);
+  --font-family-base: var(--font-family-sans), var(--font-family-emoji);
+  --font-family-titles: 'Manrope', sans-serif;
+
+  --scale: 1.25; /* major third, 4:5 */
+
+  /* Typography scale */
+  --font-size-base: 17px; /* pxtorem will convert it */
+  --font-weight-base: 400;
+  --font-weight-strong: 600;
+  --letter-spacing-base: 0.011em;
+  --line-height-base: 1rlh;
+
+  /* Fixed fine print */
+  --font-size-fine-print: 12px;
+  --font-weight-fine-print: 400;
+  --letter-spacing-fine-print: 0.1px;
+  --line-height-fine-print: var(--dim-2);
+
+  /* Scale-based sizes */
+  --font-size-body-sm: calc(var(--font-size-base) / var(--scale)); /* ~14px */
+  --font-weight-body-sm: 400;
+  --letter-spacing-body-sm: 0;
+  --line-height-body-sm: var(--dim-2p5);
+
+  --font-size-h3: calc(var(--font-size-base) * var(--scale)); /* 21.25px */
+  --font-weight-h3: 600;
+  --letter-spacing-h3: 0;
+  --line-height-h3: 1rlh;
+
+  --font-size-h2: calc(var(--font-size-h3) * var(--scale)); /* ~26.6px */
+  --font-weight-h2: 500;
+  --letter-spacing-h2: -0.2px;
+  --line-height-h2: var(--dim-4);
+
+  --font-size-title: calc(var(--font-size-h2) * var(--scale)); /* ~33.2px */
+  --font-weight-title: 500;
+  --letter-spacing-title: -0.3px;
+  --line-height-title: var(--dim-5);
+
+  --font-size-hero: var(--font-size-title); /* Same size as the title for now */
+  --font-weight-hero: 700;
+  --letter-spacing-hero: var(--letter-spacing-title);
+  --line-height-hero: var(--line-height-title);
+
+  @media (--tablet) {
+    --scale: 1.414; /* 1:√2, augmented fourth */
+
+    /* Fixed size on larger screens */
+    --font-size-body-sm: 14px;
+
+    /* h3 ~24px */
+    --font-weight-h3: 500;
+    --line-height-h3: var(--dim-4);
+
+    /* h2 ~34px */
+    --letter-spacing-h2: -0.5px;
+    --line-height-h2: var(--dim-5);
+
+    /* Title ~48px */
+    --letter-spacing-title: -1px;
+    --line-height-title: var(--dim-7);
+  }
+
+  @media (--tablet-l) {
+    /* Hero ~68px */
+    --font-size-hero: calc(var(--font-size-title) * var(--scale)); /* 41.5px */
+    --letter-spacing-hero: -2px;
+    --line-height-hero: calc(var(--lh) * 3);
+  }
+
+  /* #endregion */
+
+  /* ------------------------------------------------------------------------ */
+  /* #region: SHAPE                                                           */
+  /* ------------------------------------------------------------------------ */
+
+  --radius-xs: var(--dim-0p5);
+  --radius-sm: var(--dim-1);
+  --radius-base: var(--dim-2);
+  --radius-lg: var(--lh);
+  --radius-xl: var(--dim-4);
+  --radius-pill: 100vmax;
+
+  --border-width: 1px;
+
+  /* #endregion */
+
+  /* ------------------------------------------------------------------------ */
+  /* #region: ELEVATION                                                       */
+  /* ------------------------------------------------------------------------ */
+
+  --shadow-z1:
+    0 0 0.5px 1px var(--color-shadow-light),
+    0 0 0 1px hsl(var(--color-shadow) / var(--shadow-ring, 0.04)),
+    0 1px 2px hsl(var(--color-shadow) / var(--shadow-opacity, 0.06)),
+    0 2px 4px -1px hsl(var(--color-shadow) / var(--shadow-opacity, 0.06));
+  --shadow-z2:
+    0 0 0.5px 1px var(--color-shadow-light),
+    0 0 0 1px hsl(var(--color-shadow) / var(--shadow-ring, 0.04)),
+    0 2px 4px hsl(var(--color-shadow) / var(--shadow-opacity, 0.06)),
+    0 6px 12px -2px hsl(var(--color-shadow) / var(--shadow-opacity, 0.06)),
+    0 14px 28px -4px hsl(var(--color-shadow) / var(--shadow-opacity, 0.06));
+  --shadow-z3:
+    0 0 0.5px 1px var(--color-shadow-light),
+    0 0 0 1px hsl(var(--color-shadow) / var(--shadow-ring, 0.04)),
+    0 3px 6px hsl(var(--color-shadow) / var(--shadow-opacity, 0.06)),
+    0 8px 16px -2px hsl(var(--color-shadow) / var(--shadow-opacity, 0.06)),
+    0 18px 36px -4px hsl(var(--color-shadow) / var(--shadow-opacity, 0.06)),
+    0 30px 60px -4px hsl(var(--color-shadow) / var(--shadow-opacity, 0.06));
+
+  --z-sticky: 10;
+  --z-fixed: 20;
+  --z-fab: 30;
+  --z-popover: 40;
+  --z-tooltip: 50;
+  --z-drawer: 60;
+  --z-modal: 70;
+  --z-notification: 80;
+
+  /* #endregion */
+
+  /* ------------------------------------------------------------------------ */
+  /* #region: LAYOUT DIMENSIONS                                               */
+  /* ------------------------------------------------------------------------ */
+
+  --width-sm: 272px;
+  --width-base: 320px;
+  --width-md: 448px;
+  --width-lg: 544px;
+  --width-xl: 720px;
+  --width-container: 1176px;
+  --width-prose: 70ch;
+
+  /* #endregion */
+
+  /* ------------------------------------------------------------------------ */
+  /* #region: MOTION                                                          */
+  /* ------------------------------------------------------------------------ */
+
+  --duration-50: 0.07s;
+  --duration-100: 0.11s;
+  --duration-200: 0.15s;
+  --duration-300: 0.24s;
+  --duration-400: 0.4s;
+  --duration-500: 0.7s;
+  --duration-600: 1s;
+
+  --easing-base: cubic-bezier(0.2, 0, 0.38, 0.9);
+  --easing-appearance: cubic-bezier(0, 0, 0.38, 0.9);
+  --easing-disappearance: cubic-bezier(0.2, 0, 1, 0.9);
+  --easing-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  /* #endregion */
+
+  /* ------------------------------------------------------------------------ */
+  /* #region: COMPONENT DEFAULTS                                              */
+  /* ------------------------------------------------------------------------ */
+
+  --padding-inline-md: var(--dim-2);
+  --padding-inline-xl: var(--dim-2p5);
+
+  --input-padding-inline: var(--dim-2);
+  --input-padding-block: 5px;
+
+  --button-padding-block: 0;
+  --button-padding-inline: var(--dim-2);
+  --button-height: var(--dim-6);
+
+  @media (--phone-l) {
+    --padding-inline-xl: var(--lh);
+  }
+
+  @media (--tablet) {
+    --navbar-area: 96px;
+
+    --padding-inline-md: var(--lh);
+    --padding-inline-xl: var(--dim-5);
+  }
+
+  @media (--laptop) {
+    --navbar-area: 240px;
+  }
+
+  /* #endregion */
+
+  /* ------------------------------------------------------------------------ */
+  /* #region: ICONS                                                           */
+  /* ------------------------------------------------------------------------ */
+
+  /* It’s recommended to create separate variable sets for light and dark themes,
+  each using its own color palette to keep icons consistent across themes. */
+
+  --icon-checkbox: url('data:image/svg+xml;charset=utf-8,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fswg%22%3E%3Cpath%20d%3D%22M6%2011L9%2014L15%208%22%20stroke%3D%22white%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E%0A');
+  --icon-chevron-down: url('data:image/svg+xml;charset=utf-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M5%207L8%2010L11%207%22%20stroke%3D%22%23B1918B%22%20stroke-width%3D%222%22%20stroke-miterlimit%3D%2210%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E%0A');
+  --icon-error: url('data:image/svg+xml;charset=utf-8,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M21%2012C21%2016.9706%2016.9706%2021%2012%2021C7.02944%2021%203%2016.9706%203%2012C3%207.02944%207.02944%203%2012%203C16.9706%203%2021%207.02944%2021%2012Z%22%20fill%3D%22%23FDE2E7%22%2F%3E%3Cpath%20d%3D%22M12%2016.9V17M12%207V13M21%2012C21%2016.9706%2016.9706%2021%2012%2021C7.02944%2021%203%2016.9706%203%2012C3%207.02944%207.02944%203%2012%203C16.9706%203%2021%207.02944%2021%2012Z%22%20stroke%3D%22%23F2405E%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%2F%3E%3C%2Fsvg%3E%0A');
+  --icon-minus: url('data:image/svg+xml;charset=utf-8,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cline%20x1%3D%225%22%20y1%3D%2210%22%20x2%3D%2215%22%20y2%3D%2210%22%20stroke%3D%22white%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%2F%3E%3C%2Fsvg%3E');
+  --icon-remove: url('data:image/svg+xml;charset=utf-8,  %3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M7.87868%207.87868L10%2010M10%2010L12.1213%2012.1213M10%2010L7.87868%2012.1213M10%2010L12.1213%207.87868M17%2010C17%2013.866%2013.866%2017%2010%2017C6.13401%2017%203%2013.866%203%2010C3%206.13401%206.13401%203%2010%203C13.866%203%2017%206.13401%2017%2010Z%22%20stroke%3D%22%23637D7E%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%2F%3E%3C%2Fsvg%3E');
+  --icon-search: url('data:image/svg+xml;charset=utf-8,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M14.3074%2014.3074C16.6653%2011.9494%2016.6653%208.12643%2014.3074%205.76847C11.9494%203.41051%208.12643%203.41051%205.76847%205.76847C3.41051%208.12643%203.41051%2011.9494%205.76847%2014.3074C8.12643%2016.6653%2011.9494%2016.6653%2014.3074%2014.3074ZM14.3074%2014.3074L20%2020%22%20stroke%3D%22%23B1918B%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%2F%3E%3C%2Fsvg%3E');
+  --icon-success: url('data:image/svg+xml;charset=utf-8,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M12%2021C16.9706%2021%2021%2016.9706%2021%2012C21%207.02944%2016.9706%203%2012%203C7.02944%203%203%207.02944%203%2012C3%2016.9706%207.02944%2021%2012%2021Z%22%20fill%3D%22%23BBF9AE%22%2F%3E%3Cpath%20d%3D%22M9%2012L11%2014L15%2010%22%20fill%3D%22%23BBF9AE%22%2F%3E%3Cpath%20d%3D%22M9%2012L11%2014L15%2010M21%2012C21%2016.9706%2016.9706%2021%2012%2021C7.02944%2021%203%2016.9706%203%2012C3%207.02944%207.02944%203%2012%203C16.9706%203%2021%207.02944%2021%2012Z%22%20stroke%3D%22%2322990A%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E%0A');
+
+  /* #endregion */
+}

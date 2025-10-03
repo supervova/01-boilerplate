@@ -1,0 +1,67 @@
+/* stylelint-disable custom-property-pattern */
+
+/**
+ * TEXT FORMAT
+ * Using: .title { @mixin text-format base; }
+ */
+@define-mixin text-format $level {
+  font-size: var(--font-size-$(level));
+  font-weight: var(--font-weight-$(level), 400);
+  letter-spacing: var(--letter-spacing-$(level), normal);
+  line-height: var(--line-height-$(level));
+  margin-top: var(--margin-top-$(level), 0);
+  margin-bottom: var(--margin-bottom-$(level), revert);
+  padding-top: var(--padding-top-$(level), 0);
+  padding-bottom: var(--padding-bottom-$(level), 0);
+}
+
+/**
+* TEXT FORMAT FOR RLH-BASED VERTICAL RHYTHM
+ * Using: .title { @mixin text-format base; }
+ */
+@define-mixin text-format-rlh $level {
+  font-size: var(--font-size-$(level));
+  font-weight: var(--font-weight-$(level), 400);
+  letter-spacing: var(--letter-spacing-$(level), normal);
+  line-height: var(--line-height-$(level));
+  margin-top: var(--margin-top-$(level), 0);
+  margin-bottom: var(--margin-bottom-$(level), 0);
+}
+
+/**
+ * MULTI-LINE TEXT TRUNCATION
+ *
+ * Using:
+ * .title   { @mixin line-clamp; }
+ * .desc    { @mixin line-clamp 3; }
+ * .body    { @mixin line-clamp 4, 1.5, 8px, 8px; }
+ * .heading { @mixin line-clamp var(--rows), var(--line-height-h3, 1.2); }
+ * Avoid unitless zeros in parameters — they can break value types and `calc()` computations.
+ */
+/* stylelint-disable-next-line length-zero-no-unit */
+@define-mixin line-clamp $rows: 2, $lh: 1.2, $pt: 0px, $pb: 0px {
+  --rows: $(rows);
+  --lh: $(lh);
+  --pt: $(pt);
+  --pb: $(pb);
+
+  /* Fallback w/o lh */
+  --height: calc(
+    var(--rows) * var(--lh) * 1em +
+    var(--pt) + var(--pb)
+  );
+
+  /* Modern solution w/ lh */
+  @supports (height: 1lh) {
+    /* stylelint-disable-next-line no-invalid-position-declaration */
+    --height: calc(var(--rows) * 1lh + var(--pt) + var(--pb));
+  }
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--rows);
+  line-clamp: var(--rows);
+  overflow: hidden;
+  height: var(--height);
+}
+

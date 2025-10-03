@@ -1,0 +1,169 @@
+/* -------------------------------------------------------------------------- */
+/* #region: BASE                                                              */
+/* -------------------------------------------------------------------------- */
+
+@scope (.tabs) {
+  :scope {
+    --tabs-panel-height: auto;
+    --tabs-gap: var(--dim-0p5);
+
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+
+  :scope > .tabs-content {
+    block-size: 100%;
+    display: grid;
+    place-content: center;
+  }
+
+  :scope > .tabs-content > * {
+    grid-area: 1 / 1;
+  }
+
+  :scope [role='tabpanel'] {
+    height: var(--tabs-panel-height);
+    opacity: 0;
+    overflow: auto;
+    pointer-events: none;
+    transition: opacity var(--duration-200) var(--easing-base);
+    width: 100%;
+  }
+
+  :scope [role='tabpanel'].is-open,
+  :scope [role='tabpanel'].is-active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: NAV                                                               */
+/* -------------------------------------------------------------------------- */
+
+.tabs-nav,
+[role='tablist'] {
+  --tabs-nav-bg: var(--color-bg);
+  --tabs-nav-radius: var(--radius-sm);
+
+  align-items: center;
+  background-color: var(--tabs-nav-bg);
+  border-radius: var(--tabs-nav-radius);
+  display: flex;
+  gap: var(--dim-0p5);
+  list-style: none;
+  margin: 0;
+  padding: var(--dim-0p5);
+}
+
+.tabs-nav > li {
+  padding: 0;
+}
+
+@media (--tablet) {
+  .main-header .tabs-nav,
+  .main-header [role='tablist'] {
+    translate: 0 -0.25rem;
+  }
+}
+
+.tabs [role='tab'],
+.tabs-nav [role='tab'] {
+  --tabs-tab-height: var(--dim-4);
+  --tabs-tab-radius: var(--radius-sm);
+  --tabs-tab-gap: var(--dim-1p5);
+
+  align-items: center;
+  background: transparent;
+  border-radius: var(--tabs-tab-radius);
+  color: var(--color-text-02);
+  cursor: pointer;
+  display: inline-flex;
+  flex-shrink: 0;
+  font-size: var(--font-size-body-sm);
+  font-weight: 500;
+  gap: var(--tabs-tab-gap);
+  height: var(--tabs-tab-height);
+  justify-content: center;
+  line-height: var(--line-height-body-sm);
+  max-width: 100%;
+  min-width: 0;
+  padding-inline: var(--dim-1p5);
+  scroll-snap-align: start;
+  text-decoration: none;
+  text-transform: none;
+  touch-action: manipulation;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.tabs [role='tab']:focus-visible,
+.tabs-nav [role='tab']:focus-visible {
+  outline: 2px solid color-mix(in oklch, currentColor 40%, transparent);
+  outline-offset: 2px;
+}
+
+@media (any-hover: hover) {
+  .tabs [role='tab']:hover,
+  .tabs-nav [role='tab']:hover {
+    background: var(--color-fill);
+    color: var(--color-text);
+  }
+}
+
+@media (--phone-l) {
+  .tabs [role='tab'],
+  .tabs-nav [role='tab'] {
+    padding-inline: var(--dim-2);
+  }
+}
+
+[role='tab'][aria-selected='true'] {
+  background: color-mix(in oklch, var(--color-bg-success) 40%, transparent);
+  color: var(--color-text);
+  cursor: default;
+  pointer-events: none;
+}
+
+.tabs-nav-item {
+  position: relative;
+}
+
+.tabs-nav-item:not(
+    :first-child,
+    :has([aria-selected='true']),
+    :has([aria-selected='true']) + .tabs-nav-item,
+    [aria-selected='true'] + .tabs-nav-item,
+    .tabs-nav-item:hover + .tabs-nav-item
+  )::before {
+  border-inline-start: 1px solid var(--color-border);
+  content: '';
+  height: calc(100% - var(--dim-1));
+  inset-block-start: 50%;
+  inset-inline-start: -0.125rem;
+  position: absolute;
+  transform: translateY(-50%);
+  transition: border-color var(--duration-100) var(--easing-base);
+  width: 0;
+}
+
+.tabs-nav-item:hover + .tabs-nav-item::before {
+  border-color: transparent;
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: PANEL CONTENT                                                     */
+/* -------------------------------------------------------------------------- */
+
+[role='tabpanel'] > ul {
+  margin-block: var(--lh) calc(var(--lh) * 2);
+  padding-inline-start: var(--dim-2);
+}
+
+/* #endregion */

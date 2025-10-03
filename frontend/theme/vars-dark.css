@@ -1,0 +1,95 @@
+@define-mixin dark {
+  color-scheme: dark;
+
+  /* ------------------------------------------------------------------------ */
+  /* #region: BRAND                                                           */
+  /* ------------------------------------------------------------------------ */
+
+  --color-bg-brand: hsl(var(--h) var(--s-03) 25%);
+  --color-text-brand: hsl(var(--h) var(--s) 70%);
+  --color-text-02-brand: hsl(var(--h) var(--s) 55%);
+  --color-border-brand: hsl(var(--h) var(--s) 32%);
+  --l-brand-start: 44%;
+  --l-brand-end: 54%;
+
+  /* #endregion */
+
+  /* ------------------------------------------------------------------------ */
+  /* #region: BACKGROUNDS                                                     */
+  /* ------------------------------------------------------------------------ */
+
+  --color-bg: hsl(var(--h) var(--s-min) 14%);
+  --color-bg-02: var(--color-bg-z3);
+  --color-bg-z1: hsl(var(--h) var(--s-min) 18%);
+  --color-bg-z2: hsl(var(--h) var(--s-min) 21%);
+  --color-bg-z3: hsl(var(--h) var(--s-min) 24%);
+  --color-bg-inverse: hsl(var(--h) var(--s-min) 96%);
+  --color-fill: hsl(var(--h) var(--s-min) 99% / 0.04);
+  --color-backdrop: hsl(var(--h) var(--s-min) 10% / 0.35);
+
+  /* #endregion */
+
+  /* ------------------------------------------------------------------------ */
+  /* #region: INKS                                                            */
+  /* ------------------------------------------------------------------------ */
+
+  --color-text: hsl(var(--h) var(--s-min) 99% / 0.87);
+  --color-text-02: hsl(var(--h) var(--s-min) 99% / 0.6);
+  --color-text-03: hsl(var(--h) var(--s-min) 99% / 0.38);
+  --color-icon: var(--color-text-03);
+  --color-border-bold: hsl(var(--h) var(--s-min) 99% / 0.12);
+  --color-border: hsl(var(--h) var(--s-min) 99% / 0.08);
+  --color-link: hsl(var(--h-blue) var(--s-02) 70%);
+  --color-code: hsl(var(--h-purple) var(--s-02) 70%);
+
+  --color-text-inverse: hsl(var(--h) var(--s-min) 14%);
+  --color-text-02-inverse: hsl(var(--h) var(--s-min) 47%);
+  --color-text-03-inverse: hsl(var(--h) var(--s-min) 62%);
+  --color-icon-inverse: var(--color-text-03-inverse);
+  --color-border-inverse: hsl(var(--color-shadow) / 0.08);
+
+  --color-text-neutral: hsl(0 0% 100% / 0.87);
+  --color-text-02-neutral: hsl(0 0% 100% / 0.6);
+  --color-text-03-neutral: hsl(0 0% 100% / 0.38);
+  --color-border-neutral: hsl(0 0% 100% / 0.08);
+
+  --color-focus: color-mix(in oklch, var(--color-brand) 50%, transparent);
+
+  /* #endregion */
+
+  /* ------------------------------------------------------------------------ */
+  /* #region: FEEDBACK                                                        */
+  /* ------------------------------------------------------------------------ */
+
+  --color-info: hsl(var(--h-blue) var(--s-02) 64%);
+  --color-bg-info: hsl(var(--h-blue) var(--s-min) 25%);
+  --color-text-info: hsl(var(--h-blue) var(--s-02) 70%);
+  --color-text-02-info: hsl(var(--h-blue) var(--s-02) 55%);
+
+  --color-error: hsl(var(--h-red) var(--s-02) 64%);
+  --color-bg-error: hsl(var(--h-red) var(--s-min) 27%);
+  --color-text-error: hsl(var(--h-red) var(--s-02) 76%);
+  --color-text-02-error: hsl(var(--h-red) var(--s-02) 61%);
+
+  --color-warning: hsl(var(--h-yellow) var(--s-02) 52%);
+  --color-bg-warning: hsl(var(--h-yellow) var(--s-min) 21%);
+  --color-text-warning: hsl(var(--h-yellow) var(--s-02) 35%);
+  --color-text-02-warning: hsl(var(--h-yellow) var(--s-02) 28%);
+
+  --color-success: hsl(var(--h-green) var(--s-02) 48%);
+  --color-bg-success: hsl(var(--h-green) var(--s-min) 23%);
+  --color-text-success: hsl(var(--h-green) var(--s-02) 39%);
+  --color-text-02-success: hsl(var(--h-green) var(--s-02) 32%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme])) {
+    @mixin dark;
+  }
+}
+
+[data-theme='dark'] {
+  @mixin dark;
+}
+
+/* #endregion */

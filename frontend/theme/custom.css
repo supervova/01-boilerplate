@@ -1,0 +1,71 @@
+/* -------------------------------------------------------------------------- */
+/* #region: RESPONSIVE BREAKPOINTS                                            */
+/* -------------------------------------------------------------------------- */
+/* Mobile breakpoints */
+@custom-media --phone (width < 768px);
+@custom-media --phone-p (width < 480px);
+@custom-media --phone-l (width >= 480px);
+@custom-media --phone-l-height (height <= 360px);
+
+/* Tablet breakpoints */
+@custom-media --tablet (width >= 768px) and (height >= 361px);
+@custom-media --tablet-p-only (768px <= width < 1024px);
+@custom-media --tablet-l-down (width < 1024px);
+@custom-media --tablet-l (width >= 1024px);
+@custom-media --tablet-only (768px <= width < 1280px) and (height >= 361px);
+
+/* Desktop breakpoints */
+@custom-media --laptop-down (width < 1360px);
+@custom-media --laptop (width >= 1360px);
+@custom-media --desktop (width >= 1920px);
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: DEVICE CAPABILITIES                                               */
+/* -------------------------------------------------------------------------- */
+/* High DPI displays */
+@custom-media --retina print, (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 1.25dppx), (min-resolution: 120dpi);
+
+/* Touch and hover capabilities */
+@custom-media --touch (hover: none) and (pointer: coarse);
+@custom-media --mouse (hover: hover) and (pointer: fine);
+@custom-media --can-hover (any-hover: hover);
+
+/* Color scheme preferences */
+@custom-media --dark (prefers-color-scheme: dark);
+@custom-media --light (prefers-color-scheme: light);
+
+/* Contrast preferences */
+@custom-media --high-contrast (prefers-contrast: high);
+@custom-media --low-contrast (prefers-contrast: low);
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: FORM ELEMENTS                                                     */
+/* -------------------------------------------------------------------------- */
+
+@custom-selector :--text-field :where(
+  input:not([type]),
+  input:is(
+    [type='text' i],
+    [type='email' i],
+    [type='password' i],
+    [type='search' i],
+    [type='tel' i],
+    [type='url' i],
+    [type='number' i],
+    [type='date' i],
+    [type='datetime-local' i],
+    [type='month' i],
+    [type='week' i],
+    [type='time' i]
+  ),
+  select,
+  textarea
+);
+
+/* @see https://caniuse.com/css-case-insensitive for `i` */
+
+/* #endregion */

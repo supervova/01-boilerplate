@@ -1,0 +1,71 @@
+/* -------------------------------------------------------------------------- */
+/* #region: GRID LAYOUT                                                       */
+/* -------------------------------------------------------------------------- */
+
+.grid {
+  display: grid;
+  gap: var(--grid-gap, var(--dim-2));
+  grid-template-columns: var(--grid-columns, 1fr);
+  grid-template-rows: var(--grid-rows, auto);
+
+  @media (--tablet) {
+    --grid-gap: var(--lh);
+  }
+
+  @media (--tablet-l) {
+    --grid-gap: var(--dim-4);
+  }
+}
+
+.grid:not(.tablet-l\:grid, .grid-center, .grid-max-content) {
+  @media (--tablet) {
+    --grid-columns: repeat(auto-fit, minmax(80px, 1fr));
+  }
+}
+
+.tablet-l\:grid {
+  @media (--tablet-l) {
+    --grid-columns: repeat(auto-fit, minmax(80px, 1fr));
+  }
+}
+
+@media (--tablet) {
+  .grid-12 {
+    --grid-columns: repeat(12, minmax(0, 1fr));
+  }
+
+  .grid-center,
+  .grid-max-content {
+    --grid-columns: repeat(auto-fit, minmax(0, max-content));
+  }
+
+  .grid-center {
+    justify-content: center;
+  }
+}
+
+@media (--phone) {
+  .phone\:grid-3 { --grid-columns: repeat(3, 1fr); }
+  .phone\:grid-4 { --grid-columns: repeat(4, 1fr); }
+}
+
+.col,
+[class^='col-'] {
+  display: flex;
+  flex-direction: column;
+}
+
+.col {
+  grid-column: 1 / -1;
+}
+
+.col-1 { grid-column: auto / span 1; }
+.col-2 { grid-column: auto / span 2; }
+.col-3 { grid-column: auto / span 3; }
+.col-4 { grid-column: auto / span 4; }
+
+.col-start-1 { grid-column-start: 1; }
+.col-start-2 { grid-column-start: 2; }
+.col-start-3 { grid-column-start: 3; }
+
+/* #endregion */

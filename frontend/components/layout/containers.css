@@ -1,0 +1,71 @@
+/* -------------------------------------------------------------------------- */
+/* #region: BASE                                                              */
+/* -------------------------------------------------------------------------- */
+
+.prose,
+.container {
+  margin-inline: auto;
+  padding-inline: var(--padding-inline-xl);
+  position: relative;
+}
+
+.container {
+  width: min(100%, var(--width-container));
+}
+
+.prose {
+  font-variant-numeric: oldstyle-nums;
+  width: min(100%, var(--width-prose));
+}
+
+
+.main {
+  &:not(:has(> .hero)) {
+    padding-top: var(--spacer);
+  }
+
+  @media (--tablet) {
+
+    /* Make room for navbar... */
+    padding-inline-start: var(--navbar-area, 0);
+  }
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: HORIZONTALLY SCROLLABLE CONTAINER                                 */
+/* -------------------------------------------------------------------------- */
+
+.scroll-x {
+  --scroll-x-border: 1px solid var(--color-border);
+  --scroll-x-radius: var(--radius-sm);
+  --scroll-padding: var(--lh);
+
+  -webkit-overflow-scrolling: touch;
+  border: var(--scroll-x-border);
+  border-radius: var(--scroll-x-radius);
+  padding: var(--scroll-padding);
+  overflow: auto hidden;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .scroll-x {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (hover: none) {
+  .scroll-x {
+    scrollbar-width: none;
+  }
+
+  .scroll-x::-webkit-scrollbar {
+    height: 0;
+    width: 0;
+  }
+}
+
+/* #endregion */

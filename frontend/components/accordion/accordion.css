@@ -1,0 +1,157 @@
+/* -------------------------------------------------------------------------- */
+/* #region: BASE                                                              */
+/* -------------------------------------------------------------------------- */
+
+@scope (.accordion) {
+  :scope {
+    --accordion-border-color: var(--color-border, hsl(0 0% 0% / 0.08));
+    --accordion-summary-color: var(--color-text);
+    --accordion-summary-color-active: var(--color-text-02);
+    --accordion-summary-padding-block: var(--lh);
+    --accordion-summary-padding-inline-end: var(--dim-5);
+    --accordion-marker-size: var(--dim-4);
+    --accordion-marker-offset: var(--dim-2p5);
+    --accordion-marker-bg: transparent;
+    --accordion-marker-bg-active: var(--color-fill);
+    --accordion-marker-border: 1px solid var(--color-border);
+    --accordion-marker-stroke: var(--color-text);
+
+    border-top: 1px solid var(--accordion-border-color);
+    display: block;
+    overflow: hidden;
+  }
+
+  summary {
+    color: var(--accordion-summary-color);
+    cursor: pointer;
+    font-weight: 500;
+    padding-top: calc(var(--accordion-summary-padding-block) - 1px);
+    padding-bottom: var(--accordion-summary-padding-block);
+    padding-right: var(--accordion-summary-padding-inline-end);
+    position: relative;
+    transition: color var(--duration-50) var(--easing-base);
+    width: 100%;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  summary:focus-visible {
+    outline: 2px solid color-mix(in oklch, var(--color-brand) 40%, transparent);
+    outline-offset: 2px;
+  }
+
+  @media (any-hover: hover) {
+    summary:hover {
+      color: var(--accordion-summary-color-active);
+    }
+  }
+
+  :scope::details-content {
+    color: var(--color-text-02);
+    height: 0;
+    transition:
+      content-visibility var(--duration-200) var(--easing-base),
+      height var(--duration-200) var(--easing-base);
+    transition-behavior: allow-discrete;
+  }
+
+  :scope[open] {
+    --accordion-marker-bg: var(--accordion-marker-bg-active);
+    --accordion-marker-border: transparent;
+    --accordion-marker-stroke: var(--color-text-02);
+  }
+
+  :scope[open]::details-content,
+  :scope[open] .accordion-body {
+    height: auto;
+  }
+
+  .accordion-marker {
+    --icon-stroke: var(--accordion-marker-stroke);
+
+    background: var(--accordion-marker-bg);
+    border: var(--accordion-marker-border);
+    border-radius: var(--radius-pill);
+    color: var(--accordion-marker-stroke);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 2px;
+    position: absolute;
+    top: var(--accordion-marker-offset);
+    right: 0;
+    transition:
+      background-color var(--duration-50) var(--easing-base),
+      rotate var(--duration-50) var(--easing-base);
+    width: var(--accordion-marker-size);
+    height: var(--accordion-marker-size);
+  }
+
+  :scope[open] .accordion-marker {
+    rotate: 180deg;
+  }
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: SPACING                                                           */
+/* -------------------------------------------------------------------------- */
+
+.accordion + :not(.accordion) {
+  margin-top: var(--lh);
+
+  @media (--tablet) {
+    margin-top: calc(var(--lh) * 2);
+  }
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: CONTENT                                                           */
+/* -------------------------------------------------------------------------- */
+
+/*
+  Summary
+  With subheading
+*/
+summary:has(.accordion-header-hgroup) {
+  --accordion-summary-padding-block: calc(var(--lh) / 2)
+}
+
+.accordion-header-hgroup {
+  flex: 1 1 auto;
+}
+
+.accordion-header-hgroup strong {
+  display: block;
+  font-weight: inherit;
+}
+
+.accordion-header-hgroup .text-02 {
+  @mixin text-truncate;
+
+  display: block;
+  font-weight: 400;
+}
+
+.accordion-header-hgroup .accordion-marker {
+  top: 50%;
+  translate: 0 -50%;
+}
+
+/* Body */
+
+.accordion-body .h3,
+.accordion-body h3 {
+  color: var(--color-text);
+  font-size: var(--font-size-body-sm);
+  font-weight: 500;
+  letter-spacing: var(--letter-spacing-body-sm, 0);
+  line-height: var(--line-height-body-sm);
+}
+
+/* #endregion */

@@ -1,0 +1,98 @@
+/* stylelint-disable comment-empty-line-before */
+@layer base, components, pages, utils, print;
+@layer components.mvp, components.extended;
+
+/* Mixins are defined outside layers — excluded from build but available globally. */
+@import url('./theme/mixins.css');
+
+@import url('./theme/custom.css') layer(base);
+/* @import url('./theme/fonts.css') layer(base); */
+@import url('./theme/reset.css') layer(base);
+@import url('./theme/vars.css') layer(base);
+@import url('./theme/vars-light.css') layer(base);
+@import url('./theme/vars-dark.css') layer(base);
+@import url('./theme/doc.css') layer(base);
+
+@import url('./components/icon/icon.css') layer(components.mvp);
+@import url('./components/button/button.css') layer(components.mvp);
+@import url('./components/content/mvp.css') layer(components.mvp);
+@import url('./components/form/mvp.css') layer(components.mvp);
+@import url('./components/layout/containers.css') layer(components.mvp);
+@import url('./theme/utils/mvp.css') layer(utils);
+
+/* -------------------------------------------------------------------------- */
+/* #region: EXTENDED                                                          */
+/* -------------------------------------------------------------------------- */
+
+/* Content */
+@import url('./components/content/advanced.css') layer(components.mvp);
+@import url('./components/content/media.css') layer(components.mvp);
+@import url('./components/content/code.css') layer(components.mvp);
+@import url('./components/content/table.css') layer(components.mvp);
+@import url('./components/stat/stat.css') layer(components.extended);
+/*
+@import url('./components/badge/badge.css') layer(components.extended);
+@import url('./components/content/blockquote/blockquote.css') layer(components.extended);
+@import url('./components/content/callout/callout.css') layer(components.extended);
+@import url('./components/content/tag/tag.css') layer(components.extended);
+*/
+
+/* Form */
+@import url('./components/form/label.css') layer(components.mvp);
+@import url('./components/form/switch.css') layer(components.extended);
+@import url('./components/form/checkbox-radio.css') layer(components.mvp);
+@import url('./components/form/search.css') layer(components.extended);
+@import url('./components/form/range.css') layer(components.extended);
+/* add Date, Time, File */
+@import url('./components/form/validation.css') layer(components.extended);
+
+/* Layout */
+@import url('./components/layout/grid.css') layer(components.extended);
+@import url('./components/layout/grid-adaptive.css') layer(components.extended);
+@import url('./components/layout/row.css') layer(components.extended);
+
+/* Blocks */
+@import url('./components/card/card.css') layer(components.extended);
+@import url('./components/footer/footer.css') layer(components.extended);
+@import url('./components/header/header.css') layer(components.extended);
+@import url('./components/hero/hero.css') layer(components.extended);
+@import url('./components/navbar/navbar.css') layer(components.extended);
+@import url('./components/section/section.css') layer(components.extended);
+
+/* Navigation & Actions */
+/*
+@import url('./components/menu/menu.css') layer(components.extended);
+@import url('./components/pagination/pagination.css') layer(components.extended);
+*/
+
+/* Feedback */
+@import url('./components/progress/bar.css') layer(components.extended);
+@import url('./components/progress/spinner.css') layer(components.extended);
+@import url('./components/progress/progress.css') layer(components.extended);
+@import url('./components/toast/toast.css') layer(components.extended);
+/*
+@import url('./components/alert/alert.css') layer(components.extended);
+*/
+
+/* Disclosure */
+@import url('./components/accordion/accordion.css') layer(components.extended);
+@import url('./components/drawer/drawer.css') layer(components.extended);
+@import url('./components/modal/modal.css') layer(components.extended);
+@import url('./components/popover/popover.css') layer(components.extended);
+@import url('./components/tabs/tabs.css') layer(components.extended);
+@import url('./components/tooltip/tooltip-rich.css') layer(components.extended);
+@import url('./components/tooltip/tooltip.css') layer(components.extended);
+
+/* Utils */
+/*
+@import url('./theme/utils/accessibility.css') layer(utils);
+@import url('./theme/utils/animation.css') layer(utils);
+@import url('./theme/utils/display.css') layer(utils);
+@import url('./theme/utils/flex.css') layer(utils);
+@import url('./theme/utils/spacing.css') layer(utils);
+@import url('./theme/utils/width.css') layer(utils);
+*/
+
+@import url('./theme/utils/print.css') layer(print);
+
+/* #endregion */

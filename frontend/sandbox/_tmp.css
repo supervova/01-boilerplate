@@ -1,0 +1,103 @@
+/* -------------------------------------------------------------------------- */
+/* #region: BODY & PARAGRAPHS                                                 */
+/* -------------------------------------------------------------------------- */
+
+body {
+  font-size: var(--font-size-base); /* 17px */
+  line-height: var(--lh); /* 24px */
+  color: var(--color-text, #111);
+}
+
+/* Межблочные интервалы — 1 строка */
+p, ul, ol, blockquote, pre, table {
+  margin-block: 0 var(--lh); /* отступ снизу – 24px */
+}
+
+/* Утилиты ритма */
+.mb-0 { margin-bottom: 0; }
+.mb-1 { margin-bottom: var(--dim-1); } /* 8px */
+.mb-2 { margin-bottom: var(--dim-2); } /* 16px */
+.mb-3 { margin-bottom: var(--lh); } /* 24px */
+.mb-4 { margin-bottom: var(--dim-4); } /* 32px */
+
+/* -------------------------------------------------------------------------- */
+/* #region: HEADINGS (line-height кратна 8px)                                 */
+/* -------------------------------------------------------------------------- */
+
+/* Подход: размер шрифта — из шкалы; высота строки — целое число × 8px.*/
+
+.hero-title {
+  font-size: var(--font-size-hero);
+  line-height: var(--line-height-hero);
+  margin-top: var(--margin-top-hero, 0);
+  margin-bottom: var(--margin-bottom-hero, var(--dim-2));
+}
+
+h1, .h1 {
+  font-size: var(--font-size-title);
+  line-height: var(--line-height-title);
+  margin-top: var(--margin-top-title, 0);
+  margin-bottom: var(--margin-bottom-title, var(--dim-2));
+}
+
+h2, .h2 {
+  font-size: var(--font-size-h2);
+  line-height: var(--line-height-h2);
+  margin-top: var(--margin-top-h2, calc(var(--lh) * 2));
+  margin-bottom: var(--margin-bottom-h2, 0);
+}
+
+h3, .h3 {
+  font-size: var(--font-size-h3);
+  line-height: var(--line-height-h3);
+  margin-top: var(--margin-top-h3, calc(var(--lh) * 2));
+  margin-bottom: var(--margin-bottom-h3, 0);
+}
+
+h4, .h4,
+h5, h6 {
+  font-size: var(--font-size-base);
+  line-height: var(--lh);
+  margin-top: var(--margin-top-h3, calc(var(--lh) * 2));
+  margin-bottom: var(--margin-bottom-h3, 0);
+}
+
+/* -------------------------------------------------------------------------- */
+/* #region: SMALL TYPE (кратность 4px)                                         */
+/* -------------------------------------------------------------------------- */
+
+.text-sm {
+  font-size: var(--font-size-body-sm);
+  line-height: var(--line-height-body-sm);
+  margin-top: var(--margin-top-body-sm, 0);
+  margin-bottom: var(--margin-bottom-body-sm, 0);
+}
+
+small, .text-xs {
+  font-size: var(--font-size-fine-print);
+  line-height: var(--line-height-fine-print);
+  margin-top: var(--margin-top-fine-print, 0);
+  margin-bottom: var(--margin-bottom-fine-print, 0);
+}
+
+/* -------------------------------------------------------------------------- */
+/* #region: EXAMPLES                                                          */
+/* -------------------------------------------------------------------------- */
+
+/* Двухстрочный заголовок в карточке: чётко по ритму, clamp на 2 строки */
+.card h3 {
+  /* h3 уже имеет line-height = 24px (3×8) выше */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+
+  /* страховка по высоте: 2 строки × 24px = 48px (кратно 8px) */
+  max-height: calc(2 * 3 * var(--dim-1));
+}
+
+.card {
+  padding: var(--lh);
+  margin-block: 0 var(--lh);
+}
+```

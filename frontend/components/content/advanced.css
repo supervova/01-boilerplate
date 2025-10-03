@@ -1,0 +1,109 @@
+/* -------------------------------------------------------------------------- */
+/* #region: BASE                                                              */
+/* -------------------------------------------------------------------------- */
+
+:where(:focus-visible) {
+  scroll-padding-bottom: var(--scroll-padding-end, 8vh);
+}
+
+address {
+  font-style: normal;
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: HEADINGS                                                          */
+/* -------------------------------------------------------------------------- */
+
+.eyebrow {
+  @mixin text-format fine-print;
+
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-bottom: var(--eyebrow-margin-bottom, var(--dim-1));
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: LISTS                                                             */
+/* -------------------------------------------------------------------------- */
+
+nav ul,
+.list-unstyled,
+.list-inline {
+  list-style: none;
+  margin: 0;
+  padding-inline-start: 0;
+}
+
+.list-inline li {
+  display: inline-block;
+  margin-inline-end: var(--dim-0p5);
+  padding: 0;
+}
+
+.list-inline li:last-child {
+  margin-inline-end: 0;
+}
+
+/* #endregion */
+
+/* ------------------------------------------------------------------------ */
+/* #region: INLINE                                                          */
+/* ------------------------------------------------------------------------ */
+
+:where(a:not(.btn, [role='button'], [role='tab'])),
+[role='link'] {
+  --link-bg-focus: var(--color-bg-brand);
+  color: var(--color-link);
+  outline: none;
+  text-decoration: none;
+  transition:
+    background-color var(--duration-50),
+    color var(--duration-50),
+    text-decoration var(--duration-50);
+
+  &:is(:active, :focus-visible) {
+    text-decoration: underline;
+    text-decoration-skip-ink: auto;
+    text-decoration-thickness: max(0.08em, 1px);
+    text-underline-offset: 0.125em;
+  }
+
+  &:focus-visible {
+    background-color: var(--link-bg-focus);
+    border-radius: var(--radius-xs);
+    outline-offset: 2px;
+  }
+
+  &[aria-current] {
+    color: var(--color-current, var(--color-text));
+  }
+}
+
+mark {
+  background: var(--color-bg-brand);
+  color: inherit;
+  padding-inline: var(--dim-0p5);
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: MEDIA                                                             */
+/* -------------------------------------------------------------------------- */
+
+  /* Image boxes extending beyond the text column width */
+  /* figure*/.figure-wide {
+    margin-block: var(--dim-5);
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+
+    /* Max width: 960px or (viewport width minus page padding), whichever is smaller */
+    width: min(960px, calc(100vw - var(--navbar-area) - 2 * var(--padding-inline-xl)));
+  }
+
+/* #endregion */

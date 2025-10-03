@@ -1,0 +1,37 @@
+/* -------------------------------------------------------------------------- */
+/* #region: BASE                                                              */
+/* -------------------------------------------------------------------------- */
+
+@scope (.icon) {
+  :scope {
+    --icon-fill: transparent;
+    --icon-stroke: var(--color-icon);
+    --icon-stroke-width: 2;
+    --icon-size: var(--lh);
+
+    display: inline-block;
+    fill: var(--icon-fill);
+    flex-shrink: 0;
+    overflow: hidden;
+    transition:
+      fill var(--duration-50),
+      opacity var(--duration-50);
+    vertical-align: middle;
+    width: var(--icon-size);
+    height: var(--icon-size);
+
+    @media (--retina) {
+      --icon-stroke-width: 1.5;
+    }
+  }
+
+  /* #region: MODIFIERS */
+
+  :scope.icon-sm {
+    --icon-size: var(--dim-2p5);
+  }
+
+  /* #endregion */
+}
+
+/* #endregion */

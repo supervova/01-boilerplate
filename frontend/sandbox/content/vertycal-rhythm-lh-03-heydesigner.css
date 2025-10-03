@@ -1,0 +1,76 @@
+:root {
+  /* font size for root */
+  --fsr: 1rem;
+
+  /* Body copy text font size */
+  --fs: 106.25%;
+
+  /* Line-height */
+  --lh: 1.6470588235rem;
+
+  /* Type scale */
+  --ts: 1.2;
+
+  @media screen and (min-width: 764px) {
+    --fs: 112.5%;
+    --lh: 1.6666666667rem;
+  }
+}
+
+html {
+  font-size: var(--fs);
+  scroll-padding-top: var(--lh);
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-family: InterVariable, -apple-system, BlinkMacSystemFont, segoe ui, Helvetica, Arial, sans-serif, apple color emoji, segoe ui emoji, segoe ui symbol;
+  font-size: var(--fsr);
+  font-weight: 400;
+  line-height: var(--lh);
+}
+
+h1 {
+  font-size: calc(var(--fsr) * var(--ts) * var(--ts) * var(--ts));
+  line-height: calc(var(--lh) * 1.5);
+}
+
+h2 {
+  font-size: calc(var(--fsr) * var(--ts) * var(--ts));
+}
+
+h3 {
+  font-size: calc(var(--fsr) * var(--ts));
+}
+
+h4,
+h5,
+h6 {
+  font-size: var(--fs);
+}
+
+sup,
+small {
+  font-size: calc(var(--fsr) / var(--ts));
+}
+
+sup {
+  vertical-align: bottom;
+  position: relative;
+  top: calc(var(--lh) / -4);
+}
+
+.btn {
+  font-size: inherit;
+}
+
+.btn-small {
+  font-size: calc(var(--fsr) / var(--ts));
+}
+
+/* Padding'и и margin'ы – все высчитываются на базе (--lh) */
+.header {
+  padding-block: calc(var(--lh) * 2);
+}

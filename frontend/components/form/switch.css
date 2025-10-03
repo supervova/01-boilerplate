@@ -1,0 +1,68 @@
+/* -------------------------------------------------------------------------- */
+/* #region: CONTAINER                                                              */
+/* -------------------------------------------------------------------------- */
+
+.switch,
+label:has(input[type='checkbox'][role='switch']) {
+  --switch-wrap-display: flex;
+  --switch-wrap-justify: space-between;
+  --switch-wrap-margin: 0 0 var(--dim-1);
+
+  color: var(--color-text-02);
+  display: var(--switch-wrap-display);
+  align-items: center;
+  justify-content: var(--switch-wrap-justify);
+  margin: var(--switch-wrap-margin);
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: SWITCH INPUT                                                      */
+/* -------------------------------------------------------------------------- */
+
+input[type='checkbox'][role='switch'] {
+  --switch-bg: var(--color-border-bold);
+  --switch-bg-checked: var(--color-brand);
+  --switch-thumb-bg: var(--color-bg);
+  --switch-thumb-bg-checked: var(--color-bg);
+  --switch-border-width: 2px;
+  --switch-height: 22px;
+  --switch-width: var(--dim-5);
+  --switch-thumb-size: calc(var(--switch-height) - 4px);
+
+  appearance: none;
+  background-color: var(--switch-bg);
+  border: 0;
+  border-radius: var(--radius-pill);
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  padding: 2px;
+  width: var(--switch-width);
+  height: var(--switch-height);
+}
+
+/* Thumb */
+input[type='checkbox'][role='switch']::before {
+  background-color: var(--switch-thumb-bg);
+  border-radius: 50%;
+  box-shadow: 0 0 1px 1px hsl(var(--color-shadow) / 0.12);
+  content: '';
+  display: block;
+  transition: margin-inline-start var(--duration-50) var(--easing-base);
+  width: var(--switch-thumb-size);
+  height: var(--switch-thumb-size);
+}
+
+input[type='checkbox'][role='switch']:checked {
+  background-color: var(--switch-bg-checked);
+  background-image: none;
+}
+
+input[type='checkbox'][role='switch']:checked::before {
+  background-color: var(--switch-thumb-bg-checked);
+  margin-inline-start: var(--switch-thumb-size);
+}
+
+/* #endregion */

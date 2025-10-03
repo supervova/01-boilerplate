@@ -1,0 +1,139 @@
+/* -------------------------------------------------------------------------- */
+/* #region: BASELINE-COMPENSATION PADDINGS                                                          */
+/* -------------------------------------------------------------------------- */
+
+:root {
+  --padding-top-hero: 1px;
+  --padding-bottom-hero: 7px;
+
+  --padding-top-title: 1px;
+  --padding-bottom-title: 7px;
+
+  --padding-top-h2: 7px;
+  --padding-bottom-h2: 1px;
+
+  --padding-top-h3: 6px;
+  --padding-bottom-h3: 2px;
+
+  --padding-top-base: 6px;
+  --padding-bottom-base: 2px;
+
+  --padding-top-body-sm: 1px;
+  --padding-bottom-body-sm: 3px;
+
+  --padding-top-label: 1px;
+  --padding-bottom-label: 3px;
+
+  --padding-top-fine-print: 4px;
+  --padding-bottom-fine-print: 4px;
+
+  --padding-bottom-list: 16px;
+  --padding-bottom-li: 10px;
+
+  @media (--tablet) {
+    --padding-top-hero: 2px;
+    --padding-bottom-hero: 6px;
+
+    --padding-top-title: 2px;
+    --padding-bottom-title: 6px;
+
+    --padding-top-h2: 7px;
+    --padding-bottom-h2: 1px;
+
+    --padding-top-h3: 7px;
+    --padding-bottom-h3: 1px;
+  }
+
+  @media (--tablet-l) {
+    --padding-top-hero: 2px;
+    --padding-bottom-hero: 6px;
+  }
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: HEADINGS                                                          */
+/* -------------------------------------------------------------------------- */
+
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, h6 {
+  margin-block: 0 var(--dim-2);
+}
+
+h1, .h1 {
+  padding-block: var(--padding-top-title) var(--padding-bottom-title);
+}
+
+h2, .h2 {
+  padding-block: var(--padding-top-h2) var(--padding-bottom-h2);
+}
+
+h3, .h3 {
+  padding-block: var(--padding-top-h3) var(--padding-bottom-h3);
+}
+
+h4, .h4,
+h5, h6 {
+  padding-block: var(--padding-top-base) var(--padding-bottom-base);
+}
+
+/* Eyebrow: category or section label above the title */
+.eyebrow {
+  --eyebrow-margin-bottom: calc(-1 * var(--dim-0p5));
+  padding-block: var(--padding-block-fine-print) var(--padding-block-fine-print);
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: BLOCKS                                                            */
+/* -------------------------------------------------------------------------- */
+
+address,
+dd,
+dt,
+li,
+p {
+  padding-block: var(--padding-top-base) var(--padding-bottom-base);
+}
+
+address,
+blockquote,
+dl,
+figure,
+ol,
+p,
+pre,
+table,
+ul {
+  margin-block: 0 var(--dim-2);
+}
+
+li > p:first-child {
+  padding-top: 0;
+}
+
+li > p:last-child {
+  padding-bottom: 0;
+}
+
+li:has(> ul, > ol) {
+  padding-bottom: 0;
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: UTILITIES                                                         */
+/* -------------------------------------------------------------------------- */
+
+.text-sm {
+  padding-bottom: var(--padding-bottom-body-sm);
+  padding-top: var(--padding-top-body-sm);
+}
+
+/* #endregion */

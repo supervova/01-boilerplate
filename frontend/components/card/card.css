@@ -1,0 +1,137 @@
+@scope (.card) {
+
+  /* ------------------------------------------------------------------------ */
+  /* #region: BASE                                                            */
+  /* ------------------------------------------------------------------------ */
+
+  :scope {
+    --card-bg: var(--color-bg);
+    --card-color: var(--color-text);
+    --card-body-color: var(--color-text-02);
+    --card-radius: var(--radius-base);
+    --card-shadow: var(--shadow-z1);
+    --card-padding: var(--dim-2p5);
+    --card-gap: calc(var(--card-padding) / 2);
+    --card-max-w: var(--width-lg);
+
+    background-color: var(--card-bg);
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow);
+    color: var(--card-color);
+    display: flex;
+    flex-direction: column;
+    gap: var(--card-gap);
+    margin-inline: auto;
+    padding-block: var(--card-padding) calc(var(--card-padding) + var(--dim-1));
+    position: relative;
+    width: min(100%, var(--card-max-w));
+
+    @media (--phone-l) { --card-padding: var(--lh); }
+    @media (--tablet)  { --card-padding: var(--dim-4); }
+  }
+
+  /* #endregion */
+
+  /* ------------------------------------------------------------------------ */
+  /* #region: CHILDREN                                                        */
+  /* ------------------------------------------------------------------------ */
+
+  /* Default padding for all direct children */
+  :scope > * { padding-inline: var(--card-padding); }
+
+  header {
+    display: grid;
+
+    /* eyebrow + title track sized by the title's own height */
+    grid-template-rows: auto auto;
+    row-gap: 0;
+  }
+
+  header .eyebrow {
+    grid-row: 1;
+  }
+
+  header :is(h2, h3, .card-title) {
+    grid-row: 2;
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+    margin: 0;
+
+    /* Avoid unitless zeros in fallback values — they break value types and
+      `calc()` computations. */
+    /* stylelint-disable-next-line length-zero-no-unit */
+    @mixin line-clamp 2, var(--line-height-h3, 1.2);
+  }
+
+  header a {
+    color: inherit;
+    text-decoration: none;
+
+    /* There must be no ancestor with position ≠ static between the <a> and .card;
+       otherwise the ::after pseudo-element will anchor to that ancestor. */
+    &::after {
+      background: transparent;
+      border-radius: var(--card-radius);
+      content: '';
+      position: absolute;
+      inset: 0;
+      transition: background var(--duration-100) var(--easing-base);
+    }
+
+    &:hover::after {
+      background: hsl(var(--h) var(--s) var(--l) / 0.03);
+    }
+  }
+
+  :scope > figure img {
+    border-radius: calc(var(--card-radius) - var(--dim-0p5));
+  }
+
+  :scope > :is(section, .card-body) {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+  p, time { color: var(--card-body-color); }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+  time {
+    @mixin text-format fine-print;
+
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  footer {
+    display: flex;
+    align-items: center;
+  }
+
+  /* If the card contains other interactive elements (buttons, etc.), give
+     them position: relative; z-index: 1; so they remain clickable above
+     the stretched link.  */
+  :is(button, .btn, [role='button']) {
+    position: relative;
+    z-index: 1;
+  }
+
+  :scope > .card-bleed {
+    padding-inline: 0;
+    margin-inline: calc(-1 * var(--card-padding));
+  }
+
+  /* #endregion */
+
+  /* ------------------------------------------------------------------------ */
+  /* #region: MODIFIERS                                                       */
+  /* ------------------------------------------------------------------------ */
+
+  :scope.card-elevated {
+    --card-shadow: var(--shadow-z2);
+  }
+
+  /* #endregion */
+}

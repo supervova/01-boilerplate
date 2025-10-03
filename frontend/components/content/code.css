@@ -1,0 +1,53 @@
+/* -------------------------------------------------------------------------- */
+/* #region: BASE                                                              */
+/* -------------------------------------------------------------------------- */
+
+code,
+kbd,
+samp,
+pre {
+  color: var(--color-code, var(--color-text));
+  font-family: var(--font-family-mono, monospace);
+  font-size: 100%;
+}
+
+code, kbd {
+  border-radius: var(--radius-sm);
+  padding: 2px var(--dim-0p5);
+}
+
+code {
+  background-color: var(--color-bg-02);
+}
+
+kbd {
+  background-color: var(--color-fill);
+  border: 1px solid var(--color-border);
+  border-bottom-width: 2px;
+}
+
+samp {
+  background-color: var(--color-fill);
+  border-left: 2px solid var(--color-border);
+  padding-left: var(--dim-0p5);
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: BLOCK CODE                                                        */
+/* -------------------------------------------------------------------------- */
+
+pre {
+  background-color: var(--color-bg-02);
+  border-radius: var(--radius-base);
+  overflow-x: auto;
+  tab-size: 2;
+}
+
+pre code {
+  background-color: transparent;
+  padding: 0;
+}
+
+/* #endregion */

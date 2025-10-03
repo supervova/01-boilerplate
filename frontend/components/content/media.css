@@ -1,0 +1,78 @@
+/* -------------------------------------------------------------------------- */
+/* #region: RESET                                                             */
+/* -------------------------------------------------------------------------- */
+
+iframe,
+img,
+video {
+  border-style: none;
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: FIGURES AND IFRAMES                                               */
+/* -------------------------------------------------------------------------- */
+
+figure,
+iframe {
+  margin-block: 0 var(--media-margin-bottom, var(--lh));
+}
+
+figcaption {
+  color: var(--color-text-02);
+  margin-top: var(--dim-2);
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: IMAGES, VIDEO, SVG                                                */
+/* -------------------------------------------------------------------------- */
+
+img,
+video {
+  max-width: 100%;
+}
+
+/* Images without a class are block-level; add a class if you need inline ones */
+img:not([class]),
+figure img {
+  display: block;
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: MEDIA BORDER                                                      */
+/* -------------------------------------------------------------------------- */
+
+.media-border {
+  border-radius: var(--radius-base);
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  max-width: max-content;
+
+  /* Applies to direct children only. */
+  & > :is(iframe, img) {
+    margin-bottom: 0;
+    width: 100%;
+  }
+
+  &::after {
+    border-radius: var(--radius-base);
+    box-shadow: inset 0 0 0 1px var(--color-border-neutral);
+    content: '';
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+  }
+
+  &:empty {
+    display: none;
+  }
+}
+
+/* #endregion */
+

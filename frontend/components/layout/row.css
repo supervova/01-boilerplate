@@ -1,0 +1,51 @@
+/* -------------------------------------------------------------------------- */
+/* #region: FLEX ROW                                                          */
+/* -------------------------------------------------------------------------- */
+
+.row {
+  --row-columns: 1;
+  --row-gap: var(--dim-2);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--row-gap);
+}
+
+@media (--tablet) {
+  .row {
+    --row-columns: 2;
+    --row-gap: var(--lh);
+    flex-flow: row wrap;
+  }
+
+  .row > * {
+    width: calc(
+      100% / var(--row-columns) - var(--row-gap) * (var(--row-columns) - 1) / var(--row-columns)
+    );
+  }
+}
+
+.tablet-l\:row {
+  --row-columns: 1;
+  --row-gap: var(--dim-2);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--row-gap);
+}
+
+@media (--tablet-l) {
+  .tablet-l\:row {
+    --row-columns: 2;
+    --row-gap: var(--lh);
+    flex-flow: row wrap;
+  }
+
+  .tablet-l\:row > * {
+    width: calc(
+      100% / var(--row-columns) - var(--row-gap) * (var(--row-columns) - 1) / var(--row-columns)
+    );
+  }
+}
+
+/* #endregion */

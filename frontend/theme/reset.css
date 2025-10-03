@@ -1,0 +1,148 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  background-color: transparent;
+
+  /* prevents flex/grid overflow in FF/Chrome */
+  min-width: 0;
+}
+
+body {
+  min-height: 100vh;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+/* Unified hyphenation */
+:where([lang]) {
+  hyphens: auto;
+  hyphenate-limit-chars: 6 3 2;
+}
+
+a,
+button {
+  cursor: pointer;
+}
+
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+input,
+textarea,
+select {
+  color: inherit;
+}
+
+legend {
+  display: block;
+  line-height: inherit;
+  white-space: normal;
+  padding: 0;
+  max-width: 100%;
+}
+
+summary {
+  cursor: pointer;
+  display: block;
+  list-style: none;
+}
+
+summary::-webkit-details-marker,
+summary::marker,
+summary::-moz-list-bullet {
+  display: none;
+}
+
+:where([hidden]) {
+  display: none;
+}
+
+:target {
+  scroll-margin-block: 5ex;
+}
+
+:where([contenteditable]) {
+  overflow-wrap: break-word;
+}
+
+:where([draggable='true']) {
+  -webkit-user-drag: element;
+}
+
+:focus-visible {
+  outline: 2px solid currentColor;
+}
+
+/* stylelint-disable declaration-no-important */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* stylelint-disable selector-max-id, selector-id-pattern */
+#root,
+#__next {
+  isolation: isolate;
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: BROWSER NORMALIZE                                                 */
+/* -------------------------------------------------------------------------- */
+
+::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+
+:-moz-focusring {
+  outline: 0;
+}
+
+:-moz-ui-invalid {
+  box-shadow: none;
+}
+
+::-ms-expand {
+  display: none;
+}
+
+/* #endregion */

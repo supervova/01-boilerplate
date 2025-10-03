@@ -1,0 +1,265 @@
+/* -------------------------------------------------------------------------- */
+/* #region: GENERAL                                                           */
+/* -------------------------------------------------------------------------- */
+
+::selection {
+  background-color: var(--color-bg-inverse);
+  color: var(--color-text-inverse);
+  text-shadow: none;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-focus);
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: HEADINGS                                                          */
+/* -------------------------------------------------------------------------- */
+
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, h6 {
+  text-wrap: balance;
+}
+
+h1, .h1,
+h2, .h2,
+h3, .h3 {
+  font-family: var(--font-family-titles);
+}
+
+.h1, .h2, .h3, .h4 { display: block; }
+
+h1, .h1 {
+  @mixin text-format title;
+  margin-bottom: var(--margin-bottom-title, var(--dim-7));
+}
+
+h2, .h2 {
+  @mixin text-format h2;
+  margin-bottom: var(--margin-bottom-h2, var(--lh));
+}
+
+h3, .h3 {
+  @mixin text-format h3;
+  margin-bottom: var(--margin-bottom-h3, var(--dim-2));
+}
+
+h4, .h4, h5, h6 {
+  @mixin text-format base;
+  font-weight: var(--font-weight-strong, 600);
+  margin-bottom: 0;
+}
+
+
+:where(address, blockquote, div, dl, figure, form, ol, p, pre, table, ul)
+  + :is(h2, .h2, h3, .h3, h4, .h4, h5, h6) {
+  margin-top: var(--margin-top-subhead, var(--dim-6));
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: BODY COPY                                                         */
+/* -------------------------------------------------------------------------- */
+
+p, li, dd {
+  text-wrap: pretty;
+}
+
+:where(p, pre, table) {
+  margin-block: 0 var(--lh);
+}
+
+address, dd, div, dt, li, p, td, th {
+  overflow-wrap: break-word;
+}
+
+a:not(.btn) {
+  color: var(--color-link);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+
+  &:hover {
+    color: color-mix(in oklch, var(--color-link) 90%, hsl(var(--h) var(--s) 99%));
+  }
+
+  &:active {
+    color: color-mix(in oklch, var(--color-link) 90%, hsl(var(--h) var(--s) 12%));
+  }
+}
+
+b,
+strong {
+  font-weight: var(--font-weight-strong, 600);
+}
+
+small {
+  font-size: var(--font-size-fine-print);
+  line-height: var(--line-height-fine-print);
+}
+
+hr {
+  background-color: var(--color-border);
+  border: 0;
+  height: 1px;
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: LISTS                                                             */
+/* -------------------------------------------------------------------------- */
+
+ul {
+  list-style: none;
+  margin: 0 0 var(--lh);
+  padding-inline-start: var(--dim-2p5);
+
+  @media (--tablet) {
+    padding-inline-start: 0;
+  }
+}
+
+ol {
+  margin: 0 0 var(--lh);
+  padding-inline-start: var(--dim-4);
+}
+
+li {
+  margin-bottom: var(--dim-1);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+/* Unordered */
+:where(ul:not([class], nav ul)) > li::marker,
+.list-unordered > li::marker {
+  color: var(--color-brand);
+  content: '\2022\00a0';
+}
+
+/* Numbered */
+ol > li::marker {
+  color: var(--color-text-02);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Nested */
+ul, ol {
+  & :is(ul, ol) {
+    margin-block: var(--dim-1) 0;
+    padding-inline-start: var(--dim-2p5);
+  }
+}
+
+/* Description list */
+dl {
+  --grid-columns: 1fr 2fr;
+
+  @media (--phone-l) {
+    display: grid;
+    gap: var(--dim-1) var(--lh);
+    grid-template-columns: var(--grid-columns);
+  }
+}
+
+dt {
+  font-weight: var(--font-weight-strong, 600);
+}
+
+dd {
+  margin-left: 0;
+
+  p {
+    margin-bottom: var(--dim-1);
+  }
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: MEDIA, EMBEDS, AND QUOTES                                                              */
+/* -------------------------------------------------------------------------- */
+
+blockquote {
+  border-inline-start: 3px solid var(--color-link);
+  color: var(--color-text-02);
+  margin-block: var(--margin-top-subhead, var(--dim-6));
+  padding-inline-start: var(--lh);
+}
+
+img,
+svg,
+video {
+  height: auto;
+}
+
+figure {
+  margin: 0;
+}
+
+figcaption {
+  @mixin text-format body-sm;
+  color: var(--color-text-02);
+  text-align: center;
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: TABLE                                                             */
+/* -------------------------------------------------------------------------- */
+
+table {
+  --table-border-color: var(--color-border);
+  --table-border-width: var(--border-width);
+  --cell-height: var(--dim-6);
+  --cell-padding-x: var(--dim-2);
+  --cell-padding-y: var(--dim-1p5);
+
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-variant-numeric: lining-nums tabular-nums;
+  text-indent: 0;
+  width: 100%;
+}
+
+thead {
+  background-color: var(--color-bg-02);
+}
+
+th {
+  color: var(--color-text-02);
+  font-weight: var(--font-weight-strong, 600);
+  text-align: start;
+  position: relative;
+  vertical-align: bottom;
+
+  thead & {
+    font-size: var(--font-size-body-sm);
+    line-height: var(--line-height-body-sm);
+  }
+}
+
+th,
+td {
+  border-bottom: 1px solid var(--color-border);
+  padding-block: calc(var(--cell-padding-y) - 1px) var(--cell-padding-y);
+  padding-inline: var(--cell-padding-x);
+
+  /* In tables, this behaves like min-height */
+  height: var(--cell-height);
+}
+
+td, tbody th {
+  vertical-align: top;
+}
+
+/* #endregion */

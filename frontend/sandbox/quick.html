@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="en" prefix="og: http://ogp.me/ns#">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <title>01-boilerplate Demo</title>
+    <meta name="description" content="01-boilerplate is a modern, scalable, and maintainable CSS architecture for web sites and applications." />
+
+    <meta property="og:title" content="01-boilerplate Demo" />
+    <meta property="og:description" content="01-boilerplate is a modern, scalable, and maintainable CSS architecture for web sites and applications." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://supervova.github.io/01-boilerplate/play/" />
+    <meta property="og:image" content="assets/img/cover.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="canonical" href="https://supervova.github.io/01-boilerplate/play/" />
+    <link rel="icon" href="assets/img/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="assets/img/icon-192.png" />
+    <link rel="manifest" href="manifest.json" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;500;600;700&display=swap" />
+
+    <!-- Debugging styles -->
+    <style>
+      .hero-content,
+      [id='section-typography'] {
+        --color-line: rgb(0 0 0 / 0.2);
+        --color-step: rgb(255 0 255 / 0.2);
+        --line-thickness: 0.0625rem; /* 1px */
+
+        position: relative;
+      }
+
+      .hero-content:hover::after,
+      [id='section-typography']:hover::after {
+        background-image:
+          /* major lines */
+          repeating-linear-gradient(to bottom, var(--color-line) 0 var(--line-thickness), transparent var(--line-thickness) calc(var(--dim-1) * 3)),
+          /* minor lines */ repeating-linear-gradient(to bottom, var(--color-step) 0 var(--line-thickness), transparent var(--line-thickness) var(--dim-1));
+        content: '';
+        pointer-events: none;
+        position: absolute;
+        inset: 0;
+        z-index: 1000;
+      }
+
+      [id='section-typography'] :is(h1, h2, h3, h4, dl, p, ol, ul, a):hover {
+        background: hsla(240, 100%, 50%, 0.24);
+      }
+
+      [id='section-typography'] table {
+        background-color: hsla(30, 100%, 50%, 0.12);
+      }
+
+      @media only screen and (max-width: 568px) {
+        .phone\:d-none {
+          display: none;
+        }
+
+        .img-on-grid {
+          height: 144px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <nav class="container">
+        <ul>
+          <li>
+            <details class="popover">
+              <summary>On this page</summary>
+              <ul class="menu">
+                <li><a href="#section-preview">Preview</a></li>
+                <li><a href="#section-typography">Typography</a></li>
+                <li><a href="#section-forms">Forms</a></li>
+                <li><a href="#section-components">Components</a></li>
+              </ul>
+            </details>
+          </li>
+          <li><a href="https://super-mark.ru/en">About Me</a></li>
+          <li>
+            <a class="contrast" href="https://github.com/supervova/01-boilerplate" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository"
+              ><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12c0 5.303 3.438 9.8 8.205 11.385c.6.113.82-.258.82-.577c0-.285-.01-1.04-.015-2.04c-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729c1.205.084 1.838 1.236 1.838 1.236c1.07 1.835 2.809 1.305 3.495.998c.108-.776.417-1.305.76-1.605c-2.665-.3-5.466-1.332-5.466-5.93c0-1.31.465-2.38 1.235-3.22c-.135-.303-.54-1.523.105-3.176c0 0 1.005-.322 3.3 1.23c.96-.267 1.98-.399 3-.405c1.02.006 2.04.138 3 .405c2.28-1.552 3.285-1.23 3.285-1.23c.645 1.653.24 2.873.12 3.176c.765.84 1.23 1.91 1.23 3.22c0 4.61-2.805 5.625-5.475 5.92c.42.36.81 1.096.81 2.22c0 1.606-.015 2.896-.015 3.286c0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg
+            ></a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Main -->
+    <main class="main">
+      <!-- Avoid using `header` inside `main` unless it contains navigation or metadata.
+      For visual hero sections, prefer `section` to preserve semantic clarity. -->
+      <section class="hero">
+        <div class="container">
+          <figure class="hero-image">
+            <img src="assets/img/hero.png" srcset="assets/img/hero@2x.png 2x" alt="" />
+          </figure>
+          <div class="hero-content">
+            <h1>A Tailwind-free CSS framework, <span class="text-02">powered by LLM assistants</span></h1>
+            <p>This page is an example of using <span class="nobr">the 01-boilerplate</span> framework.</p>
+
+            <div class="grid grid-max-content">
+              <a class="btn btn-primary" href="#">Let's Rock</a>
+              <button class="btn btn-secondary">And Roll!</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Cards -->
+      <section class="mt-2l" id="section-cards">
+        <h2 class="visually-hidden">Features</h2>
+        <div class="container">
+          <div class="grid tablet-l:grid gap-3">
+            <article class="card card-elevated">
+              <figure>
+                <img src="assets/img/i-am-madison-av.jpg" srcset="assets/img/i-am-madison-av@2x.jpg 2x" alt="Vladimir Nikishin" loading="lazy" />
+              </figure>
+              <header>
+                <p class="eyebrow"><s>Lorem Ipsum</s></p>
+                <h3><a class="card-link" href="#">Sass is not dead, but I use CSS+PostCSS</a></h3>
+              </header>
+              <section>
+                <p>The placeholder text consists of excerpts from conversations between the author – Vladimir Nikishin – and ChatGPT or my students.</p>
+              </section>
+              <time datetime="2025-08-08">August 8, 2025</time>
+            </article>
+
+            <article class="card">
+              <figure>
+                <img src="assets/img/i-am-cossack.jpg" srcset="assets/img/i-am-cossack@2x.jpg 2x" alt="Vladimir Nikishin" loading="lazy" />
+              </figure>
+              <header>
+                <p class="eyebrow">Less utilities</p>
+                <h3><a class="card-link" href="#">Semantic is the King</a></h3>
+              </header>
+              <section>
+                <p>Master the art of breaking the grid: add an asymmetric accent or make one child stand out – even a soft shadow, like in the card on the left, will do.</p>
+              </section>
+              <time datetime="2025-08-08">August 8, 2025</time>
+            </article>
+
+            <article class="card">
+              <figure>
+                <img src="assets/img/i-am-captain.jpg" srcset="assets/img/i-am-captain@2x.jpg 2x" alt="Vladimir Nikishin" loading="lazy" />
+              </figure>
+              <header>
+                <p class="eyebrow">Energetic Wildcard</p>
+                <h3><a class="card-link" href="#">Dummy text</a></h3>
+              </header>
+              <section>
+                <p>Open a new project, run pnpm add — the difference shows immediately.</p>
+              </section>
+              <time datetime="2025-08-08">August 8, 2025</time>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Typography -->
+      <section class="section" id="section-typography">
+        <div class="prose">
+          <h2 class="h1">Typography & Vertical Rhythm</h2>
+
+          <p>"Key idea: switch the design by changing only CSS variables."</p>
+
+          <p>A Card is a flexible and reusable UI container used to group related information. It commonly includes content such as a title, image, summary, action buttons, and optionally metadata. Cards are ideal for presenting information in a modular, scannable, and responsive format.</p>
+          <p>To make sure the image-generation model understands that you want a close-up portrait, use phrases like these in your prompt — they’re universal and work well across most models (DALL·E, Midjourney, Stable Diffusion, etc.).</p>
+          <p>Why it works: <code>margin-top: var(--flow-space)</code> takes the variable value from the computed style of the element itself — the one that the “owl” selector (<code>&gt; * + *</code>) applies to. We just locally override <code>--flow-space</code> on the specific headings, and their margins change accordingly. Rule order doesn’t matter, since <code>var()</code> is resolved after the cascade.</p>
+          <p>You’re adding lengths (<code>1em</code>, padding values) to a “bare” number <code>0</code>. Inside <code>calc()</code>, it’s treated as a number type, which can’t be combined with length units (<code>px</code>, <code>rem</code>, <code>em</code>, etc.). As a result, the expression becomes invalid at computed-value time, and the property is ignored. Use a zero with a unit: <code>0px</code> or <code>0rem</code>.</p>
+
+          <h2>Corepack attaches a packageManager; run it only in the repo you intend</h2>
+
+          <p>If a page isn’t registered, rewrites won’t help — the route doesn’t exist.</p>
+
+          <blockquote>
+            "The things that make me different are the things that make me."
+            <footer>
+              <cite>— A.A. Milne, Winnie-the-Pooh</cite>
+            </footer>
+          </blockquote>
+
+          <h3>Headings Hierarchy</h3>
+          <p>This section demonstrates the vertical rhythm and spacing between different heading levels.</p>
+
+          <h4>Heading Level 4</h4>
+          <p>Regular paragraph text follows the established baseline grid.</p>
+
+          <h5>Do not use level-5 or level-6 headings — it’s better to restructure the page.</h5>
+          <p>Notice how consistent spacing creates visual harmony.</p>
+
+          <h6>In this framework, they don’t really differ from H4 anyway</h6>
+          <p>"pnpm stores one copy of each version and links it, saving disk space."</p>
+
+          <h3>Text Elements</h3>
+          <p>This paragraph contains various inline elements: <strong>bold text</strong>, <em>italic text</em>, <a href="#" onclick="event.preventDefault()">primary link</a>, <a class="secondary" href="#" onclick="event.preventDefault()">secondary link</a>, <code>inline code</code>, <mark>highlighted text</mark>, <del>deleted text</del>, and <ins>inserted text</ins>.</p>
+
+          <h3>Lists</h3>
+          <ul>
+            <li>Unordered list item demonstrating proper spacing</li>
+            <li>Second item showing consistent vertical rhythm</li>
+            <li>Third item maintaining baseline alignment</li>
+            <li>
+              Fourth item with a nested <code>ul</code>
+              <ul>
+                <li>With cleanUrls=true the valid path is /base/ — mind the trailing slash.</li>
+                <li>Saepe, suscipit numquam? Rerum, libero iusto. Impedit nisi velit natus eveniet, necessitatibus expedita ducimus, assumenda quam commodi tenetur fuga odio?</li>
+                <li>Numquam molestiae quaerat consequuntur vitae sapiente necessitatibus corporis veritatis explicabo iste repellendus laudantium autem, fugit modi cupiditate natus similique voluptas.</li>
+                <li>Aliquam tempora facere sequi culpa, cumque libero dolorum commodi odio nihil eaque quia accusamus, perspiciatis asperiores vel? Quo, itaque ab!</li>
+              </ul>
+            </li>
+            <li>Fifth item with a longer description to illustrate line breaks and spacing.</li>
+            <li>
+              The last item with a nested <code>ol</code>
+              <ol>
+                <li>Use $1 in rewrites (not :1) — that’s why it crashed earlier.</li>
+                <li>Sint, autem! Consectetur, iusto velit? Ipsam aliquid totam, atque laborum sequi perspiciatis quae corrupti et quod amet eaque itaque laboriosam?</li>
+                <li>Eveniet expedita itaque repudiandae? Voluptatem sit voluptate nihil beatae, accusamus quibusdam quia cupiditate rem quo molestias at consequatur ullam reiciendis!</li>
+                <li>Minus deserunt esse veritatis, voluptas debitis voluptates repellendus explicabo qui, fuga a impedit consequuntur nisi magnam inventore architecto. Architecto, impedit.</li>
+              </ol>
+            </li>
+          </ul>
+
+          <ol start="8">
+            <li>Ordered list with proper numbering</li>
+            <li>Sequential items with consistent spacing</li>
+            <li>Maintains rhythm with surrounding elements</li>
+            <li>I might have known,” said Eeyore. “Delete the umbrella package.json and reinstall to restore Yarn layout. I have my friends. Somebody spoke to me only yesterday. And was it last week or the week before that Rabbit bumped into me and said ‘Bother!’. The Social Round. Always something going on.</li>
+            <li>Don’t mix managers in one repo; keep a single lockfile to avoid ghost deps.</li>
+            <li>"Why does /base fail? The route was never registered by the builder." - Piglet</li>
+            <li>"Fix it by adding the slash — or switch to without-subfolders mode." - Pooh</li>
+            <li>Why do links 404 with cleanUrls? It expects the trailing slash.</li>
+            <li>"We’re going in circles — check that srcDir actually scans the page." said Piglet.</li>
+            <li>Pooh nodded thoughtfully. "It's the same thing," he said.</li>
+            <li>
+              The eighteenth item with a nested <code>ul</code>
+              <ul>
+                <li>Exclude README.md if it shadows the homepage in the router.</li>
+                <li>Saepe, suscipit numquam? Rerum, libero iusto. Impedit nisi velit natus eveniet, necessitatibus expedita ducimus, assumenda quam commodi tenetur fuga odio?</li>
+                <li>Numquam molestiae quaerat consequuntur vitae sapiente necessitatibus corporis veritatis explicabo iste repellendus laudantium autem, fugit modi cupiditate natus similique voluptas.</li>
+                <li>Aliquam tempora facere sequi culpa, cumque libero dolorum commodi odio nihil eaque quia accusamus, perspiciatis asperiores vel? Quo, itaque ab!</li>
+              </ul>
+            </li>
+            <li>"When you wake up in the morning, Pooh," said Piglet at last, "what's the first thing you say to yourself?"</li>
+            <li>
+              The last item with a nested <code>ol</code>
+              <ol>
+                <li>Use public (rewritten) URLs in nav; avoid long /src/... paths.</li>
+                <li>Sint, autem! Consectetur, iusto velit? Ipsam aliquid totam, atque laborum sequi perspiciatis quae corrupti et quod amet eaque itaque laboriosam?</li>
+                <li>Eveniet expedita itaque repudiandae? Voluptatem sit voluptate nihil beatae, accusamus quibusdam quia cupiditate rem quo molestias at consequatur ullam reiciendis!</li>
+                <li>Minus deserunt esse veritatis, voluptas debitis voluptates repellendus explicabo qui, fuga a impedit consequuntur nisi magnam inventore architecto. Architecto, impedit.</li>
+              </ol>
+            </li>
+          </ol>
+
+          <dl>
+            <dt>Definition Term.</dt>
+            <dd>Definition description showing proper indentation and spacing</dd>
+            <dt>Another Term.</dt>
+            <dd>Another description maintaining consistent rhythm</dd>
+          </dl>
+        </div>
+      </section>
+
+      <!-- Table -->
+       <section class="section" id="section-table">
+        <div class="container">
+          <h2>Table</h2>
+          <div class="scroll-x">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Role</th>
+                  <th class="text-end" scope="col">Stuff</th>
+                  <td class="text-center">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>John Doe</td>
+                  <td>Active</td>
+                  <td>Admin</td>
+                  <td class="text-end">20,25</td>
+                  <td class="text-center">Edit</td>
+                </tr>
+                <tr>
+                  <td>Jane Smith</td>
+                  <td>Inactive</td>
+                  <td>User</td>
+                  <td class="text-end">444,00</td>
+                  <td class="text-center">Edit</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Forms -->
+      <section class="section" id="section-forms">
+        <div class="container">
+          <h2>Form Elements</h2>
+
+          <form>
+            <div class="grid">
+              <label for="text"
+                >Text Input
+                <input id="text" name="text" placeholder="Enter text" type="text" />
+              </label>
+              <label for="email-input"
+                >Email Input
+                <input id="email-input" name="email-input" placeholder="Enter email" type="email" />
+              </label>
+            </div>
+
+            <div class="grid">
+              <label for="select"
+                >Select Dropdown
+                <select id="select" name="select" required>
+                  <option value="">Choose option...</option>
+                  <option value="1">Option 1</option>
+                  <option value="2">Option 2</option>
+                </select>
+              </label>
+              <label for="range"
+                >Range Slider
+                <input id="range" max="100" min="0" name="range" type="range" value="50" />
+              </label>
+            </div>
+
+            <label for="textarea"
+              >Textarea
+              <textarea id="textarea" name="textarea" placeholder="Enter longer text"></textarea>
+            </label>
+
+            <div class="grid">
+              <fieldset>
+                <legend>Checkboxes</legend>
+                <label for="checkbox-1">
+                  <input checked id="checkbox-1" name="checkbox-1" type="checkbox" />
+                  Option 1
+                </label>
+                <label for="checkbox-2">
+                  <input id="checkbox-2" name="checkbox-2" type="checkbox" />
+                  Option 2
+                </label>
+              </fieldset>
+
+              <fieldset>
+                <legend>Radio Buttons</legend>
+                <label for="radio-1">
+                  <input checked id="radio-1" name="radio" type="radio" value="1" />
+                  Choice 1
+                </label>
+                <label for="radio-2">
+                  <input id="radio-2" name="radio" type="radio" value="2" />
+                  Choice 2
+                </label>
+              </fieldset>
+
+              <fieldset>
+                <legend>Switches</legend>
+                <label for="switch-1">
+                  Toggle 1
+                  <input checked id="switch-1" name="switch-1" role="switch" type="checkbox" />
+                </label>
+                <label for="switch-2">
+                  Toggle 2
+                  <input id="switch-2" name="switch-2" role="switch" type="checkbox" />
+                </label>
+              </fieldset>
+            </div>
+
+            <div class="grid">
+              <label for="valid"
+                >Valid State
+                <input aria-invalid="false" id="valid" name="valid" placeholder="Valid input" type="text" />
+              </label>
+              <label for="invalid"
+                >Invalid State
+                <input aria-invalid="true" id="invalid" name="invalid" placeholder="Invalid input" type="text" />
+              </label>
+              <label for="disabled"
+                >Disabled State
+                <input disabled id="disabled" name="disabled" placeholder="Disabled input" type="text" />
+              </label>
+            </div>
+
+            <fieldset>
+              <input autocomplete="email" name="newsletter" placeholder="Your email" type="email" />
+              <input type="submit" value="Subscribe" />
+            </fieldset>
+          </form>
+
+          <h3>Buttons</h3>
+          <!-- Bring us back -->
+        </div>
+      </section>
+
+      <!-- Components -->
+      <section class="section" id="section-components">
+        <div class="container">
+          <h2>Interactive Components</h2>
+
+          <h3>Tooltips</h3>
+          <div class="grid grid-auto mb-2">
+            <a class="btn tooltip" href="https://super-mark.ru/" target="_blank" rel="noopener noreferrer" data-tooltip="Developed by super-mark.ru"> Default </a>
+            <a class="btn tooltip tooltip-right" href="https://super-mark.ru/" target="_blank" rel="noopener noreferrer" data-tooltip="Developed by super-mark.ru"> Right </a>
+            <a class="btn tooltip tooltip-bottom" href="https://super-mark.ru/" target="_blank" rel="noopener noreferrer" data-tooltip="Developed by super-mark.ru Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius hic, beatae dolores numquam repellendus magni nobis "> Bottom </a>
+            <a class="btn tooltip tooltip-left" href="https://super-mark.ru/" target="_blank" rel="noopener noreferrer" data-tooltip="Developed by super-mark.ru"> Left </a>
+          </div>
+
+          <h3>Accordions</h3>
+          <details>
+            <summary>Closed Accordion</summary>
+            <p>Hidden content that expands when clicked.</p>
+          </details>
+          <details open>
+            <summary>Open Accordion</summary>
+            <p>This accordion is open by default, showing its content.</p>
+          </details>
+
+          <h3>Modal</h3>
+          <button class="contrast" data-target="modal-example" data-role="modal-trigger">Launch Modal</button>
+
+          <h3>Progress & Loading</h3>
+          <progress id="progress" max="100" value="75"></progress>
+          <button aria-busy="true">Loading...</button>
+          <div class="loader-spinner"></div>
+
+          <h3>Media</h3>
+          <figure>
+            <img alt="Landscape example" src="img/aleksandar-jason-a562ZEFKW8I-unsplash-2000x1000.jpg" />
+            <figcaption>Example image with caption</figcaption>
+          </figure>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <small> Built with <a href="https://supervova.github.io/01-boilerplate/">01-boilerplate</a> </small>
+      </div>
+    </footer>
+
+    <!-- Modal -->
+    <dialog id="modal-example">
+      <article>
+        <header>
+          <button aria-label="Close" data-target="modal-example" onclick="toggleModal(event)" rel="prev"></button>
+          <h3>Modal Example</h3>
+        </header>
+        <p>This is a sample modal dialog demonstrating the modal component.</p>
+        <p class="grid grid-center">
+          <button class="btn btn-primary">Primary</button>
+          <button class="btn">Default</button>
+          <button class="btn btn-icon">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
+            </svg>
+            <span class="visually-hidden">Icon Button</span>
+          </button>
+          <button class="btn btn-outline">Outline</button>
+          <button class="btn btn-ghost">Ghost</button>
+          <button class="btn btn-link">Link</button>
+        </p>
+
+        <form>
+          <div class="grid">
+            <input aria-label="First name" name="firstname" placeholder="First name" required type="text" />
+            <input aria-label="Email address" autocomplete="email" name="email" placeholder="Email address" required type="email" />
+            <button type="submit">Subscribe</button>
+          </div>
+          <fieldset>
+            <label for="terms">
+              <input id="terms" name="terms" role="switch" type="checkbox" />
+              I agree to the <a href="#" onclick="event.preventDefault()">Privacy Policy</a>
+            </label>
+          </fieldset>
+        </form>
+        <footer>
+          <button class="secondary" data-target="modal-example" onclick="toggleModal(event)">Cancel</button>
+          <button autofocus data-target="modal-example" onclick="toggleModal(event)">Confirm</button>
+        </footer>
+      </article>
+    </dialog>
+
+    <!-- Toast -->
+    <div class="toast toast-warning toast-icon toast-warning" role="alert" aria-live="assertive" style="position: static; --toast-timer-duration: 8000ms">
+      <div class="toast-base">
+        <svg class="icon icon-warning" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use xlink:href="#icon-warning"></use></svg>
+        <div class="toast-copy"><span class="toast-message">Name already exists</span></div>
+      </div>
+      <button class="btn btn-close btn-icon btn-end-icon" aria-label="Закрыть">
+        <svg class="icon icon-sm-x-mark icon-sm" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use xlink:href="#icon-sm-x-mark"></use></svg>
+      </button>
+      <div class="progress-bar progress-bar-warning" role="progressbar" aria-label="warning" aria-valuemin="0" aria-valuemax="100" aria-busy="true" aria-valuetext="warning">
+        <div class="progress-bar-fill"></div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/modal.js"></script>
+    <script type="module">
+      import '../frontend/main-quick.css';
+    </script>
+  </body>
+</html>

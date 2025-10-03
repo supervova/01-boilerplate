@@ -1,0 +1,87 @@
+form {
+  --form-bg: var(--color-bg);
+  --form-border-color: var(--color-border-bold);
+  --form-border-radius: var(--radius-sm);
+  --form-padding-y: 11px;
+  --form-padding-x: var(--dim-2);
+  --form-disabled-bg: var(--color-bg-02);
+  --form-disabled-fg: var(--color-text-03);
+  --form-focus-color: var(--color-link);
+}
+
+:--text-field {
+  appearance: none;
+  background-color: var(--form-bg);
+  border: 1px solid var(--form-border-color);
+  border-radius: var(--form-border-radius);
+  color: var(--color-text);
+  display: block;
+  font-size: 1rem;
+  line-height: 1.5;
+  padding: var(--form-padding-y) var(--form-padding-x);
+  transition: border-color var(--duration-200) var(--easing-disappearance);
+  width: 100%;
+
+  &:focus-visible {
+    border-color: var(--form-focus-color);
+  }
+
+  &:disabled {
+    background-color: var(--form-disabled-bg);
+    color: var(--form-disabled-fg);
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+textarea {
+  min-height: 6rem;
+  resize: vertical;
+}
+
+select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%23737373' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3E%3C/svg%3E");
+  background-position: right var(--dim-1) center;
+  background-repeat: no-repeat;
+  background-size: 1.5rem;
+  padding-inline-end: var(--dim-6);
+}
+
+label {
+  color: var(--color-text);
+  display: block;
+  font-weight: 500;
+  margin-bottom: var(--dim-0p5);
+}
+
+[type='checkbox'],
+[type='radio'] {
+  cursor: pointer;
+  margin: 0;
+  width: var(--dim-2p5);
+  height: var(--dim-2p5);
+}
+
+[type='checkbox'] + label,
+[type='radio'] + label {
+  cursor: pointer;
+  display: inline-block;
+  margin-inline-start: var(--dim-1);
+  vertical-align: middle;
+}
+
+fieldset {
+  border: 0;
+  border-radius: var(--form-border-radius);
+  padding: 0;
+
+  &:not(:first-child) {
+    margin-top: var(--dim-6);
+  }
+}
+
+legend {
+  font-weight: var(--font-weight-strong);
+  overflow-wrap: anywhere;
+  margin-bottom: var(--dim-1);
+}

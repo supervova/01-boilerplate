@@ -1,0 +1,113 @@
+/* -------------------------------------------------------------------------- */
+/* #region: BASE                                                              */
+/* -------------------------------------------------------------------------- */
+
+:--text-field:not(:focus):user-invalid,
+:--text-field:not(:focus).is-invalid {
+  box-shadow: 0 0 0 0.125rem color-mix(in oklch, var(--color-error) 80%, transparent);
+
+  ~ .form-error {
+    height: auto;
+    opacity: 1;
+  }
+
+  ~ .form-hint {
+    display: none;
+  }
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: INLINE ERROR                                                      */
+/* -------------------------------------------------------------------------- */
+
+@scope (.form-error) {
+  :scope {
+    --form-error-padding-block: var(--dim-1);
+    --form-error-padding-inline: var(--dim-2);
+
+    color: var(--color-text-error);
+    display: block;
+    font-size: var(--font-size-body-sm);
+    font-weight: var(--font-weight-body-sm, 400);
+    letter-spacing: var(--letter-spacing-body-sm, 0);
+    line-height: var(--line-height-body-sm);
+    opacity: 0;
+    overflow: hidden;
+    text-align: start;
+    transition: opacity var(--duration-200) var(--easing-base);
+    height: 0;
+  }
+
+  :scope > span,
+  :scope > small {
+    display: block;
+    margin-block-start: var(--dim-0p5, 0.25rem);
+    padding-block: var(--form-error-padding-block);
+    padding-inline: var(--form-error-padding-inline);
+  }
+}
+
+.grid-error + .form-error {
+  height: auto;
+  opacity: 1;
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: SERVER MESSAGE                                                    */
+/* -------------------------------------------------------------------------- */
+
+@scope (.form-error-box) {
+  :scope {
+    --form-error-box-padding-inline: var(--padding-inline-md, var(--dim-2));
+
+    background-color: var(--color-bg);
+    background-image: radial-gradient(circle 216px at 0 100%, var(--color-bg-error));
+    border-radius: var(--radius-base);
+    color: var(--color-text-error);
+    display: none;
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+    padding-block: var(--lh);
+    padding-inline: var(--form-error-box-padding-inline);
+    transition:
+      height var(--duration-500) var(--easing-base),
+      opacity var(--duration-500) var(--easing-base);
+    transition-behavior: allow-discrete;
+    width: 100%;
+  }
+
+  :scope:not(:empty) {
+    display: block;
+    height: auto;
+    margin-block-end: var(--lh);
+    opacity: 1;
+
+    @starting-style {
+      height: 0;
+      opacity: 0;
+    }
+  }
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: STATUS VARIANTS                                                   */
+/* -------------------------------------------------------------------------- */
+
+.form-message-success {
+  background-image: radial-gradient(circle 216px at 0 100%, var(--color-bg-success));
+  color: var(--color-text-success);
+}
+
+.form-message-error {
+  background-image: radial-gradient(circle 216px at 0 100%, var(--color-bg-error));
+  color: var(--color-text-error);
+}
+
+/* #endregion */

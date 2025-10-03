@@ -1,0 +1,165 @@
+/* -------------------------------------------------------------------------- */
+/* #region: BASE LABEL                                                        */
+/* -------------------------------------------------------------------------- */
+
+label {
+  --label-color: var(--color-text-02);
+  --label-font-size: var(--font-size-base);
+  --label-letter-spacing: var(--letter-spacing-base, normal);
+  --label-line-height: var(--line-height-base);
+  --label-margin-bottom: var(--dim-0p5);
+
+  color: var(--label-color);
+  cursor: pointer;
+  display: inline-block;
+  font-size: var(--label-font-size);
+  letter-spacing: var(--label-letter-spacing);
+  line-height: var(--label-line-height);
+  margin-bottom: var(--label-margin-bottom);
+  user-select: none;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  @media (any-hover: hover) {
+    &:hover {
+      --label-color: var(--color-text);
+    }
+  }
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: MODIFIERS                                                         */
+/* -------------------------------------------------------------------------- */
+
+.label-error {
+  --label-color: var(--color-text-error);
+}
+
+.label-success {
+  --label-color: var(--color-text-success);
+}
+
+.label-sm {
+  --label-font-size: var(--font-size-fine-print);
+  --label-line-height: var(--line-height-fine-print);
+}
+
+.label-lg {
+  --label-font-size: var(--font-size-h3);
+  --label-line-height: var(--line-height-lg);
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: FLOAT LABEL COMPONENT                                             */
+/* -------------------------------------------------------------------------- */
+
+@scope (.form-float) {
+  :scope {
+    --float-label-color: var(--color-text-02);
+    --float-label-color-active: var(--color-text-brand);
+    --float-label-font-size: var(--font-size-base);
+    --float-label-font-size-active: var(--font-size-fine-print);
+    --float-label-line-height: var(--line-height-base);
+    --float-label-line-height-active: var(--line-height-fine-print);
+    --float-label-top: var(--dim-2);
+    --float-label-top-active: var(--dim-0p5);
+    --float-label-left: var(--padding-x-input);
+    --float-label-transition: all var(--duration-200) var(--easing-base);
+
+    position: relative;
+  }
+
+  label {
+    color: var(--float-label-color);
+    cursor: text;
+    display: block;
+    font-size: var(--float-label-font-size);
+    line-height: var(--float-label-line-height);
+    margin: 0;
+    pointer-events: none;
+    position: absolute;
+    top: var(--float-label-top);
+    inset-inline-start: var(--float-label-left);
+    transition: var(--float-label-transition);
+    z-index: 1;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: transparent;
+  }
+
+  /* active label state */
+  input:focus ~ label,
+  input:not(:placeholder-shown) ~ label,
+  textarea:focus ~ label,
+  textarea:not(:placeholder-shown) ~ label,
+  select:focus ~ label,
+  select:not([value=''], [value]) ~ label,
+  select[value]:not([value='']) ~ label {
+    color: var(--float-label-color-active);
+    font-size: var(--float-label-font-size-active);
+    line-height: var(--float-label-line-height-active);
+    top: var(--float-label-top-active);
+  }
+
+  /* focus state color override */
+  input:focus ~ label,
+  textarea:focus ~ label,
+  select:focus ~ label {
+    --float-label-color-active: var(--color-focus);
+  }
+
+  /* error state */
+  input:user-invalid ~ label,
+  input:invalid:not(:focus, :placeholder-shown) ~ label,
+  select:user-invalid ~ label,
+  select:invalid:not(:focus, :placeholder-shown) ~ label,
+  textarea:user-invalid ~ label {
+    color: var(--color-text-error);
+  }
+
+  /* success state */
+  input:user-valid ~ label,
+  input:valid:not(:focus, :placeholder-shown) ~ label,
+  select:user-valid ~ label,
+  select:valid:not(:focus, :placeholder-shown) ~ label,
+  textarea:user-valid ~ label {
+    color: var(--color-text-success);
+  }
+
+  /* textarea specific error/success override */
+  textarea:user-invalid ~ label {
+    --float-label-color-active: var(--color-text-error);
+  }
+
+  textarea:user-valid ~ label {
+    --float-label-color-active: var(--color-text-success);
+  }
+
+  /* webkit autofill handling */
+  :scope:has(input:-webkit-autofill) {
+    --icon-stroke: var(--color-text-02-brand);
+  }
+
+  :scope:has(input:-webkit-autofill:not(:focus)) label {
+    color: transparent;
+  }
+
+  /* firefox autofill handling */
+  :scope:has(input:-moz-ui-invalid:not(output)) label {
+    color: var(--float-label-color-active);
+    font-size: var(--float-label-font-size-active);
+    line-height: var(--float-label-line-height-active);
+    top: var(--float-label-top-active);
+  }
+}
+
+/* #endregion */

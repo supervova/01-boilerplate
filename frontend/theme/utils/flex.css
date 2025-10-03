@@ -1,0 +1,66 @@
+/* If necessary, add adaptive classes.
+@media (--phone-l) { .phone-l\:* { ... }}
+@media (--tablet) { .tablet\:* { ... }}
+@media (--tablet-l) { .tablet-l\:* { ... }}
+@media (--laptop) { .laptop\:* { ... }}
+@media (--desktop) { .desktop\:* { ... }} */
+
+.flex-column { flex-direction: column; }
+.flex-row { flex-direction: row; }
+
+.flex-item {
+  flex: 1 1 100%;
+}
+
+.flex-item-inline {
+  flex: 1 1 0%;
+}
+
+.phone-l\:flex-item-inline {
+  @media (--tablet) {
+    flex: 1 1 0%;
+  }
+}
+
+.tablet\:flex-item-inline {
+  @media (--tablet) {
+    flex: 1 1 0%;
+  }
+}
+
+.tablet-l\:flex-item-inline {
+  @media (--tablet) {
+    flex: 1 1 0%;
+  }
+}
+
+.flex-wrap { flex-wrap: wrap; }
+.flex-nowrap { flex-wrap: nowrap; }
+
+.flex-1 { flex: 1; }
+.flex-grow-0 { flex-grow: 0; }
+.flex-grow { flex-grow: 1; }
+.flex-shrink-0 { flex-shrink: 0; }
+.flex-shrink { flex-shrink: 1; }
+
+.justify-start { justify-content: flex-start; }
+.justify-end { justify-content: flex-end; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+
+.items-start { align-items: flex-start; }
+.items-end { align-items: flex-end; }
+.items-center { align-items: center; }
+.items-stretch { align-items: stretch; }
+
+.content-start { align-content: flex-start; }
+.content-end { align-content: flex-end; }
+.content-center { align-content: center; }
+.content-between { align-content: space-between; }
+.content-stretch { align-content: stretch; }
+
+.self-auto { align-self: auto; }
+.self-start { align-self: flex-start; }
+.self-end { align-self: flex-end; }
+.self-center { align-self: center; }
+.self-stretch { align-self: stretch; }

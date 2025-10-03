@@ -1,0 +1,47 @@
+/*
+Markup (pug)
+form.search(action=searchAction data-search-form method='get' role='search')
+  input(name=site.search.param type='search' autocomplete='off' placeholder=site.search.placeholder)
+  button.btn.btn-icon.btn-ghost(type='submit' aria-label=site.search.submitLabel)
+    +icon('search')
+*/
+
+/* -------------------------------------------------------------------------- */
+/* #region: BASE                                                              */
+/* -------------------------------------------------------------------------- */
+
+@scope (.search) {
+
+  /* form.search */
+  :scope {
+    position: relative;
+  }
+
+  /* Input field */
+  input[type='search'] {
+    padding-inline: var(--dim-8) var(--dim-2p5);
+    width: 100%;
+  }
+
+  /* Submit button */
+  button[type='submit'] {
+    position: absolute;
+    top: 50%;
+    inset-inline-start: var(--dim-1);
+    translate: 0 -50%;
+  }
+
+  /* Native cancel button (WebKit) */
+  input[type='search']::-webkit-search-cancel-button {
+    appearance: none;
+    background-image: var(--icon-remove);
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    cursor: pointer;
+    width: var(--dim-4);
+    height: var(--dim-4);
+  }
+}
+
+/* #endregion */

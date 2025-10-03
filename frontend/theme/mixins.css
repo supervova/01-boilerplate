@@ -1,0 +1,50 @@
+/* stylelint-disable custom-property-pattern */
+
+/**
+ * TEXT FORMAT
+ * Using: .title { @mixin text-format base; }
+ */
+@define-mixin text-format $level {
+  font-size: var(--font-size-$(level));
+  font-weight: var(--font-weight-$(level), 400);
+  letter-spacing: var(--letter-spacing-$(level), normal);
+  line-height: var(--line-height-$(level));
+}
+
+
+/* TEXT TRUNCATION */
+@define-mixin text-truncate {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/**
+ * MULTI-LINE TEXT TRUNCATION
+ *
+ * Using:
+ * .title   { @mixin line-clamp; }
+ * .desc    { @mixin line-clamp 3; }
+ * .heading { @mixin line-clamp var(--rows); }
+ */
+/* stylelint-disable-next-line length-zero-no-unit */
+@define-mixin line-clamp $rows: 2, $lh: 1.2 {
+  --rows: $(rows);
+  --lh: $(lh);
+
+  /* Fallback w/o lh */
+  --height: calc(var(--rows) * var(--lh) * 1em);
+
+  /* Modern solution w/ lh */
+  @supports (height: 1lh) {
+    /* stylelint-disable-next-line no-invalid-position-declaration */
+    --height: calc(var(--rows) * 1lh);
+  }
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--rows);
+  line-clamp: var(--rows);
+  overflow: hidden;
+  height: var(--height);
+}

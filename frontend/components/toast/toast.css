@@ -1,0 +1,141 @@
+/* -------------------------------------------------------------------------- */
+/* #region: BASE                                                              */
+/* -------------------------------------------------------------------------- */
+
+@scope (.toast) {
+  :scope {
+    --toast-bg: var(--color-bg-z2);
+    --toast-title-color: var(--color-text);
+    --toast-color: var(--color-text-02);
+    --toast-timer-duration: 8s;
+
+    animation: toast-in var(--duration-150) var(--easing-appearance);
+    background-color: var(--toast-bg);
+    backdrop-filter: var(--backdrop-glass);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-z2);
+    display: flex;
+    flex-direction: column;
+    gap: var(--dim-2);
+    padding: var(--dim-2p5) var(--lh) var(--lh);
+    position: fixed;
+    bottom: var(--lh);
+    left: var(--lh);
+    max-width: var(--width-base);
+    min-width: var(--width-sm);
+    z-index: calc(var(--zindex-drawer) + 1);
+
+    &:not(:has(.btn)) {
+      text-align: center;
+    }
+  }
+
+  /* #endregion */
+
+  /* ------------------------------------------------------------------------ */
+  /* #region: CONTENT & CONTROLS                                              */
+  /* ------------------------------------------------------------------------ */
+
+  .toast-base {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--dim-2);
+  }
+
+  .toast-copy {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: var(--dim-1);
+  }
+
+  h2, h3 {
+    @mixin text-format base;
+
+    color: var(--toast-title-color);
+    font-weight: 500;
+  }
+
+  .toast-message {
+    @mixin text-format base;
+
+    color: var(--toast-color);
+    margin: 0;
+  }
+
+  .toast-actions {
+    display: flex;
+    gap: var(--dim-1);
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  .btn-close {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+  }
+
+  /* #endregion */
+
+  /* ------------------------------------------------------------------------ */
+  /* #region: VARIANTS                                                        */
+  /* ------------------------------------------------------------------------ */
+
+  :scope.toast-icon {
+    padding-left: var(--dim-2p5);
+
+    .icon:not(.icon-sm-x-mark) {
+      margin-top: 6px;
+    }
+
+    .progress-bar {
+      margin-left: var(--dim-5);
+      width: calc(100% - var(--dim-5));
+    }
+  }
+
+  :scope.toast-error {
+    --toast-title-color: var(--color-text-error);
+    --icon-stroke: var(--color-text-02-error);
+    --icon-fill: var(--color-bg-error);
+  }
+
+  :scope.toast-warning {
+    --toast-title-color: var(--color-text-warning);
+    --icon-stroke: var(--color-text-02-warning);
+    --icon-fill: var(--color-warning);
+  }
+
+  /* #endregion */
+}
+
+/* -------------------------------------------------------------------------- */
+/* #region: ANIMATIONS                                                        */
+/* -------------------------------------------------------------------------- */
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--dim-1));
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes toast-progress {
+  from {
+    transform: scaleX(1);
+  }
+
+  to {
+    transform: scaleX(0);
+  }
+}
+
+/* #endregion */

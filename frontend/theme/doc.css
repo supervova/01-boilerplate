@@ -1,0 +1,79 @@
+/* -------------------------------------------------------------------------- */
+/* #region: DOCUMENT                                                          */
+/* -------------------------------------------------------------------------- */
+
+html {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  color-scheme: light dark;
+  font-synthesis: none;
+  hanging-punctuation: first allow-end last;
+  interpolate-size: allow-keywords;
+
+  /* Prevent layout shift when scrollbar appears/disappears */
+  scrollbar-gutter: stable;
+  text-size-adjust: 100%;
+
+  /* Smooth scroll only when user allows motion */
+  @media (prefers-reduced-motion: no-preference) {
+    &:focus-within {
+      scroll-behavior: smooth;
+    }
+  }
+
+  /* Custom scrollbar styling for precise pointer devices */
+  @media (pointer: fine) {
+    scrollbar-color: var(--color-scroll-thumb) var(--color-scroll-track);
+    scrollbar-width: thin;
+
+    &::-webkit-scrollbar {
+      width: var(--dim-1);
+      height: var(--dim-1);
+    }
+
+    &::-webkit-scrollbar-track {
+      background: var(--color-scroll-track);
+      border: none;
+      box-shadow: none;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--color-scroll-thumb);
+      border: var(--dim-0p5) solid transparent;
+      border-radius: var(--radius-pill);
+    }
+  }
+}
+
+body {
+  accent-color: var(--color-brand);
+  background: var(--color-bg);
+  color: var(--color-text);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-base, 400);
+  line-height: var(--line-height-base);
+  margin: 0;
+  padding:
+    env(safe-area-inset-top)
+    env(safe-area-inset-right)
+    env(safe-area-inset-bottom)
+    env(safe-area-inset-left);
+  overflow-x: clip;
+  min-width: 320px;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* Enable view transitions for smooth page navigation (when motion allowed) */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+}
+
+/* #endregion */

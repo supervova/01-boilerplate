@@ -1,0 +1,150 @@
+/* -------------------------------------------------------------------------- */
+/* #region: BASE                                                              */
+/* -------------------------------------------------------------------------- */
+
+@scope (.popover) {
+  :scope {
+    --popover-body-background: var(--color-bg);
+    --popover-body-border: 1px solid var(--color-border, hsl(0 0% 0% / 0.08));
+    --popover-body-radius: var(--radius-base);
+    --popover-body-shadow: var(--shadow-z2);
+    --popover-body-color: var(--color-text-02);
+    --popover-body-width: var(--width-sm);
+    --popover-body-padding-inline: var(--padding-inline-md, var(--dim-2));
+    --popover-body-padding-block: var(--dim-2);
+    --popover-body-offset: var(--dim-1);
+    --popover-layer: 40;
+    --popover-max-inline: calc(100vw - var(--dim-2p5) * 2);
+
+    position: relative;
+  }
+
+  :scope::details-content {
+    opacity: 0;
+    transition:
+      content-visibility var(--duration-200) var(--easing-base),
+      opacity var(--duration-200) var(--easing-base);
+    transition-behavior: allow-discrete;
+  }
+
+  :scope[open]::details-content {
+    opacity: 1;
+  }
+
+  .popover-body {
+    background-color: var(--popover-body-background);
+    border-radius: var(--popover-body-radius);
+    border: var(--popover-body-border);
+    box-shadow: var(--popover-body-shadow);
+    color: var(--popover-body-color);
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    max-width: var(--popover-max-inline);
+    opacity: 0;
+    padding-block: var(--popover-body-padding-block);
+    padding-inline: var(--popover-body-padding-inline);
+    pointer-events: none;
+    position: absolute;
+    text-align: left;
+    transition:
+      opacity calc(var(--duration-200) * 0.8) var(--easing-disappearance),
+      translate calc(var(--duration-200) * 0.8) var(--easing-disappearance);
+    translate: 0 var(--popover-body-offset);
+    width: var(--popover-body-width);
+    z-index: var(--popover-layer);
+  }
+
+  :scope[open] .popover-body,
+  :scope.popover-open > .popover-body {
+    opacity: 1;
+    pointer-events: auto;
+    transition:
+      opacity var(--duration-200) var(--easing-appearance),
+      translate var(--duration-200) var(--easing-appearance);
+    translate: 0;
+  }
+
+  summary,
+  [data-role='popover-summary'] {
+    cursor: pointer;
+  }
+
+  .popover-chevron {
+    align-items: center;
+    display: flex;
+  }
+
+  .popover-chevron::after {
+    background-image: var(--icon-chevron-down);
+    background-position: center;
+    background-repeat: no-repeat;
+    content: '';
+    display: block;
+    height: var(--dim-2);
+    margin-inline-start: var(--dim-0p5);
+    transition: rotate var(--duration-50) var(--easing-base);
+    width: var(--dim-2);
+  }
+
+  :scope[open] summary::after {
+    rotate: 180deg;
+  }
+
+  .popover-body.menu {
+    --popover-body-padding-block: var(--dim-1p5);
+    --popover-body-padding-inline: var(--dim-1p5);
+  }
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: MODIFIERS                                                         */
+/* -------------------------------------------------------------------------- */
+
+@scope (.popover-share) {
+  :scope summary,
+  :scope [data-role='popover-summary'] {
+    align-items: center;
+    border-radius: var(--radius-sm);
+    display: flex;
+    justify-content: center;
+    padding: var(--dim-1);
+  }
+
+  @media (any-hover: hover) {
+    :scope summary:hover,
+    :scope [data-role='popover-summary']:hover {
+      background-color: color-mix(in oklch, var(--color-bg) 92%, transparent);
+    }
+  }
+
+  :scope summary::after,
+  :scope [data-role='popover-summary']::after {
+    display: none;
+  }
+
+  .popover-body {
+    inset-block-end: var(--dim-4);
+    inset-inline-end: calc(var(--dim-4) * -1);
+    inset-inline-start: auto;
+  }
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: LAYOUT OVERRIDES                                                  */
+/* -------------------------------------------------------------------------- */
+
+.popover-up > .popover-body {
+  inset-block-end: 100%;
+}
+
+.popover-right > .popover-body {
+  inset-inline-start: auto;
+  inset-inline-end: 0;
+}
+
+/* #endregion */

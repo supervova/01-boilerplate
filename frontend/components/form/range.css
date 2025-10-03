@@ -1,0 +1,142 @@
+/* -------------------------------------------------------------------------- */
+/* #region: BASE                                                              */
+/* -------------------------------------------------------------------------- */
+
+[type='range'] {
+  --range-height: var(--dim-0p5);
+  --range-radius: var(--radius-pill);
+  --range-bg: var(--color-border);
+  --range-fill: var(--color-brand);
+  --range-thumb: var(--dim-2p5);
+  --range-thumb-bg: var(--color-bg);
+  --range-thumb-border: color-mix(in oklch, var(--color-brand) 40%, var(--color-bg));
+  --range-focus: var(--color-focus);
+
+  /* JS-less sync for WebKit via attribute selectors */
+  --min: 0;
+  --max: 100;
+
+  appearance: none;
+  background: transparent;
+  margin: 0;
+  width: 100%;
+  height: var(--range-thumb);
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: TRACK                                                             */
+/* -------------------------------------------------------------------------- */
+
+[type='range']::-webkit-slider-runnable-track {
+  background: var(--range-bg);
+  border-radius: var(--range-radius);
+  position: relative;
+  height: var(--range-height);
+}
+
+[type='range']::-moz-range-track {
+  background: var(--range-bg);
+  border-radius: var(--range-radius);
+  height: var(--range-height);
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: FILL                                                              */
+/* -------------------------------------------------------------------------- */
+
+[type='range']::-moz-range-progress {
+  background: var(--range-fill);
+  border-radius: var(--range-radius);
+  height: var(--range-height);
+}
+
+/* WebKit fill via background-size (enabled state) */
+[type='range']:enabled {
+  /* stylelint-disable-next-line custom-property-pattern */
+  --_offset: calc((var(--range-thumb) - 2px) / 2);
+
+  background-image: linear-gradient(var(--range-fill), var(--range-fill));
+  background-position: left center;
+  background-repeat: no-repeat;
+  background-size:
+    calc(
+      (var(--value, 50) - var(--min, 0)) * 1% *
+      (100 / (var(--max, 100) - var(--min, 0)))
+    )
+    var(--range-height);
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: THUMB                                                             */
+/* -------------------------------------------------------------------------- */
+
+[type='range']::-webkit-slider-thumb {
+  appearance: none;
+  background: var(--range-thumb-bg);
+  border: 2px solid var(--range-thumb-border);
+  border-radius: 50%;
+  box-shadow: var(--shadow-z1);
+  margin-top: calc((var(--range-height) - var(--range-thumb)) / 2);
+  position: relative;
+  transition:
+    box-shadow var(--duration-100) var(--easing-base),
+    transform var(--duration-100) var(--easing-base);
+  width: var(--range-thumb);
+  height: var(--range-thumb);
+}
+
+[type='range']::-moz-range-thumb {
+  background: var(--range-thumb-bg);
+  border: 2px solid var(--range-thumb-border);
+  border-radius: 50%;
+  box-shadow: var(--shadow-z1);
+  transition:
+    box-shadow var(--duration-100) var(--easing-base),
+    transform var(--duration-100) var(--easing-base);
+  width: var(--range-thumb);
+  height: var(--range-thumb);
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: STATES                                                            */
+/* -------------------------------------------------------------------------- */
+
+/* Hover */
+@media (any-hover: hover) {
+  [type='range']:hover::-webkit-slider-thumb,
+  [type='range']:hover::-moz-range-thumb {
+    transform: scale(1.06);
+  }
+}
+
+/* Active */
+[type='range']:active::-webkit-slider-thumb,
+[type='range']:active::-moz-range-thumb {
+  transform: scale(0.98);
+}
+
+/* Focus */
+[type='range']:focus-visible {
+  outline: none;
+}
+
+[type='range']:focus-visible::-webkit-slider-thumb,
+[type='range']:focus-visible::-moz-range-thumb {
+  box-shadow: 0 0 0 6px var(--range-focus);
+}
+
+/* Disabled */
+[type='range']:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* #endregion */

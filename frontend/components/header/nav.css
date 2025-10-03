@@ -1,0 +1,97 @@
+.header nav {
+  align-items: flex-start;
+  backdrop-filter: var(--backdrop-glass);
+  background: color-mix(in oklch, var(--color-bg) 80%, transparent);
+  padding-block: var(--dim-2p5);
+  width: 100vw;
+  height: max-content;
+}
+
+.header nav > .container {
+  align-items: flex-start;
+  display: flex;
+}
+
+.header-logo {
+  align-self: auto;
+  translate: 0 -0.1875rem;
+}
+
+.header-tagline {
+  color: var(--navbar-label-color);
+  font-size: var(--navbar-label-size);
+  font-weight: var(--navbar-label-weight);
+  inset: auto;
+  inset-block-start: var(--dim-4);
+  inset-inline-start: 4.25rem;
+  text-align: left;
+  translate: 0;
+}
+
+.header-menu {
+  align-items: flex-start;
+  background: transparent;
+  flex: 1;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-block: 0;
+  padding-block: 0;
+  padding-inline-end: var(--dim-2);
+}
+
+.header-menu-item {
+  width: auto;
+}
+
+.header-menu-item .icon {
+  display: none;
+}
+
+.header-menu-item > a,
+.header-menu-item-more .menu-item > a,
+.header-menu-item-more [data-role='popover-summary'] {
+  align-items: center;
+  border-radius: var(--radius-base);
+  flex-direction: row;
+  gap: var(--dim-1);
+  height: var(--navbar-height-desktop);
+  padding-block: 0;
+  padding-inline-end: var(--dim-2);
+  padding-inline-start: var(--dim-4);
+  position: relative;
+}
+
+.header-menu-item > a::before,
+.header-menu-item-more .menu-item > a::before,
+.header-menu-item-more [data-role='popover-summary']::before {
+  background-color: var(--color-bg-02);
+  border-radius: var(--radius-pill);
+  content: '';
+  height: var(--navbar-dot-size);
+  inset-block-start: calc(50% - 0.125rem);
+  inset-inline-start: var(--dim-1p5);
+  position: absolute;
+  width: var(--navbar-dot-size);
+}
+
+:where(.page:not(.page-app)) .menu-label,
+.header-menu-label {
+  color: var(--navbar-label-color);
+  font-size: var(--navbar-label-size);
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.user-menu summary {
+  translate: 0 var(--dim-0p5);
+}
+
+.user-menu summary::after {
+  display: block;
+}
+
+.user-menu .popover-body {
+  inset-block-end: auto;
+  inset-inline: auto 0;
+}
