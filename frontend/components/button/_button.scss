@@ -14,23 +14,23 @@ $btn-variants: (
     --button-bg-hover: var(--color-gradient-brand),
     --button-filter-hover: var(--filter-brightness-up),
     --button-box-shadow-hover:
-      'inset 0 0 0 1px var(--color-alpha-dark-100), inset 0 0 2px rgb(255 255 255 / 0.4), inset 0 0 4px 2px rgb(255 255 255 / 0.24), inset 0 0 16px 2px rgb(255 255 255 / 0.12)',
-    --button-color: var(--color-ink-text-inverse),
+      'inset 0 0 0 1px hsl(0 0% 0% / 0.08), inset 0 0 2px hsl(0 0% 100% / 0.4), inset 0 0 4px 2px rgb(255 255 255 / 0.24), inset 0 0 16px 2px rgb(255 255 255 / 0.12)',
+    --button-color: var(--color-text-inverse),
     --button-border-color: transparent,
     --button-transition:
-      'filter var(--duration-shortest) var(--easing-base), box-shadow var(--duration-shortest) var(--easing-base)'
+      'filter var(--duration-50) var(--easing-base), box-shadow var(--duration-50) var(--easing-base)'
   ),
   'outline': (
     --button-bg: transparent,
-    --button-color: var(--color-ink-text-brand),
-    --button-border-color: var(--color-ink-border),
-    --button-bg-hover: color-mix(in oklch, var(--color-brand-primary) 10%, transparent)
+    --button-color: var(--color-text-brand),
+    --button-border-color: var(--color-border),
+    --button-bg-hover: color-mix(in oklch, var(--color-brand) 10%, transparent)
   ),
   'ghost': (
     --button-bg: transparent,
-    --button-color: var(--color-ink-text-brand),
+    --button-color: var(--color-text-brand),
     --button-border-color: transparent,
-    --button-bg-hover: color-mix(in oklch, var(--color-brand-primary) 10%, transparent)
+    --button-bg-hover: color-mix(in oklch, var(--color-brand) 10%, transparent)
   ),
   'link': (
     --button-bg: transparent,
@@ -82,10 +82,10 @@ $btn-sizes: (
   // Effect variables
   --button-shadow-focus: 0 0 0 3px color-mix(in oklch, var(--color-focus) 35%, transparent);
   --button-transition:
-    background var(--duration-shortest) var(--easing-base),
-    border-color var(--duration-shortest) var(--easing-base),
-    box-shadow var(--duration-shortest) var(--easing-base),
-    color var(--duration-shortest) var(--easing-base);
+    background var(--duration-50) var(--easing-base),
+    border-color var(--duration-50) var(--easing-base),
+    box-shadow var(--duration-50) var(--easing-base),
+    color var(--duration-50) var(--easing-base);
   --button-box-shadow-hover: none;
 
   appearance: none;

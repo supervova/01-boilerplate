@@ -26,39 +26,23 @@
   --l: 20%;
 
   // DECLARATIVE PALETTE
-  --color-brand-primary: hsl(var(--h) var(--s) var(--l));
-
-  // Alpha layers - dark variants
-  --color-alpha-dark-max: rgb(0 0 0);
-  --color-alpha-dark-900: rgb(0 0 0 / 0.87);
-  --color-alpha-dark-600: rgb(0 0 0 / 0.6);
-  --color-alpha-dark-400: rgb(0 0 0 / 0.38);
-  --color-alpha-dark-200: rgb(0 0 0 / 0.2);
-  --color-alpha-dark-100: rgb(0 0 0 / 0.12);
-  --color-alpha-dark-min: rgb(0 0 0 / 0.05);
-
-  // Alpha layers - light variants
-  --color-alpha-light-max: hsl(0 0% 100%);
-  --color-alpha-light-900: hsl(0 0% 100% / 0.87);
-  --color-alpha-light-600: hsl(0 0% 100% / 0.6);
-  --color-alpha-light-400: hsl(0 0% 100% / 0.38);
-  --color-alpha-light-200: hsl(0 0% 100% / 0.2);
-  --color-alpha-light-min: hsl(0 0% 100% / 0.07);
+  --color-brand: hsl(var(--h) var(--s) var(--l));
 
   // Shadow base color
   --color-shadow: var(--h) var(--s-min) 10%;
+  --color-shadow-light: hsl(0 0% 100% / 0.04);
 
   // Background gradient patch
-  --color-bg-base-patch:
-    var(--color-bg-base), hsl(from var(--color-bg-base) h s l / 0.9) 16%,
-    hsl(from var(--color-bg-base) h s l / 0.8) 32%,
-    hsl(from var(--color-bg-base) h s l / 0.6) 48%,
-    hsl(from var(--color-bg-base) h s l / 0.4) 56%,
-    hsl(from var(--color-bg-base) h s l / 0.2) 72%,
-    hsl(from var(--color-bg-base) h s l / 0.05) 80%,
-    hsl(from var(--color-bg-base) h s l / 0);
+  --color-bg-patch:
+    var(--color-bg), hsl(from var(--color-bg) h s l / 0.9) 16%,
+    hsl(from var(--color-bg) h s l / 0.8) 32%,
+    hsl(from var(--color-bg) h s l / 0.6) 48%,
+    hsl(from var(--color-bg) h s l / 0.4) 56%,
+    hsl(from var(--color-bg) h s l / 0.2) 72%,
+    hsl(from var(--color-bg) h s l / 0.05) 80%,
+    hsl(from var(--color-bg) h s l / 0);
 
-  --color-bg-base-alpha: hsl(from var(--color-bg-base) h s l / 0.88);
+  --color-bg-alpha: hsl(from var(--color-bg) h s l / 0.88);
 
   // Backdrop filters
   --backdrop-glass: saturate(180%) blur(20px);
@@ -152,13 +136,6 @@
   --padding-bottom-list: #{rem(16)};
   --padding-bottom-li: #{rem(10)};
 
-  // Icons
-  --icon-size: #{rem(24)};
-  --icon-size-sm: #{rem(20)};
-  --icon-fill: none;
-  --icon-stroke: var(--color-ink-icon);
-  --icon-stroke-width: 2;
-
   // #endregion
 
   // ---------------------------------------------------------------------------
@@ -166,26 +143,26 @@
   // ---------------------------------------------------------------------------
 
   // Shadow levels with semantic naming
-  --box-shadow-level-01:
-    0 0 0.5px 1px var(--color-alpha-light-min),
+  --shadow-z1:
+    0 0 0.5px 1px var(--color-shadow-light),
     0 0 0 1px hsl(var(--color-shadow) / var(--shadow-ring, 0.04)),
-    0 1px 2px hsl(var(--color-shadow) / var(--shadow-opacity-low, 0.06)),
-    0 2px 4px -1px hsl(var(--color-shadow) / var(--shadow-opacity-low, 0.06));
+    0 1px 2px hsl(var(--color-shadow) / var(--shadow-opacity, 0.06)),
+    0 2px 4px -1px hsl(var(--color-shadow) / var(--shadow-opacity, 0.06));
 
-  --box-shadow-level-02:
-    0 0 0.5px 1px var(--color-alpha-light-min),
+  --shadow-z2:
+    0 0 0.5px 1px var(--color-shadow-light),
     0 0 0 1px hsl(var(--color-shadow) / var(--shadow-ring, 0.04)),
-    0 2px 4px hsl(var(--color-shadow) / var(--shadow-opacity-low, 0.06)),
-    0 6px 12px -2px hsl(var(--color-shadow) / var(--shadow-opacity-low, 0.06)),
-    0 14px 28px -4px hsl(var(--color-shadow) / var(--shadow-opacity-low, 0.06));
+    0 2px 4px hsl(var(--color-shadow) / var(--shadow-opacity, 0.06)),
+    0 6px 12px -2px hsl(var(--color-shadow) / var(--shadow-opacity, 0.06)),
+    0 14px 28px -4px hsl(var(--color-shadow) / var(--shadow-opacity, 0.06));
 
-  --box-shadow-level-03:
-    0 0 0.5px 1px var(--color-alpha-light-min),
+  --shadow-z3:
+    0 0 0.5px 1px var(--color-shadow-light),
     0 0 0 1px hsl(var(--color-shadow) / var(--shadow-ring, 0.04)),
-    0 3px 6px hsl(var(--color-shadow) / var(--shadow-opacity-low, 0.06)),
-    0 8px 16px -2px hsl(var(--color-shadow) / var(--shadow-opacity-low, 0.06)),
-    0 18px 36px -4px hsl(var(--color-shadow) / var(--shadow-opacity-low, 0.06)),
-    0 30px 60px -4px hsl(var(--color-shadow) / var(--shadow-opacity-low, 0.06));
+    0 3px 6px hsl(var(--color-shadow) / var(--shadow-opacity, 0.06)),
+    0 8px 16px -2px hsl(var(--color-shadow) / var(--shadow-opacity, 0.06)),
+    0 18px 36px -4px hsl(var(--color-shadow) / var(--shadow-opacity, 0.06)),
+    0 30px 60px -4px hsl(var(--color-shadow) / var(--shadow-opacity, 0.06));
 
   // Z-index
   --z-sticky: 10;
@@ -221,13 +198,13 @@
   // ---------------------------------------------------------------------------
 
   // Duration scale
-  --duration-shortest: 0.07s; // 50
-  --duration-very-short: 0.11s; // 100
-  --duration-short: 0.15s; // 200
-  --duration-moderate: 0.24s; // 500
-  --duration-long: 0.4s; // 700
-  --duration-very-long: 0.7s; // 900
-  --duration-longest: 1s; // 1000
+  --duration-50: 0.07s; // 50
+  --duration-100: 0.11s; // 100
+  --duration-200: 0.15s; // 200
+  --duration-300: 0.24s; // 500
+  --duration-400: 0.4s; // 700
+  --duration-500: 0.7s; // 900
+  --duration-600: 1s; // 1000
 
   // Easing functions
   --easing-base: cubic-bezier(0.2, 0, 0.38, 0.9);

@@ -63,7 +63,7 @@ $label-sizes: (
 
 @scope (label) {
   :scope {
-    --label-color: var(--color-ink-2ry);
+    --label-color: var(--color-text-02);
     --label-font-size: var(--font-size-base);
     --label-line-height: var(--line-height-base);
     --label-margin-bottom: var(--size-half);
@@ -96,8 +96,8 @@ $label-sizes: (
 
 @scope (.form-float) {
   :scope {
-    --float-label-color: var(--color-ink-2ry);
-    --float-label-color-active: var(--color-ink-text-brand);
+    --float-label-color: var(--color-text-02);
+    --float-label-color-active: var(--color-text-brand);
     --float-label-font-size: var(--font-size-base);
     --float-label-font-size-active: var(--font-size-caption);
     --float-label-line-height: var(--line-height-base);
@@ -105,7 +105,7 @@ $label-sizes: (
     --float-label-top: var(--size-2);
     --float-label-top-active: var(--size-half);
     --float-label-left: var(--padding-x-input);
-    --float-label-transition: all var(--duration-short) var(--easing-base);
+    --float-label-transition: all var(--duration-200) var(--easing-base);
 
     position: relative;
 
@@ -126,7 +126,7 @@ $label-sizes: (
 
     // Autofill detection для input
     &:has(input:-webkit-autofill) {
-      --icon-stroke: var(--color-ink-2ry-brand);
+      --icon-stroke: var(--color-text-02-brand);
     }
 
     &:has(input:-webkit-autofill:not(:focus)) {

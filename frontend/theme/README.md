@@ -123,15 +123,15 @@ Light theme (default) can be forced with the `data-theme="light"` attributes and
   // The saturation and lightness reduced a relative 20%.
   --s: 64%;
 
-  --color-brand-primary: hsl(var(--h), var(--s), 44%);
+  --color-brand: hsl(var(--h), var(--s), 44%);
 
-  --color-bg-base: hsl(var(--h) 10% 10%);
-  --color-bg-2ry: hsl(var(--h) 10% 15%);
+  --color-bg: hsl(var(--h) 10% 10%);
+  --color-bg-z1: hsl(var(--h) 10% 15%);
   --color-bg-z3: hsl(var(--h) 5%  20%);
   --color-bg-z5: hsl(var(--h) 5% 25%);
 
-  --color-ink-text: hsl(var(--h) 15% 85%);
-  --color-ink-2ry: hsl(var(--h) 5% 65%);
+  --color-text: hsl(var(--h) 15% 85%);
+  --color-text-02: hsl(var(--h) 5% 65%);
 
   --color-ink-shadow: var(--h) 50% 3%;
 
@@ -207,20 +207,20 @@ html(data-theme='light')
   var(--duration-200):  .15s !default;
 
   // Раскрытие средних блоков, тосты, системные сообщения
-  var(--duration-500):  .24s !default;
+  var(--duration-300):  .24s !default;
 
   // Раскрытие больших блоков, важные сообщения
-  var(--duration-700):  .4s !default;
+  var(--duration-400):  .4s !default;
 
   // Смена фонового цвета
-  var(--duration-900):  .7s !default;
+  var(--duration-500):  .7s !default;
   ```
 
-- Длительность сложных полноэкранных анимаций можно задавать увеличением одного из стартных периодов в несколько раз. Например, `var(--duration-700) * 4`.
+- Длительность сложных полноэкранных анимаций можно задавать увеличением одного из стартных периодов в несколько раз. Например, `var(--duration-400) * 4`.
 - Для расчета новой шкалы можно использовать коэффициент геометрической прогрессии — также, как в размерной шкале шрифта. Например, малую септиму: 1.778 (9:16).
 - Элементы в идеале должны исчезать с экрана быстрее, чем появляться. Для этого используем свойство `transition` в обоих положениях.
 
   ```scss
-  .el { transition: all (var(--duration-500) * .8) $motion-easing-disappearance; }
-  .el-hidden { transition: all var(--duration-500) $motion-easing-appearance; }
+  .el { transition: all (var(--duration-300) * .8) $motion-easing-disappearance; }
+  .el-hidden { transition: all var(--duration-300) $motion-easing-appearance; }
   ```

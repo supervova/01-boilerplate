@@ -173,10 +173,10 @@
 
 @mixin label($uppercase: true) {
   font-family: var(--font-family-base);
-  font-size: var(--font-size-label);
+  font-size: var(--font-size, var(--font-size-body-sm));
   font-weight: 500;
   letter-spacing: 0.2px;
-  line-height: var(--line-height, var(--line-height-label));
+  line-height: var(--line-height, var(--font-size-body-sm));
 
   @if $uppercase {
     text-transform: uppercase;
@@ -270,7 +270,7 @@
   // Border
   #{$root}::after {
     border-radius: var(--border-radius-base);
-    box-shadow: inset 0 0 0 1px var(--color-ink-border-neutral);
+    box-shadow: inset 0 0 0 1px var(--color-border-neutral);
     content: '';
     display: block;
     inset: 0;
@@ -337,8 +337,8 @@
   pointer-events: none;
 }
 
-@mixin state-focus($size: rem(2), $color: var(--color-ink-2ry-info)) {
-  box-shadow: 0 0 0 $size var(--color-ink-2ry-info);
+@mixin state-focus($size: rem(2), $color: var(--color-text-02-info)) {
+  box-shadow: 0 0 0 $size var(--color-text-02-info);
   outline: 0;
 
   // outline: $size solid $color;
@@ -364,7 +364,7 @@
   background-color: transparent;
   border: 0;
   border-radius: var(--border-radius-sm);
-  color: var(--menu-color, var(--color-ink-2ry));
+  color: var(--menu-color, var(--color-text-02));
   display: flex;
   font-size: inherit;
   font-weight: inherit;
@@ -377,8 +377,8 @@
   text-decoration: none;
   text-transform: none;
   transition:
-    background var(--duration-shortest),
-    color var(--duration-shortest);
+    background var(--duration-50),
+    color var(--duration-50);
   user-select: none;
   width: 100%;
 

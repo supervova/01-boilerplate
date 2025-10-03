@@ -7,10 +7,10 @@
 // stylelint-disable custom-property-no-missing-var-function
 $option-states: (
   'valid': (
-    --option-border-color: var(--color-ink-border),
+    --option-border-color: var(--color-border),
   ),
   'invalid': (
-    --option-border-color: var(--color-base-error),
+    --option-border-color: var(--color-error),
   ),
 );
 
@@ -37,8 +37,8 @@ $option-sizes: (
   }
 
   #{$root}:checked {
-    background-color: var(--color-ink-2ry-brand);
-    border-color: var(--color-ink-2ry-brand);
+    background-color: var(--color-text-02-brand);
+    border-color: var(--color-text-02-brand);
   }
 
   #{$root}:disabled {
@@ -58,11 +58,11 @@ $option-sizes: (
 
 @mixin option-validation-states($root) {
   #{$root}[aria-invalid='false'] {
-    border-color: var(--color-ink-border);
+    border-color: var(--color-border);
   }
 
   #{$root}[aria-invalid='true'] {
-    border-color: var(--color-base-error);
+    border-color: var(--color-error);
   }
 }
 // #endregion
@@ -76,10 +76,10 @@ $option-sizes: (
   :scope [type='radio'] {
     --option-size: var(--size-2);
     --option-border: 1px;
-    --option-border-color: var(--color-ink-border);
+    --option-border-color: var(--color-border);
 
     appearance: none;
-    background-color: var(--color-bg-2ry);
+    background-color: var(--color-bg-z1);
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -141,7 +141,7 @@ $option-sizes: (
   --option-padding-top: var(--padding-top-base);
   --option-padding-bottom: var(--padding-bottom-base);
 
-  color: var(--color-ink-2ry);
+  color: var(--color-text-02);
   font-size: var(--font-size-base);
   line-height: var(--line-height-base);
   margin: 0;

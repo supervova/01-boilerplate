@@ -62,7 +62,7 @@ $section-title-variants: (
 // #region Section Title
 @scope (.section-title) {
   :scope {
-    color: var(--color-ink-text);
+    color: var(--color-text);
 
     @include section-variants($section-title-variants);
   }

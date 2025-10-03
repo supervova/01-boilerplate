@@ -157,7 +157,7 @@ my-component/
 
 @scope (.btn-primary) {
   :scope {
-    --button-bg: var(--color-brand-primary);
+    --button-bg: var(--color-brand);
     --btn-padding-x: var(--size-2p5);
   }
 
@@ -175,7 +175,7 @@ my-component/
 
 .btn {
   --btn-bg: var(--color-ink-fill);
-  --btn-color: var(--color-ink-2ry);
+  --btn-color: var(--color-text-02);
   --btn-font-weight: 500;
   --btn-height: var(--size-6);
   --btn-padding-x: var(--size-2p5);
@@ -205,13 +205,13 @@ my-component/
 
 $btn-variants: (
   'primary': (
-    '--btn-bg': var(--color-brand-primary),
-    '--btn-color': var(--color-ink-text-inverse),
-    '--btn-bg-hover': var(--color-brand-primary-600),
+    '--btn-bg': var(--color-brand),
+    '--btn-color': var(--color-text-inverse),
+    '--btn-bg-hover': var(--color-brand-600),
   ),
   'secondary': (
     '--btn-bg': var(--color-bg-brand),
-    '--btn-color': var(--color-ink-2ry),
+    '--btn-color': var(--color-text-02),
     '--btn-bg-hover': color-mix(
         in oklch,
         var(--color-bg-brand) 95%,

@@ -64,12 +64,12 @@
 
 .font-light { font-weight: 300; }
 .nobr { white-space: nowrap; }
-.text-2ry { color: var(--color-ink-2ry); }
+.text-2ry { color: var(--color-text-02); }
 .text-sm { @include text-format('small'); }
 .text-center { text-align: center; }
-.text-info { color: var(--color-ink-text-info); }
-.text-success { color: var(--color-ink-text-success); }
-.text-error { color: var(--color-ink-text-error); }
+.text-info { color: var(--color-text-info); }
+.text-success { color: var(--color-text-success); }
+.text-error { color: var(--color-text-error); }
 
 // #endregion
 

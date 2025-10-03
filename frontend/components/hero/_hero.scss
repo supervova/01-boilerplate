@@ -28,7 +28,7 @@
         var(--fill) 0 calc(var(--r) - var(--feather)),
         transparent var(--r)
       ),
-      var(--color-bg-2ry);
+      var(--color-bg-z1);
 
     min-height: 100vh;
     min-height: 100dvh;
@@ -96,7 +96,7 @@
   .btn-secondary:hover {
     --button-bg-hover: var(--color-ink-fill);
     box-shadow:
-      inset 0 0 0 1px var(--color-ink-border),
+      inset 0 0 0 1px var(--color-border),
       inset 0 0 2px rgb(255 255 255),
       inset 0 0 4px 2px rgb(255 255 255 / 0.64),
       inset 0 0 16px 2px rgb(255 255 255 / 0.48);

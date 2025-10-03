@@ -5,7 +5,7 @@
 @use 'abstracts' as *;
 
 table {
-  --table-border-color: var(--color-ink-border);
+  --table-border-color: var(--color-border);
   --table-border-width: var(--border-width);
   --cell-padding-x: var(--size-2);
   --cell-padding-y: var(--size-1p5);
@@ -35,7 +35,7 @@ td {
 }
 
 thead th {
-  color: var(--color-ink-2ry);
+  color: var(--color-text-02);
   position: relative;
   padding-top: var(--cell-padding-y);
   vertical-align: bottom;
