@@ -88,7 +88,7 @@ label {
   color: var(--color-text);
   display: block;
   font-weight: 500;
-  margin-block-end: var(--size-half);
+  margin-bottom: var(--size-half);
 }
 
 input[type='checkbox'],

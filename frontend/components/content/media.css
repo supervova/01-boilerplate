@@ -11,7 +11,7 @@
 }
 
 .border > :is(iframe, img) {
-  margin-block-end: 0;
+  margin-bottom: 0;
   width: 100%;
 }
 

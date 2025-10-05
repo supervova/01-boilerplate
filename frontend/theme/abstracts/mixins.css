@@ -47,8 +47,7 @@
     display: flex;
   }
 
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
 
   > * {
     width: calc(
@@ -71,6 +70,7 @@
 /* #region: TYPOGRAPHY                                                        */
 /* -------------------------------------------------------------------------- */
 
+/* stylelint-disable custom-property-pattern */
 @define-mixin text-format($level) {
   font-size: var(--font-size-$(level));
   letter-spacing: var(--letter-spacing-$(level), normal);
@@ -78,6 +78,7 @@
   padding-bottom: var(--padding-bottom-$(level));
   padding-top: var(--padding-top-$(level));
 }
+/* stylelint-enable custom-property-pattern */
 
 @define-mixin label($uppercase: true) {
   font-family: var(--font-family-base);
@@ -113,6 +114,7 @@
 }
 
 @define-mixin multiline-truncate-reset() {
+  /* stylelint-disable-next-line property-no-deprecated */
   -webkit-box-orient: initial;
   -webkit-line-clamp: unset;
   display: block;

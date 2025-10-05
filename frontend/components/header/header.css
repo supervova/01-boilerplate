@@ -1,7 +1,5 @@
-@layer components {
-  .header {
-    inset-inline: 0;
-    position: fixed;
-    top: 0;
-  }
+.header {
+  inset-inline: 0;
+  position: fixed;
+  top: 0;
 }

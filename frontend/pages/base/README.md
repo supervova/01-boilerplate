@@ -2,9 +2,9 @@
 
 Use this folder for the base page markup: the `head` section, the shared `body` layout, mixins, macros, and template variables. For example:
 
-```njk
-{# src/app/base/markup/base.njk #}
-{% import "base/markup/config.njk" as config %}
+```nunjucks
+{# frontend/pages/base/base.njk #}
+{% import "pages/base/config.njk" as config %}
 
 {% set lang = page.lang if page and page.lang is defined else config.site.lang %}
 {% set bodyClasses = page.bodyClasses if page and page.bodyClasses is defined else '' %}
@@ -13,7 +13,7 @@ Use this folder for the base page markup: the `head` section, the shared `body` 
 <html lang="{{ lang }}" prefix="og: http://ogp.me/ns#">
   <head>
     {% block head %}
-      {% include "base/markup/head.njk" %}
+      {% include "pages/base/head.njk" %}
     {% endblock %}
   </head>
   <body class="{{ bodyClasses }}">
@@ -35,8 +35,9 @@ Use this folder for the base page markup: the `head` section, the shared `body` 
     {% endblock %}
 
     {% block bodySuffix %}
-      {% include "base/markup/body-suffix.njk" %}
+      {% include "pages/base/body-suffix.njk" %}
     {% endblock %}
   </body>
 </html>
 ```
+

@@ -28,7 +28,7 @@ body {
 }
 
 :where(address, p) {
-  margin-block-end: var(--size-2);
+  margin-bottom: var(--size-2);
 }
 
 :where(address) {
@@ -83,7 +83,7 @@ li > p:last-child {
 }
 
 :where(ul ul, ul ol, ol ul, ol ol) {
-  margin-block-end: 0;
+  margin-bottom: 0;
   padding-block-start: calc(var(--size-1) + var(--padding-bottom-base));
 }
 

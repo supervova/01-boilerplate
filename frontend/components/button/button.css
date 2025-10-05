@@ -140,14 +140,3 @@
 }
 
 /* #endregion */
-
-/* -------------------------------------------------------------------------- */
-/* #region: CLASSLESS                                                         */
-/* -------------------------------------------------------------------------- */
-
-:where(button, [type='button'], [type='reset'], [type='submit'])::-moz-focus-inner {
-  border-style: none;
-  padding: 0;
-}
-
-/* #endregion */

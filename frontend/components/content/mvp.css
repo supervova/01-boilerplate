@@ -40,7 +40,7 @@ h4, h5, h6 {
 }
 
 p {
-  margin-block-end: var(--size-2);
+  margin-bottom: var(--size-2);
   text-wrap: pretty;
 }
 
@@ -132,7 +132,7 @@ figcaption {
   color: var(--color-text-02);
   font-size: var(--font-size-body-sm);
   line-height: var(--line-height-body-sm);
-  margin-block-start: var(--size-1);
+  margin-top: var(--size-1);
   text-align: center;
 }
 

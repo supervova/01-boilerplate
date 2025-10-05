@@ -1,25 +1,23 @@
-@layer components {
+.icon {
+  --icon-fill: transparent;
+  --icon-stroke: var(--color-icon);
+  --icon-stroke-width: 2;
+  --icon-size: var(--size-3);
+
+  display: inline-block;
+  flex-shrink: 0;
+  fill: var(--icon-fill);
+  overflow: hidden;
+  transition:
+    fill var(--duration-50),
+    opacity var(--duration-50);
+  vertical-align: middle;
+  width: var(--icon-size);
+  height: var(--icon-size);
+}
+
+@media (--retina) {
   .icon {
-    --icon-fill: transparent;
-    --icon-stroke: var(--color-icon);
-    --icon-stroke-width: 2;
-    --icon-size: var(--size-3);
-
-    display: inline-block;
-    flex-shrink: 0;
-    fill: var(--icon-fill);
-    overflow: hidden;
-    transition:
-      fill var(--duration-50),
-      opacity var(--duration-50);
-    vertical-align: middle;
-    width: var(--icon-size);
-    height: var(--icon-size);
-  }
-
-  @media (--retina) {
-    .icon {
-      --icon-stroke-width: 1.5;
-    }
+    --icon-stroke-width: 1.5;
   }
 }
