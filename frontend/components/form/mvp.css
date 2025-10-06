@@ -1,119 +1,133 @@
-[type='text'],
-[type='email'],
-[type='password'],
-[type='search'],
-[type='tel'],
-[type='url'],
-[type='number'],
-[type='date'],
-[type='datetime-local'],
-[type='month'],
-[type='week'],
-[type='time'],
-[type='color'],
-textarea,
-select {
-  appearance: none;
-  background-color: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-base);
-  color: var(--color-text);
-  display: block;
-  font-size: 1rem;
-  line-height: 1.5;
-  padding: var(--size-1) var(--size-2);
-  transition: border-color var(--duration-200) var(--easing-disappearance);
-  width: 100%;
-}
+@scope (.form-mvp) {
+  :scope {
+    --form-border-color: var(--color-border);
+    --form-border-radius: var(--radius-base);
+    --form-padding-y: var(--size-1);
+    --form-padding-x: var(--size-2);
+    --form-disabled-bg: var(--color-bg-02);
+    --form-disabled-fg: var(--color-text-03);
+    --form-focus-color: var(--color-link);
+  }
 
-:where(
-  input:not([type]), /* input без type → text */
-  [type='text'],
-  [type='email'],
-  [type='password'],
-  [type='search'],
-  [type='tel'],
-  [type='url'],
-  [type='number'],
-  [type='date'],
-  [type='datetime-local'],
-  [type='month'],
-  [type='week'],
-  [type='time'],
-  [type='color'],
-  textarea,
-  select
-):focus-visible {
-  border-color: var(--color-link);
-}
+  :is(
+    [type='text'],
+    [type='email'],
+    [type='password'],
+    [type='search'],
+    [type='tel'],
+    [type='url'],
+    [type='number'],
+    [type='date'],
+    [type='datetime-local'],
+    [type='month'],
+    [type='week'],
+    [type='time'],
+    [type='color'],
+    textarea,
+    select
+  ) {
+    appearance: none;
+    background-color: var(--color-bg);
+    border: 1px solid var(--form-border-color);
+    border-radius: var(--form-border-radius);
+    color: var(--color-text);
+    display: block;
+    font-size: 1rem;
+    line-height: 1.5;
+    padding: var(--form-padding-y) var(--form-padding-x);
+    transition: border-color var(--duration-200) var(--easing-disappearance);
+    width: 100%;
+  }
 
-:where(
-  input:not([type]),
-  [type='text'],
-  [type='email'],
-  [type='password'],
-  [type='search'],
-  [type='tel'],
-  [type='url'],
-  [type='number'],
-  [type='date'],
-  [type='datetime-local'],
-  [type='month'],
-  [type='week'],
-  [type='time'],
-  [type='color'],
-  textarea,
-  select
-):disabled {
-  background-color: var(--color-bg-02);
-  color: var(--color-text-03);
-  cursor: not-allowed;
-  opacity: 0.6;
-}
+  :is(
+    input:not([type]),
+    [type='text'],
+    [type='email'],
+    [type='password'],
+    [type='search'],
+    [type='tel'],
+    [type='url'],
+    [type='number'],
+    [type='date'],
+    [type='datetime-local'],
+    [type='month'],
+    [type='week'],
+    [type='time'],
+    [type='color'],
+    textarea,
+    select
+  ):focus-visible {
+    border-color: var(--form-focus-color);
+  }
 
-textarea {
-  min-height: 6rem;
-  resize: vertical;
-}
+  :is(
+    input:not([type]),
+    [type='text'],
+    [type='email'],
+    [type='password'],
+    [type='search'],
+    [type='tel'],
+    [type='url'],
+    [type='number'],
+    [type='date'],
+    [type='datetime-local'],
+    [type='month'],
+    [type='week'],
+    [type='time'],
+    [type='color'],
+    textarea,
+    select
+  ):disabled {
+    background-color: var(--form-disabled-bg);
+    color: var(--form-disabled-fg);
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
 
-select {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%23737373' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3E%3C/svg%3E");
-  background-position: right var(--size-1) center;
-  background-repeat: no-repeat;
-  background-size: 1.5rem;
-  padding-inline-end: var(--size-6);
-}
+  textarea {
+    min-height: 6rem;
+    resize: vertical;
+  }
 
-label {
-  color: var(--color-text);
-  display: block;
-  font-weight: 500;
-  margin-bottom: var(--size-half);
-}
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%23737373' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3E%3C/svg%3E");
+    background-position: right var(--size-1) center;
+    background-repeat: no-repeat;
+    background-size: 1.5rem;
+    padding-inline-end: var(--size-6);
+  }
 
-input[type='checkbox'],
-input[type='radio'] {
-  cursor: pointer;
-  margin: 0;
-  width: var(--size-2p5);
-  height: var(--size-2p5);
-}
+  label {
+    color: var(--color-text);
+    display: block;
+    font-weight: 500;
+    margin-bottom: var(--size-half);
+  }
 
-input[type='checkbox'] + label,
-input[type='radio'] + label {
-  cursor: pointer;
-  display: inline-block;
-  margin-inline-start: var(--size-1);
-  vertical-align: middle;
-}
+  input[type='checkbox'],
+  input[type='radio'] {
+    cursor: pointer;
+    margin: 0;
+    width: var(--size-2p5);
+    height: var(--size-2p5);
+  }
 
-fieldset {
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-base);
-  padding: var(--size-3);
-}
+  input[type='checkbox'] + label,
+  input[type='radio'] + label {
+    cursor: pointer;
+    display: inline-block;
+    margin-inline-start: var(--size-1);
+    vertical-align: middle;
+  }
 
-legend {
-  font-weight: 600;
-  padding-inline: var(--size-1);
+  fieldset {
+    border: 1px solid var(--form-border-color);
+    border-radius: var(--form-border-radius);
+    padding: var(--size-3);
+  }
+
+  legend {
+    font-weight: 600;
+    padding-inline: var(--size-1);
+  }
 }

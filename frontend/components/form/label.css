@@ -10,7 +10,6 @@ label {
 
   color: var(--label-color);
   cursor: pointer;
-  display: block;
   font-size: var(--label-font-size);
   letter-spacing: var(--letter-spacing-base, normal);
   line-height: var(--label-line-height);

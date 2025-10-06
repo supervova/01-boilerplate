@@ -1,16 +1,32 @@
-$display-props: (
-  'display': (
-    class-base: d,
-    values: (
-      block: block,
-      inline: inline,
-      inline-block: inline-block,
-      table: table,
-      flex: flex,
-      inline-flex: inline-flex,
-      none: none,
-    ),
-  ),
-);
+/* If necessary, add classes for other breakpoints.
+@media (--phone-l) { .phone-l\:col-* { ... }}
+@media (--tablet-l) { .tablet-l\:col-* { ... }}
+@media (--desktop) { .desktop\:col-* { ... }} */
 
-@mixin utility-classes $display-props;
+.d-block { display: block; }
+.d-inline { display: inline; }
+.d-inline-block { display: inline-block; }
+.d-table { display: table; }
+.d-flex { display: flex; }
+.d-inline-flex { display: inline-flex; }
+.d-none { display: none; }
+
+@media (--tablet) {
+  .tablet\:.d-block { display: block; }
+  .tablet\:d-inline { display: inline; }
+  .tablet\:d-inline-block { display: inline-block; }
+  .tablet\:d-table { display: table; }
+  .tablet\:d-flex { display: flex; }
+  .tablet\:d-inline-flex { display: inline-flex; }
+  .tablet\:d-none { display: none; }
+}
+
+@media (--laptop) {
+  .laptop\:.d-block { display: block; }
+  .laptop\:d-inline { display: inline; }
+  .laptop\:d-inline-block { display: inline-block; }
+  .laptop\:d-table { display: table; }
+  .laptop\:d-flex { display: flex; }
+  .laptop\:d-inline-flex { display: inline-flex; }
+  .laptop\:d-none { display: none; }
+}

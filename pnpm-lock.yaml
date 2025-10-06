@@ -53,6 +53,9 @@ importers:
       postcss-custom-selectors:
         specifier: ^8.0.5
         version: 8.0.5(postcss@8.5.6)
+      postcss-discard-comments:
+        specifier: ^7.0.4
+        version: 7.0.4(postcss@8.5.6)
       postcss-import:
         specifier: ^16.1.0
         version: 16.1.1(postcss@8.5.6)
@@ -2595,6 +2598,12 @@ packages:
     engines: {node: '>=18'}
     peerDependencies:
       postcss: ^8.4
+
+  postcss-discard-comments@7.0.4:
+    resolution: {integrity: sha512-6tCUoql/ipWwKtVP/xYiFf1U9QgJ0PUvxN7pTcsQ8Ns3Fnwq1pU5D5s1MhT/XySeLq6GXNvn37U46Ded0TckWg==}
+    engines: {node: ^18.12.0 || ^20.9.0 || >=22.0}
+    peerDependencies:
+      postcss: ^8.4.32
 
   postcss-double-position-gradients@6.0.4:
     resolution: {integrity: sha512-m6IKmxo7FxSP5nF2l63QbCC3r+bWpFUWmZXZf096WxG0m7Vl1Q1+ruFOhpdDRmKrRS+S3Jtk+TVk/7z0+BVK6g==}
@@ -6025,6 +6034,11 @@ snapshots:
       postcss-selector-parser: 7.1.0
 
   postcss-dir-pseudo-class@9.0.1(postcss@8.5.6):
+    dependencies:
+      postcss: 8.5.6
+      postcss-selector-parser: 7.1.0
+
+  postcss-discard-comments@7.0.4(postcss@8.5.6):
     dependencies:
       postcss: 8.5.6
       postcss-selector-parser: 7.1.0

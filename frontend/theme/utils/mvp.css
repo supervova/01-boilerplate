@@ -11,6 +11,8 @@
 .mb-2 { margin-bottom: var(--size-2); }
 .mb-1l { margin-bottom: var(--size-line); }
 
+.mx-auto { margin-inline: auto; }
+
 .pt-half-max { padding-top: var(--spacer-half-max); }
 .pb-half-max { padding-bottom: var(--spacer-half-max); }
 .py-half-max { padding-block: var(--spacer-half-max); }
@@ -91,5 +93,6 @@
 }
 
 .w-fit { width: fit-content; }
+.max-w-prose { max-width: var(--width-prose); }
 
 /* #endregion */

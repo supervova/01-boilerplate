@@ -15,7 +15,6 @@ fieldset {
 legend {
   display: block;
   font-size: var(--font-size-base);
-  font-weight: 500;
   letter-spacing: var(--letter-spacing-base, normal);
   line-height: var(--line-height-base);
   margin: 0;
@@ -132,19 +131,16 @@ legend {
 }
 
 .form-field :is(:--text-field, [type='search']) {
-  appearance: none;
   background-color: var(--form-field-bg);
   border: 0;
   border-radius: var(--border-radius-sm);
   color: var(--form-field-text-color);
-  display: block;
   min-height: var(--form-field-min-height);
   padding-block: var(--form-field-padding-y);
   padding-inline: var(--form-field-padding-x);
   transition:
     box-shadow var(--duration-50) var(--easing-base),
     color var(--duration-50) var(--easing-base);
-  width: 100%;
 }
 
 .form-field input,
@@ -212,9 +208,6 @@ legend {
   cursor: not-allowed;
   filter: grayscale(100%);
   opacity: 0.5;
-  pointer-events: none;
-}
-
 /* #endregion */
 
 /* -------------------------------------------------------------------------- */

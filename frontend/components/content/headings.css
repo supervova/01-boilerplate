@@ -25,7 +25,6 @@ h2,
 h3,
 .h3 {
   font-family: var(--font-family-titles);
-  text-wrap: balance;
 }
 
 h1,

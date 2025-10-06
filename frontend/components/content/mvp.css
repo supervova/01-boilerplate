@@ -1,163 +1,165 @@
-::selection {
-  background-color: var(--color-bg-inverse);
-  color: var(--color-text-inverse);
-  text-shadow: none;
-}
+@scope (.prose) {
+  ::selection {
+    background-color: var(--color-bg-inverse);
+    color: var(--color-text-inverse);
+    text-shadow: none;
+  }
 
-:focus-visible {
-  outline: 2px solid var(--color-focus);
-  outline-offset: 2px;
-}
+  :focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-weight: 600;
-  text-wrap: balance;
-}
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 600;
+    text-wrap: balance;
+  }
 
-h1 {
-  font-size: var(--font-size-title);
-  line-height: var(--line-height-title);
-}
+  h1 {
+    font-size: var(--font-size-title);
+    line-height: var(--line-height-title);
+  }
 
-h2 {
-  font-size: var(--font-size-h2);
-  line-height: var(--line-height-h2);
-}
+  h2 {
+    font-size: var(--font-size-h2);
+    line-height: var(--line-height-h2);
+  }
 
-h3 {
-  font-size: var(--font-size-h3);
-  line-height: var(--line-height-h3);
-}
+  h3 {
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+  }
 
-h4, h5, h6 {
-  font-size: var(--font-size-base);
-  line-height: var(--line-height-base);
-}
+  h4, h5, h6 {
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+  }
 
-p {
-  margin-bottom: var(--size-2);
-  text-wrap: pretty;
-}
+  p {
+    margin-bottom: var(--size-2);
+    text-wrap: pretty;
+  }
 
-a {
-  color: var(--color-link);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 2px;
-}
+  a {
+    color: var(--color-link);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+  }
 
-a:hover {
-  color: color-mix(in oklch, var(--color-link) 90%, hsl(var(--h) var(--s) 99%));
-}
+  a:hover {
+    color: color-mix(in oklch, var(--color-link) 90%, hsl(var(--h) var(--s) 99%));
+  }
 
-a:active {
-  color: color-mix(in oklch, var(--color-link) 90%, hsl(var(--h) var(--s) 12%));
-}
+  a:active {
+    color: color-mix(in oklch, var(--color-link) 90%, hsl(var(--h) var(--s) 12%));
+  }
 
-b,
-strong {
-  font-weight: 600;
-}
+  b,
+  strong {
+    font-weight: 600;
+  }
 
-small {
-  font-size: var(--font-size-caption);
-  line-height: var(--line-height-caption);
-}
+  small {
+    font-size: var(--font-size-caption);
+    line-height: var(--line-height-caption);
+  }
 
-code,
-kbd,
-samp,
-pre {
-  color: var(--color-code, var(--color-text));
-  font-family: var(--font-family-mono, monospace);
-  font-size: var(--font-size-body-sm);
-}
+  code,
+  kbd,
+  samp,
+  pre {
+    color: var(--color-code, var(--color-text));
+    font-family: var(--font-family-mono, monospace);
+    font-size: var(--font-size-body-sm);
+  }
 
-code, kbd {
-  border-radius: var(--radius-sm);
-  padding: 0.125rem var(--size-half); /* 2px 6px */
-}
+  code, kbd {
+    border-radius: var(--radius-sm);
+    padding: 0.125rem var(--size-half);
+  }
 
-code {
-  background-color: var(--color-bg-02);
-}
+  code {
+    background-color: var(--color-bg-02);
+  }
 
-kbd {
-  background-color: var(--color-fill);
-  border: 1px solid var(--color-border);
-  border-block-end-width: 2px;
-}
+  kbd {
+    background-color: var(--color-fill);
+    border: 1px solid var(--color-border);
+    border-block-end-width: 2px;
+  }
 
-pre {
-  background-color: var(--color-bg-02);
-  border-radius: var(--radius-base);
-  overflow-x: auto;
-  padding: var(--size-2);
-}
+  pre {
+    background-color: var(--color-bg-02);
+    border-radius: var(--radius-base);
+    overflow-x: auto;
+    padding: var(--size-2);
+  }
 
-pre code {
-  background-color: transparent;
-  padding: 0;
-}
+  pre code {
+    background-color: transparent;
+    padding: 0;
+  }
 
-blockquote {
-  border-inline-start: 3px solid var(--color-link);
-  color: var(--color-text-02);
-  margin-block: var(--size-3);
-  padding-inline-start: var(--size-3);
-}
+  blockquote {
+    border-inline-start: 3px solid var(--color-link);
+    color: var(--color-text-02);
+    margin-block: var(--size-3);
+    padding-inline-start: var(--size-3);
+  }
 
-hr {
-  background-color: var(--color-border);
-  border: 0;
-  height: 1px;
-  margin-block: var(--size-4);
-}
+  hr {
+    background-color: var(--color-border);
+    border: 0;
+    height: 1px;
+    margin-block: var(--size-4);
+  }
 
-img,
-svg,
-video {
-  height: auto;
-}
+  img,
+  svg,
+  video {
+    height: auto;
+  }
 
-figure {
-  margin: 0;
-}
+  figure {
+    margin: 0;
+  }
 
-figcaption {
-  color: var(--color-text-02);
-  font-size: var(--font-size-body-sm);
-  line-height: var(--line-height-body-sm);
-  margin-top: var(--size-1);
-  text-align: center;
-}
+  figcaption {
+    color: var(--color-text-02);
+    font-size: var(--font-size-body-sm);
+    line-height: var(--line-height-body-sm);
+    margin-top: var(--size-1);
+    text-align: center;
+  }
 
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-  width: 100%;
-}
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+  }
 
-thead {
-  background-color: var(--color-bg-02);
-}
+  thead {
+    background-color: var(--color-bg-02);
+  }
 
-th {
-  color: var(--color-text-02);
-  font-weight: 600;
-  text-align: start;
-}
+  th {
+    color: var(--color-text-02);
+    font-weight: 600;
+    text-align: start;
+  }
 
-th,
-td {
-  border-block-end: 1px solid var(--color-border);
-  padding: var(--size-2) var(--size-3);
-}
+  th,
+  td {
+    border-block-end: 1px solid var(--color-border);
+    padding: var(--size-2) var(--size-3);
+  }
 
-tbody tr:hover {
-  background-color: var(--color-bg-02);
+  tbody tr:hover {
+    background-color: var(--color-bg-02);
+  }
 }

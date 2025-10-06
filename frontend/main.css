@@ -1,7 +1,7 @@
 @layer base, components, pages, utils, print;
 @layer components.mvp, components.extended;
 
-@import url('./theme/abstracts/custom.css') layer(base);
+@import url('./theme/custom.css') layer(base);
 @import url('./theme/reset.css') layer(base);
 @import url('./theme/vars.css') layer(base);
 @import url('./theme/vars-light.css') layer(base);
@@ -10,7 +10,7 @@
 @import url('./components/button/button.css') layer(components.mvp);
 @import url('./components/icon/icon.css') layer(components.mvp);
 @import url('./components/content/mvp.css') layer(components.mvp);
-@import url('./components/form/form.css') layer(components.mvp);
+@import url('./components/form/mvp.css') layer(components.mvp);
 @import url('./components/layout/containers.css') layer(components.mvp);
 @import url('./theme/utils/mvp.css') layer(utils);
 
@@ -26,6 +26,7 @@
 @import url('./components/content/media.css') layer(components.mvp);
 @import url('./components/form/label.css') layer(components.mvp);
 @import url('./components/layout/grid.css') layer(components.mvp);
+@import url('./components/layout/grid-adaptive.css') layer(components.mvp);
 @import url('./components/layout/row.css') layer(components.mvp);
 
 /*
@@ -67,10 +68,9 @@
 */
 
 /* Feedback */
-
+@import url('./components/progress/loader.css') layer(components.extended);
 /*
 @import url('./components/alert/alert.css') layer(components.extended);
-@import url('./components/progress/loading-spinner.css') layer(components.extended);
 */
 
 /* Form */
@@ -94,14 +94,13 @@
 
 /* Utils */
 
-/*
 @import url('./theme/utils/accessibility.css') layer(utils);
+@import url('./theme/utils/animation.css') layer(utils);
 @import url('./theme/utils/content.css') layer(utils);
 @import url('./theme/utils/display.css') layer(utils);
 @import url('./theme/utils/flex.css') layer(utils);
 @import url('./theme/utils/spacing.css') layer(utils);
 @import url('./theme/utils/width.css') layer(utils);
 @import url('./theme/utils/print.css') layer(print);
-*/
 
 /* #endregion */

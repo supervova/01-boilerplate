@@ -206,11 +206,34 @@
       "postcss-preset-env": {
         "stage": 2,
         "features": {
-          "custom-properties": false
+          "custom-properties": false,
+          "is-pseudo-class": false,
+          "cascade-layers": false
         }
       },
-      "postcss-pxtorem": {},
-      "postcss-calc": {}
+      "postcss-pxtorem": {
+        "rootValue": 16,
+        "propList": [
+          "font",
+          "font-size",
+          "line-height",
+          "letter-spacing",
+          "word-spacing",
+          "margin*",
+          "padding*",
+          "--font-size*",
+          "--letter-spacing*",
+          "--padding-top*",
+          "--padding-bottom*",
+          "!--font-size-doc"
+        ],
+        "selectorBlackList": [],
+        "exclude": null,
+        "mediaQuery": false,
+        "minPixelValue": 0
+      },
+      "postcss-calc": {},
+      "postcss-discard-comments": {}
     }
   },
   "prettier": {
@@ -268,6 +291,7 @@
     "postcss-csso": "^6.0.0",
     "postcss-custom-media": "^11.0.6",
     "postcss-custom-selectors": "^8.0.5",
+    "postcss-discard-comments": "^7.0.4",
     "postcss-import": "^16.1.0",
     "postcss-nesting": "^13.0.2",
     "postcss-preset-env": "^10.0.2",

@@ -23,11 +23,8 @@
   background-repeat: no-repeat;
   background-size: contain;
   border: var(--option-border) solid var(--option-border-color);
-  cursor: pointer;
   flex: 0 0 auto;
   height: var(--option-size);
-  margin-top: 0;
-  margin-inline-end: var(--size-1);
   padding: 0;
   pointer-events: auto;
   position: absolute;

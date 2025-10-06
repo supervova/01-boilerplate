@@ -1,0 +1,72 @@
+/* HTML: <div class="loader-spinner"></div> */
+
+/* -------------------------------------------------------------------------- */
+/* #region: SPINNER                                                           */
+/* -------------------------------------------------------------------------- */
+
+@scope (.loader-spinner) {
+  :scope {
+    /* base variables */
+    --spinner-size: var(--size-6);
+    --spinner-stroke: var(--size-1);
+    --spinner-dur: 1s;
+    --spinner-primary: var(--color-brand);
+    --spinner-accent: var(--color-success);
+    --spinner-blend: darken;
+
+    aspect-ratio: 1;
+    box-sizing: border-box;
+    display: grid;
+    margin: auto;
+    width: var(--spinner-size);
+
+    @nest :root[data-theme='dark'] & {
+      --spinner-blend: lighten;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      --spinner-blend: lighten;
+    }
+  }
+
+  :scope::before,
+  :scope::after {
+    animation: spinner var(--spinner-dur) linear infinite;
+    border-radius: 50%;
+    border: var(--spinner-stroke) solid transparent;
+    content: '';
+    grid-area: 1 / 1;
+    mix-blend-mode: var(--spinner-blend);
+  }
+
+  :scope::before {
+    border-top-color: var(--spinner-primary);
+    border-right-color: var(--spinner-primary);
+  }
+
+  :scope::after {
+    animation-direction: reverse;
+    border-bottom-color: var(--spinner-accent);
+    border-left-color: var(--spinner-accent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :scope::after {
+      animation: none;
+    }
+  }
+}
+
+/* #endregion */
+
+/* -------------------------------------------------------------------------- */
+/* #region: ANIMATION                                                         */
+/* -------------------------------------------------------------------------- */
+
+@keyframes spinner {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+/* #endregion */

@@ -1,0 +1,58 @@
+/* If necessary, add classes for other breakpoints.
+@media (--phone-l) { .phone-l\:col-* { ... }}
+@media (--tablet-l) { .tablet-l\:col-* { ... }}
+@media (--desktop) { .desktop\:col-* { ... }} */
+
+@media (--tablet) {
+  .tablet\:col-1 { grid-column: auto / span 1; }
+  .tablet\:col-2 { grid-column: auto / span 2; }
+  .tablet\:col-3 { grid-column: auto / span 3; }
+  .tablet\:col-4 { grid-column: auto / span 4; }
+  .tablet\:col-5 { grid-column: auto / span 5; }
+  .tablet\:col-6 { grid-column: auto / span 6; }
+  .tablet\:col-7 { grid-column: auto / span 7; }
+  .tablet\:col-8 { grid-column: auto / span 8; }
+  .tablet\:col-9 { grid-column: auto / span 9; }
+  .tablet\:col-10 { grid-column: auto / span 10; }
+  .tablet\:col-11 { grid-column: auto / span 11; }
+
+  .tablet\:col-start-1 { grid-column-start: 1; }
+  .tablet\:col-start-2 { grid-column-start: 2; }
+  .tablet\:col-start-3 { grid-column-start: 3; }
+  .tablet\:col-start-4 { grid-column-start: 4; }
+  .tablet\:col-start-5 { grid-column-start: 5; }
+  .tablet\:col-start-6 { grid-column-start: 6; }
+  .tablet\:col-start-7 { grid-column-start: 7; }
+  .tablet\:col-start-8 { grid-column-start: 8; }
+  .tablet\:col-start-9 { grid-column-start: 9; }
+  .tablet\:col-start-10 { grid-column-start: 10; }
+  .tablet\:col-start-11 { grid-column-start: 11; }
+}
+
+@media (--laptop) {
+  .laptop\:col-1 { grid-column: auto / span 1; }
+  .laptop\:col-2 { grid-column: auto / span 2; }
+  .laptop\:col-3 { grid-column: auto / span 3; }
+  .laptop\:col-4 { grid-column: auto / span 4; }
+  .laptop\:col-5 { grid-column: auto / span 5; }
+  .laptop\:col-6 { grid-column: auto / span 6; }
+  .laptop\:col-7 { grid-column: auto / span 7; }
+  .laptop\:col-8 { grid-column: auto / span 8; }
+  .laptop\:col-9 { grid-column: auto / span 9; }
+  .laptop\:col-10 { grid-column: auto / span 10; }
+  .laptop\:col-11 { grid-column: auto / span 11; }
+
+  .laptop\:col-start-1 { grid-column-start: 1; }
+  .laptop\:col-start-2 { grid-column-start: 2; }
+  .laptop\:col-start-3 { grid-column-start: 3; }
+  .laptop\:col-start-4 { grid-column-start: 4; }
+  .laptop\:col-start-5 { grid-column-start: 5; }
+  .laptop\:col-start-6 { grid-column-start: 6; }
+  .laptop\:col-start-7 { grid-column-start: 7; }
+  .laptop\:col-start-8 { grid-column-start: 8; }
+  .laptop\:col-start-9 { grid-column-start: 9; }
+  .laptop\:col-start-10 { grid-column-start: 10; }
+  .laptop\:col-start-11 { grid-column-start: 11; }
+}
+
+/* #endregion */

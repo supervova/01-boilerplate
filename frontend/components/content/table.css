@@ -7,12 +7,9 @@ table {
   --table-border-width: var(--border-width);
   --cell-padding-x: var(--size-2);
   --cell-padding-y: var(--size-1p5);
-  border-collapse: collapse;
-  border-spacing: 0;
   font-variant-numeric: lining-nums tabular-nums;
   margin-block: var(--size-line);
   text-indent: 0;
-  width: 100%;
 }
 
 caption {
@@ -25,7 +22,6 @@ th,
 td {
   border-top: var(--table-border-width) solid var(--table-border-color);
   padding: calc(var(--cell-padding-y) - 1px) var(--cell-padding-x) var(--cell-padding-y);
-  text-align: left;
   vertical-align: top;
 }
 
