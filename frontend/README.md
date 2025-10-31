@@ -1,4 +1,4 @@
-# 01-boilerplate <Badge type="tip" text="v0.1.0" />
+# Old SKULL CSS <Badge type="tip" text="v0.1.0" />
 
 <p style="font-size: 120%">A Tailwind-free CSS framework, powered by LLM assistants</p>
 
@@ -7,7 +7,7 @@
 Скопируйте весь репозиторий и используйте, его, как шаблон проекта.
 
 ```sh
-git clone https://github.com/supervova/01-boilerplate.git
+git clone https://github.com/supervova/old-skull.git
 ```
 
 - Подключайте и отключайте необходимые файлы в `frontend/main.css`.
@@ -19,11 +19,11 @@ git clone https://github.com/supervova/01-boilerplate.git
 Если времени совсем нет, используйте готовое.
 
 ```sh
-npm i 01-boilerplate
+npm i old-skull
 ```
 
 ```html
-<link rel="stylesheet" href="node_modules/01-boilerplate/dist/main.css">
+<link rel="stylesheet" href="node_modules/old-skull/dist/main.css">
 <style>
   /* Но хотя бы настройте цвета */
   :root {

@@ -2,6 +2,20 @@
 /* #region: BASE                                                              */
 /* -------------------------------------------------------------------------- */
 
+/*
+`header.header` and `header.topnav` are different components that occupy the same
+area on the page.
+
+1. `header.topnav` is the global navigation of the site or application — a list
+of links to main sections, as well as a sliding search panel. On mobile devices,
+`.topnav` is split into two panels: a bottom navigation bar and a top bar
+containing the logo, search button, and user menu button.
+2. `header.header` is an additional navigation panel for sites or applications
+where the main navigation is placed in a sidebar on tablets and desktops.
+`header.header` contains an expanded search form, a user menu, and may include
+extra elements such as a cart button, key service statistics, etc.
+*/
+
 @scope (.header) {
   :scope {
     --header-bg: var(--color-bg-02);
@@ -26,8 +40,7 @@
     padding-inline-start: var(--header-padding-start);
     position: var(--header-position);
     top: var(--header-top);
-    inset-inline-end: var(--header-end);
-    inset-inline-start: var(--header-start);
+    inset-inline: var(--header-start) var(--header-end);
     translate: 0 var(--header-translate-y);
     transition: translate var(--header-transition-duration) var(--easing-base);
     z-index: var(--z-drawer);

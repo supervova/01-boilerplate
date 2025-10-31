@@ -3,17 +3,17 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-    <title>01-boilerplate Demo</title>
-    <meta name="description" content="01-boilerplate is a modern, scalable, and maintainable CSS architecture for web sites and applications.">
+    <title>Old Skull CSS Demo</title>
+    <meta name="description" content="Old Skull is a modern, scalable, and maintainable CSS architecture for web sites and applications.">
 
-    <meta property="og:title" content="01-boilerplate Demo">
-    <meta property="og:description" content="01-boilerplate is a modern, scalable, and maintainable CSS architecture for web sites and applications.">
+    <meta property="og:title" content="Old Skull CSS Demo">
+    <meta property="og:description" content="Old Skull is a modern, scalable, and maintainable CSS architecture for web sites and applications.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://supervova.github.io/01-boilerplate/play/">
+    <meta property="og:url" content="https://supervova.github.io/old-skull/play/">
     <meta property="og:image" content="assets/img/cover.png">
     <meta name="twitter:card" content="summary_large_image">
 
-    <link rel="canonical" href="https://supervova.github.io/01-boilerplate/play/">
+    <link rel="canonical" href="https://supervova.github.io/old-skull/play/">
     <link rel="icon" href="assets/icons/favicon.ico" sizes="32x32">
     <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
@@ -40,6 +40,11 @@
           --navbar-area: 0px; /* Set 240px for the vertical navigation bar */
         }
       }
+
+      .logo {
+        display: flex;
+        gap: var(--dim-2);
+      }
     </style>
   </head>
   <body>
@@ -47,6 +52,12 @@
     <!-- Header -->
     <header class="header">
       <nav class="container">
+        <figure class="logo">
+          <img src="/assets/img/logomark.svg" alt="Old Skull CSS Logo">
+          <figcaption class="logo-hgroup">
+            <img src="/assets/img/logotype.svg" alt="Old Skull CSS Logo">
+          </figcaption>
+        </figure>
         <ul>
           <li>
             <details class="popover">
@@ -61,7 +72,7 @@
           </li>
           <li><a href="https://super-mark.ru/en">About Me</a></li>
           <li>
-            <a class="contrast" href="https://github.com/supervova/01-boilerplate" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository">
+            <a class="contrast" href="https://github.com/supervova/old-skull" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                 <path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12c0 5.303 3.438 9.8 8.205 11.385c.6.113.82-.258.82-.577c0-.285-.01-1.04-.015-2.04c-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729c1.205.084 1.838 1.236 1.838 1.236c1.07 1.835 2.809 1.305 3.495.998c.108-.776.417-1.305.76-1.605c-2.665-.3-5.466-1.332-5.466-5.93c0-1.31.465-2.38 1.235-3.22c-.135-.303-.54-1.523.105-3.176c0 0 1.005-.322 3.3 1.23c.96-.267 1.98-.399 3-.405c1.02.006 2.04.138 3 .405c2.28-1.552 3.285-1.23 3.285-1.23c.645 1.653.24 2.873.12 3.176c.765.84 1.23 1.91 1.23 3.22c0 4.61-2.805 5.625-5.475 5.92c.42.36.81 1.096.81 2.22c0 1.606-.015 2.896-.015 3.286c0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path>
               </svg>
@@ -75,7 +86,7 @@
       <nav class="container" aria-label="Global">
         <ul class="header-nav">
           <li class="header-nav-logo">
-            <a href="/" aria-label="01-boilerplate"></a>
+            <a href="/" aria-label="Old Skull"></a>
           </li>
           <li class="header-nav-item">
             <a href="/menu-item-01">Menu Item 01</a>
@@ -97,7 +108,7 @@
           </figure>
           <div class="hero-content">
             <h1>A Tailwind-free CSS framework, <span class="text-02">powered by LLM assistants</span></h1>
-            <p>This page is an example of using <span class="nobr">the 01-boilerplate</span> framework.</p>
+            <p>This page is an example of using <span class="nobr">the Old Skull ☠️ CSS</span> framework.</p>
 
             <div class="grid grid-max-content">
               <a class="btn btn-primary" href="#">Let's Rock</a>
@@ -203,59 +214,47 @@
           <p>This paragraph contains various inline elements: <strong>bold text</strong>, <em>italic text</em>, <a href="#" onclick="event.preventDefault()">primary link</a>, <a class="secondary" href="#" onclick="event.preventDefault()">secondary link</a>, <code>inline code</code>, <mark>highlighted text</mark>, <del>deleted text</del>, and <ins>inserted text</ins>.</p>
 
           <h3>Lists</h3>
+
           <ul>
-            <li>Unordered list item demonstrating proper spacing</li>
-            <li>Second item showing consistent vertical rhythm</li>
-            <li>Third item maintaining baseline alignment</li>
+            <li>Unordered item</li>
+            <li>Another point</li>
             <li>
-              Fourth item with a nested <code>ul</code>
+              With nested unordered list
               <ul>
-                <li>With cleanUrls=true the valid path is /base/ — mind the trailing slash.</li>
-                <li>Saepe, suscipit numquam? Rerum, libero iusto. Impedit nisi velit natus eveniet, necessitatibus expedita ducimus, assumenda quam commodi tenetur fuga odio?</li>
-                <li>Numquam molestiae quaerat consequuntur vitae sapiente necessitatibus corporis veritatis explicabo iste repellendus laudantium autem, fugit modi cupiditate natus similique voluptas.</li>
-                <li>Aliquam tempora facere sequi culpa, cumque libero dolorum commodi odio nihil eaque quia accusamus, perspiciatis asperiores vel? Quo, itaque ab!</li>
+                <li>Sub-item one</li>
+                <li>Sub-item two</li>
               </ul>
             </li>
-            <li>Fifth item with a longer description to illustrate line breaks and spacing.</li>
             <li>
-              The last item with a nested <code>ol</code>
+              With nested ordered list
               <ol>
-                <li>Use $1 in rewrites (not :1) — that’s why it crashed earlier.</li>
-                <li>Sint, autem! Consectetur, iusto velit? Ipsam aliquid totam, atque laborum sequi perspiciatis quae corrupti et quod amet eaque itaque laboriosam?</li>
-                <li>Eveniet expedita itaque repudiandae? Voluptatem sit voluptate nihil beatae, accusamus quibusdam quia cupiditate rem quo molestias at consequatur ullam reiciendis!</li>
-                <li>Minus deserunt esse veritatis, voluptas debitis voluptates repellendus explicabo qui, fuga a impedit consequuntur nisi magnam inventore architecto. Architecto, impedit.</li>
+                <li>First</li>
+                <li>Second</li>
               </ol>
             </li>
+            <li>Another point</li>
+            <li>
+              <p>Use $1 in rewrites (not :1) — that’s why it crashed earlier.</p>
+              <p>Sint, autem! Consectetur, iusto velit? Ipsam aliquid totam, atque laborum sequi perspiciatis quae corrupti et quod amet eaque itaque laboriosam?</p>
+            </li>
+            <li>The last one</li>
           </ul>
 
-          <ol start="8">
-            <li>Ordered list with proper numbering</li>
-            <li>Sequential items with consistent spacing</li>
-            <li>Maintains rhythm with surrounding elements</li>
-            <li>I might have known,” said Eeyore. “Delete the umbrella package.json and reinstall to restore Yarn layout. I have my friends. Somebody spoke to me only yesterday. And was it last week or the week before that Rabbit bumped into me and said ‘Bother!’. The Social Round. Always something going on.</li>
-            <li>Don’t mix managers in one repo; keep a single lockfile to avoid ghost deps.</li>
-            <li>"Why does /base fail? The route was never registered by the builder." - Piglet</li>
-            <li>"Fix it by adding the slash — or switch to without-subfolders mode." - Pooh</li>
-            <li>Why do links 404 with cleanUrls? It expects the trailing slash.</li>
-            <li>"We’re going in circles — check that srcDir actually scans the page." said Piglet.</li>
-            <li>Pooh nodded thoughtfully. "It's the same thing," he said.</li>
+          <ol>
+            <li>Ordered item</li>
+            <li>Another step</li>
             <li>
-              The eighteenth item with a nested <code>ul</code>
+              With nested unordered list
               <ul>
-                <li>Exclude README.md if it shadows the homepage in the router.</li>
-                <li>Saepe, suscipit numquam? Rerum, libero iusto. Impedit nisi velit natus eveniet, necessitatibus expedita ducimus, assumenda quam commodi tenetur fuga odio?</li>
-                <li>Numquam molestiae quaerat consequuntur vitae sapiente necessitatibus corporis veritatis explicabo iste repellendus laudantium autem, fugit modi cupiditate natus similique voluptas.</li>
-                <li>Aliquam tempora facere sequi culpa, cumque libero dolorum commodi odio nihil eaque quia accusamus, perspiciatis asperiores vel? Quo, itaque ab!</li>
+                <li>Tip A</li>
+                <li>Tip B</li>
               </ul>
             </li>
-            <li>"When you wake up in the morning, Pooh," said Piglet at last, "what's the first thing you say to yourself?"</li>
             <li>
-              The last item with a nested <code>ol</code>
+              With nested ordered list
               <ol>
-                <li>Use public (rewritten) URLs in nav; avoid long /src/... paths.</li>
-                <li>Sint, autem! Consectetur, iusto velit? Ipsam aliquid totam, atque laborum sequi perspiciatis quae corrupti et quod amet eaque itaque laboriosam?</li>
-                <li>Eveniet expedita itaque repudiandae? Voluptatem sit voluptate nihil beatae, accusamus quibusdam quia cupiditate rem quo molestias at consequatur ullam reiciendis!</li>
-                <li>Minus deserunt esse veritatis, voluptas debitis voluptates repellendus explicabo qui, fuga a impedit consequuntur nisi magnam inventore architecto. Architecto, impedit.</li>
+                <li>Alpha</li>
+                <li>Beta</li>
               </ol>
             </li>
           </ol>
@@ -530,7 +529,7 @@
     <!-- Footer -->
     <footer class="footer">
       <div class="container">
-        <small> Built with <a href="https://supervova.github.io/01-boilerplate/">01-boilerplate</a> </small>
+        <small> Built with <a href="https://supervova.github.io/old-skull/">Old Skull CSS</a> </small>
       </div>
     </footer>
 
@@ -561,7 +560,7 @@
           </fieldset>
         </form>
 
-        <p>Aimee-Ffion Edwards is a Welsh actress best known for her roles in TV series such as Skins, Peaky Blinders, and Slow Horses. She is also a voice actress for video games and is fluent in both English and Welsh. </p>
+        <p><b>Aimee-Ffion Edwards</b> is a Welsh actress best known for her roles in TV series such as Skins, Peaky Blinders, and Slow Horses. She is also a voice actress for video games and is fluent in both English and Welsh. </p>
 
         <h3>Key roles</h3>
         <ul>

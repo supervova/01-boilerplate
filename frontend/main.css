@@ -55,8 +55,9 @@
 @import url('./components/card/card.css') layer(components.extended);
 @import url('./components/footer/footer.css') layer(components.extended);
 @import url('./components/header/header.css') layer(components.extended);
+@import url('./components/header/topnav.css') layer(components.extended);
 @import url('./components/hero/hero.css') layer(components.extended);
-@import url('./components/navbar/navbar.css') layer(components.extended);
+@import url('./components/sidenav/sidenav.css') layer(components.extended);
 @import url('./components/section/section.css') layer(components.extended);
 
 /* Navigation & Actions */

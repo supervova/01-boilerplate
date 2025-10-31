@@ -1,0 +1,48 @@
+.topnav {
+  backdrop-filter: var(--backdrop-glass);
+  background: color-mix(in oklch, var(--color-bg) 80%, transparent);
+  padding: var(--dim-2p5);
+  width: 100vw;
+  height: max-content;
+}
+
+.header > .container {
+  display: flex;
+  align-items: flex-start;
+}
+
+.topnav-item {
+  width: auto;
+}
+
+.topnav-item > a {
+  align-items: center;
+  border-radius: var(--radius-base);
+  flex-direction: row;
+  gap: var(--dim-1);
+  padding-block: 0;
+  padding-inline: var(--dim-4) var(--dim-2);
+  position: relative;
+  height: var(--navbar-height-desktop);
+}
+
+.topnav-label {
+  color: var(--navbar-label-color);
+  font-size: var(--navbar-label-size);
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.topnav-user summary {
+  translate: 0 var(--dim-0p5);
+}
+
+.topnav-user summary::after {
+  display: block;
+}
+
+.topnav-user .popover-body {
+  inset-block-end: auto;
+  inset-inline: auto 0;
+}

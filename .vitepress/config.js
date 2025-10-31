@@ -1,7 +1,7 @@
 import { defineConfig } from 'vitepress';
 
 export default defineConfig({
-  title: '01-boilerplate',
+  title: 'old-skull',
   description: 'Opinionated SCSS toolkit, powered by LLM assistants',
 
   srcDir: '.',

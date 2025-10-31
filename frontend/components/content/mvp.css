@@ -115,9 +115,14 @@ hr {
 /* #region: LISTS                                                             */
 /* -------------------------------------------------------------------------- */
 
-ul {
+ul,
+ol {
   list-style: none;
   margin: 0 0 var(--lh);
+  padding: 0;
+}
+
+ul {
   padding-inline-start: var(--dim-2p5);
 
   @media (--tablet) {
@@ -125,43 +130,59 @@ ul {
   }
 }
 
-ol {
-  margin: 0 0 var(--lh);
-  padding-inline-start: var(--dim-4);
-}
-
 li {
   margin-bottom: var(--dim-1);
-
-  &:last-child {
-    margin-bottom: 0;
-  }
 }
 
-/* Unordered */
+li:last-child {
+  margin-bottom: 0;
+}
+
+/* Unordered markers */
 :where(ul:not([class], nav ul)) > li::marker,
 .list-unordered > li::marker {
   color: var(--color-brand);
   content: '\2022\00a0';
 }
 
-/* Numbered */
-ol > li::marker {
-  color: var(--color-text-02);
-  font-variant-numeric: tabular-nums;
+/* Ordered list counter */
+ol {
+  counter-reset: item;
 }
 
-/* Nested */
-ul, ol {
-  & :is(ul, ol) {
-    margin-block: var(--dim-1) 0;
-    padding-inline-start: var(--dim-2p5);
-  }
+ol > li {
+  counter-increment: item;
+  padding-inline-start: calc(2ch + var(--dim-1));
+  position: relative;
+}
+
+ol > li::before {
+  content: counter(item) '.';
+  font-variant-numeric: tabular-nums;
+  line-height: 1.5;
+  position: absolute;
+  inset-inline-start: 0;
+  text-align: right;
+  width: 2ch;
+}
+
+/* Nested lists */
+:is(ul, ol) :is(ul, ol) {
+  margin-block: var(--dim-1) 0;
+}
+
+/* Paragraphs in lists */
+:is(ul, ol) p {
+  margin-bottom: var(--dim-1);
+}
+
+:is(ul, ol) p:last-child {
+  margin-bottom: 0;
 }
 
 /* Description list */
 dl {
-  --grid-columns: 1fr 2fr;
+  --grid-columns: 1fr 3fr;
 
   @media (--phone-l) {
     display: grid;
